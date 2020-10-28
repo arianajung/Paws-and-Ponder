@@ -15,6 +15,7 @@ class LoginForm extends React.Component {
     return (
       <Container className="login-form" maxWidth="xs">
         <Typography 
+          className="login-header"
           align="center"
           component="h1"
           variant="h4"
@@ -22,35 +23,40 @@ class LoginForm extends React.Component {
           Welcome Back
         </Typography>
         
-        <form noValidate>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Username"
-          />
-          
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="password"
-            label="Password"
-
-          />
+        <TextField
+          variant="outlined"
+          margin="normal"
+          required
+          fullWidth
+          id="email"
+          label="Username"
+        />
         
+        <TextField
+          variant="outlined"
+          margin="normal"
+          required
+          fullWidth
+          id="password"
+          label="Password"
+
+        />
+
+        <Grid
+          className="login-btn"
+          item
+        >
           <Button
-            className="login-btn"
             variant="outlined"
             size="large"
+            // fullWidth
             onClick={addUser}
           >
             Login
           </Button>
-        </form>
+        </Grid>
+      
+        
         
       </Container>
     );

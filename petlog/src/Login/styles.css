@@ -1,5 +1,14 @@
 /* Styles for the LoginForm React component */
 
+.login-header.MuiTypography-root {
+    margin-bottom: 8px;
+}
+
 .login-form {
     margin-top: 200px;
+}
+
+.login-btn.MuiGrid-item {
+    margin-top: 16px;
+    text-align: center;
 }
