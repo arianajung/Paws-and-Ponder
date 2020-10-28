@@ -1,0 +1,19 @@
+/* Styles for the SignUpForm React component */
+
+.sign-up-header.MuiTypography-root {
+    margin-bottom: 8px;
+}
+
+.sign-up-form {
+    margin-top: 200px;
+}
+
+.sign-up-btn.MuiGrid-item {
+    margin-top: 8px;
+    text-align: center;
+}
+
+.link-to-login {
+    padding: 16px;
+    text-align: center;
+}

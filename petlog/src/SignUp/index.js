@@ -1,11 +1,9 @@
 import React from "react";
-import LoginForm from "./LoginForm";
+import SignUpForm from "../SignUpForm";
 
 import { addUser } from "../actions/login";
 
-/* Main landing page: log in */
-/* Stores the hard-coded user credentials (username and password) */
-class Login extends React.Component {
+class SignUp extends React.Component {
   state = {
     username: "",
     password: "",
@@ -22,7 +20,7 @@ class Login extends React.Component {
   render() {
     return (
       <div>
-        <LoginForm
+        <SignUpForm
           username={this.state.username}
           password={this.state.password}
           handleChange={this.handleChange}
@@ -33,4 +31,4 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+export default SignUp;

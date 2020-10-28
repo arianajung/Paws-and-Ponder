@@ -4,23 +4,24 @@ import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
+import { Link } from "react-router-dom";
 
 import "./styles.css";
 
-/* Login form with username and password inputs and a button */
-class LoginForm extends React.Component {
+/* Sign Up form with username and password inputs and a button */
+class SignUpForm extends React.Component {
   render() {
     const { username, password, handleChange, addUser } = this.props;
 
     return (
-      <Container className="login-form" maxWidth="xs">
+      <Container className="sign-up-form" maxWidth="xs">
         <Typography 
-          className="login-header"
+          className="sign-up-header"
           align="center"
           component="h1"
           variant="h4"
         >
-          Welcome Back
+          Create Account
         </Typography>
         
         <TextField
@@ -43,16 +44,24 @@ class LoginForm extends React.Component {
         />
 
         <Grid
-          className="login-btn"
+          className="link-to-login"
+          item
+        >
+          <Link to="/">
+            {"Already have an account?"}
+          </Link>
+        </Grid>
+
+        <Grid
+          className="sign-up-btn"
           item
         >
           <Button
             variant="outlined"
             size="large"
-            // fullWidth
             onClick={addUser}
           >
-            Login
+            Sign Up
           </Button>
         </Grid>
       
@@ -63,4 +72,4 @@ class LoginForm extends React.Component {
   }
 }
 
-export default LoginForm;
+export default SignUpForm;
