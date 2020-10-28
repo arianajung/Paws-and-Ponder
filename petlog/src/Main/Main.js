@@ -1,6 +1,8 @@
 import React from "react";
 import Post from "./Post/Post";
 import { uid } from "react-uid";
+import Navbar from "./Navbar/Navbar";
+import "./Main.css";
 
 /* Main page where the user views all of the posts made by people that they follow*/
 class Main extends React.Component {
@@ -21,9 +23,18 @@ class Main extends React.Component {
   };
 
   render() {
-    return this.state.posts.map((post) => (
-      <Post key={uid(post)} user={post.user} text={post.text} />
-    ));
+    return (
+      <>
+        <div>
+          <Navbar />
+        </div>
+        <div className="post-area">
+          {this.state.posts.map((post) => (
+            <Post key={uid(post)} user={post.user} text={post.text} />
+          ))}{" "}
+        </div>
+      </>
+    );
   }
 }
 

@@ -2,8 +2,8 @@ import React from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
-import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
+import Typography from "@material-ui/core/Typography";
+import Container from "@material-ui/core/Container";
 import { Link } from "react-router-dom";
 
 import "./styles.css";
@@ -15,7 +15,7 @@ class LoginForm extends React.Component {
 
     return (
       <Container className="login-form" maxWidth="xs">
-        <Typography 
+        <Typography
           className="login-header"
           align="center"
           component="h1"
@@ -23,7 +23,7 @@ class LoginForm extends React.Component {
         >
           Welcome Back
         </Typography>
-        
+
         <TextField
           variant="outlined"
           margin="normal"
@@ -34,7 +34,7 @@ class LoginForm extends React.Component {
           value={username}
           onChange={handleChange}
         />
-        
+
         <TextField
           variant="outlined"
           margin="normal"
@@ -46,24 +46,13 @@ class LoginForm extends React.Component {
           onChange={handleChange}
         />
 
-        <Grid
-          className="link-to-signup"
-          item
-        >
-          <Link to="/signup">
-            {"Not Registered?"}
-          </Link>
+        <Grid className="link-to-signup" item>
+          <Link to="/signup">{"Not Registered?"}</Link>
         </Grid>
 
-        <Grid
-          className="login-btn"
-          item
-        >
+        <Grid className="login-btn" item>
           <Link to="/main">
-            <Button
-              variant="outlined"
-              size="large"
-            >
+            <Button variant="outlined" size="large">
               Login
             </Button>
           </Link>
