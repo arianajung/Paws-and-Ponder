@@ -56,13 +56,14 @@ class LoginForm extends React.Component {
           className="login-btn"
           item
         >
-          <Button
-            variant="outlined"
-            size="large"
-            onClick={addUser}
-          >
-            Login
-          </Button>
+          <Link to="/main">
+            <Button
+              variant="outlined"
+              size="large"
+            >
+              Login
+            </Button>
+          </Link>
         </Grid>
       </Container>
     );
