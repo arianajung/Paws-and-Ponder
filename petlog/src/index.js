@@ -12,8 +12,8 @@ ReactDOM.render(
   <React.StrictMode>
     {/* <Login /> */}
     <App />
-    {/* <Main /> */}
-    {/* <SignUp /> */}
+    {/* <Main />
+    <SignUp /> */}
   </React.StrictMode>,
   document.getElementById("root")
 );
