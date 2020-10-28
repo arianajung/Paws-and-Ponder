@@ -1,14 +1,13 @@
 import React from "react";
 import SignUpForm from "../SignUpForm/SignUpForm";
 
-import { addUser } from "../actions/login";
+import { addUser } from "../actions/signup";
 
 class SignUp extends React.Component {
   state = {
     username: "",
-    password: "",
-    users: [],
-  };
+    password: ""
+  }
 
   handleChange = (event) => {
     const target = event.target;
@@ -24,7 +23,7 @@ class SignUp extends React.Component {
           username={this.state.username}
           password={this.state.password}
           handleChange={this.handleChange}
-          addUser={() => addUser(this)}
+          addUser={() => addUser(this, this.props.app)}
         />
       </div>
     );

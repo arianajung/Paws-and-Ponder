@@ -11,7 +11,7 @@ import "./styles.css";
 /* Login form with username and password inputs and a button */
 class LoginForm extends React.Component {
   render() {
-    const { username, password, handleChange, addUser } = this.props;
+    const { username, password, handleChange } = this.props;
 
     return (
       <Container className="login-form" maxWidth="xs">
@@ -29,8 +29,10 @@ class LoginForm extends React.Component {
           margin="normal"
           required
           fullWidth
-          id="email"
           label="Username"
+          name="username"
+          value={username}
+          onChange={handleChange}
         />
         
         <TextField
@@ -38,9 +40,10 @@ class LoginForm extends React.Component {
           margin="normal"
           required
           fullWidth
-          id="password"
           label="Password"
-
+          name="password"
+          value={password}
+          onChange={handleChange}
         />
 
         <Grid

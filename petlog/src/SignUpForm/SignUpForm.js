@@ -29,8 +29,10 @@ class SignUpForm extends React.Component {
           margin="normal"
           required
           fullWidth
-          id="email"
           label="Username"
+          name="username"
+          value={username}
+          onChange={handleChange}
         />
         
         <TextField
@@ -38,9 +40,10 @@ class SignUpForm extends React.Component {
           margin="normal"
           required
           fullWidth
-          id="password"
           label="Password"
-
+          name="password"
+          value={password}
+          onChange={handleChange}
         />
 
         <Grid

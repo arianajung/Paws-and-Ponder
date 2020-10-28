@@ -1,16 +1,11 @@
 import React from "react";
 import LoginForm from "../LoginForm/LoginForm";
 
-import { addUser } from "../actions/login";
-
-/* Main landing page: log in */
-/* Stores the hard-coded user credentials (username and password) */
 class Login extends React.Component {
   state = {
     username: "",
-    password: "",
-    users: [],
-  };
+    password: ""
+  }
 
   handleChange = (event) => {
     const target = event.target;
@@ -26,7 +21,6 @@ class Login extends React.Component {
           username={this.state.username}
           password={this.state.password}
           handleChange={this.handleChange}
-          addUser={() => addUser(this)}
         />
       </div>
     );
