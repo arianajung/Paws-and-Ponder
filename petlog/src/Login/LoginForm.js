@@ -2,6 +2,10 @@ import React from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
+import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
+
+import "./styles.css";
 
 /* Login form with username and password inputs and a button */
 class LoginForm extends React.Component {
@@ -9,42 +13,46 @@ class LoginForm extends React.Component {
     const { username, password, handleChange, addUser } = this.props;
 
     return (
-      <Grid className="login-form" container spacing={2} justify="center">
-        <Grid item>
+      <Container className="login-form" maxWidth="xs">
+        <Typography 
+          align="center"
+          component="h1"
+          variant="h4"
+        >
+          Welcome Back
+        </Typography>
+        
+        <form noValidate>
           <TextField
-            name="username"
-            id="standard"
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="email"
             label="Username"
-            variant="outlined"
-            size="small"
-            value={username}
-            onChange={handleChange}
           />
-        </Grid>
-        <Grid item>
+          
           <TextField
-            name="password"
-            id="standard-password-input"
-            label="Password"
-            type="password"
-            autoComplete="current-password"
             variant="outlined"
-            size="small"
-            value={password}
-            onChange={handleChange}
+            margin="normal"
+            required
+            fullWidth
+            id="password"
+            label="Password"
+
           />
-        </Grid>
-        <Grid item>
+        
           <Button
+            className="login-btn"
+            variant="outlined"
             size="large"
-            variant="contained"
-            color="secondary"
             onClick={addUser}
           >
             Login
           </Button>
-        </Grid>
-      </Grid>
+        </form>
+        
+      </Container>
     );
   }
 }
