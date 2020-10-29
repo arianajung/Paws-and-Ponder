@@ -21,11 +21,6 @@ class Settings extends React.Component {
           <div>
             <ProfileSettings />
             {/* Enable Scrolling */}
-            <ProfileSettings />
-            <ProfileSettings />
-            <ProfileSettings />
-            <ProfileSettings />
-            <ProfileSettings />
           </div>
         </>
       );

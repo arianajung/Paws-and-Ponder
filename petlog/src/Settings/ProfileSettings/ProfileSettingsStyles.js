@@ -16,6 +16,9 @@ const useStyles = makeStyles((theme) => ({
       fontSize: theme.typography.pxToRem(15),
       color: theme.palette.text.secondary,
     },
+    sectionHeading: {
+      fontSize: theme.typography.pxToRem(25),
+    }
   }));
 
 export { useStyles };
