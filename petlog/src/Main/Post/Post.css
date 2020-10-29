@@ -21,6 +21,15 @@
 	border-radius: 50%;
 }
 
+#comment .userIcon {
+  margin-left: 10px;
+	margin-right: 10px;
+	margin-top: 10px;
+	width: 45px;
+	height: 45px;
+	border-radius: 50%;
+}
+
 .postContent {
   margin: 0px;
   width: 80%;

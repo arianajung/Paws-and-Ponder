@@ -2,12 +2,16 @@ import React from "react";
 import { uid } from "react-uid";
 import "./Post.css";
 import Comment from "../../MyBlog/Comment/Comment"
-
+import TextField from "@material-ui/core/TextField";
 // Need to change this to import specific user image instead
 import imgsrc from './static/img_1.jpg';
 
 /* A Post Component */
 class Post extends React.Component {
+    addComment() {
+        console.log("test")
+    }
+
     render() {
         // create comment components 
         const comments = this.props.comments.map((comment) => {
@@ -35,7 +39,15 @@ class Post extends React.Component {
                         <p>{text}</p>
                     </div>
                 </div>
-                <div class="comment-area">
+                <div className="comment-area">
+                    <TextField 
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        label="leave a comment"
+                        onChange={() => {this.addComment()}}
+                    />
                     {comments}
                 </div>
             </div>
