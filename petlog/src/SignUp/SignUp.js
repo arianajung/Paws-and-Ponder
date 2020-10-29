@@ -1,7 +1,7 @@
 import React from "react";
+import { withRouter } from 'react-router-dom';
 import SignUpForm from "../SignUpForm/SignUpForm";
-
-import { addUser } from "../actions/signup";
+import { addUser } from "../actions/authentication";
 
 class SignUp extends React.Component {
   state = {
@@ -23,11 +23,11 @@ class SignUp extends React.Component {
           username={this.state.username}
           password={this.state.password}
           handleChange={this.handleChange}
-          addUser={() => addUser(this, this.props.app)}
+          addUser={() => addUser(this, this.props.app, () => {this.props.history.push("/main")})}
         />
       </div>
     );
   }
 }
 
-export default SignUp;
+export default withRouter(SignUp);

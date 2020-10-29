@@ -11,7 +11,7 @@ import "./styles.css";
 /* Login form with username and password inputs and a button */
 class LoginForm extends React.Component {
   render() {
-    const { username, password, handleChange } = this.props;
+    const { username, password, handleChange, checkCred } = this.props;
 
     return (
       <Container className="login-form" maxWidth="xs">
@@ -51,11 +51,13 @@ class LoginForm extends React.Component {
         </Grid>
 
         <Grid className="login-btn" item>
-          <Link to="/main">
-            <Button variant="outlined" size="large">
-              Login
-            </Button>
-          </Link>
+          <Button 
+            variant="outlined" 
+            size="large"
+            onClick={checkCred}
+          >
+            Login
+          </Button>
         </Grid>
       </Container>
     );

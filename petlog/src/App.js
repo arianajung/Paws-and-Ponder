@@ -5,14 +5,13 @@ import "./App.css";
 import Login from "./Login/Login";
 import SignUp from "./SignUp/SignUp";
 import Main from "./Main/Main";
+import Settings from "./Settings/Settings";
 
 class App extends React.Component {
   state = {
     users: [
-      {
-        username: "user",
-        password: "user"
-      }
+      { username: "user", password: "user" },
+      { username: "admin", password: "admin" }
     ]
   }
 
@@ -26,6 +25,8 @@ class App extends React.Component {
                           (<SignUp app={this}/>)}/>
           <Route exact path='/main' render={() => 
                           (<Main app={this}/>)}/>
+          <Route exact path='/settings' render={() => 
+                          (<Settings app={this}/>)}/>
         </Switch>
       </BrowserRouter>
     )
