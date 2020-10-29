@@ -18,16 +18,17 @@ a:visited {
 }
 
 .wrapper {
+  width: 250px;
+  height: 100%;
+  position: fixed;
+  box-shadow: 3px 1px 8px #888888;
+  background-color: rgb(255, 255, 255);
   padding: 0px;
 }
 
 .navbar {
-  position: absolute;
   width: 250px;
   height: 100%;
-  background-color: rgb(255, 255, 255);
-  box-shadow: 3px 1px 8px #888888;
-  float: left;
 }
 
 .navbar-list {

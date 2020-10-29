@@ -27,28 +27,30 @@ class Post extends React.Component {
         const { user, text } = this.props;
         return (
             <div>
-                <div className="post">
-                    <div className="user-profile">
-                        <div className='userIconContainer'>
-                            <img class="userIcon" src={imgsrc} alt="tempImage"></img>
+                <div className="post-wrapper">
+                    <div className="post">
+                        <div className="user-profile">
+                            <div className='userIconContainer'>
+                                <img className="userIcon" src={imgsrc} alt="tempImage"></img>
+                            </div>
+                            {/* Need to add more user stuff here like user pic*/}
+                            <h3 className="username">{user}</h3>
                         </div>
-                        {/* Need to add more user stuff here like user pic*/}
-                        <h3 className="username">{user}</h3>
+                        <div className="postContent">
+                            <p>{text}</p>
+                        </div>
                     </div>
-                    <div className="postContent">
-                        <p>{text}</p>
+                    <div className="comment-area">
+                        <TextField 
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            fullWidth
+                            label="leave a comment"
+                            onChange={() => {this.addComment()}}
+                        />
+                        {comments}
                     </div>
-                </div>
-                <div className="comment-area">
-                    <TextField 
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        label="leave a comment"
-                        onChange={() => {this.addComment()}}
-                    />
-                    {comments}
                 </div>
             </div>
         );

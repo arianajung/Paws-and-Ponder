@@ -1,5 +1,5 @@
 import React from "react";
-import "./SettingsNavbar.css";
+import "../../Main/Navbar/Navbar.css";
 import { SettingsNavbarData } from "./SettingsNavbarData";
 import { Link } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";

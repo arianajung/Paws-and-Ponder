@@ -1,9 +1,15 @@
-.post {
+.post-wrapper {
   width: 80%;
   min-height: 150px;
   overflow: auto;
-  background-color: rgba(223, 223, 238, 0.52);
-  border: solid 2px rgba(156, 185, 177, 0.507);
+  margin-bottom: 10px;
+}
+
+.post {
+  min-height: 150px;
+  overflow: auto;
+  background-color: rgba(167, 233, 215, 0.431);
+  border: solid 2px rgba(167, 233, 215, 0.431);
 }
 
 .userIconContainer {
