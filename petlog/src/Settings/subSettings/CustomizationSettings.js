@@ -16,14 +16,9 @@ export default function ProfileSettings() {
   const classes = useStyles()
   const [expanded, setExpanded] = React.useState(false)
 
-  //Should initialize state with current username
+  //Should initialize state with users current avatar picture, and perhaps display it
   const [values, setValues] = React.useState({
       picture: 'Retrieve Default Background Img',
-      password: '',
-      bio: 'Default Bio',
-      profilePic: '',
-      personalData: '',
-      showPassword: false,
   })
 
   //Expands and collapses Accordion Components 
