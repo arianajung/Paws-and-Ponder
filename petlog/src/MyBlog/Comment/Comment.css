@@ -1,13 +1,41 @@
 #comment-name {
+    padding-left: 5px;
+    padding-right: 5px;
     font-weight: bold;
     font-size: large;
-    padding: 10px;
 }
 
 #comment-text {
-    font-size: larger;
+    width: 100%;
+    white-space: pre-wrap;
+    padding-left: 5px;
+    padding-right: 5px;
+    font-size: 15px;
 }
 
-#comment {
-    padding: 10px;
+.comment {
+    display: inline-flex;
+    flex-direction: row;
+    margin: 10px;
+    border: solid rgba(156, 185, 177, 0.507) 2px;
+    border-radius: 10px;
+}
+
+.comment-icon-and-name {
+    padding: 2px;
+    display: inline-flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.comment-content {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#user-icon {
+    margin: 5px;
+    width: 60px;
+	height: 60px;
+    border-radius: 50%;
 }

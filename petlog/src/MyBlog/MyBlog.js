@@ -30,7 +30,7 @@ class MyBlog extends Component {
           comments: [
             {
               user: 'Ariana',
-              text: 'wow me too'
+              text: 'wow me too \nLorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia imperdiet ipsum, a accumsan ligula pulvinar ut. Aliquam at accumsan velit, quis molestie magna. Proin sit amet finibus nibh, a mattis nunc. Duis tincidunt dolor eu nisl semper posuere. Sed ligula dolor, scelerisque quis lacus et, ultrices blandit neque.'
             },
             {
               user: 'Fred',

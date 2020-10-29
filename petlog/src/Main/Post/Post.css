@@ -1,5 +1,6 @@
 .post-wrapper {
   width: 80%;
+  align-items: center;
   min-height: 150px;
   overflow: auto;
   margin-bottom: 10px;
@@ -9,7 +10,9 @@
   min-height: 150px;
   overflow: auto;
   background-color: rgba(167, 233, 215, 0.431);
-  border: solid 2px rgba(167, 233, 215, 0.431);
+  border: solid 2px rgba(156, 185, 177, 0.945);
+  border-radius: 10px;
+  margin-bottom: 2%;
 }
 
 .userIconContainer {
@@ -27,20 +30,11 @@
 	border-radius: 50%;
 }
 
-#comment .userIcon {
-  margin-left: 10px;
-	margin-right: 10px;
-	margin-top: 10px;
-	width: 45px;
-	height: 45px;
-	border-radius: 50%;
-}
-
 .postContent {
   margin: 0px;
   width: 80%;
   float:left;
-}s
+}
 
 .postContentPicture {
 	margin-left: 80px;
@@ -48,10 +42,11 @@
 }
 
 .comment-area {
-  width: 75%;
+  width: 95%;
   background-color: rgba(223, 223, 238, 0.52);
-  border: solid 2px rgba(156, 185, 177, 0.507);
-  margin-left: 5%;
+  border: solid 2px rgba(156, 185, 177, 0.945);
+  border-radius: 10px;
+  margin: auto;
   margin-top: 5px;
   margin-bottom: 5px;
 }
@@ -65,4 +60,18 @@
   font-size: large;
   font-weight: bold;
   padding-left: 5px;
+}
+
+.leave-a-comment.MuiTextField-root fieldset{
+  width: 96%;
+  margin-left: 2%;
+  margin-right: 2%;
+  border-radius: 10px;
+  border-color: rgba(0, 0, 0, 0.5);
+}
+
+.comments {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
 }

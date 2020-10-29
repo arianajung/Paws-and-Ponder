@@ -14,13 +14,18 @@ class Comment extends Component {
 
     render() {
         return (
-            <div id="comment">
-                <img className="userIcon" src={imgsrc} alt="tempImage"></img>
-                <span id="comment-name">{this.props.comment_user}: </span>
-                <span id="comment-text">{this.props.comment_text}</span>
+            <div className="comment">
+                <div className="comment-icon-and-name">
+                    <img id="user-icon" src={imgsrc} alt="tempImage"></img>
+                    
+                </div>
+                <div className="comment-content">
+                    <div id="comment-name">{this.props.comment_user}</div>
+                    <div id="comment-text">{this.props.comment_text}</div>
+                </div>
             </div>
         )
-    }
+    }s
 }
 
 export default Comment
