@@ -25,9 +25,29 @@
   margin: 0px;
   width: 80%;
   float:left;
-}
+}s
 
 .postContentPicture {
 	margin-left: 80px;
 	max-width: 500px;
+}
+
+.comment-area {
+  width: 75%;
+  background-color: rgba(223, 223, 238, 0.52);
+  border: solid 2px rgba(156, 185, 177, 0.507);
+  margin-left: 5%;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.post-area {
+  width: 80%;
+  margin-left: 300px;
+}
+
+#comments-header {
+  font-size: large;
+  font-weight: bold;
+  padding-left: 5px;
 }
