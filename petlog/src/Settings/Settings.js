@@ -1,6 +1,7 @@
 import React from "react";
 import SettingsNavbar from "./SettingsNavbar/SettingsNavbar";
-import ProfileSettings from "./ProfileSettings/ProfileSettings";
+import ProfileSettings from "./subSettings/ProfileSettings";
+import CustomizationSettings from "./subSettings/CustomizationSettings"
 
 class Settings extends React.Component {
     /* TODO: 
@@ -20,7 +21,7 @@ class Settings extends React.Component {
         */}
           <div>
             <ProfileSettings />
-            {/* Enable Scrolling */}
+            <CustomizationSettings />
           </div>
         </>
       );

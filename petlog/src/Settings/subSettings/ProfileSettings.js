@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Button from '@material-ui/core/Button';
 
-import { useStyles } from './ProfileSettingsStyles';
+import { useStyles } from './subSettingsStyles';
 
 export default function ProfileSettings() {
   const classes = useStyles()
@@ -31,10 +31,12 @@ export default function ProfileSettings() {
     setExpanded(isExpanded ? panel : false);
   };
 
+  //Reflect input changes to hooks
   const inputChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
   };
 
+  // Log the new input of corresponding prop when a "Save" button is pressed
   const logOutput = (prop) => (event) => {
       console.log(`new ${prop}: ${{...values}[prop]}`);
   };
