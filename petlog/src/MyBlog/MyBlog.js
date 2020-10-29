@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { uid } from "react-uid";
 
 // material-ui imports
 import SearchBar from "material-ui-search-bar";
@@ -7,7 +6,7 @@ import SearchBar from "material-ui-search-bar";
 // component imports
 import PermanentDrawerRight from "../Main/DrawerMenu/Drawer";
 import Navbar from "../Main/Navbar/Navbar";
-import Post from "../Main/Post/Post";
+import PostList from "./../PostList/PostList"
 
 // css
 import "./MyBlog.css";
@@ -69,20 +68,7 @@ class MyBlog extends Component {
     })
   }
 
-  render() {
-    // map posts 
-    const posts = this.state.posts.map((post) => {
-      return (
-        <Post
-          key={post.postID} 
-          postID={post.postID} 
-          user={post.user} 
-          text={post.text} 
-          comments = {post.comments}
-          addComment={this.addComment}
-        />
-      )
-    })
+  render() 
     return (
       <div>
         <div>
@@ -98,8 +84,9 @@ class MyBlog extends Component {
             onRequestSearch={() => this.searchRequest()}
           />
         </div>
+        {/* map posts  */}
         <div className="post-area">
-          {posts}
+          <PostList posts={this.state.posts} />
         </div>
       </div>
     )

@@ -1,6 +1,5 @@
 import React from "react";
-import Post from "./Post/Post";
-import { uid } from "react-uid";
+import PostList from "./../PostList/PostList"
 import Navbar from "./Navbar/Navbar";
 import SearchBar from "material-ui-search-bar";
 import PermanentDrawerRight from "./DrawerMenu/Drawer";
@@ -38,8 +37,8 @@ class Main extends React.Component {
         text:
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia imperdiet ipsum, a accumsan ligula pulvinar ut. Aliquam at accumsan velit, quis molestie magna. Proin sit amet finibus nibh, a mattis nunc. Duis tincidunt dolor eu nisl semper posuere. Sed ligula dolor, scelerisque quis lacus et, ultrices blandit neque.",
         comments: []
-      },
-    ],
+      }
+    ]
   };
 
   //Triggered when a search request is sent
@@ -64,14 +63,7 @@ class Main extends React.Component {
           />
         </div>
         <div className="post-area">
-          {this.state.posts.map((post) => (
-            <Post 
-              key={uid(post)} 
-              user={post.user} 
-              text={post.text} 
-              comments={post.comments}
-            />
-          ))}
+          <PostList posts={this.state.posts} />
         </div>
       </>
     );
