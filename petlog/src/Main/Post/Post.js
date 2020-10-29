@@ -13,8 +13,10 @@ class Post extends React.Component {
     }
 
     render() {
+        const { post } = this.props;
+
         // create comment components 
-        const comments = this.props.comments.map((comment) => {
+        const comments = post.comments.map((comment) => {
             return (
                 <Comment 
                     key={uid(comment)}
@@ -24,7 +26,6 @@ class Post extends React.Component {
             )
         })
 
-        const { user, text } = this.props;
         return (
             <div>
                 <div className="post-wrapper">
@@ -34,10 +35,10 @@ class Post extends React.Component {
                                 <img className="userIcon" src={imgsrc} alt="tempImage"></img>
                             </div>
                             {/* Need to add more user stuff here like user pic*/}
-                            <h3 className="username">{user}</h3>
+                            <h3 className="username">{post.user}</h3>
                         </div>
                         <div className="postContent">
-                            <p>{text}</p>
+                            <p>{post.text}</p>
                         </div>
                     </div>
                     <div className="comment-area">
