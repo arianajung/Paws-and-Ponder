@@ -1,14 +1,12 @@
 import React from "react";
-import { uid } from "react-uid";
 import SettingsNavbar from "./SettingsNavbar/SettingsNavbar";
 import ProfileSettings from "./ProfileSettings/ProfileSettings";
 
 class Settings extends React.Component {
-    /* NEED TO MODIFY STATE - we should be getting the "user" information from Login's state*/
+    /* TODO: 
+    Initialize this state with current userdata for setting up various settings' initial value
+    */
     state = {};
-  
-    //Triggered when a search request is sent
- 
   
     render() {
       return (
@@ -16,6 +14,10 @@ class Settings extends React.Component {
           <div>
             <SettingsNavbar />
           </div>
+        {/* TODO: 
+        The following component should be displayed based on 
+        which tab is selected from the above Navigation bar. 
+        */}
           <div>
             <ProfileSettings />
           </div>
