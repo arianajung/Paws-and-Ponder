@@ -41,15 +41,13 @@ class Post extends React.Component {
                         </div>
                     </div>
                     <div className="comment-area">
-                        <div className="test">
-                            <TextField 
-                                className="leave-a-comment"
-                                variant="outlined"
-                                margin="normal"
-                                label="leave a comment"
-                                onChange={() => {this.addComment()}}
-                            />
-                        </div>
+                        <TextField 
+                            className="leave-a-comment"
+                            variant="outlined"
+                            margin="normal"
+                            label="leave a comment"
+                            onChange={() => {this.addComment()}}
+                        />
                         <div className="comments">
                             {comments}
                         </div>
