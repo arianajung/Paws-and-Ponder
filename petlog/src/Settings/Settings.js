@@ -2,6 +2,7 @@ import React from "react";
 import SettingsNavbar from "./SettingsNavbar/SettingsNavbar";
 import ProfileSettings from "./subSettings/ProfileSettings";
 import CustomizationSettings from "./subSettings/CustomizationSettings"
+import NotificationSettings from "./subSettings/NotificationSettings"
 
 class Settings extends React.Component {
     /* TODO: 
@@ -22,6 +23,7 @@ class Settings extends React.Component {
           <div>
             <ProfileSettings />
             <CustomizationSettings />
+            <NotificationSettings />
           </div>
         </>
       );

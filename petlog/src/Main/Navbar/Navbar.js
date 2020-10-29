@@ -3,6 +3,7 @@ import "./Navbar.css";
 import { NavbarData } from "./NavbarData";
 import { Link } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
+import PetsIcon from '@material-ui/icons/Pets';
 
 function Navbar() {
   return (
@@ -14,7 +15,7 @@ function Navbar() {
           align="center"
           variant="h4"
         >
-          Petlog
+          Petlog <PetsIcon />
         </Typography>
         <ul className="navbar-list">
           {NavbarData.map((val, key) => {
