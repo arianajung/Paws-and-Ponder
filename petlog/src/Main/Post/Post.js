@@ -8,8 +8,20 @@ import imgsrc from './static/img_1.jpg';
 
 /* A Post Component */
 class Post extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            new_comment: ''
+        }
+    }
     addComment() {
         console.log("test")
+    }
+
+    keyPress(e) {
+        if (e.keyCode == 13) {
+            this.props.addComment(this.state.new_comment, this.props.postID)
+        }
     }
 
     render() {
@@ -40,13 +52,15 @@ class Post extends React.Component {
                             <p>{text}</p>
                         </div>
                     </div>
+
                     <div className="comment-area">
                         <TextField 
                             className="leave-a-comment"
                             variant="outlined"
                             margin="normal"
                             label="leave a comment"
-                            onChange={() => {this.addComment()}}
+                            onChange={(e) => {this.setState({ new_comment: e.target.value })}}
+                            onKeyDown={(e) => {this.keyPress(e)}}
                         />
                         <div className="comments">
                             {comments}

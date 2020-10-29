@@ -15,6 +15,7 @@ import "./MyBlog.css";
 class MyBlog extends Component {
   constructor(props) {
     super(props)
+    this.addComment = this.addComment.bind(this)
     this.state = {
       // keeps track of the user that is currently logged in,
       // can be turned into a prop (in the future)
@@ -25,6 +26,7 @@ class MyBlog extends Component {
       // posts can have images, need to take care of that
       posts: [
         {
+          postID: 1,
           user: 'Ovi',
           text: 'hi i like cats :D',
           comments: [
@@ -52,15 +54,32 @@ class MyBlog extends Component {
 
   }
 
+  addComment(comment, postID) {
+    const posts_copy = this.state.posts.slice()
+
+    const new_comment = {
+      user: this.state.current_user,
+      text: comment
+    }
+
+    posts_copy[postID - 1].comments = this.state.posts[postID-1].comments.concat(new_comment)
+
+    this.setState({
+      posts: posts_copy
+    })
+  }
+
   render() {
     // map posts 
     const posts = this.state.posts.map((post) => {
       return (
         <Post
-          key={uid(post)} 
+          key={post.postID} 
+          postID={post.postID} 
           user={post.user} 
           text={post.text} 
           comments = {post.comments}
+          addComment={this.addComment}
         />
       )
     })
