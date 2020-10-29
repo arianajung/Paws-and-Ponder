@@ -1,9 +1,18 @@
-.post {
+.post-wrapper {
   width: 80%;
+  align-items: center;
   min-height: 150px;
   overflow: auto;
-  background-color: rgba(223, 223, 238, 0.52);
-  border: solid 2px rgba(156, 185, 177, 0.507);
+  margin-bottom: 10px;
+}
+
+.post {
+  min-height: 150px;
+  overflow: auto;
+  background-color: rgba(167, 233, 215, 0.431);
+  border: solid 2px rgba(156, 185, 177, 0.945);
+  border-radius: 10px;
+  margin-bottom: 2%;
 }
 
 .userIconContainer {
@@ -30,4 +39,39 @@
 .postContentPicture {
 	margin-left: 80px;
 	max-width: 500px;
+}
+
+.comment-area {
+  width: 95%;
+  background-color: rgba(223, 223, 238, 0.52);
+  border: solid 2px rgba(156, 185, 177, 0.945);
+  border-radius: 10px;
+  margin: auto;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.post-area {
+  width: 80%;
+  margin-left: 300px;
+}
+
+#comments-header {
+  font-size: large;
+  font-weight: bold;
+  padding-left: 5px;
+}
+
+.leave-a-comment.MuiTextField-root fieldset{
+  width: 96%;
+  margin-left: 2%;
+  margin-right: 2%;
+  border-radius: 10px;
+  border-color: rgba(0, 0, 0, 0.5);
+}
+
+.comments {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
 }

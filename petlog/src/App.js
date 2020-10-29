@@ -5,6 +5,7 @@ import "./App.css";
 import Login from "./Login/Login";
 import SignUp from "./SignUp/SignUp";
 import Main from "./Main/Main";
+import MyBlog from "./MyBlog/MyBlog";
 import Settings from "./Settings/Settings";
 
 class App extends React.Component {
@@ -25,6 +26,8 @@ class App extends React.Component {
                           (<SignUp app={this}/>)}/>
           <Route exact path='/main' render={() => 
                           (<Main app={this}/>)}/>
+          <Route exact path='/blog' render={() => 
+                          (<MyBlog app={this}/>)}/>
           <Route exact path='/settings' render={() => 
                           (<Settings app={this}/>)}/>
         </Switch>

@@ -4,6 +4,7 @@ const useStyles = makeStyles((theme) => ({
     root: {
       width: '70%',
       marginLeft: 300,
+      padding: 15,
       alignContent: 'center',
     },
     heading: {
