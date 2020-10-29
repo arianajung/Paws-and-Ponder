@@ -9,10 +9,8 @@ import Main from "./Main/Main";
 class App extends React.Component {
   state = {
     users: [
-      {
-        username: "user",
-        password: "user"
-      }
+      { username: "user", password: "user" },
+      { username: "admin", password: "admin" }
     ]
   }
 
