@@ -1,3 +1,33 @@
 .post {
   width: 80%;
+  min-height: 150px;
+  overflow: auto;
+  background-color: rgba(223, 223, 238, 0.52);
+  border: solid 2px rgba(156, 185, 177, 0.507);
+}
+
+.userIconContainer {
+  width: 80px;
+	float: left;
+}
+
+/* temporary styles for post */
+.userIcon {
+  margin-left: 10px;
+	margin-right: 10px;
+	margin-top: 10px;
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+}
+
+.postContent {
+  margin: 0px;
+  width: 80%;
+  float:left;
+}
+
+.postContentPicture {
+	margin-left: 80px;
+	max-width: 500px;
 }
