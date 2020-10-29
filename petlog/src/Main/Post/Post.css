@@ -62,12 +62,23 @@
   padding-left: 5px;
 }
 
-.leave-a-comment.MuiTextField-root fieldset{
+.leave-a-comment.MuiTextField-root {
   width: 96%;
   margin-left: 2%;
   margin-right: 2%;
+}
+
+.leave-a-comment label.Mui-focused {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.leave-a-comment .MuiOutlinedInput-root fieldset {
   border-radius: 10px;
   border-color: rgba(0, 0, 0, 0.5);
+}
+
+.leave-a-comment .MuiOutlinedInput-root.Mui-focused fieldset  {
+  border: solid 2px rgba(156, 185, 177, 0.507);
 }
 
 .comments {
