@@ -17,14 +17,17 @@ function SettingsNavbar() {
           Settings
         </Typography>
         <ul className="navbar-list">
+          {/* Print each element for settings navigation bar */}
           {SettingsNavbarData.map((val, key) => {
             return (
-              <Link to={val.link}>
-                <li key={key} className="row">
-                  <div id="icon">{val.icon}</div>{" "}
-                  <div id="title">{val.title}</div>
-                </li>
-              </Link>
+              <div key={key}>
+                <Link to={val.link}>
+                  <li className="row">
+                    <div id="icon">{val.icon}</div>{" "}
+                    <div id="title">{val.title}</div>
+                  </li>
+                </Link>
+              </div>
             );
           })}
         </ul>

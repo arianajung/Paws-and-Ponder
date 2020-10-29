@@ -1,7 +1,7 @@
 import React from "react";
 import { uid } from "react-uid";
 import SettingsNavbar from "./SettingsNavbar/SettingsNavbar";
-import "./Settings.css";
+import ProfileSettings from "./ProfileSettings/ProfileSettings";
 
 class Settings extends React.Component {
     /* NEED TO MODIFY STATE - we should be getting the "user" information from Login's state*/
@@ -16,7 +16,9 @@ class Settings extends React.Component {
           <div>
             <SettingsNavbar />
           </div>
-         
+          <div>
+            <ProfileSettings />
+          </div>
         </>
       );
     }
