@@ -3,6 +3,8 @@ import { uid } from "react-uid";
 import "./Post.css";
 import Comment from "../../MyBlog/Comment/Comment"
 import TextField from "@material-ui/core/TextField";
+import AccordionActions from '@material-ui/core/AccordionActions';
+import Button from '@material-ui/core/Button';
 // Need to change this to import specific user image instead
 import imgsrc from './static/img_1.jpg';
 
@@ -14,12 +16,11 @@ class Post extends React.Component {
             new_comment: ''
         }
     }
-    addComment() {
-        console.log("test")
-    }
 
-    keyPress(e) {
-        if (e.keyCode == 13) {
+
+    buttonPress(e) {
+        console.log(this.state.new_comment)
+        if (this.state.new_comment.trim() != '') {
             this.props.addComment(this.state.new_comment, this.props.postID)
         }
     }
@@ -57,11 +58,18 @@ class Post extends React.Component {
                         <TextField 
                             className="leave-a-comment"
                             variant="outlined"
-                            margin="normal"
                             label="leave a comment"
                             onChange={(e) => {this.setState({ new_comment: e.target.value })}}
-                            onKeyDown={(e) => {this.keyPress(e)}}
                         />
+                        <div className="button-container">
+                            <Button
+                                id="comment-button"
+                                size="small"
+                                onClick={(e) => this.buttonPress(e)}
+                            >
+                                Comment
+                            </Button>
+                        </div>
                         <div className="comments">
                             {comments}
                         </div>
