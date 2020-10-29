@@ -12,7 +12,7 @@ class Post extends React.Component {
       <div className="post">    
         <div className="user-profile">
             <div className='userIconContainer'>
-              <img class="userIcon" src={imgsrc} alt="tempImage"></img>
+              <img className="userIcon" src={imgsrc} alt="tempImage"></img>
             </div>
             {/* Need to add more user stuff here like user pic*/}
             <h3 className="username">{user}</h3>

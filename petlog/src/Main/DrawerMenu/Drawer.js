@@ -13,9 +13,10 @@ import PeopleIcon from '@material-ui/icons/People';
 
 
 export default function PermanentDrawerRight() {
-  const classes = useStyles();
+// retreive style sheet for Drawer
+const classes = useStyles();
 
-  return (
+return (
     <div className={classes.root}>
       <CssBaseline />
       <Drawer
@@ -29,9 +30,10 @@ export default function PermanentDrawerRight() {
         <div className={classes.toolbar} />
         <Divider />
         <List>
+            {/* Generate list for  */}
           {['Following'].map((text, index) => (
             <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <PeopleIcon /> : <MailIcon />}</ListItemIcon>
+              <ListItemIcon><PeopleIcon /></ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
           ))}
