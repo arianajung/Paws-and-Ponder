@@ -29,6 +29,7 @@ a:visited {
 .navbar {
   width: 250px;
   height: 100%;
+  position: fixed;
 }
 
 .navbar-list {
