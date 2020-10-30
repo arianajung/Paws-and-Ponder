@@ -40,6 +40,7 @@ class LoginForm extends React.Component {
           margin="normal"
           required
           fullWidth
+          type="password"
           label="Password"
           name="password"
           value={password}
