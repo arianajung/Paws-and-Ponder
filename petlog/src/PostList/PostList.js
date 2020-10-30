@@ -5,6 +5,9 @@ import Post from "./../Main/Post/Post";
 
 /* Component for the List of Posts */
 class PostList extends React.Component {
+  constructor(props) {
+    super(props)
+  }
   render() {
     const { posts } = this.props;
 
@@ -14,7 +17,9 @@ class PostList extends React.Component {
           {posts.map(post => (
             <Post
               key={uid(post)}
+              postID={post.postID}
               post={post}
+              addComment={this.props.addComment}
             />
           ))}
       </Grid>

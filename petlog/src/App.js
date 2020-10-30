@@ -18,6 +18,7 @@ class App extends React.Component {
 
   render() {
     return (
+      <div>
       <BrowserRouter>
         <Switch>
           <Route exact path='/' render={() => 
@@ -32,6 +33,8 @@ class App extends React.Component {
                           (<Settings app={this}/>)}/>
         </Switch>
       </BrowserRouter>
+     
+      </div>
     )
   }
 }
