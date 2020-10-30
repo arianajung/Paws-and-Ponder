@@ -20,6 +20,7 @@ class Post extends React.Component {
     buttonPress(e) {
         if (this.state.new_comment.trim() !== '') { // if no white space
             this.props.addComment(this.state.new_comment, this.props.postID)
+            this.setState({ new_comment: '' })
         }
     }
 
@@ -61,6 +62,7 @@ class Post extends React.Component {
                             className="leave-a-comment"
                             variant="outlined"
                             label="leave a comment"
+                            value={this.state.new_comment}
                             onChange={(e) => {this.setState({ new_comment: e.target.value })}}
                         />
                         <div className="button-container">
