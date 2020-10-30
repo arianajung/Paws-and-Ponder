@@ -21,7 +21,7 @@
     border-radius: 10px;
 }
 
-.comment-icon-and-name {
+.comment-icon {
     padding: 2px;
     display: inline-flex;
     flex-direction: column;

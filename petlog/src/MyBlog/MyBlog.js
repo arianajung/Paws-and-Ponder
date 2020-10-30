@@ -63,35 +63,36 @@ class MyBlog extends Component {
 
         posts_copy[postID - 1].comments = this.state.posts[postID - 1].comments.concat(new_comment)
 
-        this.setState({
-            posts: posts_copy
-        })
+        this.setState({ posts: posts_copy })
     }
 
     render() {
         return (
-            <div>
+            <div className="myblog-container">
                 <div>
                     <Navbar />
                 </div>
                 <div>
+                    <div className="search-bar"> {/* needs a component */}
+                        <SearchBar
+                            value={this.state.searchText}
+                            onChange={(newValue) => this.setState({ searchText: newValue })}
+                            onRequestSearch={() => this.searchRequest()}
+                        />
+                    </div>
+
+                    {/* map posts  */}
+                    <div className="post-area">
+                        <PostList 
+                            posts={this.state.posts} 
+                            addComment={this.addComment}
+                        />
+                    </div>
+                </div>
+                <div>
                     <PermanentDrawerRight />
                 </div>
-                <div className="search-bar"> {/* needs a component */}
-                    <SearchBar
-                        value={this.state.searchText}
-                        onChange={(newValue) => this.setState({ searchText: newValue })}
-                        onRequestSearch={() => this.searchRequest()}
-                    />
-                </div>
-
-                {/* map posts  */}
-                <div className="post-area">
-                    <PostList 
-                        posts={this.state.posts} 
-                        addComment={this.addComment}
-                    />
-                </div>
+                
             </div>
         )
     }

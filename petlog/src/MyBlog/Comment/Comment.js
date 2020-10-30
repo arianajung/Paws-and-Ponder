@@ -15,9 +15,8 @@ class Comment extends Component {
     render() {
         return (
             <div className="comment">
-                <div className="comment-icon-and-name">
+                <div className="comment-icon">
                     <img id="user-icon" src={imgsrc} alt="tempImage"></img>
-                    
                 </div>
                 <div className="comment-content">
                     <div id="comment-name">{this.props.comment_user}</div>

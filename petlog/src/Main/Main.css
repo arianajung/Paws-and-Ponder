@@ -1,11 +1,19 @@
 .post-area {
-  width: 80%;
-  margin-left: 300px;
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
 }
 
 .search-bar {
-  width: 50%;
-  margin-left: 500px;
+  width: 80%;
+  margin-left: 10%;
+  margin-right: 10%;
   margin-top: 20px;
   margin-bottom: 30px;
+}
+
+.main-container {
+	display: flex;
+	flex-direction: row;
+	min-height: 100vh;
 }

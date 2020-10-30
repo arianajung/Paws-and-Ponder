@@ -23,6 +23,7 @@ class Main extends React.Component {
 			posts: [
 				{
 					postID: 1,
+					date: "29/10/2020",
 					user: "Ariana",
 					text:
 						"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia imperdiet ipsum, a accumsan ligula pulvinar ut. Aliquam at accumsan velit, quis molestie magna. Proin sit amet finibus nibh, a mattis nunc. Duis tincidunt dolor eu nisl semper posuere. Sed ligula dolor, scelerisque quis lacus et, ultrices blandit neque.",
@@ -30,6 +31,7 @@ class Main extends React.Component {
 				},
 				{
 					postID: 2,
+					date: "29/10/2020",
 					user: "Sherry",
 					text:
 						"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia imperdiet ipsum, a accumsan ligula pulvinar ut. Aliquam at accumsan velit, quis molestie magna. Proin sit amet finibus nibh, a mattis nunc. Duis tincidunt dolor eu nisl semper posuere. Sed ligula dolor, scelerisque quis lacus et, ultrices blandit neque.",
@@ -37,6 +39,7 @@ class Main extends React.Component {
 				},
 				{
 					postID: 3,
+					date: "29/10/2020",
 					user: "Fred",
 					text:
 						"Some text to enable scrolling. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia imperdiet ipsum, a accumsan ligula pulvinar ut. Aliquam at accumsan velit, quis molestie magna. Proin sit amet finibus nibh, a mattis nunc. Duis tincidunt dolor eu nisl semper posuere. Sed ligula dolor, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia imperdiet ipsum, a accumsan ligula pulvinar ut. Aliquam at accumsan velit, quis molestie magna. Proin sit amet finibus nibh, a mattis nunc. Duis tincidunt dolor eu nisl semper posuere. Sed ligula dolor, scelerisque quis lacus et, ultrices blandit neque.scelerisque quis lacus et, ultrices blandit neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia imperdiet ipsum, a accumsan ligula pulvinar ut. Aliquam at accumsan velit, quis molestie magna. Proin sit amet finibus nibh, a mattis nunc. Duis tincidunt dolor eu nisl semper posuere. Sed ligula dolor, scelerisque quis lacus et, ultrices blandit neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia imperdiet ipsum, a accumsan ligula pulvinar ut. Aliquam at accumsan velit, quis molestie magna. Proin sit amet finibus nibh, a mattis nunc. Duis tincidunt dolor eu nisl semper posuere. Sed ligula dolor, scelerisque quis lacus et, ultrices blandit neque.",
@@ -44,11 +47,19 @@ class Main extends React.Component {
 				},
 				{
 					postID: 4,
+					date: "29/10/2020",
 					user: "Enable Scrolling",
 					text:
 						"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia imperdiet ipsum, a accumsan ligula pulvinar ut. Aliquam at accumsan velit, quis molestie magna. Proin sit amet finibus nibh, a mattis nunc. Duis tincidunt dolor eu nisl semper posuere. Sed ligula dolor, scelerisque quis lacus et, ultrices blandit neque.",
 					comments: []
-				}
+				},
+				{
+					postID: 5,
+					date: "29/10/2020",
+					user: "Ariana",
+					text: "hi",
+					comments: []
+				},
 			]
 		}
 	}
@@ -75,27 +86,30 @@ class Main extends React.Component {
 
 	render() {
 		return (
-			<>
+			<div className="main-container">
 				<div>
 					<Navbar />
 				</div>
 				<div>
+					<div className="search-bar">
+						<SearchBar
+							value={this.state.searchText}
+							onChange={(newValue) => this.setState({ searchText: newValue })}
+							onRequestSearch={() => this.searchRequest()}
+						/>
+					</div>
+					<div className="post-area">
+						<PostList
+							posts={this.state.posts}
+							addComment={this.addComment}
+						/>
+					</div>
+				</div>
+				<div>
 					<PermanentDrawerRight />
 				</div>
-				<div className="search-bar">
-					<SearchBar
-						value={this.state.searchText}
-						onChange={(newValue) => this.setState({ searchText: newValue })}
-						onRequestSearch={() => this.searchRequest()}
-					/>
-				</div>
-				<div className="post-area">
-					<PostList
-						posts={this.state.posts}
-						addComment={this.addComment}
-					/>
-				</div>
-			</>
+				
+			</div>
 		);
 	}
 }
