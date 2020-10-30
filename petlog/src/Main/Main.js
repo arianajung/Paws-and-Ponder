@@ -1,16 +1,15 @@
 import React from "react";
-import PostList from "./../PostList/PostList"
+import PostList from "./../PostList/PostList";
 import Navbar from "./Navbar/Navbar";
 import SearchBar from "material-ui-search-bar";
 import PermanentDrawerRight from "./DrawerMenu/Drawer";
 import "./Main.css";
 
-
 /* Main page where the user views all of the posts made by people that they follow*/
 class Main extends React.Component {
 	constructor(props) {
-		super(props)
-		this.addComment = this.addComment.bind(this)
+		super(props);
+		this.addComment = this.addComment.bind(this);
 
 		/* NEED TO MODIFY STATE - we should be getting the "user" information from Login's state*/
 		this.state = {
@@ -19,6 +18,10 @@ class Main extends React.Component {
 
 			// current user, default is "user"
 			current_user: "user",
+
+			following: ["Ovi", "Ariana", "Fred"],
+
+			followers: ["Sherry", "Fred"],
 
 			posts: [
 				{
@@ -64,24 +67,28 @@ class Main extends React.Component {
 		}
 	}
 
+
+
 	//Triggered when a search request is sent
 	searchRequest() {
-		console.log(this.state.searchText)
+		console.log(this.state.searchText);
 	}
 
 	addComment(comment, postID) {
-		const posts_copy = this.state.posts.slice()
+		const posts_copy = this.state.posts.slice();
 
 		const new_comment = {
 			user: this.state.current_user,
-			text: comment
-		}
+			text: comment,
+		};
 
-		posts_copy[postID - 1].comments = this.state.posts[postID - 1].comments.concat(new_comment)
+		posts_copy[postID - 1].comments = this.state.posts[
+			postID - 1
+		].comments.concat(new_comment);
 
 		this.setState({
-			posts: posts_copy
-		})
+			posts: posts_copy,
+		});
 	}
 
 	render() {
@@ -107,8 +114,10 @@ class Main extends React.Component {
 				</div>
 				<div>
 					<PermanentDrawerRight />
+						following={this.state.following}
+            			followers={this.state.followers}
 				</div>
-				
+
 			</div>
 		);
 	}
