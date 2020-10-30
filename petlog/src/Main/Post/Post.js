@@ -3,7 +3,6 @@ import { uid } from "react-uid";
 import "./Post.css";
 import Comment from "../../MyBlog/Comment/Comment"
 import TextField from "@material-ui/core/TextField";
-import AccordionActions from '@material-ui/core/AccordionActions';
 import Button from '@material-ui/core/Button';
 // Need to change this to import specific user image instead
 import imgsrc from './static/img_1.jpg';
@@ -17,10 +16,9 @@ class Post extends React.Component {
         }
     }
 
-
+    // handles button press
     buttonPress(e) {
-        console.log(this.state.new_comment)
-        if (this.state.new_comment.trim() != '') {
+        if (this.state.new_comment.trim() !== '') { // if no white space
             this.props.addComment(this.state.new_comment, this.props.postID)
         }
     }
@@ -45,13 +43,16 @@ class Post extends React.Component {
                     <div className="post">
                         <div className="user-profile">
                             <div className='userIconContainer'>
-                                <img className="userIcon" src={imgsrc} alt="tempImage"></img>
+                                <img id="userIcon" src={imgsrc} alt="tempImage"></img>
+                            </div>
+                            <div className="post-info">
+                                <div id="post-user">{post.user}</div>
+                                <div id="post-date">{post.date}</div>
                             </div>
                             {/* Need to add more user stuff here like user pic*/}
-                            <h3 className="username">{post.user}</h3>
                         </div>
-                        <div className="postContent">
-                            <p>{post.text}</p>
+                        <div className="post-content">
+                            <div id="post-text">{post.text}</div>
                         </div>
                     </div>
 

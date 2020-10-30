@@ -54,7 +54,7 @@ class MyBlog extends Component {
   }
 
   // needs a componenet since will be used multiple times
-  search_blog_posts() {}
+  search_blog_posts() { }
 
   addComment(comment, postID) {
     const posts_copy = this.state.posts.slice();
@@ -75,29 +75,31 @@ class MyBlog extends Component {
 
   render() {
     return (
-      <div>
+      <div className="myblog-container">
         <div>
           <Navbar />
+        </div>
+        <div>
+          <div className="search-bar">
+            {" "}
+            {/* needs a component */}
+            <SearchBar
+              value={this.state.searchText}
+              onChange={(newValue) => this.setState({ searchText: newValue })}
+              onRequestSearch={() => this.searchRequest()}
+            />
+          </div>
+
+          {/* map posts  */}
+          <div className="post-area">
+            <PostList posts={this.state.posts} addComment={this.addComment} />
+          </div>
         </div>
         <div>
           <PermanentDrawerRight
             following={this.state.following}
             followers={this.state.followers}
           />
-        </div>
-        <div className="search-bar">
-          {" "}
-          {/* needs a component */}
-          <SearchBar
-            value={this.state.searchText}
-            onChange={(newValue) => this.setState({ searchText: newValue })}
-            onRequestSearch={() => this.searchRequest()}
-          />
-        </div>
-
-        {/* map posts  */}
-        <div className="post-area">
-          <PostList posts={this.state.posts} addComment={this.addComment} />
         </div>
       </div>
     );

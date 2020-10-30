@@ -2,8 +2,9 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-      width: '70%',
-      marginLeft: 300,
+      width: '90%',
+      marginRight: '5%',
+      marginLeft: '5%',
       padding: 15,
       alignContent: 'center',
     },

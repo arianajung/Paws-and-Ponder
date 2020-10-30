@@ -1,39 +1,68 @@
 .post-wrapper {
-  width: 80%;
+  width: 100%;
   align-items: center;
   min-height: 150px;
   overflow: auto;
   margin-bottom: 10px;
 }
 
+#post-user {
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 20px;
+  font-weight: bold;
+  font-size: 26px;
+}
+
+.post-info {
+  width: 100%;
+}
+
+#post-date {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+#post-text {
+  width: 100%;
+  white-space: pre-wrap;
+  padding-left: 5px;
+  padding-right: 5px;
+  font-size: 15px;
+}
+
+.user-profile {
+  display: flex;
+  flex-direction: row;
+}
 .post {
-  min-height: 150px;
+  width: 100%;
   overflow: auto;
+  min-height: 100px;
   background-color: rgba(167, 233, 215, 0.431);
-  border: solid 2px rgba(156, 185, 177, 0.945);
+  display: inline-flex;
+  flex-direction: column;
+  border: solid rgba(156, 185, 177, 0.507) 2px;
   border-radius: 10px;
   margin-bottom: 1%;
 }
 
 .userIconContainer {
-  width: 80px;
-	float: left;
+  padding: 2px;
 }
 
 /* temporary styles for post */
-.userIcon {
+#userIcon {
   margin-left: 10px;
 	margin-right: 10px;
 	margin-top: 10px;
-	width: 60px;
-	height: 60px;
+	width: 80px;
+	height: 80px;
 	border-radius: 50%;
 }
 
-.postContent {
-  margin: 0px;
-  width: 80%;
-  float:left;
+.post-content {
+  padding: 10px;
 }
 
 .postContentPicture {
