@@ -113,9 +113,10 @@ class Main extends React.Component {
 					</div>
 				</div>
 				<div>
-					<PermanentDrawerRight />
+					<PermanentDrawerRight 
 						following={this.state.following}
-            			followers={this.state.followers}
+						followers={this.state.followers}
+					/>
 				</div>
 
 			</div>
