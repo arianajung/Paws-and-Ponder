@@ -3,35 +3,48 @@ import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionActions from '@material-ui/core/AccordionActions';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 
-import { useStyles } from './ProfileSettingsStyles';
+import { useStyles } from './subSettingsStyles';
 
 export default function ProfileSettings() {
   const classes = useStyles()
+  const [expanded, setExpanded] = React.useState(false)
 
   //Should initialize state with current username
-  const [newUserName, setNewUserName] = React.useState("user") 
-  const [expanded, setExpanded] = React.useState(false)
+  const [values, setValues] = React.useState({
+      name: 'Default Name',
+      password: '',
+      bio: 'Default Bio',
+      profilePic: '',
+      personalData: '',
+      showPassword: false,
+  })
 
   //Expands and collapses Accordion Components 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
 
-  //Handles New name submission
-  //TODO: Generalize to all submisstions
-  function handleSubmit(event) {
-    event.preventDefault();
-    console.log( 'New Name:', newUserName); 
-}
+  //Reflect input changes to hooks
+  const inputChange = (prop) => (event) => {
+    setValues({ ...values, [prop]: event.target.value });
+  };
+
+  // Log the new input of corresponding prop when a "Save" button is pressed
+  const logOutput = (prop) => (event) => {
+      console.log(`new ${prop}: ${{...values}[prop]}`);
+  };
 
   return (
     <div className={classes.root}>
 
+      <Typography className={classes.sectionHeading}>Profile Settings</Typography>
 
       <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
             <AccordionSummary
@@ -44,16 +57,19 @@ export default function ProfileSettings() {
             </AccordionSummary>
 
             <AccordionDetails>
-                <TextField 
-                    id="newUserNameField" 
-                    label="New User Name" 
-                    value={newUserName}
-                    onInput={ e=>setNewUserName(e.target.value)}/>
+            <FormControl fullWidth className={classes.margin}>
+                <InputLabel>New Username</InputLabel>
+                    <Input
+                        id="newUserNamee"
+                        value={values.name}
+                        onChange={inputChange('name')}
+                    />
+                </FormControl>
             </AccordionDetails>
 
             <AccordionActions>
                 <Button size="small">Cancel</Button>
-                <Button size="small" color="primary" onClick={(e) => handleSubmit(e)}>
+                <Button size="small" color="primary" onClick={logOutput('name')}>
                     Save
                 </Button>
             </AccordionActions>
@@ -72,10 +88,22 @@ export default function ProfileSettings() {
             </AccordionSummary>
 
             <AccordionDetails>
-                <Typography>
-                To be implemented
-                </Typography>
+                <FormControl fullWidth className={classes.margin}>
+                    <InputLabel>New Bio</InputLabel>
+                        <Input
+                            id="newUserBio"
+                            value={values.bio}
+                            onChange={inputChange('bio')}
+                        />
+                    </FormControl>
             </AccordionDetails>
+
+            <AccordionActions>
+                <Button size="small">Cancel</Button>
+                <Button size="small" color="primary" onClick={logOutput('bio')}>
+                    Save
+                </Button>
+            </AccordionActions>
       </Accordion>
 
 
@@ -92,10 +120,22 @@ export default function ProfileSettings() {
             </AccordionSummary>
 
             <AccordionDetails>
-                <Typography>
-                To be implemented
-                </Typography>
+                <FormControl fullWidth className={classes.margin}>
+                    <InputLabel>Need to change form of input</InputLabel>
+                        <Input
+                            id="newUserProfilePic"
+                            value={values.profilePic}
+                            onChange={inputChange('profilePic')}
+                        />
+                    </FormControl>
             </AccordionDetails>
+
+            <AccordionActions>
+                <Button size="small">Cancel</Button>
+                <Button size="small" color="primary" onClick={logOutput('profilePic')}>
+                    Save
+                </Button>
+            </AccordionActions>
       </Accordion>
 
 
@@ -111,7 +151,10 @@ export default function ProfileSettings() {
 
             <AccordionDetails>
                 <Typography>
-                To be implemented
+                Number of Posts: 321 <br />
+                Followers: 237 <br />
+                Following: 56 <br />
+                Total Likes: 5899
                 </Typography>
             </AccordionDetails>
       </Accordion>

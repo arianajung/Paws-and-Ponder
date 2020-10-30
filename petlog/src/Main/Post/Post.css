@@ -12,7 +12,7 @@
   background-color: rgba(167, 233, 215, 0.431);
   border: solid 2px rgba(156, 185, 177, 0.945);
   border-radius: 10px;
-  margin-bottom: 2%;
+  margin-bottom: 1%;
 }
 
 .userIconContainer {
@@ -62,16 +62,53 @@
   padding-left: 5px;
 }
 
-.leave-a-comment.MuiTextField-root fieldset{
+.leave-a-comment.MuiTextField-root {
   width: 96%;
   margin-left: 2%;
   margin-right: 2%;
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+.leave-a-comment label.Mui-focused {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.leave-a-comment .MuiOutlinedInput-root fieldset {
   border-radius: 10px;
-  border-color: rgba(0, 0, 0, 0.5);
+  border-color: rgba(0, 0, 0, 0.6);
+}
+
+.leave-a-comment .MuiOutlinedInput-root.Mui-focused fieldset  {
+  border: solid 2px rgba(156, 185, 177, 0.507);
+}
+
+.leave-a-comment .MuiOutlinedInput-root:hover fieldset  {
+  border: solid 2px rgba(156, 185, 177, 0.507);
 }
 
 .comments {
   padding: 10px;
   display: flex;
   flex-direction: column;
+}
+
+.button-container {
+  width: 100%;
+  display: flex;
+  margin-bottom: 10px;
+}
+
+#comment-button {
+  width: 10%;
+  margin-left: auto;
+  margin-right: 2%;
+  border-radius: 10px;
+  font-size: 15px;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+#comment-button:hover {
+  color: black;
+  background-color: rgba(156, 185, 177, 0.507);
 }
