@@ -1,7 +1,7 @@
 import React from "react";
 import { uid } from "react-uid";
 import "./Post.css";
-import Comment from "../../MyBlog/Comment/Comment"
+import Comment from "../../MyBlog/Comment/Comment";
 import TextField from "@material-ui/core/TextField";
 import Button from '@material-ui/core/Button';
 // Need to change this to import specific user image instead
@@ -62,6 +62,7 @@ class Post extends React.Component {
                             className="leave-a-comment"
                             variant="outlined"
                             label="leave a comment"
+                            multiline
                             value={this.state.new_comment}
                             onChange={(e) => {this.setState({ new_comment: e.target.value })}}
                         />

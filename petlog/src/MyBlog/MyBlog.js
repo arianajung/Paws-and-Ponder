@@ -2,11 +2,17 @@ import React, { Component } from "react";
 
 // material-ui imports
 import SearchBar from "material-ui-search-bar";
+import TextField from "@material-ui/core/TextField";
+
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import AttachFileIcon from '@material-ui/icons/AttachFile';
 
 // component imports
 import PermanentDrawerRight from "../Main/DrawerMenu/Drawer";
 import Navbar from "../Main/Navbar/Navbar";
 import PostList from "./../PostList/PostList";
+
 
 // css
 import "./MyBlog.css";
@@ -22,10 +28,16 @@ class MyBlog extends Component {
 
       search_blog_text: "",
 
+      new_post_text: "",
+
+      // temporary, just to make hardcoded adding posts work
+      post_count: 1,
+
       // posts can have images, need to take care of that
       posts: [
         {
           postID: 1,
+          date: "30/10/2020",
           user: "Ovi",
           text: "hi i like cats :D",
           comments: [
@@ -64,13 +76,36 @@ class MyBlog extends Component {
       text: comment,
     };
 
-    posts_copy[postID - 1].comments = this.state.posts[
-      postID - 1
-    ].comments.concat(new_comment);
+    posts_copy[postID - 1].comments = this.state.posts[postID - 1].comments.concat(new_comment);
 
     this.setState({
       posts: posts_copy,
     });
+  }
+
+  // need to collect time clicked 
+  makePost(e) {
+    const new_date = new Date();
+    const date = new_date.getDate();
+    const month = new_date.getMonth() + 1;
+    const year = new_date.getFullYear();
+
+    const str_date = `${date}/${month}/${year}`;
+
+    const new_post = {
+      postID: this.state.post_count + 1,
+      date: new Date().toLocaleString(),
+      user: this.state.current_user,
+      text: this.state.new_post_text,
+      comments: []
+    };
+    const posts_copy = this.state.posts.slice();
+  
+    this.setState({ 
+      post_count: this.state.post_count + 1,
+      posts: posts_copy.concat(new_post)
+    })
+    console.log(this.state);
   }
 
   render() {
@@ -90,9 +125,38 @@ class MyBlog extends Component {
             />
           </div>
 
+          <div className='make-a-post-container'>
+            <div>
+              <TextField
+                className="make-a-post-text"
+                variant="outlined"
+                label="write about your post"
+                multiline
+                onChange={(e) => {this.setState({ new_post_text: e.target.value })}}
+              />
+            </div>
+            <div className="post-options">
+              <IconButton 
+                id="attach-button"
+              >
+                <AttachFileIcon />
+              </IconButton>
+              <Button 
+                id="post-button"
+                size="small"
+                onClick={(e) => this.makePost(e)}
+              >
+                POST
+              </Button>
+            </div>
+          </div>
+
           {/* map posts  */}
           <div className="post-area">
-            <PostList posts={this.state.posts} addComment={this.addComment} />
+            <PostList 
+              posts={this.state.posts}
+              addComment={this.addComment} 
+            />
           </div>
         </div>
         <div>

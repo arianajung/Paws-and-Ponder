@@ -108,11 +108,11 @@
   border-color: rgba(0, 0, 0, 0.6);
 }
 
-.leave-a-comment .MuiOutlinedInput-root.Mui-focused fieldset  {
+.leave-a-comment .MuiOutlinedInput-root.Mui-focused fieldset {
   border: solid 2px rgba(156, 185, 177, 0.507);
 }
 
-.leave-a-comment .MuiOutlinedInput-root:hover fieldset  {
+.leave-a-comment .MuiOutlinedInput-root:hover fieldset {
   border: solid 2px rgba(156, 185, 177, 0.507);
 }
 
@@ -130,6 +130,7 @@
 
 #comment-button {
   width: 10%;
+  min-width: 100px;
   margin-left: auto;
   margin-right: 2%;
   border-radius: 10px;
@@ -138,6 +139,7 @@
 }
 
 #comment-button:hover {
-  color: black;
+  font-weight: bolder;
+  color: rgba(0, 0, 0, 0.8);
   background-color: rgba(156, 185, 177, 0.507);
 }

@@ -17,3 +17,73 @@
 	flex-direction: row;
 	min-height: 100vh;
 }
+
+.make-a-post-container {
+	width: 90%;
+	margin: 5%;
+	border: solid red 2px;
+	border-radius: 10px;
+	min-height: 150px;
+}
+
+.make-a-post-text.MuiTextField-root {
+	width: 96%;
+	margin: 2.5%;
+	margin-top: 15px;
+	margin-bottom: 50px;
+}
+
+.make-a-post-text .MuiOutlinedInput-root fieldset {
+	border-color: rgba(0, 0, 0, 0);
+}
+
+.make-a-post-text.MuiInput-underline:after {
+	border-color: rgba(0, 0, 0, 0);
+}
+
+.make-a-post-text .MuiOutlinedInput-root.Mui-focused fieldset {
+	border-color: rgba(0, 0, 0, 0);
+}
+
+.make-a-post-text .MuiOutlinedInput-root:hover fieldset {
+	border-color: rgba(0, 0, 0, 0);
+}
+
+.make-a-post-text label.Mui-focused {
+	color: rgba(0, 0, 0, 0.5);
+	font-size: 18px;
+}
+
+.post-options {
+	width: 100%;
+	display: flex;
+	margin-bottom: 5px;
+}
+
+#attach-button {
+	margin-left: auto;
+	font-size: small;
+}
+
+#attach-button:hover {
+	color: rgba(0, 0, 0, 0.9);
+	background-color: rgba(156, 185, 177, 0.507);
+}
+
+#post-button {
+	width: 70px;
+	height: 35px;	
+	margin-right: 2%;
+	margin-top: auto;
+	margin-bottom: 6px;
+	border-radius: 10px;
+	font-size: 15px;
+	color: rgba(0, 0, 0, 0.6);
+}
+
+#post-button:hover {
+	font-weight: bolder;
+	color: rgba(0, 0, 0, 0.8);
+	background-color: rgba(156, 185, 177, 0.507);
+}
+
