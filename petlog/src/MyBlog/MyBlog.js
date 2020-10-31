@@ -102,10 +102,11 @@ class MyBlog extends Component {
     const posts_copy = this.state.posts.slice();
   
     this.setState({ 
+      new_post_text: "",
       post_count: this.state.post_count + 1,
       posts: posts_copy.concat(new_post)
     })
-    console.log(this.state);
+    
   }
 
   render() {
@@ -131,6 +132,7 @@ class MyBlog extends Component {
                 className="make-a-post-text"
                 variant="outlined"
                 label="write about your post"
+                value={this.state.new_post_text}
                 multiline
                 onChange={(e) => {this.setState({ new_post_text: e.target.value })}}
               />
