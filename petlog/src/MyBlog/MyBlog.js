@@ -104,7 +104,7 @@ class MyBlog extends Component {
     this.setState({ 
       new_post_text: "",
       post_count: this.state.post_count + 1,
-      posts: posts_copy.concat(new_post)
+      posts: [new_post].concat(this.state.posts)
     })
     
   }
