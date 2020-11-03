@@ -16,16 +16,16 @@
 - Do not add or commit node_modules/ or package-lock.json
 
 ## TODO:
-Phase 1:
-- Add functionality to make Post for a user
-- Like/Favourite Buttons for a post
+Phase 1: (Ordered by Priority)
+- ~~Add functionality to make Post for a user~~
 - Ability to add pictures to a post
-- Allow user-upload avatar pictures
-- View for favourite/bookmarked posts
 - Deleting a post for a user
-- Notifications
-- Admin View and functionalities
+- Like/Bookmark Buttons for a post
+- View for bookmarked posts
 - Tags for posts to enable search bar(?)
+- Admin View and functionalities
+- Notifications
+- ~~Allow user-upload avatar pictures~~ Provide 3(?) hardcoded images for users to select from for their avatar
 - Keep in mind where a RESTful API call will be established to our backend as developing,
 prepare the correct states/hooks for sending/receiving these data if possible.
 ---
