@@ -6,7 +6,7 @@ import TextField from "@material-ui/core/TextField";
 
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
-import AttachFileIcon from "@material-ui/icons/AttachFile";
+import InsertPhotoIcon from "@material-ui/icons/InsertPhoto";
 
 // component imports
 import PermanentDrawerRight from "../Main/DrawerMenu/Drawer";
@@ -156,7 +156,7 @@ class MyBlog extends Component {
                 id="attach-button"
                 onClick={(e) => this.attachImage(e)}
               >
-                <AttachFileIcon />
+                <InsertPhotoIcon />
               </IconButton>
               <Button
                 id="post-button"
