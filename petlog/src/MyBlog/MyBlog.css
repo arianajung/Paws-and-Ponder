@@ -5,11 +5,12 @@
 }
 
 .search-bar {
-  width: 80%;
+  width: 60%;
   margin-left: 10%;
   margin-right: 10%;
   margin-top: 20px;
-  margin-bottom: 30px;
+  /* margin-bottom: 30px; */
+  /* position: relative; */
 }
 
 .myblog-container {
@@ -20,7 +21,9 @@
 
 .make-a-post-container {
   width: 90%;
-  margin: 5%;
+  margin-top: 3%;
+  margin-left: 5%;
+  margin-bottom: 3%;
   border: solid rgb(226, 174, 126) 2px;
   border-radius: 10px;
   min-height: 150px;

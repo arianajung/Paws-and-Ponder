@@ -13,6 +13,7 @@ import PermanentDrawerRight from "../Main/DrawerMenu/Drawer";
 import Navbar from "../Main/Navbar/Navbar";
 import PostList from "./../PostList/PostList";
 import postImg from "./static/post_img.jpeg";
+import { removePost } from "./actions/removePost";
 
 // css
 import "./MyBlog.css";
@@ -40,7 +41,7 @@ class MyBlog extends Component {
         {
           postID: 1,
           date: "30/10/2020",
-          user: "Ovi",
+          user: "user",
           text: "hi i like cats :D",
           image: "",
           comments: [
@@ -170,7 +171,11 @@ class MyBlog extends Component {
 
           {/* map posts  */}
           <div className="post-area">
-            <PostList posts={this.state.posts} addComment={this.addComment} />
+            <PostList
+              posts={this.state.posts}
+              addComment={this.addComment}
+              myBlog={this}
+            />
           </div>
         </div>
         <div>
