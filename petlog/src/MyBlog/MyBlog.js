@@ -4,15 +4,15 @@ import React, { Component } from "react";
 import SearchBar from "material-ui-search-bar";
 import TextField from "@material-ui/core/TextField";
 
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import AttachFileIcon from '@material-ui/icons/AttachFile';
+import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
+import AttachFileIcon from "@material-ui/icons/AttachFile";
 
 // component imports
 import PermanentDrawerRight from "../Main/DrawerMenu/Drawer";
 import Navbar from "../Main/Navbar/Navbar";
 import PostList from "./../PostList/PostList";
-
+import postImg from "./static/post_img.jpeg";
 
 // css
 import "./MyBlog.css";
@@ -30,6 +30,8 @@ class MyBlog extends Component {
 
       new_post_text: "",
 
+      new_post_img: "",
+
       // temporary, just to make hardcoded adding posts work
       post_count: 1,
 
@@ -40,6 +42,7 @@ class MyBlog extends Component {
           date: "30/10/2020",
           user: "Ovi",
           text: "hi i like cats :D",
+          image: "",
           comments: [
             {
               user: "Ariana",
@@ -66,7 +69,7 @@ class MyBlog extends Component {
   }
 
   // needs a componenet since will be used multiple times
-  search_blog_posts() { }
+  search_blog_posts() {}
 
   addComment(comment, postID) {
     const posts_copy = this.state.posts.slice();
@@ -76,14 +79,16 @@ class MyBlog extends Component {
       text: comment,
     };
 
-    posts_copy[postID - 1].comments = this.state.posts[postID - 1].comments.concat(new_comment);
+    posts_copy[postID - 1].comments = this.state.posts[
+      postID - 1
+    ].comments.concat(new_comment);
 
     this.setState({
       posts: posts_copy,
     });
   }
 
-  // need to collect time clicked 
+  // need to collect time clicked
   makePost(e) {
     const new_date = new Date();
     const date = new_date.getDate();
@@ -97,16 +102,21 @@ class MyBlog extends Component {
       date: new Date().toLocaleString(),
       user: this.state.current_user,
       text: this.state.new_post_text,
-      comments: []
+      image: this.state.new_post_img,
+      comments: [],
     };
     const posts_copy = this.state.posts.slice();
-  
-    this.setState({ 
+
+    this.setState({
       new_post_text: "",
+      new_post_img: "",
       post_count: this.state.post_count + 1,
-      posts: [new_post].concat(this.state.posts)
-    })
-    
+      posts: [new_post].concat(this.state.posts),
+    });
+  }
+
+  attachImage(e) {
+    this.setState({ new_post_img: postImg });
   }
 
   render() {
@@ -126,24 +136,29 @@ class MyBlog extends Component {
             />
           </div>
 
-          <div className='make-a-post-container'>
+          <div className="make-a-post-container">
             <div>
+              {/* Server called needed here to display a preview of the image chosen by the user */}
+              <img className="preview-img" src={this.state.new_post_img} />
               <TextField
                 className="make-a-post-text"
                 variant="outlined"
                 label="write about your post"
                 value={this.state.new_post_text}
                 multiline
-                onChange={(e) => {this.setState({ new_post_text: e.target.value })}}
+                onChange={(e) => {
+                  this.setState({ new_post_text: e.target.value });
+                }}
               />
             </div>
             <div className="post-options">
-              <IconButton 
+              <IconButton
                 id="attach-button"
+                onClick={(e) => this.attachImage(e)}
               >
                 <AttachFileIcon />
               </IconButton>
-              <Button 
+              <Button
                 id="post-button"
                 size="small"
                 onClick={(e) => this.makePost(e)}
@@ -155,10 +170,7 @@ class MyBlog extends Component {
 
           {/* map posts  */}
           <div className="post-area">
-            <PostList 
-              posts={this.state.posts}
-              addComment={this.addComment} 
-            />
+            <PostList posts={this.state.posts} addComment={this.addComment} />
           </div>
         </div>
         <div>
