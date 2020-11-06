@@ -9,8 +9,7 @@ class PostList extends React.Component {
     super(props);
   }
   render() {
-    const { posts, addComment, myBlog, current_user_img } = this.props;
-
+    const { posts, addComment, myBlog, profileImg } = this.props;
     /* Our post list. */
     return (
       <Grid className="post-list">
@@ -21,7 +20,7 @@ class PostList extends React.Component {
             post={post}
             addComment={addComment}
             myBlog={myBlog}
-            current_user_img={current_user_img}
+            profileImg={profileImg}
           />
         ))}
       </Grid>

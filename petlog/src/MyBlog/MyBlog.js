@@ -21,49 +21,39 @@ import "./MyBlog.css";
 class MyBlog extends Component {
   constructor(props) {
     super(props);
-    // console.log(props.state);
     this.addComment = this.addComment.bind(this);
+
+    // Obtain information about current user
+    const { current_username, users } = props.app.state;
+    let current_user_index = 0;
+    let current_user;
+    // const current_user = users.filter((user) => {
+    //   current_user_index += 1;
+    //   return user.username === current_username;
+    // })[0];
+    while (current_user_index < users.length) {
+      if (users[current_user_index].username === current_username) {
+        current_user = users[current_user_index];
+        break;
+      }
+      current_user_index += 1;
+    }
+
+    console.log("current user", current_user);
+    console.log("current user_index", current_user_index);
+
     this.state = {
-      // keeps track of the user that is currently logged in,
-      // can be turned into a prop (in the future)
-      current_user: props.app.state.current_user,
-
-      current_user_img: props.app.state.current_user_img,
-
+      app_users: props.app.state.users,
+      current_user_index: current_user_index,
+      current_username: current_user.username,
+      profileImg: current_user.profileImg,
       search_blog_text: "",
-
       new_post_text: "",
-
       new_post_img: "",
-
-      // temporary, just to make hardcoded adding posts work
-      post_count: 1,
-
-      // posts can have images, need to take care of that
-      posts: [
-        {
-          postID: 1,
-          date: "30/10/2020",
-          user: "user",
-          text: "hi i like cats :D",
-          image: "",
-          comments: [
-            {
-              user: "Ariana",
-              text:
-                "wow me too \nLorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia imperdiet ipsum, a accumsan ligula pulvinar ut. Aliquam at accumsan velit, quis molestie magna. Proin sit amet finibus nibh, a mattis nunc. Duis tincidunt dolor eu nisl semper posuere. Sed ligula dolor, scelerisque quis lacus et, ultrices blandit neque.",
-            },
-            {
-              user: "Fred",
-              text: "bunnies are better",
-            },
-          ],
-        },
-      ],
-
-      following: ["Ovi", "Ariana", "Fred"],
-
-      followers: ["Sherry", "Fred"],
+      post_count: current_user.userPostCount,
+      posts: current_user.userPosts,
+      following: current_user.following,
+      followers: current_user.followers,
     };
   }
 
@@ -79,7 +69,7 @@ class MyBlog extends Component {
     const posts_copy = this.state.posts.slice();
 
     const new_comment = {
-      user: this.state.current_user,
+      user: this.state.current_username,
       text: comment,
     };
 
@@ -90,6 +80,7 @@ class MyBlog extends Component {
     this.setState({
       posts: posts_copy,
     });
+    console.log("comment added");
   }
 
   // need to collect time clicked
@@ -104,18 +95,29 @@ class MyBlog extends Component {
     const new_post = {
       postID: this.state.post_count + 1,
       date: new Date().toLocaleString(),
-      user: this.state.current_user,
+      user: this.state.current_username,
       text: this.state.new_post_text,
       image: this.state.new_post_img,
       comments: [],
     };
-    const posts_copy = this.state.posts.slice();
+
+    let posts_copy = this.state.posts.slice();
+    posts_copy = [new_post].concat(this.state.posts);
+
+    // update the same info in App component
+    let current_user = this.state.app_users.slice()[
+      this.state.current_user_index
+    ];
+    current_user.userPosts = posts_copy;
+    let newUsers = this.state.app_users.slice();
+    newUsers.splice(this.state.current_user_index, 1, current_user);
 
     this.setState({
       new_post_text: "",
       new_post_img: "",
       post_count: this.state.post_count + 1,
-      posts: [new_post].concat(this.state.posts),
+      posts: posts_copy,
+      app_users: newUsers,
     });
   }
 
@@ -129,8 +131,8 @@ class MyBlog extends Component {
         <div>
           <Navbar
             view="myBlog"
-            current_user={this.state.current_user}
-            current_user_img={this.state.current_user_img}
+            current_user={this.state.current_username}
+            profileImg={this.state.profileImg}
           />
         </div>
         <div>
@@ -182,7 +184,7 @@ class MyBlog extends Component {
               posts={this.state.posts}
               addComment={this.addComment}
               myBlog={this}
-              current_user_img={this.state.current_user_img}
+              profileImg={this.state.profileImg}
             />
           </div>
         </div>

@@ -2,24 +2,24 @@
 export const addUser = (signup, app, callback) => {
   const userList = app.state.users;
   const username = signup.state.username;
-  const password = signup.state.password
+  const password = signup.state.password;
   const user = {
     username: username,
-    password: password
-  }
+    password: password,
+  };
 
   if (username !== "" && password !== "") {
-    let notFound = true
+    let notFound = true;
     for (let i = 0; i < userList.length; i++) {
       if (userList[i].username === username) {
-        notFound = false
+        notFound = false;
       }
     }
 
     if (notFound) {
       userList.push(user);
       app.setState({ users: userList });
-      callback()
+      callback();
     }
   }
 
@@ -28,16 +28,19 @@ export const addUser = (signup, app, callback) => {
 
 // check if the credentials are correct
 export const checkCred = (login, app, callback) => {
-  const userList = app.state.users;
+  const userList = app.state.userCreds;
   const username = login.state.username;
-  const password = login.state.password
+  const password = login.state.password;
 
-  let found = false
+  let found = false;
   for (let i = 0; i < userList.length; i++) {
-    if (userList[i].username === username && userList[i].password === password) {
-      found = true
-      callback()
-      console.log("logiin successful");
+    if (
+      userList[i].username === username &&
+      userList[i].password === password
+    ) {
+      found = true;
+      callback();
+      console.log("login successful");
     }
   }
 

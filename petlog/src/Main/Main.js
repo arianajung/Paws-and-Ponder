@@ -11,61 +11,20 @@ class Main extends React.Component {
     super(props);
     this.addComment = this.addComment.bind(this);
 
-    /* NEED TO MODIFY STATE - we should be getting the "user" information from Login's state*/
+    // Obtain information about current user
+    const { current_username, users } = props.app.state;
+    const current_user = users.filter((user) => {
+      return user.username === current_username;
+    })[0];
+
     this.state = {
       //searchText for search bar
       searchText: "",
-
-      // current user, default is "user"
-      current_user: props.app.state.current_user,
-
-      current_user_img: props.app.state.current_user_img,
-
-      following: ["Ovi", "Ariana", "Fred"],
-
-      followers: ["Sherry", "Fred"],
-
-      posts: [
-        {
-          postID: 1,
-          date: "29/10/2020",
-          user: "Ariana",
-          text:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia imperdiet ipsum, a accumsan ligula pulvinar ut. Aliquam at accumsan velit, quis molestie magna. Proin sit amet finibus nibh, a mattis nunc. Duis tincidunt dolor eu nisl semper posuere. Sed ligula dolor, scelerisque quis lacus et, ultrices blandit neque.",
-          comments: [],
-        },
-        {
-          postID: 2,
-          date: "29/10/2020",
-          user: "Sherry",
-          text:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia imperdiet ipsum, a accumsan ligula pulvinar ut. Aliquam at accumsan velit, quis molestie magna. Proin sit amet finibus nibh, a mattis nunc. Duis tincidunt dolor eu nisl semper posuere. Sed ligula dolor, scelerisque quis lacus et, ultrices blandit neque.",
-          comments: [],
-        },
-        {
-          postID: 3,
-          date: "29/10/2020",
-          user: "Fred",
-          text:
-            "Some text to enable scrolling. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia imperdiet ipsum, a accumsan ligula pulvinar ut. Aliquam at accumsan velit, quis molestie magna. Proin sit amet finibus nibh, a mattis nunc. Duis tincidunt dolor eu nisl semper posuere. Sed ligula dolor, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia imperdiet ipsum, a accumsan ligula pulvinar ut. Aliquam at accumsan velit, quis molestie magna. Proin sit amet finibus nibh, a mattis nunc. Duis tincidunt dolor eu nisl semper posuere. Sed ligula dolor, scelerisque quis lacus et, ultrices blandit neque.scelerisque quis lacus et, ultrices blandit neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia imperdiet ipsum, a accumsan ligula pulvinar ut. Aliquam at accumsan velit, quis molestie magna. Proin sit amet finibus nibh, a mattis nunc. Duis tincidunt dolor eu nisl semper posuere. Sed ligula dolor, scelerisque quis lacus et, ultrices blandit neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia imperdiet ipsum, a accumsan ligula pulvinar ut. Aliquam at accumsan velit, quis molestie magna. Proin sit amet finibus nibh, a mattis nunc. Duis tincidunt dolor eu nisl semper posuere. Sed ligula dolor, scelerisque quis lacus et, ultrices blandit neque.",
-          comments: [],
-        },
-        {
-          postID: 4,
-          date: "29/10/2020",
-          user: "Enable Scrolling",
-          text:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia imperdiet ipsum, a accumsan ligula pulvinar ut. Aliquam at accumsan velit, quis molestie magna. Proin sit amet finibus nibh, a mattis nunc. Duis tincidunt dolor eu nisl semper posuere. Sed ligula dolor, scelerisque quis lacus et, ultrices blandit neque.",
-          comments: [],
-        },
-        {
-          postID: 5,
-          date: "29/10/2020",
-          user: "Ariana",
-          text: "hi",
-          comments: [],
-        },
-      ],
+      current_username: current_user.username,
+      profileImg: current_user.profileImg,
+      following: current_user.following,
+      followers: current_user.followers,
+      posts: current_user.mainPosts,
     };
   }
 
@@ -78,7 +37,7 @@ class Main extends React.Component {
     const posts_copy = this.state.posts.slice();
 
     const new_comment = {
-      user: this.state.current_user,
+      user: this.state.current_username,
       text: comment,
     };
 
@@ -110,7 +69,7 @@ class Main extends React.Component {
               posts={this.state.posts}
               addComment={this.addComment}
               myBlog={""}
-              current_user_img={this.state.current_user_img}
+              profileImg={this.state.profileImg}
             />
           </div>
         </div>

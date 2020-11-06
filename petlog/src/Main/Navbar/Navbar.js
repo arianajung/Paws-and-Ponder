@@ -5,12 +5,12 @@ import { Link } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
 import PetsIcon from "@material-ui/icons/Pets";
 
-function Navbar({ view, current_user, current_user_img }) {
+function Navbar({ view, current_user, profileImg }) {
   let userProfile;
   if (view === "myBlog") {
     userProfile = (
       <div className="profile-wrapper">
-        <img className="img" src={current_user_img} alt="profile-pic" />
+        <img className="img" src={profileImg} alt="profile-pic" />
         <div className="profile-info">
           <Typography
             className="username"
@@ -20,6 +20,7 @@ function Navbar({ view, current_user, current_user_img }) {
           >
             {current_user}
           </Typography>
+          {/* should later change the role based on the user's actual role */}
           <Typography className="role" align="center" variant="h6">
             {current_user}
           </Typography>

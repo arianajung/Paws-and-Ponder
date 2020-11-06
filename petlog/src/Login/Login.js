@@ -26,7 +26,9 @@ class Login extends React.Component {
           checkCred={() =>
             checkCred(this, this.props.app, () => {
               this.props.history.push("/main");
-              this.props.app.setState({ current_user: this.state.username });
+              this.props.app.setState({
+                current_username: this.state.username,
+              });
             })
           }
         />

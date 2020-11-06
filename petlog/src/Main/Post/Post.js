@@ -29,7 +29,7 @@ class Post extends React.Component {
   }
 
   render() {
-    const { post, postID, myBlog, current_user_img } = this.props;
+    const { post, postID, myBlog, profileImg } = this.props;
     let removeBtn;
     // should retrieve this information from server later
     if (post.user === "user" && myBlog !== "") {
@@ -45,21 +45,20 @@ class Post extends React.Component {
     // should retrieve this information from server later
     let userImg;
     if (post.user === "user") {
-      userImg = (
-        <img id="userIcon" src={current_user_img} alt="tempImage"></img>
-      );
+      userImg = <img id="userIcon" src={profileImg} alt="tempImage"></img>;
     } else {
       userImg = <img id="userIcon" src={imgsrc} alt="tempImage"></img>;
     }
 
     // create comment components
     const comments = post.comments.map((comment) => {
+      // console.log(comment);
       return (
         <Comment
           key={uid(comment)}
           comment_user={comment.user}
           comment_text={comment.text}
-          current_user_img={current_user_img}
+          profileImg={profileImg}
         />
       );
     });
