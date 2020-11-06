@@ -127,7 +127,11 @@ class MyBlog extends Component {
     return (
       <div className="myblog-container">
         <div>
-          <Navbar view={"myBlog"} />
+          <Navbar
+            view="myBlog"
+            current_user={this.state.current_user}
+            current_user_img={this.state.current_user_img}
+          />
         </div>
         <div>
           <div className="search-bar">

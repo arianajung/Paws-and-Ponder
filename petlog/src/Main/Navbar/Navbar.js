@@ -3,9 +3,31 @@ import "./Navbar.css";
 import { NavbarData } from "./NavbarData";
 import { Link } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
-import PetsIcon from '@material-ui/icons/Pets';
+import PetsIcon from "@material-ui/icons/Pets";
 
-function Navbar() {
+function Navbar({ view, current_user, current_user_img }) {
+  let userProfile;
+  if (view === "myBlog") {
+    userProfile = (
+      <div className="profile-wrapper">
+        <img className="img" src={current_user_img} alt="profile-pic" />
+        <div className="profile-info">
+          <Typography
+            className="username"
+            component="h3"
+            align="center"
+            variant="h4"
+          >
+            {current_user}
+          </Typography>
+          <Typography className="role" align="center" variant="h6">
+            {current_user}
+          </Typography>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="wrapper">
       <div className="navbar">
@@ -15,8 +37,11 @@ function Navbar() {
           align="center"
           variant="h4"
         >
-          Petlog <PetsIcon />
+          PETLOG <PetsIcon />
         </Typography>
+
+        {userProfile}
+
         <ul className="navbar-list">
           {NavbarData.map((val, key) => {
             return (

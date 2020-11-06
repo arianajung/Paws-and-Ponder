@@ -95,7 +95,7 @@ class Main extends React.Component {
     return (
       <div className="main-container">
         <div>
-          <Navbar view={"main"} />
+          <Navbar view="main" />
         </div>
         <div>
           <div className="search-bar">
