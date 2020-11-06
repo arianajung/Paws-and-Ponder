@@ -1,5 +1,5 @@
-import React from 'react';
-import { Route, Switch, BrowserRouter } from 'react-router-dom';
+import React from "react";
+import { Route, Switch, BrowserRouter } from "react-router-dom";
 import "./App.css";
 
 import Login from "./Login/Login";
@@ -10,32 +10,31 @@ import Settings from "./Settings/Settings";
 
 class App extends React.Component {
   state = {
+    current_user: "",
     users: [
       { username: "user", password: "user" },
-      { username: "admin", password: "admin" }
-    ]
-  }
+      { username: "admin", password: "admin" },
+    ],
+  };
 
   render() {
     return (
       <div>
-      <BrowserRouter>
-        <Switch>
-          <Route exact path='/' render={() => 
-                          (<Login app={this}/>)}/>
-          <Route exact path='/signup' render={() => 
-                          (<SignUp app={this}/>)}/>
-          <Route exact path='/main' render={() => 
-                          (<Main app={this}/>)}/>
-          <Route exact path='/blog' render={() => 
-                          (<MyBlog app={this}/>)}/>
-          <Route exact path='/settings' render={() => 
-                          (<Settings app={this}/>)}/>
-        </Switch>
-      </BrowserRouter>
-     
+        <BrowserRouter>
+          <Switch>
+            <Route exact path="/" render={() => <Login app={this} />} />
+            <Route exact path="/signup" render={() => <SignUp app={this} />} />
+            <Route exact path="/main" render={() => <Main app={this} />} />
+            <Route exact path="/blog" render={() => <MyBlog app={this} />} />
+            <Route
+              exact
+              path="/settings"
+              render={() => <Settings app={this} />}
+            />
+          </Switch>
+        </BrowserRouter>
       </div>
-    )
+    );
   }
 }
 

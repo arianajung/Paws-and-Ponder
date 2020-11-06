@@ -21,11 +21,12 @@ import "./MyBlog.css";
 class MyBlog extends Component {
   constructor(props) {
     super(props);
+    // console.log(props.state);
     this.addComment = this.addComment.bind(this);
     this.state = {
       // keeps track of the user that is currently logged in,
       // can be turned into a prop (in the future)
-      current_user: "user",
+      current_user: props.app.state.current_user,
 
       search_blog_text: "",
 

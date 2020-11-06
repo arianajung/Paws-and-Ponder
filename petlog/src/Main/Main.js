@@ -17,7 +17,7 @@ class Main extends React.Component {
       searchText: "",
 
       // current user, default is "user"
-      current_user: "user",
+      current_user: props.app.state.current_user,
 
       following: ["Ovi", "Ariana", "Fred"],
 
