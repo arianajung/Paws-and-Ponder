@@ -7,7 +7,7 @@ import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 // Need to change this to import specific user image instead
-import imgsrc from "./static/img_1.jpg";
+import imgsrc from "../../static/img_1.jpg";
 import { removePost } from "../../MyBlog/actions/removePost";
 
 /* A Post Component */
@@ -29,7 +29,7 @@ class Post extends React.Component {
   }
 
   render() {
-    const { post, postID, myBlog } = this.props;
+    const { post, postID, myBlog, current_user_img } = this.props;
     let removeBtn;
     // should retrieve this information from server later
     if (post.user === "user" && myBlog !== "") {
@@ -42,6 +42,16 @@ class Post extends React.Component {
       removeBtn = "";
     }
 
+    // should retrieve this information from server later
+    let userImg;
+    if (post.user === "user") {
+      userImg = (
+        <img id="userIcon" src={current_user_img} alt="tempImage"></img>
+      );
+    } else {
+      userImg = <img id="userIcon" src={imgsrc} alt="tempImage"></img>;
+    }
+
     // create comment components
     const comments = post.comments.map((comment) => {
       return (
@@ -49,6 +59,7 @@ class Post extends React.Component {
           key={uid(comment)}
           comment_user={comment.user}
           comment_text={comment.text}
+          current_user_img={current_user_img}
         />
       );
     });
@@ -58,9 +69,7 @@ class Post extends React.Component {
         <div className="post-wrapper">
           <div className="post">
             <div className="user-profile">
-              <div className="userIconContainer">
-                <img id="userIcon" src={imgsrc} alt="tempImage"></img>
-              </div>
+              <div className="userIconContainer">{userImg}</div>
               <div className="post-info">
                 <div id="post-user">
                   {post.user}

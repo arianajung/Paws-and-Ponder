@@ -19,6 +19,8 @@ class Main extends React.Component {
       // current user, default is "user"
       current_user: props.app.state.current_user,
 
+      current_user_img: props.app.state.current_user_img,
+
       following: ["Ovi", "Ariana", "Fred"],
 
       followers: ["Sherry", "Fred"],
@@ -93,7 +95,7 @@ class Main extends React.Component {
     return (
       <div className="main-container">
         <div>
-          <Navbar />
+          <Navbar view={"main"} />
         </div>
         <div>
           <div className="search-bar">
@@ -108,6 +110,7 @@ class Main extends React.Component {
               posts={this.state.posts}
               addComment={this.addComment}
               myBlog={""}
+              current_user_img={this.state.current_user_img}
             />
           </div>
         </div>

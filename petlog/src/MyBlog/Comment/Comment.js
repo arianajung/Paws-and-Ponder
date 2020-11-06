@@ -1,30 +1,39 @@
 import React, { Component } from "react";
-
-import imgsrc from '../../Main/Post/static/img_1.jpg';
-
+import imgsrc from "../../static/img_1.jpg";
 
 // css
 import "./Comment.css";
 
 class Comment extends Component {
-    // not sure if needs a state yet
-    constructor(props) {
-        super(props)
+  // not sure if needs a state yet
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    const { comment_user, comment_text, current_user_img } = this.props;
+
+    // should retrieve this information from server later
+    let userImg;
+    if (comment_user === "user") {
+      userImg = (
+        <img id="user-icon" src={current_user_img} alt="current_user_img"></img>
+      );
+    } else {
+      userImg = <img id="user-icon" src={imgsrc} alt="tempImage"></img>;
     }
 
-    render() {
-        return (
-            <div className="comment">
-                <div className="comment-icon">
-                    <img id="user-icon" src={imgsrc} alt="tempImage"></img>
-                </div>
-                <div className="comment-content">
-                    <div id="comment-name">{this.props.comment_user}</div>
-                    <div id="comment-text">{this.props.comment_text}</div>
-                </div>
-            </div>
-        )
-    }s
+    return (
+      <div className="comment">
+        <div className="comment-icon">{userImg}</div>
+        <div className="comment-content">
+          <div id="comment-name">{comment_user}</div>
+          <div id="comment-text">{comment_text}</div>
+        </div>
+      </div>
+    );
+  }
+  s;
 }
 
-export default Comment
+export default Comment;

@@ -14,7 +14,7 @@ import "./Drawer.css";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 // Need to change this to import specific user image instead
-import imgsrc from "../Post/static/img_1.jpg";
+import imgsrc from "../../static/img_1.jpg";
 
 export default function PermanentDrawerRight(props) {
   // retreive style sheet for Drawer

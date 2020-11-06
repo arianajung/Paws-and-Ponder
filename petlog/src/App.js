@@ -7,10 +7,12 @@ import SignUp from "./SignUp/SignUp";
 import Main from "./Main/Main";
 import MyBlog from "./MyBlog/MyBlog";
 import Settings from "./Settings/Settings";
+import profileImg from "./static/bunny.jpg";
 
 class App extends React.Component {
   state = {
     current_user: "",
+    current_user_img: profileImg,
     users: [
       { username: "user", password: "user" },
       { username: "admin", password: "admin" },

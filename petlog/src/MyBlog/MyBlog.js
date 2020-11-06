@@ -28,6 +28,8 @@ class MyBlog extends Component {
       // can be turned into a prop (in the future)
       current_user: props.app.state.current_user,
 
+      current_user_img: props.app.state.current_user_img,
+
       search_blog_text: "",
 
       new_post_text: "",
@@ -125,7 +127,7 @@ class MyBlog extends Component {
     return (
       <div className="myblog-container">
         <div>
-          <Navbar />
+          <Navbar view={"myBlog"} />
         </div>
         <div>
           <div className="search-bar">
@@ -176,6 +178,7 @@ class MyBlog extends Component {
               posts={this.state.posts}
               addComment={this.addComment}
               myBlog={this}
+              current_user_img={this.state.current_user_img}
             />
           </div>
         </div>
