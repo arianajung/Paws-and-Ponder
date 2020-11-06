@@ -27,10 +27,7 @@ class MyBlog extends Component {
     const { current_username, users } = props.app.state;
     let current_user_index = 0;
     let current_user;
-    // const current_user = users.filter((user) => {
-    //   current_user_index += 1;
-    //   return user.username === current_username;
-    // })[0];
+
     while (current_user_index < users.length) {
       if (users[current_user_index].username === current_username) {
         current_user = users[current_user_index];
@@ -38,9 +35,6 @@ class MyBlog extends Component {
       }
       current_user_index += 1;
     }
-
-    console.log("current user", current_user);
-    console.log("current user_index", current_user_index);
 
     this.state = {
       app_users: props.app.state.users,
@@ -80,7 +74,6 @@ class MyBlog extends Component {
     this.setState({
       posts: posts_copy,
     });
-    console.log("comment added");
   }
 
   // need to collect time clicked
