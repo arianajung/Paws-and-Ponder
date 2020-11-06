@@ -1,7 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import LoginForm from "../LoginForm/LoginForm";
-import { checkCred } from "../actions/authentication";
+import Auth from "../Auth/Auth";
 
 class Login extends React.Component {
   state = {
@@ -23,11 +23,11 @@ class Login extends React.Component {
           username={this.state.username}
           password={this.state.password}
           handleChange={this.handleChange}
-          checkCred={() =>
-            checkCred(this, this.props.app, () => {
+          auth={() =>
+            Auth.login(this, this.props.app, () => {
               this.props.history.push("/main");
-              this.props.app.setState({
-                current_username: this.state.username,
+              this.props.app.setState({ 
+                current_username: this.state.username 
               });
             })
           }

@@ -11,7 +11,7 @@ import "./styles.css";
 /* Login form with username and password inputs and a button */
 class LoginForm extends React.Component {
   render() {
-    const { username, password, handleChange, checkCred } = this.props;
+    const { username, password, handleChange, auth } = this.props;
 
     return (
       <Container className="login-form" maxWidth="xs">
@@ -55,7 +55,7 @@ class LoginForm extends React.Component {
           <Button 
             variant="outlined" 
             size="large"
-            onClick={checkCred}
+            onClick={auth}
           >
             Login
           </Button>

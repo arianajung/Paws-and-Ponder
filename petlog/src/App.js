@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch, BrowserRouter } from "react-router-dom";
+import { Route, Switch, BrowserRouter, Redirect } from "react-router-dom";
 import "./App.css";
 
 import Login from "./Login/Login";
@@ -9,6 +9,7 @@ import MyBlog from "./MyBlog/MyBlog";
 import Bookmarks from "./Bookmarks/Bookmarks";
 import Settings from "./Settings/Settings";
 import profileImg from "./static/bunny.jpg";
+import Auth from "./Auth/Auth";
 
 class App extends React.Component {
   state = {
@@ -100,18 +101,22 @@ class App extends React.Component {
           <Switch>
             <Route exact path="/" render={() => <Login app={this} />} />
             <Route exact path="/signup" render={() => <SignUp app={this} />} />
-            <Route exact path="/main" render={() => <Main app={this} />} />
-            <Route exact path="/blog" render={() => <MyBlog app={this} />} />
-            <Route
+            <Route exact path="/main" render={() => Auth.isAuthenticated() ? <Main app={this} /> : <Redirect to="/" />} />
+            <Route exact path="/blog" render={() => Auth.isAuthenticated() ? <MyBlog app={this} /> : <Redirect to="/" />} />
+            <Route exact path="/settings" render={() => Auth.isAuthenticated() ? <Settings app={this} /> : <Redirect to="/" />} />
+            <Route exact path="/bookmarks" render={() => Auth.isAuthenticated() ? <Bookmarks app={this} /> : <Redirect to="/" />} />
+            {/* <Route exact path="/main" render={() => <Main app={this} />} />
+            <Route exact path="/blog" render={() => <MyBlog app={this} />} /> */}
+            {/* <Route
               exact
               path="/bookmarks"
               render={() => <Bookmarks app={this} />}
-            />
-            <Route
+            /> */}
+            {/* <Route
               exact
               path="/settings"
               render={() => <Settings app={this} />}
-            />
+            /> */}
           </Switch>
         </BrowserRouter>
       </div>

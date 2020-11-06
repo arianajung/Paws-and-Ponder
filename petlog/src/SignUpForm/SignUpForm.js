@@ -11,7 +11,7 @@ import "./styles.css";
 /* Sign Up form with username and password inputs and a button */
 class SignUpForm extends React.Component {
   render() {
-    const { username, password, handleChange, addUser } = this.props;
+    const { username, password, handleChange, auth } = this.props;
 
     return (
       <Container className="sign-up-form" maxWidth="xs">
@@ -63,7 +63,7 @@ class SignUpForm extends React.Component {
           <Button
             variant="outlined"
             size="large"
-            onClick={addUser}
+            onClick={auth}
           >
             Sign Up
           </Button>
