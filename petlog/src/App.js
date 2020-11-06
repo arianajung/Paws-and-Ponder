@@ -6,6 +6,7 @@ import Login from "./Login/Login";
 import SignUp from "./SignUp/SignUp";
 import Main from "./Main/Main";
 import MyBlog from "./MyBlog/MyBlog";
+import Bookmarks from "./Bookmarks/Bookmarks";
 import Settings from "./Settings/Settings";
 import profileImg from "./static/bunny.jpg";
 
@@ -101,6 +102,11 @@ class App extends React.Component {
             <Route exact path="/signup" render={() => <SignUp app={this} />} />
             <Route exact path="/main" render={() => <Main app={this} />} />
             <Route exact path="/blog" render={() => <MyBlog app={this} />} />
+            <Route
+              exact
+              path="/bookmarks"
+              render={() => <Bookmarks app={this} />}
+            />
             <Route
               exact
               path="/settings"
