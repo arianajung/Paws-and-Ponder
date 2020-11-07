@@ -12,6 +12,8 @@
   margin-top: 20px;
   font-weight: bold;
   font-size: 26px;
+  width: 100px;
+  display: flex;
 }
 
 .post-info {
@@ -21,6 +23,7 @@
 #post-date {
   margin-left: 10px;
   margin-right: 10px;
+  width: 150px;
 }
 
 #post-text {
@@ -44,7 +47,30 @@
 .user-profile {
   display: flex;
   flex-direction: row;
+  width: 100%;
 }
+
+.left-container {
+  display: flex;
+}
+
+.buttons {
+  margin-left: 70%;
+  position: relative;
+  display: flex;
+}
+
+.removeBtn {
+  margin-left: 22%;
+  height: 50px;
+  position: aboslute;
+}
+
+.bookmarkBtn {
+  position: absolute;
+  left: 57px;
+}
+
 .post {
   width: 100%;
   overflow: auto;

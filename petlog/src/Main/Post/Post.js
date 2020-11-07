@@ -8,6 +8,7 @@ import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 // Need to change this to import specific user image instead
 import imgsrc from "../../static/img_1.jpg";
+import BookmarkIcon from "@material-ui/icons/TurnedInNot";
 import { removePost } from "../../MyBlog/actions/removePost";
 
 /* A Post Component */
@@ -68,14 +69,22 @@ class Post extends React.Component {
         <div className="post-wrapper">
           <div className="post">
             <div className="user-profile">
-              <div className="userIconContainer">{userImg}</div>
-              <div className="post-info">
-                <div id="post-user">
-                  {post.user}
-                  {removeBtn}
+              <div className="left-container">
+                <div className="userIconContainer">{userImg}</div>
+                <div className="post-info">
+                  <div id="post-user">{post.user}</div>
+                  <div id="post-date">{post.date}</div>
                 </div>
-                <div id="post-date">{post.date}</div>
               </div>
+              <div className="buttons">
+                <div className="removeBtn">{removeBtn}</div>
+                <div className="bookmarkBtn">
+                  <IconButton>
+                    <BookmarkIcon />
+                  </IconButton>
+                </div>
+              </div>
+
               {/* Need to add more user stuff here like user pic*/}
             </div>
             <div className="post-content">

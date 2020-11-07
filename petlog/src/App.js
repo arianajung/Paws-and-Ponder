@@ -83,11 +83,18 @@ class App extends React.Component {
             ],
           },
         ],
+        bookmarks: [],
       },
       {
         username: "admin",
         role: "admin",
         profileImg: "",
+        following: [],
+        followers: [],
+        mainPosts: [],
+        userPostCount: 0,
+        userPosts: [],
+        bookmarks: [],
       },
     ],
     userCreds: [
