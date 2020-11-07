@@ -10,6 +10,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import imgsrc from "../../static/img_1.jpg";
 import BookmarkIcon from "@material-ui/icons/TurnedInNot";
 import BookmarkedIcon from "@material-ui/icons/TurnedIn";
+import Chip from "@material-ui/core/Chip";
 import { removePost } from "../../MyBlog/actions/removePost";
 // import bookmarkPost from "../actions/bookmarkPost";
 // import unbookmarkPost from "../actions/unbookmarkPost";
@@ -97,6 +98,18 @@ class Post extends React.Component {
       );
     });
 
+    const tags = post.tags.map((tag) => {
+      return (
+        <Chip
+          className="tag"
+          key={uid(tag)}
+          clickable
+          size="small"
+          label={tag}
+        />
+      );
+    });
+
     return (
       <div>
         <div className="post-wrapper">
@@ -128,6 +141,7 @@ class Post extends React.Component {
               <img id="post-img" src={post.image}></img>
               <div id="post-text">{post.text}</div>
             </div>
+            <div className="tagsContainer">Tags: {tags}</div>
           </div>
 
           <div className="comment-area">

@@ -57,7 +57,7 @@ class Main extends React.Component {
         <div>
           <Navbar view="main" />
         </div>
-        <div>
+        <div className="main-middle-area">
           <div className="search-bar">
             <SearchBar
               value={this.state.searchText}

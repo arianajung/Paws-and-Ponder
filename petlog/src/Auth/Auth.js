@@ -44,12 +44,14 @@ class Auth {
     const password = signup.state.password
     const user = {
       username: username,
+      role: "user",
       profileImg: profileImg,
-        following: [],
-        followers: [],
-        mainPosts: [],
-        userPostCount: 0,
-        userPosts: []
+      following: [],
+      followers: [],
+      mainPosts: [],
+      userPostCount: 0,
+      userPosts: [],
+      bookmarks: [],
     }
     const userCred = {
       username: username,

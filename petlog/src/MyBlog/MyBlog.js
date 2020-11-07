@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { uid } from "react-uid";
 
 // material-ui imports
 import SearchBar from "material-ui-search-bar";
@@ -7,6 +8,8 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import InsertPhotoIcon from "@material-ui/icons/InsertPhoto";
+import AddCircleIcon from "@material-ui/icons/AddCircle";
+import Chip from "@material-ui/core/Chip";
 
 // component imports
 import PermanentDrawerRight from "../Main/DrawerMenu/Drawer";
@@ -45,6 +48,8 @@ class MyBlog extends Component {
       search_blog_text: "",
       new_post_text: "",
       new_post_img: "",
+      new_tag: "",
+      new_post_tags: [],
       post_count: current_user.userPostCount,
       posts: current_user.userPosts,
       following: current_user.following,
@@ -98,6 +103,7 @@ class MyBlog extends Component {
         image: this.state.new_post_img,
         bookmarked: false,
         comments: [],
+        tags: this.state.new_post_tags,
       };
 
       let posts_copy = this.state.posts.slice();
@@ -114,6 +120,8 @@ class MyBlog extends Component {
       this.setState({
         new_post_text: "",
         new_post_img: "",
+        new_tag: "",
+        new_post_tags: [],
         post_count: this.state.post_count + 1,
         posts: posts_copy,
         app_users: newUsers,
@@ -123,6 +131,27 @@ class MyBlog extends Component {
 
   attachImage(e) {
     this.setState({ new_post_img: postImg });
+  }
+
+  addTag(e) {
+    if (
+      this.state.new_tag !== "" &&
+      !this.state.new_post_tags.includes(this.state.new_tag)
+    ) {
+      this.setState({
+        new_post_tags: this.state.new_post_tags.concat([this.state.new_tag]),
+        new_tag: "",
+      });
+    }
+  }
+
+  handleDeleteTag(tag) {
+    console.log(`Deleting tag: ${tag}`);
+    this.setState({
+      new_post_tags: this.state.new_post_tags.filter(function (value) {
+        return value !== tag;
+      }),
+    });
   }
 
   render() {
@@ -162,7 +191,36 @@ class MyBlog extends Component {
                 }}
               />
             </div>
+
             <div className="post-options">
+              <div className="tagsContainer">
+                Current Tags:{" "}
+                {this.state.new_post_tags.map((tag) => {
+                  return (
+                    <Chip
+                      className="tag"
+                      key={uid(tag)}
+                      size="small"
+                      label={tag}
+                      onDelete={() => this.handleDeleteTag(tag)}
+                    />
+                  );
+                })}
+              </div>
+
+              <TextField
+                className="new-tag-text"
+                label="Add a tag to your post"
+                value={this.state.new_tag}
+                onChange={(e) => {
+                  this.setState({ new_tag: e.target.value });
+                }}
+              />
+
+              <IconButton id="add-tag-button" onClick={(e) => this.addTag(e)}>
+                <AddCircleIcon />
+              </IconButton>
+
               <IconButton
                 id="attach-button"
                 onClick={(e) => this.attachImage(e)}

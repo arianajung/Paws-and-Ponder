@@ -61,7 +61,7 @@
 }
 
 .removeBtn {
-  margin-left: 22%;
+  margin-left: 108%;
   height: 50px;
   position: aboslute;
 }
@@ -99,6 +99,15 @@
 
 .post-content {
   padding: 10px;
+}
+
+.tagsContainer {
+  padding: 10px;
+}
+
+.tag.MuiChip-root {
+  padding: 5px;
+  margin-right: 5px;
 }
 
 .postContentPicture {

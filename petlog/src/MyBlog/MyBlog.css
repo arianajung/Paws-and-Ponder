@@ -40,6 +40,8 @@
   margin-bottom: 50px;
 }
 
+
+
 .make-a-post-text .MuiOutlinedInput-root fieldset {
   border-color: rgba(0, 0, 0, 0);
 }
@@ -67,8 +69,15 @@
   margin-bottom: 5px;
 }
 
-#attach-button {
+.new-tag-text.MuiTextField-root {
   margin-left: auto;
+}
+
+#add-tag-button {
+  font-size: small;
+}
+
+#attach-button {
   font-size: small;
 }
 
