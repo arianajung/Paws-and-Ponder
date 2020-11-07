@@ -29,10 +29,10 @@ class Post extends React.Component {
   }
 
   render() {
-    const { post, postID, myBlog, profileImg } = this.props;
+    const { current_username, post, postID, myBlog, profileImg } = this.props;
     let removeBtn;
     // should retrieve this information from server later
-    if (post.user === "user" && myBlog !== "") {
+    if (post.user === current_username && myBlog !== "") {
       removeBtn = (
         <IconButton onClick={() => removePost(myBlog, postID)}>
           <DeleteIcon />
@@ -44,7 +44,7 @@ class Post extends React.Component {
 
     // should retrieve this information from server later
     let userImg;
-    if (post.user === "user") {
+    if (post.user === current_username) {
       userImg = <img id="userIcon" src={profileImg} alt="tempImage"></img>;
     } else {
       userImg = <img id="userIcon" src={imgsrc} alt="tempImage"></img>;
@@ -52,10 +52,10 @@ class Post extends React.Component {
 
     // create comment components
     const comments = post.comments.map((comment) => {
-      // console.log(comment);
       return (
         <Comment
           key={uid(comment)}
+          current_username={current_username}
           comment_user={comment.user}
           comment_text={comment.text}
           profileImg={profileImg}

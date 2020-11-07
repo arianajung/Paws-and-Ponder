@@ -9,13 +9,20 @@ class PostList extends React.Component {
     super(props);
   }
   render() {
-    const { posts, addComment, myBlog, profileImg } = this.props;
+    const {
+      current_username,
+      posts,
+      addComment,
+      myBlog,
+      profileImg,
+    } = this.props;
     /* Our post list. */
     return (
       <Grid className="post-list">
         {posts.map((post) => (
           <Post
             key={uid(post)}
+            current_username={current_username}
             postID={post.postID}
             post={post}
             addComment={addComment}

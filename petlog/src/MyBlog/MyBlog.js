@@ -40,6 +40,7 @@ class MyBlog extends Component {
       app_users: props.app.state.users,
       current_user_index: current_user_index,
       current_username: current_user.username,
+      current_user_role: current_user.role,
       profileImg: current_user.profileImg,
       search_blog_text: "",
       new_post_text: "",
@@ -125,6 +126,7 @@ class MyBlog extends Component {
           <Navbar
             view="myBlog"
             current_user={this.state.current_username}
+            current_user_role={this.state.current_user_role}
             profileImg={this.state.profileImg}
           />
         </div>
@@ -174,6 +176,7 @@ class MyBlog extends Component {
           {/* map posts  */}
           <div className="post-area">
             <PostList
+              current_username={this.state.current_username}
               posts={this.state.posts}
               addComment={this.addComment}
               myBlog={this}

@@ -11,11 +11,16 @@ class Comment extends Component {
   }
 
   render() {
-    const { comment_user, comment_text, profileImg } = this.props;
+    const {
+      current_username,
+      comment_user,
+      comment_text,
+      profileImg,
+    } = this.props;
 
     // should retrieve this information from server later
     let userImg;
-    if (comment_user === "user") {
+    if (comment_user === current_username) {
       userImg = <img id="user-icon" src={profileImg} alt="profileImg"></img>;
     } else {
       userImg = <img id="user-icon" src={imgsrc} alt="tempImage"></img>;

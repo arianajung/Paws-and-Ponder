@@ -66,9 +66,9 @@ class Main extends React.Component {
           </div>
           <div className="post-area">
             <PostList
+              current_username={this.state.current_username}
               posts={this.state.posts}
               addComment={this.addComment}
-              myBlog={""}
               profileImg={this.state.profileImg}
             />
           </div>

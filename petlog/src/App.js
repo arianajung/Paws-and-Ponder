@@ -17,6 +17,7 @@ class App extends React.Component {
     users: [
       {
         username: "user",
+        role: "user",
         profileImg: profileImg,
         following: ["Ovi", "Ariana", "Fred"],
         followers: ["Sherry", "Fred"],
@@ -85,6 +86,7 @@ class App extends React.Component {
       },
       {
         username: "admin",
+        role: "admin",
         profileImg: "",
       },
     ],
@@ -101,10 +103,50 @@ class App extends React.Component {
           <Switch>
             <Route exact path="/" render={() => <Login app={this} />} />
             <Route exact path="/signup" render={() => <SignUp app={this} />} />
-            <Route exact path="/main" render={() => Auth.isAuthenticated() ? <Main app={this} /> : <Redirect to="/" />} />
-            <Route exact path="/blog" render={() => Auth.isAuthenticated() ? <MyBlog app={this} /> : <Redirect to="/" />} />
-            <Route exact path="/settings" render={() => Auth.isAuthenticated() ? <Settings app={this} /> : <Redirect to="/" />} />
-            <Route exact path="/bookmarks" render={() => Auth.isAuthenticated() ? <Bookmarks app={this} /> : <Redirect to="/" />} />
+            <Route
+              exact
+              path="/main"
+              render={() =>
+                Auth.isAuthenticated() ? (
+                  <Main app={this} />
+                ) : (
+                  <Redirect to="/" />
+                )
+              }
+            />
+            <Route
+              exact
+              path="/blog"
+              render={() =>
+                Auth.isAuthenticated() ? (
+                  <MyBlog app={this} />
+                ) : (
+                  <Redirect to="/" />
+                )
+              }
+            />
+            <Route
+              exact
+              path="/settings"
+              render={() =>
+                Auth.isAuthenticated() ? (
+                  <Settings app={this} />
+                ) : (
+                  <Redirect to="/" />
+                )
+              }
+            />
+            <Route
+              exact
+              path="/bookmarks"
+              render={() =>
+                Auth.isAuthenticated() ? (
+                  <Bookmarks app={this} />
+                ) : (
+                  <Redirect to="/" />
+                )
+              }
+            />
             {/* <Route exact path="/main" render={() => <Main app={this} />} />
             <Route exact path="/blog" render={() => <MyBlog app={this} />} /> */}
             {/* <Route
