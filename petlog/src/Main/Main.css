@@ -17,3 +17,7 @@
 	flex-direction: row;
 	min-height: 100vh;
 }
+
+.main-middle-area {
+  width: 100%;
+}
