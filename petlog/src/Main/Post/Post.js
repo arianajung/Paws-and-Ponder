@@ -9,6 +9,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 // Need to change this to import specific user image instead
 import imgsrc from "../../static/img_1.jpg";
 import BookmarkIcon from "@material-ui/icons/TurnedInNot";
+import Chip from '@material-ui/core/Chip';
 import { removePost } from "../../MyBlog/actions/removePost";
 
 /* A Post Component */
@@ -64,6 +65,18 @@ class Post extends React.Component {
       );
     });
 
+    const tags = post.tags.map((tag) => {
+      return (
+        <Chip
+          className = "tag"
+          key={uid(tag)}
+          clickable
+          size = "small"
+          label={tag}
+        />
+      );
+    });
+
     return (
       <div>
         <div className="post-wrapper">
@@ -91,6 +104,7 @@ class Post extends React.Component {
               <img id="post-img" src={post.image}></img>
               <div id="post-text">{post.text}</div>
             </div>
+            <div className="tagsContainer">Tags: {tags}</div>
           </div>
 
           <div className="comment-area">

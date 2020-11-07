@@ -101,6 +101,15 @@
   padding: 10px;
 }
 
+.tagsContainer {
+  padding: 10px;
+}
+
+.tag.MuiChip-root {
+  padding: 5px;
+  margin-right: 5px;
+}
+
 .postContentPicture {
   margin-left: 80px;
   max-width: 500px;
