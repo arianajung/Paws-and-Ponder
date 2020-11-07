@@ -79,7 +79,10 @@ class MyBlog extends Component {
 
   // need to collect time clicked
   makePost(e) {
-    if (this.state.new_post_text.trim() !== "" || this.state.new_post_img.trim() !== "") {
+    if (
+      this.state.new_post_text.trim() !== "" ||
+      this.state.new_post_img.trim() !== ""
+    ) {
       const new_date = new Date();
       const date = new_date.getDate();
       const month = new_date.getMonth() + 1;
@@ -93,6 +96,7 @@ class MyBlog extends Component {
         user: this.state.current_username,
         text: this.state.new_post_text,
         image: this.state.new_post_img,
+        bookmarked: false,
         comments: [],
       };
 
@@ -179,6 +183,7 @@ class MyBlog extends Component {
           <div className="post-area">
             <PostList
               current_username={this.state.current_username}
+              app_users={this.state.app_users}
               posts={this.state.posts}
               addComment={this.addComment}
               myBlog={this}

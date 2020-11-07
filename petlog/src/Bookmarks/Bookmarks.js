@@ -1,5 +1,6 @@
 import React from "react";
 import Navbar from "../Main/Navbar/Navbar";
+import PostList from "./../PostList/PostList";
 import SearchBar from "material-ui-search-bar";
 import PermanentDrawerRight from "../Main/DrawerMenu/Drawer";
 import "./Bookmarks.css";
@@ -7,21 +8,52 @@ import "./Bookmarks.css";
 class Bookmarks extends React.Component {
   constructor(props) {
     super(props);
+    this.addComment = this.addComment.bind(this);
     // Obtain information about current user
     const { current_username, users } = props.app.state;
     const current_user = users.filter((user) => {
       return user.username === current_username;
     })[0];
 
+    const bookmarkedPosts = current_user.mainPosts.filter((p) => {
+      return p.bookmarked === true;
+    });
+
     this.state = {
       //searchText for search bar
+      app_users: props.app.state.users,
       searchText: "",
       current_username: current_user.username,
       profileImg: current_user.profileImg,
       following: current_user.following,
       followers: current_user.followers,
-      posts: [],
+      bookmarks: bookmarkedPosts,
     };
+  }
+
+  addComment(comment, postID) {
+    const posts_copy = this.state.bookmarks.slice();
+
+    const new_comment = {
+      user: this.state.current_username,
+      text: comment,
+    };
+
+    let postIndex = 0;
+    while (postIndex < this.state.bookmarks.length) {
+      if (this.state.bookmarks[postIndex].postID === postID) {
+        break;
+      }
+      postIndex += 1;
+    }
+
+    posts_copy[postIndex].comments = this.state.bookmarks[
+      postIndex
+    ].comments.concat(new_comment);
+
+    this.setState({
+      bookmarks: posts_copy,
+    });
   }
 
   render() {
@@ -38,14 +70,16 @@ class Bookmarks extends React.Component {
               onRequestSearch={() => this.searchRequest()}
             />
           </div>
-          {/* <div className="post-area">
+          <div className="post-area">
             <PostList
-              posts={this.state.posts}
+              current_username={this.state.current_username}
+              posts={this.state.bookmarks}
+              app_users={this.state.app_users}
+              bookmarksView={this}
               addComment={this.addComment}
-              myBlog={""}
               profileImg={this.state.profileImg}
             />
-          </div> */}
+          </div>
         </div>
         <div>
           <PermanentDrawerRight

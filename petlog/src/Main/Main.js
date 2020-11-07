@@ -19,6 +19,7 @@ class Main extends React.Component {
 
     this.state = {
       //searchText for search bar
+      app_users: props.app.state.users,
       searchText: "",
       current_username: current_user.username,
       profileImg: current_user.profileImg,
@@ -67,6 +68,7 @@ class Main extends React.Component {
           <div className="post-area">
             <PostList
               current_username={this.state.current_username}
+              app_users={this.state.app_users}
               posts={this.state.posts}
               addComment={this.addComment}
               profileImg={this.state.profileImg}

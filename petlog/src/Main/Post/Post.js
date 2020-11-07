@@ -9,14 +9,20 @@ import DeleteIcon from "@material-ui/icons/Delete";
 // Need to change this to import specific user image instead
 import imgsrc from "../../static/img_1.jpg";
 import BookmarkIcon from "@material-ui/icons/TurnedInNot";
+import BookmarkedIcon from "@material-ui/icons/TurnedIn";
 import { removePost } from "../../MyBlog/actions/removePost";
+// import bookmarkPost from "../actions/bookmarkPost";
+// import unbookmarkPost from "../actions/unbookmarkPost";
+import updateBookmarkedStatus from "../actions/updateBookmarkedStatus";
 
 /* A Post Component */
 class Post extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       new_comment: "",
+      bookmarked: false,
     };
   }
 
@@ -29,11 +35,29 @@ class Post extends React.Component {
     }
   }
 
+  handleBookmarkBtn(app_users, current_username, post) {
+    if (post.bookmarked === true) {
+      this.setState({ bookmarked: false });
+      updateBookmarkedStatus(app_users, current_username, post, false);
+    } else {
+      this.setState({ bookmarked: true });
+      updateBookmarkedStatus(app_users, current_username, post, true);
+    }
+  }
+
   render() {
-    const { current_username, post, postID, myBlog, profileImg } = this.props;
+    const {
+      current_username,
+      app_users,
+      post,
+      postID,
+      myBlog,
+      profileImg,
+    } = this.props;
+
     let removeBtn;
     // should retrieve this information from server later
-    if (post.user === current_username && myBlog !== "") {
+    if (post.user === current_username) {
       removeBtn = (
         <IconButton onClick={() => removePost(myBlog, postID)}>
           <DeleteIcon />
@@ -41,6 +65,15 @@ class Post extends React.Component {
       );
     } else {
       removeBtn = "";
+    }
+
+    let bookmarkIcon;
+    if (post.user !== current_username) {
+      if (post.bookmarked === false) {
+        bookmarkIcon = <BookmarkIcon />;
+      } else {
+        bookmarkIcon = <BookmarkedIcon />;
+      }
     }
 
     // should retrieve this information from server later
@@ -79,8 +112,12 @@ class Post extends React.Component {
               <div className="buttons">
                 <div className="removeBtn">{removeBtn}</div>
                 <div className="bookmarkBtn">
-                  <IconButton>
-                    <BookmarkIcon />
+                  <IconButton
+                    onClick={() =>
+                      this.handleBookmarkBtn(app_users, current_username, post)
+                    }
+                  >
+                    {bookmarkIcon}
                   </IconButton>
                 </div>
               </div>

@@ -11,9 +11,11 @@ class PostList extends React.Component {
   render() {
     const {
       current_username,
+      app_users,
       posts,
       addComment,
       myBlog,
+      bookmarksView,
       profileImg,
     } = this.props;
     /* Our post list. */
@@ -23,10 +25,12 @@ class PostList extends React.Component {
           <Post
             key={uid(post)}
             current_username={current_username}
+            app_users={app_users}
             postID={post.postID}
             post={post}
             addComment={addComment}
             myBlog={myBlog}
+            bookmarksView={bookmarksView}
             profileImg={profileImg}
           />
         ))}

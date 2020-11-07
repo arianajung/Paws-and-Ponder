@@ -23,7 +23,7 @@
 #post-date {
   margin-left: 10px;
   margin-right: 10px;
-  width: 150px;
+  width: 180px;
 }
 
 #post-text {
@@ -55,7 +55,7 @@
 }
 
 .buttons {
-  margin-left: 70%;
+  margin-left: 67%;
   position: relative;
   display: flex;
 }
