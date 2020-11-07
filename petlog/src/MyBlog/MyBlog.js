@@ -138,6 +138,13 @@ class MyBlog extends Component {
     }
   }
 
+  handleDeleteTag(tag){
+    console.log(`Deleting tag: ${tag}`)
+    this.setState({ 
+      new_post_tags: this.state.new_post_tags.filter(function(value){return value !== tag})
+    })
+  }
+
   
 
   render() {
@@ -184,15 +191,16 @@ class MyBlog extends Component {
                 Current Tags: {this.state.new_post_tags.map((tag) => {
                   return (
                     <Chip
-                      className = "tag"
+                      className = "tag"             
                       key={uid(tag)}
                       size = "small"
                       label={tag}
+                      onDelete={() => this.handleDeleteTag(tag)}
                     />
                 ); 
               })}
               </div>
-              
+
               <TextField
                 className="new-tag-text"
                 label="Add a tag to your post"
