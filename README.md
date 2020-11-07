@@ -22,7 +22,7 @@ Phase 1: (Ordered by Priority)
 -   ~~Add functionality to make Post for a user~~
 -   ~~Ability to add pictures to a post~~
 -   ~~Deleting a post for a user~~
-	- Fix problem with CSS styling that occurs when all posts from MyBlog are removed
+	- ~~Fix problem with CSS styling that occurs when all posts from MyBlog are removed~~
 -   Like/Bookmark Buttons for a post
 -   View for bookmarked posts
 -   Tags for posts to enable search bar(?)
