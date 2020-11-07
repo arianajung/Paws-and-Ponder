@@ -130,7 +130,7 @@ class MyBlog extends Component {
             profileImg={this.state.profileImg}
           />
         </div>
-        <div>
+        <div className="blog-middle-area">
           <div className="search-bar">
             {" "}
             {/* needs a component */}
