@@ -79,40 +79,42 @@ class MyBlog extends Component {
 
   // need to collect time clicked
   makePost(e) {
-    const new_date = new Date();
-    const date = new_date.getDate();
-    const month = new_date.getMonth() + 1;
-    const year = new_date.getFullYear();
+    if (this.state.new_post_text.trim() !== "" || this.state.new_post_img.trim() !== "") {
+      const new_date = new Date();
+      const date = new_date.getDate();
+      const month = new_date.getMonth() + 1;
+      const year = new_date.getFullYear();
 
-    const str_date = `${date}/${month}/${year}`;
+      const str_date = `${date}/${month}/${year}`;
 
-    const new_post = {
-      postID: this.state.post_count + 1,
-      date: new Date().toLocaleString(),
-      user: this.state.current_username,
-      text: this.state.new_post_text,
-      image: this.state.new_post_img,
-      comments: [],
-    };
+      const new_post = {
+        postID: this.state.post_count + 1,
+        date: new Date().toLocaleString(),
+        user: this.state.current_username,
+        text: this.state.new_post_text,
+        image: this.state.new_post_img,
+        comments: [],
+      };
 
-    let posts_copy = this.state.posts.slice();
-    posts_copy = [new_post].concat(this.state.posts);
+      let posts_copy = this.state.posts.slice();
+      posts_copy = [new_post].concat(this.state.posts);
 
-    // update the same info in App component
-    let current_user = this.state.app_users.slice()[
-      this.state.current_user_index
-    ];
-    current_user.userPosts = posts_copy;
-    let newUsers = this.state.app_users.slice();
-    newUsers.splice(this.state.current_user_index, 1, current_user);
+      // update the same info in App component
+      let current_user = this.state.app_users.slice()[
+        this.state.current_user_index
+      ];
+      current_user.userPosts = posts_copy;
+      let newUsers = this.state.app_users.slice();
+      newUsers.splice(this.state.current_user_index, 1, current_user);
 
-    this.setState({
-      new_post_text: "",
-      new_post_img: "",
-      post_count: this.state.post_count + 1,
-      posts: posts_copy,
-      app_users: newUsers,
-    });
+      this.setState({
+        new_post_text: "",
+        new_post_img: "",
+        post_count: this.state.post_count + 1,
+        posts: posts_copy,
+        app_users: newUsers,
+      });
+    }
   }
 
   attachImage(e) {
