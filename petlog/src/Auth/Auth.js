@@ -28,9 +28,9 @@ class Auth {
     }
   }
 
-  logout(callback) {
+  logout() {
     this.authenticated = false;
-    callback();
+    console.log("You have been successfully logged out")
   }
 
   isAuthenticated() {
