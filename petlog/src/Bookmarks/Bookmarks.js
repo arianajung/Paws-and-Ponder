@@ -30,7 +30,7 @@ class Bookmarks extends React.Component {
         <div>
           <Navbar view="bookmarks" />
         </div>
-        <div>
+        <div className="bookmarks-middle-area">
           <div className="search-bar">
             <SearchBar
               value={this.state.searchText}
