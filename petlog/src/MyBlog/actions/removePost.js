@@ -10,6 +10,7 @@ export const removePost = (myBlog, postID, current_username, app_users) => {
   const allfilteredPosts = myBlog.state.all_posts.filter((p) => {
     return p.postID !== postID;
   });
+  
   myBlog.setState({
     posts: filteredPosts,
     all_posts: allfilteredPosts
