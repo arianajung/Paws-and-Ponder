@@ -54,6 +54,9 @@ class Post extends React.Component {
       postID,
       myBlog,
       profileImg,
+      isMain,
+      page,
+      role
     } = this.props;
 
     let removeBtn;
@@ -94,6 +97,11 @@ class Post extends React.Component {
           comment_user={comment.user}
           comment_text={comment.text}
           profileImg={profileImg}
+          isMain={isMain}
+          commentID={comment.commentID}
+          page={page}
+          postID={postID}
+          role={role}
         />
       );
     });

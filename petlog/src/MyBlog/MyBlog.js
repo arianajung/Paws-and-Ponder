@@ -16,7 +16,6 @@ import PermanentDrawerRight from "../Main/DrawerMenu/Drawer";
 import Navbar from "../Main/Navbar/Navbar";
 import PostList from "./../PostList/PostList";
 import postImg from "./static/post_img.jpeg";
-import { removePost } from "./actions/removePost";
 
 // css
 import "./MyBlog.css";
@@ -69,6 +68,7 @@ class MyBlog extends Component {
     const posts_copy = this.state.posts.slice();
 
     const new_comment = {
+      commentID: this.state.posts[postID - 1].commentCount + 1,
       user: this.state.current_username,
       text: comment,
     };
@@ -76,6 +76,8 @@ class MyBlog extends Component {
     posts_copy[postID - 1].comments = this.state.posts[
       postID - 1
     ].comments.concat(new_comment);
+
+    posts_copy[postID - 1].commentCount++;
 
     this.setState({
       posts: posts_copy,
@@ -102,6 +104,7 @@ class MyBlog extends Component {
         text: this.state.new_post_text,
         image: this.state.new_post_img,
         bookmarked: false,
+        commentCount: 0,
         comments: [],
         tags: this.state.new_post_tags,
       };
@@ -246,6 +249,9 @@ class MyBlog extends Component {
               addComment={this.addComment}
               myBlog={this}
               profileImg={this.state.profileImg}
+              isMain={false}
+              page={this}
+              role={this.state.current_user_role}
             />
           </div>
         </div>
