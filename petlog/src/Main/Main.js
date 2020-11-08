@@ -44,7 +44,8 @@ class Main extends React.Component {
     if (this.state.searchText !== "") {
       this.setState({
         posts: this.initialposts.filter((post) => {
-          return post.tags.includes(this.state.searchText);
+          return post.tags.includes(this.state.searchText) || 
+          post.user.toLowerCase() === this.state.searchText.toLowerCase();
         }),
       });
     } else {
@@ -83,6 +84,8 @@ class Main extends React.Component {
           <div className="search-bar">
             <SearchBar
               value={this.state.searchText}
+              placeholder="Search by Tags or Usernames"
+              onCancelSearch={() => this.setState({ searchText: "" })}
               onChange={(newValue) => this.setState({ searchText: newValue })}
               onRequestSearch={() => this.searchRequest()}
             />
