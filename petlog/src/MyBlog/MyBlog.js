@@ -45,7 +45,7 @@ class MyBlog extends Component {
       current_username: current_user.username,
       current_user_role: current_user.role,
       profileImg: current_user.profileImg,
-      search_blog_text: "",
+      searchText: "",
       new_post_text: "",
       new_post_img: "",
       new_tag: "",
@@ -54,7 +54,11 @@ class MyBlog extends Component {
       posts: current_user.userPosts,
       following: current_user.following,
       followers: current_user.followers,
+      //this is added for search purposes, need a way to know all posts that exist currently
+      //the post we had can be understood as "posts to be displayed" -- Fred
+      all_posts: current_user.userPosts
     };
+    // For searching purposes, display initial posts if searching with empty string
   }
 
   // fetch post info from db and store in state
@@ -62,8 +66,20 @@ class MyBlog extends Component {
     console.log("MyBlog.js: componenetDidMount()");
   }
 
-  // needs a componenet since will be used multiple times
-  search_blog_posts() {}
+  // Filter to only display posts that include the tags in the search bar
+  searchRequest() {
+    console.log(this.state.searchText);
+    if(this.state.searchText !== ""){
+      this.setState({
+        posts: this.state.all_posts.filter((post) => {
+          return post.tags.includes(this.state.searchText);
+        })
+      })
+    }
+    else{
+      this.setState({posts: this.state.all_posts})
+    }
+  }
 
   addComment(comment, postID) {
     const posts_copy = this.state.posts.slice();
@@ -108,6 +124,7 @@ class MyBlog extends Component {
 
       let posts_copy = this.state.posts.slice();
       posts_copy = [new_post].concat(this.state.posts);
+      let all_posts_copy = [new_post].concat(this.state.all_posts);
 
       // update the same info in App component
       let current_user = this.state.app_users.slice()[
@@ -125,7 +142,9 @@ class MyBlog extends Component {
         post_count: this.state.post_count + 1,
         posts: posts_copy,
         app_users: newUsers,
+        all_posts: all_posts_copy
       });
+
     }
   }
 

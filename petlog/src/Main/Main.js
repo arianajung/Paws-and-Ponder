@@ -27,11 +27,27 @@ class Main extends React.Component {
       followers: current_user.followers,
       posts: current_user.mainPosts,
     };
+
+    // Temperoal solution to render all initial posts when the search filters
+    // some of the posts away, would be nice if current_user.mainPosts is accessable
+    // from other functions
+    this.initialposts = this.state.posts
   }
 
   //Triggered when a search request is sent
+  // Filter to only display posts that include the tags in the search bar
   searchRequest() {
     console.log(this.state.searchText);
+    if(this.state.searchText !== ""){
+      this.setState({
+        posts: this.initialposts.filter((post) => {
+          return post.tags.includes(this.state.searchText);
+        })
+      })
+    }
+    else{
+      this.setState({posts: this.initialposts})
+    }
   }
 
   addComment(comment, postID) {

@@ -29,6 +29,23 @@ class Bookmarks extends React.Component {
       followers: current_user.followers,
       bookmarks: bookmarkedPosts,
     };
+    this.initialposts = this.state.bookmarks
+  }
+
+  //Does not work as intended for the moment, if you unbookmark a post,
+  //such post will still appear for a search until you switch the page
+  searchRequest() {
+    console.log(this.state.searchText);
+    if(this.state.searchText !== ""){
+      this.setState({
+        bookmarks: this.initialposts.filter((post) => {
+          return post.tags.includes(this.state.searchText);
+        })
+      })
+    }
+    else{
+      this.setState({bookmarks: this.initialposts})
+    }
   }
 
   addComment(comment, postID) {
@@ -55,6 +72,7 @@ class Bookmarks extends React.Component {
       bookmarks: posts_copy,
     });
   }
+
 
   render() {
     return (

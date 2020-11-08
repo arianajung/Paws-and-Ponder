@@ -33,6 +33,7 @@ class App extends React.Component {
             tags: [
               "Hard Coded Tags under App.js",
               "Tags can be added properly under My blog",
+              "tag1", "tag2"
             ],
           },
           {
@@ -43,7 +44,7 @@ class App extends React.Component {
               "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia imperdiet ipsum, a accumsan ligula pulvinar ut. Aliquam at accumsan velit, quis molestie magna. Proin sit amet finibus nibh, a mattis nunc. Duis tincidunt dolor eu nisl semper posuere. Sed ligula dolor, scelerisque quis lacus et, ultrices blandit neque.",
             comments: [],
             bookmarked: false,
-            tags: [],
+            tags: ["tag1"],
           },
           {
             postID: 3,
@@ -53,7 +54,7 @@ class App extends React.Component {
               "Some text to enable scrolling. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia imperdiet ipsum, a accumsan ligula pulvinar ut. Aliquam at accumsan velit, quis molestie magna. Proin sit amet finibus nibh, a mattis nunc. Duis tincidunt dolor eu nisl semper posuere. Sed ligula dolor, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia imperdiet ipsum, a accumsan ligula pulvinar ut. Aliquam at accumsan velit, quis molestie magna. Proin sit amet finibus nibh, a mattis nunc. Duis tincidunt dolor eu nisl semper posuere. Sed ligula dolor, scelerisque quis lacus et, ultrices blandit neque.scelerisque quis lacus et, ultrices blandit neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia imperdiet ipsum, a accumsan ligula pulvinar ut. Aliquam at accumsan velit, quis molestie magna. Proin sit amet finibus nibh, a mattis nunc. Duis tincidunt dolor eu nisl semper posuere. Sed ligula dolor, scelerisque quis lacus et, ultrices blandit neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia imperdiet ipsum, a accumsan ligula pulvinar ut. Aliquam at accumsan velit, quis molestie magna. Proin sit amet finibus nibh, a mattis nunc. Duis tincidunt dolor eu nisl semper posuere. Sed ligula dolor, scelerisque quis lacus et, ultrices blandit neque.",
             comments: [],
             bookmarked: false,
-            tags: [],
+            tags: ["tag1","tag3"],
           },
           {
             postID: 4,
@@ -63,7 +64,7 @@ class App extends React.Component {
               "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia imperdiet ipsum, a accumsan ligula pulvinar ut. Aliquam at accumsan velit, quis molestie magna. Proin sit amet finibus nibh, a mattis nunc. Duis tincidunt dolor eu nisl semper posuere. Sed ligula dolor, scelerisque quis lacus et, ultrices blandit neque.",
             comments: [],
             bookmarked: false,
-            tags: [],
+            tags: ["tag2","tag3"],
           },
           {
             postID: 5,
@@ -72,7 +73,7 @@ class App extends React.Component {
             text: "hi",
             comments: [],
             bookmarked: false,
-            tags: [],
+            tags: ["tag4"],
           },
         ],
         userPostCount: 1,
