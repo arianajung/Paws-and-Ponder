@@ -64,7 +64,7 @@ class App extends React.Component {
             commentCount: 0,
             comments: [],
             bookmarked: false,
-            tags: ["tag1","tag3"],
+            tags: ["tag1", "tag3"],
           },
           {
             postID: 4,
@@ -75,7 +75,7 @@ class App extends React.Component {
             commentCount: 0,
             comments: [],
             bookmarked: false,
-            tags: ["tag2","tag3"],
+            tags: ["tag2", "tag3"],
           },
           {
             postID: 5,
@@ -162,8 +162,28 @@ class App extends React.Component {
       <div>
         <BrowserRouter>
           <Switch>
-            <Route exact path="/" render={() => <Login app={this} />} />
-            <Route exact path="/signup" render={() => <SignUp app={this} />} />
+            <Route
+              exact
+              path="/"
+              render={() =>
+                Auth.isAuthenticated() ? (
+                  <Redirect to="/main" />
+                ) : (
+                    <Login app={this} />
+                  )
+              }
+            />
+            <Route
+              exact
+              path="/signup"
+              render={() =>
+                Auth.isAuthenticated() ? (
+                  <Redirect to="/main" />
+                ) : (
+                    <SignUp app={this} />
+                  )
+              }
+            />
             <Route
               exact
               path="/main"
@@ -171,8 +191,8 @@ class App extends React.Component {
                 Auth.isAuthenticated() ? (
                   <Main app={this} />
                 ) : (
-                  <Redirect to="/" />
-                )
+                    <Redirect to="/" />
+                  )
               }
             />
             <Route
@@ -182,8 +202,8 @@ class App extends React.Component {
                 Auth.isAuthenticated() ? (
                   <MyBlog app={this} />
                 ) : (
-                  <Redirect to="/" />
-                )
+                    <Redirect to="/" />
+                  )
               }
             />
             <Route
@@ -193,8 +213,8 @@ class App extends React.Component {
                 Auth.isAuthenticated() ? (
                   <Settings app={this} />
                 ) : (
-                  <Redirect to="/" />
-                )
+                    <Redirect to="/" />
+                  )
               }
             />
             <Route
@@ -204,8 +224,8 @@ class App extends React.Component {
                 Auth.isAuthenticated() ? (
                   <Bookmarks app={this} />
                 ) : (
-                  <Redirect to="/" />
-                )
+                    <Redirect to="/" />
+                  )
               }
             />
             {/* <Route exact path="/main" render={() => <Main app={this} />} />
