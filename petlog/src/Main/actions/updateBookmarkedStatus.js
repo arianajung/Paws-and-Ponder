@@ -1,19 +1,15 @@
+import getCurrentUserAndIndex from "../../actions/getCurrentUserAndIndex";
+
 export default function updateBookmarkedStatus(
   app_users,
   current_username,
   post,
   bookmark
 ) {
-  // get the current_username's user object
-  let current_user_index = 0;
-  let current_user;
-  while (current_user_index < app_users.length) {
-    if (app_users[current_user_index].username === current_username) {
-      current_user = app_users[current_user_index];
-      break;
-    }
-    current_user_index += 1;
-  }
+  const [current_user_index, current_user] = getCurrentUserAndIndex(
+    app_users,
+    current_username
+  );
 
   const updatedPost = post;
   if (bookmark === true) {
@@ -29,5 +25,4 @@ export default function updateBookmarkedStatus(
 
   let newAppUsers = app_users.slice();
   newAppUsers.splice(current_user_index, 1, current_user);
-  // console.log(newAppUsers[0].mainPosts);
 }

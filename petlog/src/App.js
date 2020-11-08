@@ -41,6 +41,7 @@ class App extends React.Component {
             tags: [
               "Hard Coded Tags under App.js",
               "Tags can be added properly under My blog",
+              "tag1", "tag2"
             ],
           },
           {
@@ -52,7 +53,7 @@ class App extends React.Component {
             commentCount: 0,
             comments: [],
             bookmarked: false,
-            tags: [],
+            tags: ["tag1"],
           },
           {
             postID: 3,
@@ -63,7 +64,7 @@ class App extends React.Component {
             commentCount: 0,
             comments: [],
             bookmarked: false,
-            tags: [],
+            tags: ["tag1","tag3"],
           },
           {
             postID: 4,
@@ -74,7 +75,7 @@ class App extends React.Component {
             commentCount: 0,
             comments: [],
             bookmarked: false,
-            tags: [],
+            tags: ["tag2","tag3"],
           },
           {
             postID: 5,
@@ -84,7 +85,7 @@ class App extends React.Component {
             commentCount: 0,
             comments: [],
             bookmarked: false,
-            tags: [],
+            tags: ["tag4"],
           },
         ],
         userPostCount: 1,

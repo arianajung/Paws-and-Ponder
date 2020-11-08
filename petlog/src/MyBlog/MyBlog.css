@@ -1,5 +1,5 @@
 .blog-middle-area {
-	width: 100%;
+  width: 100%;
 }
 
 .post-area {
@@ -39,8 +39,6 @@
   margin-top: 15px;
   margin-bottom: 50px;
 }
-
-
 
 .make-a-post-text .MuiOutlinedInput-root fieldset {
   border-color: rgba(0, 0, 0, 0);
@@ -83,7 +81,7 @@
 
 #attach-button:hover {
   color: rgba(0, 0, 0, 0.9);
-  background-color: rgba(156, 185, 177, 0.507);
+  background-color: rgba(187, 181, 157, 0.507);
 }
 
 #post-button {
@@ -100,7 +98,7 @@
 #post-button:hover {
   font-weight: bolder;
   color: rgba(0, 0, 0, 0.8);
-  background-color: rgba(156, 185, 177, 0.507);
+  background-color: rgba(187, 181, 157, 0.507);
 }
 
 .preview-img {
