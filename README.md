@@ -23,11 +23,12 @@ Phase 1: (Ordered by Priority)
 -   ~~Ability to add pictures to a post~~
 -   ~~Deleting a post for a user~~
 	- ~~Fix problem with CSS styling that occurs when all posts from MyBlog are removed~~
--   Like/Bookmark Buttons for a post
--   View for bookmarked posts
--   Tags for posts to enable search bar(?)
+-   ~~Like/Bookmark Buttons for a post
+-   ~~View for bookmarked posts
+-   ~~Tags for posts to enable search bar(?)
+	- Search bar feature?
 -   Admin View and functionalities
--   Notifications
+-   (Only if we have time) Notifications
 -   ~~Allow user-upload avatar pictures~~  Provide 3(?) hardcoded images for users to select from for their avatar
 -   Keep in mind where a RESTful API call will be established to our backend as developing, prepare the correct states/hooks for sending/receiving these data if possible.
 ---
