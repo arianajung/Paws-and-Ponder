@@ -17,6 +17,7 @@ import Navbar from "../Main/Navbar/Navbar";
 import PostList from "./../PostList/PostList";
 import postImg from "./static/post_img.jpeg";
 import getCurrentUserAndIndex from "../actions/getCurrentUserAndIndex";
+import getPostIndex from "../actions/getPostIndex";
 
 // css
 import "./MyBlog.css";
@@ -51,7 +52,7 @@ class MyBlog extends Component {
       followers: current_user.followers,
       //this is added for search purposes, need a way to know all posts that exist currently
       //the post we had can be understood as "posts to be displayed" -- Fred
-      all_posts: current_user.userPosts
+      all_posts: current_user.userPosts,
     };
     // For searching purposes, display initial posts if searching with empty string
   }
@@ -63,16 +64,14 @@ class MyBlog extends Component {
 
   // Filter to only display posts that include the tags in the search bar
   searchRequest() {
-    console.log(this.state.searchText);
-    if(this.state.searchText !== ""){
+    if (this.state.searchText !== "") {
       this.setState({
         posts: this.state.all_posts.filter((post) => {
           return post.tags.includes(this.state.searchText);
-        })
-      })
-    }
-    else{
-      this.setState({posts: this.state.all_posts})
+        }),
+      });
+    } else {
+      this.setState({ posts: this.state.all_posts });
     }
   }
 
@@ -85,8 +84,10 @@ class MyBlog extends Component {
       text: comment,
     };
 
-    posts_copy[postID - 1].comments = this.state.posts[
-      postID - 1
+    const postIndex = getPostIndex(this.state.posts, postID);
+
+    posts_copy[postIndex].comments = this.state.posts[
+      postIndex
     ].comments.concat(new_comment);
 
     posts_copy[postID - 1].commentCount++;
@@ -141,9 +142,8 @@ class MyBlog extends Component {
         post_count: this.state.post_count + 1,
         posts: posts_copy,
         app_users: newUsers,
-        all_posts: all_posts_copy
+        all_posts: all_posts_copy,
       });
-
     }
   }
 
