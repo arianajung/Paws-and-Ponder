@@ -12,8 +12,6 @@ import BookmarkIcon from "@material-ui/icons/TurnedInNot";
 import BookmarkedIcon from "@material-ui/icons/TurnedIn";
 import Chip from "@material-ui/core/Chip";
 import { removePost } from "../../MyBlog/actions/removePost";
-// import bookmarkPost from "../actions/bookmarkPost";
-// import unbookmarkPost from "../actions/unbookmarkPost";
 import updateBookmarkedStatus from "../actions/updateBookmarkedStatus";
 
 /* A Post Component */
@@ -60,7 +58,11 @@ class Post extends React.Component {
     // should retrieve this information from server later
     if (post.user === current_username) {
       removeBtn = (
-        <IconButton onClick={() => removePost(myBlog, postID)}>
+        <IconButton
+          onClick={() =>
+            removePost(myBlog, postID, current_username, app_users)
+          }
+        >
           <DeleteIcon />
         </IconButton>
       );
@@ -68,12 +70,28 @@ class Post extends React.Component {
       removeBtn = "";
     }
 
-    let bookmarkIcon;
+    let bookmarkBtn;
     if (post.user !== current_username) {
       if (post.bookmarked === false) {
-        bookmarkIcon = <BookmarkIcon />;
+        bookmarkBtn = (
+          <IconButton
+            onClick={() =>
+              this.handleBookmarkBtn(app_users, current_username, post)
+            }
+          >
+            <BookmarkIcon />
+          </IconButton>
+        );
       } else {
-        bookmarkIcon = <BookmarkedIcon />;
+        bookmarkBtn = (
+          <IconButton
+            onClick={() =>
+              this.handleBookmarkBtn(app_users, current_username, post)
+            }
+          >
+            <BookmarkedIcon />
+          </IconButton>
+        );
       }
     }
 
@@ -124,15 +142,7 @@ class Post extends React.Component {
               </div>
               <div className="buttons">
                 <div className="removeBtn">{removeBtn}</div>
-                <div className="bookmarkBtn">
-                  <IconButton
-                    onClick={() =>
-                      this.handleBookmarkBtn(app_users, current_username, post)
-                    }
-                  >
-                    {bookmarkIcon}
-                  </IconButton>
-                </div>
+                <div className="bookmarkBtn">{bookmarkBtn}</div>
               </div>
 
               {/* Need to add more user stuff here like user pic*/}

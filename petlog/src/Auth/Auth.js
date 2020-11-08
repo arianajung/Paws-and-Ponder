@@ -24,7 +24,7 @@ class Auth {
       console.log(app.state.userCreds)
       callback();
     } else {
-      console.log("Username already exists")
+      console.log("Invalid")
     }
   }
 

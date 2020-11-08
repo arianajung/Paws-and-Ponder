@@ -75,12 +75,13 @@
   width: 100%;
   overflow: auto;
   min-height: 100px;
-  background-color: rgba(167, 233, 215, 0.431);
+  background-color: rgba(241, 236, 227, 0.479);
   display: inline-flex;
   flex-direction: column;
-  border: solid rgba(156, 185, 177, 0.507) 2px;
+  border: solidrgba(211, 205, 180, 0.507) 2px;
   border-radius: 10px;
   margin-bottom: 1%;
+  box-shadow: 5px 3px 8px #e2e1e1;
 }
 
 .userIconContainer {
@@ -117,8 +118,8 @@
 
 .comment-area {
   width: 95%;
-  background-color: rgba(223, 223, 238, 0.52);
-  border: solid 2px rgba(156, 185, 177, 0.945);
+  background-color: rgba(226, 226, 241, 0.253);
+  border: solid 2px rgba(211, 205, 180, 0.507);
   border-radius: 10px;
   margin: auto;
   margin-top: 5px;
@@ -145,20 +146,20 @@
 }
 
 .leave-a-comment label.Mui-focused {
-  color: rgba(0, 0, 0, 0.6);
+  color: rgba(51, 48, 39, 0.507);
 }
 
 .leave-a-comment .MuiOutlinedInput-root fieldset {
   border-radius: 10px;
-  border-color: rgba(0, 0, 0, 0.6);
+  border-color: rgba(136, 122, 92, 0.6);
 }
 
 .leave-a-comment .MuiOutlinedInput-root.Mui-focused fieldset {
-  border: solid 2px rgba(156, 185, 177, 0.507);
+  border: solid 2px rgba(187, 181, 157, 0.507);
 }
 
 .leave-a-comment .MuiOutlinedInput-root:hover fieldset {
-  border: solid 2px rgba(156, 185, 177, 0.507);
+  border: solid 2px rgba(187, 181, 157, 0.507);
 }
 
 .comments {
@@ -186,5 +187,5 @@
 #comment-button:hover {
   font-weight: bolder;
   color: rgba(0, 0, 0, 0.8);
-  background-color: rgba(156, 185, 177, 0.507);
+  background-color: rgba(187, 181, 157, 0.507);
 }
