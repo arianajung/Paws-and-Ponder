@@ -53,11 +53,11 @@ class Comment extends Component {
     return (
       <div className="comment">
         <div className="comment-icon">{userImg}</div>
-        <div className="removeCommentBtn">{removeBtn}</div>
         <div className="comment-content">
           <div id="comment-name">{comment_user}</div>
           <div id="comment-text">{comment_text}</div>
         </div>
+        <div className="removeCommentBtn">{removeBtn}</div>
       </div>
     );
   }
