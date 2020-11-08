@@ -18,14 +18,10 @@ import MenuListComposition from "./AdminPostMenu/AdminPostMenu";
 
 /* A Post Component */
 class Post extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      new_comment: "",
-      bookmarked: false,
-    };
-  }
+  state = {
+    new_comment: "",
+    bookmarked: false,
+  };
 
   // handles button press
   buttonPress(e) {
@@ -54,6 +50,9 @@ class Post extends React.Component {
       postID,
       myBlog,
       profileImg,
+      isMain,
+      page,
+      role
     } = this.props;
 
     let removeBtn;
@@ -114,6 +113,11 @@ class Post extends React.Component {
           comment_user={comment.user}
           comment_text={comment.text}
           profileImg={profileImg}
+          isMain={isMain}
+          commentID={comment.commentID}
+          page={page}
+          postID={postID}
+          role={role}
         />
       );
     });
@@ -155,7 +159,7 @@ class Post extends React.Component {
               {/* Need to add more user stuff here like user pic*/}
             </div>
             <div className="post-content">
-              <img id="post-img" src={post.image}></img>
+              <img id="post-img" src={post.image} alt=""></img>
               <div id="post-text">{post.text}</div>
             </div>
             <div className="tagsContainer">Tags: {tags}</div>

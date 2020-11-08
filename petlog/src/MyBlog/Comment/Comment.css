@@ -34,6 +34,10 @@
   padding-bottom: 5px;
 }
 
+.removeCommentBtn {
+  margin-left: auto;
+}
+
 #user-icon {
   margin: 5px;
   width: 60px;

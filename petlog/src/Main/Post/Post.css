@@ -55,20 +55,23 @@
 }
 
 .buttons {
-  margin-left: 67%;
+  /* margin-left: 67%;
   position: relative;
-  display: flex;
+  display: flex; */
+  margin-left: auto;
 }
 
 .removeBtn {
-  margin-left: 108%;
+  /* margin-left: 108%;
   height: 50px;
-  position: aboslute;
+  position: aboslute; */
+  margin-left: auto;
 }
 
 .bookmarkBtn {
-  position: absolute;
-  left: 57px;
+  /* position: absolute;
+  left: 57px; */
+  margin-left: auto;
 }
 
 .post {

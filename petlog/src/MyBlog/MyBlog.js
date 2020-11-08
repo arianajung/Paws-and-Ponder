@@ -77,17 +77,19 @@ class MyBlog extends Component {
 
   addComment(comment, postID) {
     const posts_copy = this.state.posts.slice();
+    const postIndex = getPostIndex(this.state.posts, postID);
 
     const new_comment = {
+      commentID: this.state.posts[postIndex].commentCount + 1,
       user: this.state.current_username,
       text: comment,
     };
 
-    const postIndex = getPostIndex(this.state.posts, postID);
-
     posts_copy[postIndex].comments = this.state.posts[
       postIndex
     ].comments.concat(new_comment);
+
+    posts_copy[postIndex].commentCount++;
 
     this.setState({
       posts: posts_copy,
@@ -100,13 +102,6 @@ class MyBlog extends Component {
       this.state.new_post_text.trim() !== "" ||
       this.state.new_post_img.trim() !== ""
     ) {
-      const new_date = new Date();
-      const date = new_date.getDate();
-      const month = new_date.getMonth() + 1;
-      const year = new_date.getFullYear();
-
-      const str_date = `${date}/${month}/${year}`;
-
       const new_post = {
         postID: this.state.post_count + 1,
         date: new Date().toLocaleString(),
@@ -114,6 +109,7 @@ class MyBlog extends Component {
         text: this.state.new_post_text,
         image: this.state.new_post_img,
         bookmarked: false,
+        commentCount: 0,
         comments: [],
         tags: this.state.new_post_tags,
       };
@@ -193,7 +189,11 @@ class MyBlog extends Component {
           <div className="make-a-post-container">
             <div>
               {/* Server called needed here to display a preview of the image chosen by the user */}
-              <img className="preview-img" src={this.state.new_post_img} />
+              <img
+                className="preview-img"
+                src={this.state.new_post_img}
+                alt=""
+              />
               <TextField
                 className="make-a-post-text"
                 variant="outlined"
@@ -260,6 +260,9 @@ class MyBlog extends Component {
               addComment={this.addComment}
               myBlog={this}
               profileImg={this.state.profileImg}
+              isMain={false}
+              page={this}
+              role={this.state.current_user_role}
             />
           </div>
         </div>
