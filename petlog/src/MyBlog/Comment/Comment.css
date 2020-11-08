@@ -17,8 +17,9 @@
   display: inline-flex;
   flex-direction: row;
   margin: 10px;
-  border: solid rgba(156, 185, 177, 0.507) 2px;
+  border: solid rgba(211, 205, 180, 0.507) 2px;
   border-radius: 10px;
+  background-color: rgba(245, 243, 240, 0.479);
 }
 
 .comment-icon {
