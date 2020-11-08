@@ -4,6 +4,7 @@ import PostList from "./../PostList/PostList";
 import SearchBar from "material-ui-search-bar";
 import PermanentDrawerRight from "../Main/DrawerMenu/Drawer";
 import "./Bookmarks.css";
+import getPostIndex from "../actions/getPostIndex";
 
 class Bookmarks extends React.Component {
   constructor(props) {
@@ -29,22 +30,21 @@ class Bookmarks extends React.Component {
       followers: current_user.followers,
       bookmarks: bookmarkedPosts,
     };
-    this.initialposts = this.state.bookmarks
+    this.initialposts = this.state.bookmarks;
   }
 
   //Does not work as intended for the moment, if you unbookmark a post,
   //such post will still appear for a search until you switch the page
   searchRequest() {
     console.log(this.state.searchText);
-    if(this.state.searchText !== ""){
+    if (this.state.searchText !== "") {
       this.setState({
         bookmarks: this.initialposts.filter((post) => {
           return post.tags.includes(this.state.searchText);
-        })
-      })
-    }
-    else{
-      this.setState({bookmarks: this.initialposts})
+        }),
+      });
+    } else {
+      this.setState({ bookmarks: this.initialposts });
     }
   }
 
@@ -56,13 +56,15 @@ class Bookmarks extends React.Component {
       text: comment,
     };
 
-    let postIndex = 0;
-    while (postIndex < this.state.bookmarks.length) {
-      if (this.state.bookmarks[postIndex].postID === postID) {
-        break;
-      }
-      postIndex += 1;
-    }
+    // let postIndex = 0;
+    // while (postIndex < this.state.bookmarks.length) {
+    //   if (this.state.bookmarks[postIndex].postID === postID) {
+    //     break;
+    //   }
+    //   postIndex += 1;
+    // }
+
+    const postIndex = getPostIndex(this.state.bookmarks, postID);
 
     posts_copy[postIndex].comments = this.state.bookmarks[
       postIndex
@@ -72,7 +74,6 @@ class Bookmarks extends React.Component {
       bookmarks: posts_copy,
     });
   }
-
 
   render() {
     return (

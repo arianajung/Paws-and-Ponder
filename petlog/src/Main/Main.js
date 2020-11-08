@@ -4,6 +4,7 @@ import Navbar from "./Navbar/Navbar";
 import SearchBar from "material-ui-search-bar";
 import PermanentDrawerRight from "./DrawerMenu/Drawer";
 import "./Main.css";
+import getPostIndex from "../actions/getPostIndex";
 
 /* Main page where the user views all of the posts made by people that they follow*/
 class Main extends React.Component {
@@ -31,22 +32,21 @@ class Main extends React.Component {
     // Temperoal solution to render all initial posts when the search filters
     // some of the posts away, would be nice if current_user.mainPosts is accessable
     // from other functions
-    this.initialposts = this.state.posts
+    this.initialposts = this.state.posts;
   }
 
   //Triggered when a search request is sent
   // Filter to only display posts that include the tags in the search bar
   searchRequest() {
     console.log(this.state.searchText);
-    if(this.state.searchText !== ""){
+    if (this.state.searchText !== "") {
       this.setState({
         posts: this.initialposts.filter((post) => {
           return post.tags.includes(this.state.searchText);
-        })
-      })
-    }
-    else{
-      this.setState({posts: this.initialposts})
+        }),
+      });
+    } else {
+      this.setState({ posts: this.initialposts });
     }
   }
 
@@ -58,8 +58,14 @@ class Main extends React.Component {
       text: comment,
     };
 
-    posts_copy[postID - 1].comments = this.state.posts[
-      postID - 1
+    // posts_copy[postID - 1].comments = this.state.posts[
+    //   postID - 1
+    // ].comments.concat(new_comment);
+
+    const postIndex = getPostIndex(this.state.posts, postID);
+
+    posts_copy[postIndex].comments = this.state.posts[
+      postIndex
     ].comments.concat(new_comment);
 
     this.setState({

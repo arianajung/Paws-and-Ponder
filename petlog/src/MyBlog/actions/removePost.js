@@ -1,7 +1,7 @@
 import getCurrentUserAndIndex from "../../actions/getCurrentUserAndIndex";
 
 export const removePost = (myBlog, postID, current_username, app_users) => {
-  const filteredPosts = myBlog.state.posts.filter((p) => {
+  const filteredPosts = myBlog.state.all_posts.filter((p) => {
     return p.postID !== postID;
   });
 
@@ -10,13 +10,11 @@ export const removePost = (myBlog, postID, current_username, app_users) => {
   const allfilteredPosts = myBlog.state.all_posts.filter((p) => {
     return p.postID !== postID;
   });
-  
+
   myBlog.setState({
     posts: filteredPosts,
-    all_posts: allfilteredPosts
+    all_posts: allfilteredPosts,
   });
-
-  console.log(current_username);
 
   const [current_user_index, current_user] = getCurrentUserAndIndex(
     app_users,
