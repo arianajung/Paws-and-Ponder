@@ -77,20 +77,19 @@ class MyBlog extends Component {
 
   addComment(comment, postID) {
     const posts_copy = this.state.posts.slice();
+    const postIndex = getPostIndex(this.state.posts, postID);
 
     const new_comment = {
-      commentID: this.state.posts[postID - 1].commentCount + 1,
+      commentID: this.state.posts[postIndex].commentCount + 1,
       user: this.state.current_username,
       text: comment,
     };
-
-    const postIndex = getPostIndex(this.state.posts, postID);
 
     posts_copy[postIndex].comments = this.state.posts[
       postIndex
     ].comments.concat(new_comment);
 
-    posts_copy[postID - 1].commentCount++;
+    posts_copy[postIndex].commentCount++;
 
     this.setState({
       posts: posts_copy,
