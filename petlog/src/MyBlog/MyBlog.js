@@ -16,7 +16,7 @@ import PermanentDrawerRight from "../Main/DrawerMenu/Drawer";
 import Navbar from "../Main/Navbar/Navbar";
 import PostList from "./../PostList/PostList";
 import postImg from "./static/post_img.jpeg";
-import { removePost } from "./actions/removePost";
+import getCurrentUserAndIndex from "../actions/getCurrentUserAndIndex";
 
 // css
 import "./MyBlog.css";
@@ -28,16 +28,11 @@ class MyBlog extends Component {
 
     // Obtain information about current user
     const { current_username, users } = props.app.state;
-    let current_user_index = 0;
-    let current_user;
 
-    while (current_user_index < users.length) {
-      if (users[current_user_index].username === current_username) {
-        current_user = users[current_user_index];
-        break;
-      }
-      current_user_index += 1;
-    }
+    const [current_user_index, current_user] = getCurrentUserAndIndex(
+      users,
+      current_username
+    );
 
     this.state = {
       app_users: props.app.state.users,
