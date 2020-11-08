@@ -14,6 +14,8 @@ import Chip from "@material-ui/core/Chip";
 import { removePost } from "../../MyBlog/actions/removePost";
 import updateBookmarkedStatus from "../actions/updateBookmarkedStatus";
 
+import MenuListComposition from "./AdminPostMenu/AdminPostMenu";
+
 /* A Post Component */
 class Post extends React.Component {
   state = {
@@ -53,46 +55,74 @@ class Post extends React.Component {
       role
     } = this.props;
 
-    let removeBtn;
-    // should retrieve this information from server later
-    if (post.user === current_username) {
-      removeBtn = (
+    // let removeBtn;
+    // // should retrieve this information from server later
+    // if (post.user === current_username) {
+    //   removeBtn = (
+    //     <IconButton
+    //       onClick={() =>
+    //         removePost(myBlog, postID, current_username, app_users)
+    //       }
+    //     >
+    //       <DeleteIcon />
+    //     </IconButton>
+    //   );
+    // } else {
+    //   removeBtn = "";
+    // }
+
+    // let bookmarkBtn;
+    // if (post.user !== current_username) {
+    //   if (post.bookmarked === false) {
+    //     bookmarkBtn = (
+    //       <IconButton
+    //         onClick={() =>
+    //           this.handleBookmarkBtn(app_users, current_username, post)
+    //         }
+    //       >
+    //         <BookmarkIcon />
+    //       </IconButton>
+    //     );
+    //   } else {
+    //     bookmarkBtn = (
+    //       <IconButton
+    //         onClick={() =>
+    //           this.handleBookmarkBtn(app_users, current_username, post)
+    //         }
+    //       >
+    //         <BookmarkedIcon />
+    //       </IconButton>
+    //     );
+    //   }
+    // }
+    
+    const bookmarkOrRemoveButton = (post.user !== current_username) ? ( // bookmark button
+      <div className="bookmarkBtn">
         <IconButton
           onClick={() =>
-            removePost(myBlog, postID, current_username, app_users)
+            this.handleBookmarkBtn(app_users, current_username, post)
           }
+        >
+          {post.bookmarked === false ? <BookmarkIcon/> : <BookmarkedIcon/>}
+        </IconButton>
+      </div>
+    ) : ( // remove button
+      <div className="removeBtn">
+        <IconButton
+          onClick={() => removePost(myBlog, postID, current_username, app_users)}
         >
           <DeleteIcon />
         </IconButton>
-      );
-    } else {
-      removeBtn = "";
-    }
+      </div>
+    )
 
-    let bookmarkBtn;
-    if (post.user !== current_username) {
-      if (post.bookmarked === false) {
-        bookmarkBtn = (
-          <IconButton
-            onClick={() =>
-              this.handleBookmarkBtn(app_users, current_username, post)
-            }
-          >
-            <BookmarkIcon />
-          </IconButton>
-        );
-      } else {
-        bookmarkBtn = (
-          <IconButton
-            onClick={() =>
-              this.handleBookmarkBtn(app_users, current_username, post)
-            }
-          >
-            <BookmarkedIcon />
-          </IconButton>
-        );
-      }
-    }
+    const adminButton = (role === "admin") ? (
+      <div className="admin-button">
+        <MenuListComposition>
+          postUser={post.user}
+        </MenuListComposition>
+      </div>
+    ) : null
 
     // should retrieve this information from server later
     let userImg;
@@ -145,8 +175,8 @@ class Post extends React.Component {
                 </div>
               </div>
               <div className="buttons">
-                <div className="removeBtn">{removeBtn}</div>
-                <div className="bookmarkBtn">{bookmarkBtn}</div>
+                {bookmarkOrRemoveButton}
+                {adminButton}
               </div>
 
               {/* Need to add more user stuff here like user pic*/}
