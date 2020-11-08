@@ -30,7 +30,6 @@ export default function PermanentDrawerRight(props) {
         }}
         anchor="right"
       >
-        <div className={classes.toolbar} />
         <Typography className="title" variant="h6">
           Followers
         </Typography>
