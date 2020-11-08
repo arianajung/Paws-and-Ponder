@@ -9,6 +9,7 @@ import MyBlog from "./MyBlog/MyBlog";
 import Bookmarks from "./Bookmarks/Bookmarks";
 import Settings from "./Settings/Settings";
 import profileImg from "./static/bunny.jpg";
+import adminProfileImg from "./static/admin.png";
 import Auth from "./Auth/Auth";
 
 class App extends React.Component {
@@ -105,7 +106,7 @@ class App extends React.Component {
       {
         username: "admin",
         role: "admin",
-        profileImg: "",
+        profileImg: adminProfileImg,
         following: [],
         followers: [],
         mainPosts: [],

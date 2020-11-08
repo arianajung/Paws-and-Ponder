@@ -14,6 +14,8 @@ import Chip from "@material-ui/core/Chip";
 import { removePost } from "../../MyBlog/actions/removePost";
 import updateBookmarkedStatus from "../actions/updateBookmarkedStatus";
 
+import MenuListComposition from "./AdminPostMenu/AdminPostMenu";
+
 /* A Post Component */
 class Post extends React.Component {
   constructor(props) {
@@ -143,6 +145,11 @@ class Post extends React.Component {
               <div className="buttons">
                 <div className="removeBtn">{removeBtn}</div>
                 <div className="bookmarkBtn">{bookmarkBtn}</div>
+                <div className="admin-button">
+                  <MenuListComposition>
+                    
+                  </MenuListComposition>
+                </div>
               </div>
 
               {/* Need to add more user stuff here like user pic*/}
