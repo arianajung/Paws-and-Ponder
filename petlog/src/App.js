@@ -28,7 +28,15 @@ class App extends React.Component {
             user: "Ariana",
             text:
               "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia imperdiet ipsum, a accumsan ligula pulvinar ut. Aliquam at accumsan velit, quis molestie magna. Proin sit amet finibus nibh, a mattis nunc. Duis tincidunt dolor eu nisl semper posuere. Sed ligula dolor, scelerisque quis lacus et, ultrices blandit neque.",
-            comments: [],
+            commentCount: 1,
+            comments: [
+              {
+                commentID: 1,
+                user: "Ariana",
+                text:
+                  "wow me too \nLorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia imperdiet ipsum, a accumsan ligula pulvinar ut. Aliquam at accumsan velit, quis molestie magna. Proin sit amet finibus nibh, a mattis nunc. Duis tincidunt dolor eu nisl semper posuere. Sed ligula dolor, scelerisque quis lacus et, ultrices blandit neque.",
+              },
+            ],
             bookmarked: false,
             tags: [
               "Hard Coded Tags under App.js",
@@ -42,6 +50,7 @@ class App extends React.Component {
             user: "Sherry",
             text:
               "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia imperdiet ipsum, a accumsan ligula pulvinar ut. Aliquam at accumsan velit, quis molestie magna. Proin sit amet finibus nibh, a mattis nunc. Duis tincidunt dolor eu nisl semper posuere. Sed ligula dolor, scelerisque quis lacus et, ultrices blandit neque.",
+            commentCount: 0,
             comments: [],
             bookmarked: false,
             tags: ["tag1"],
@@ -52,6 +61,7 @@ class App extends React.Component {
             user: "Fred",
             text:
               "Some text to enable scrolling. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia imperdiet ipsum, a accumsan ligula pulvinar ut. Aliquam at accumsan velit, quis molestie magna. Proin sit amet finibus nibh, a mattis nunc. Duis tincidunt dolor eu nisl semper posuere. Sed ligula dolor, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia imperdiet ipsum, a accumsan ligula pulvinar ut. Aliquam at accumsan velit, quis molestie magna. Proin sit amet finibus nibh, a mattis nunc. Duis tincidunt dolor eu nisl semper posuere. Sed ligula dolor, scelerisque quis lacus et, ultrices blandit neque.scelerisque quis lacus et, ultrices blandit neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia imperdiet ipsum, a accumsan ligula pulvinar ut. Aliquam at accumsan velit, quis molestie magna. Proin sit amet finibus nibh, a mattis nunc. Duis tincidunt dolor eu nisl semper posuere. Sed ligula dolor, scelerisque quis lacus et, ultrices blandit neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia imperdiet ipsum, a accumsan ligula pulvinar ut. Aliquam at accumsan velit, quis molestie magna. Proin sit amet finibus nibh, a mattis nunc. Duis tincidunt dolor eu nisl semper posuere. Sed ligula dolor, scelerisque quis lacus et, ultrices blandit neque.",
+            commentCount: 0,
             comments: [],
             bookmarked: false,
             tags: ["tag1","tag3"],
@@ -62,6 +72,7 @@ class App extends React.Component {
             user: "Enable Scrolling",
             text:
               "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia imperdiet ipsum, a accumsan ligula pulvinar ut. Aliquam at accumsan velit, quis molestie magna. Proin sit amet finibus nibh, a mattis nunc. Duis tincidunt dolor eu nisl semper posuere. Sed ligula dolor, scelerisque quis lacus et, ultrices blandit neque.",
+            commentCount: 0,
             comments: [],
             bookmarked: false,
             tags: ["tag2","tag3"],
@@ -71,6 +82,7 @@ class App extends React.Component {
             date: "29/10/2020",
             user: "Ariana",
             text: "hi",
+            commentCount: 0,
             comments: [],
             bookmarked: false,
             tags: ["tag4"],
@@ -84,13 +96,16 @@ class App extends React.Component {
             user: "user",
             text: "hi i like cats :D",
             image: "",
+            commentCount: 2,
             comments: [
               {
+                commentID: 1,
                 user: "Ariana",
                 text:
                   "wow me too \nLorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia imperdiet ipsum, a accumsan ligula pulvinar ut. Aliquam at accumsan velit, quis molestie magna. Proin sit amet finibus nibh, a mattis nunc. Duis tincidunt dolor eu nisl semper posuere. Sed ligula dolor, scelerisque quis lacus et, ultrices blandit neque.",
               },
               {
+                commentID: 2,
                 user: "Fred",
                 text: "bunnies are better",
               },
@@ -108,9 +123,57 @@ class App extends React.Component {
         profileImg: "",
         following: [],
         followers: [],
-        mainPosts: [],
+        mainPosts: [
+          {
+            postID: 1,
+            date: "29/10/2020",
+            user: "Ariana",
+            text:
+              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia imperdiet ipsum, a accumsan ligula pulvinar ut. Aliquam at accumsan velit, quis molestie magna. Proin sit amet finibus nibh, a mattis nunc. Duis tincidunt dolor eu nisl semper posuere. Sed ligula dolor, scelerisque quis lacus et, ultrices blandit neque.",
+            commentCount: 1,
+            comments: [
+              {
+                commentID: 1,
+                user: "Ariana",
+                text:
+                  "wow me too \nLorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia imperdiet ipsum, a accumsan ligula pulvinar ut. Aliquam at accumsan velit, quis molestie magna. Proin sit amet finibus nibh, a mattis nunc. Duis tincidunt dolor eu nisl semper posuere. Sed ligula dolor, scelerisque quis lacus et, ultrices blandit neque.",
+              },
+            ],
+            bookmarked: false,
+            tags: [
+              "Hard Coded Tags under App.js",
+              "Tags can be added properly under My blog",
+            ],
+          },
+        ],
         userPostCount: 0,
-        userPosts: [],
+        userPosts: [
+          {
+            postID: 1,
+            date: "30/10/2020",
+            user: "user",
+            text: "hi i like cats :D",
+            image: "",
+            commentCount: 2,
+            comments: [
+              {
+                commentID: 1,
+                user: "Ariana",
+                text:
+                  "wow me too \nLorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia imperdiet ipsum, a accumsan ligula pulvinar ut. Aliquam at accumsan velit, quis molestie magna. Proin sit amet finibus nibh, a mattis nunc. Duis tincidunt dolor eu nisl semper posuere. Sed ligula dolor, scelerisque quis lacus et, ultrices blandit neque.",
+              },
+              {
+                commentID: 2,
+                user: "Fred",
+                text: "bunnies are better",
+              },
+            ],
+            tags: [
+              "Enter in the sub text field and press button to add tags",
+              "checks for duplicates and empty tags",
+            ],
+          },
+        ],
         bookmarks: [],
       },
     ],

@@ -23,10 +23,12 @@ class Main extends React.Component {
       app_users: props.app.state.users,
       searchText: "",
       current_username: current_user.username,
+      current_user_role: current_user.role,
       profileImg: current_user.profileImg,
       following: current_user.following,
       followers: current_user.followers,
       posts: current_user.mainPosts,
+      comment_count: current_user.commentCount,
     };
 
     // Temperoal solution to render all initial posts when the search filters
@@ -54,6 +56,7 @@ class Main extends React.Component {
     const posts_copy = this.state.posts.slice();
 
     const new_comment = {
+      commentID: this.state.posts[postID - 1].commentCount + 1,
       user: this.state.current_username,
       text: comment,
     };
@@ -67,6 +70,8 @@ class Main extends React.Component {
     posts_copy[postIndex].comments = this.state.posts[
       postIndex
     ].comments.concat(new_comment);
+
+    posts_copy[postID - 1].commentCount++;
 
     this.setState({
       posts: posts_copy,
@@ -94,6 +99,9 @@ class Main extends React.Component {
               posts={this.state.posts}
               addComment={this.addComment}
               profileImg={this.state.profileImg}
+              isMain={true}
+              page={this}
+              role={this.state.current_user_role}
             />
           </div>
         </div>
