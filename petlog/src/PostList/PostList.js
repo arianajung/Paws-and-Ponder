@@ -5,9 +5,6 @@ import Post from "./../Main/Post/Post";
 
 /* Component for the List of Posts */
 class PostList extends React.Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     const {
       current_username,

@@ -100,13 +100,6 @@ class MyBlog extends Component {
       this.state.new_post_text.trim() !== "" ||
       this.state.new_post_img.trim() !== ""
     ) {
-      const new_date = new Date();
-      const date = new_date.getDate();
-      const month = new_date.getMonth() + 1;
-      const year = new_date.getFullYear();
-
-      const str_date = `${date}/${month}/${year}`;
-
       const new_post = {
         postID: this.state.post_count + 1,
         date: new Date().toLocaleString(),
@@ -193,7 +186,11 @@ class MyBlog extends Component {
           <div className="make-a-post-container">
             <div>
               {/* Server called needed here to display a preview of the image chosen by the user */}
-              <img className="preview-img" src={this.state.new_post_img} />
+              <img
+                className="preview-img"
+                src={this.state.new_post_img}
+                alt=""
+              />
               <TextField
                 className="make-a-post-text"
                 variant="outlined"

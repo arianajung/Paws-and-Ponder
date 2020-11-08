@@ -5,11 +5,6 @@ import imgsrc from "../../static/img_1.jpg";
 import "./Comment.css";
 
 class Comment extends Component {
-  // not sure if needs a state yet
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const {
       current_username,
