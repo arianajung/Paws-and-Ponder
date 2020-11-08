@@ -260,7 +260,6 @@ class MyBlog extends Component {
               addComment={this.addComment}
               myBlog={this}
               profileImg={this.state.profileImg}
-              isMain={false}
               page={this}
               role={this.state.current_user_role}
             />
@@ -268,6 +267,8 @@ class MyBlog extends Component {
         </div>
         <div>
           <PermanentDrawerRight
+            app={this.props.app}
+            profile={this}
             following={this.state.following}
             followers={this.state.followers}
           />

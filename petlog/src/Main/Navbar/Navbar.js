@@ -8,7 +8,7 @@ import Auth from "../../Auth/Auth"
 
 function Navbar({ view, current_user, current_user_role, profileImg }) {
   let userProfile;
-  if (view === "myBlog") {
+  if (view === "myBlog" || view === "profile") {
     userProfile = (
       <div className="profile-wrapper">
         <img className="img" src={profileImg} alt="profile-pic" />

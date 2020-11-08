@@ -3,6 +3,7 @@ import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import imgsrc from "../../static/img_1.jpg";
 import { removeComment } from "../actions/removeComment";
+import MyBlog from "../../MyBlog/MyBlog"
 
 // css
 import "./Comment.css";
@@ -14,7 +15,6 @@ class Comment extends Component {
       comment_user,
       comment_text,
       profileImg,
-      isMain,
       commentID,
       page,
       postID,
@@ -28,7 +28,7 @@ class Comment extends Component {
           <DeleteIcon />
         </IconButton>
       );
-    } else if (isMain === false) {
+    } else if (page instanceof MyBlog) {
       removeBtn = (
         <IconButton onClick={() => removeComment(page, postID, commentID)}>
           <DeleteIcon />

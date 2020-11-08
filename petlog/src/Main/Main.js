@@ -94,7 +94,6 @@ class Main extends React.Component {
               posts={this.state.posts}
               addComment={this.addComment}
               profileImg={this.state.profileImg}
-              isMain={true}
               page={this}
               role={this.state.current_user_role}
             />
@@ -102,6 +101,8 @@ class Main extends React.Component {
         </div>
         <div>
           <PermanentDrawerRight
+            app={this.props.app}
+            profile={this}
             following={this.state.following}
             followers={this.state.followers}
           />

@@ -8,6 +8,7 @@ import Main from "./Main/Main";
 import MyBlog from "./MyBlog/MyBlog";
 import Bookmarks from "./Bookmarks/Bookmarks";
 import Settings from "./Settings/Settings";
+import Profile from "./Profile/Profile"
 import profileImg from "./static/bunny.jpg";
 import adminProfileImg from "./static/admin.png";
 import Auth from "./Auth/Auth";
@@ -15,13 +16,14 @@ import Auth from "./Auth/Auth";
 class App extends React.Component {
   state = {
     current_username: "", // username of the currently logged in user
+    profile_username: "",
     users: [
       {
         username: "user",
         role: "user",
         profileImg: profileImg,
         following: ["Ovi", "Ariana", "Fred"],
-        followers: ["Sherry", "Fred"],
+        followers: ["admin", "user2"],
         mainPosts: [
           {
             postID: 1,
@@ -148,12 +150,93 @@ class App extends React.Component {
           },
         ],
         userPostCount: 0,
-        userPosts: [],
+        userPosts: [
+          {
+            postID: 1,
+            date: "30/10/2020",
+            user: "admin",
+            text: "Cats are cute :D",
+            image: "",
+            commentCount: 2,
+            comments: [
+              {
+                commentID: 1,
+                user: "Ariana",
+                text:
+                  "wow me too \nLorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia imperdiet ipsum, a accumsan ligula pulvinar ut. Aliquam at accumsan velit, quis molestie magna. Proin sit amet finibus nibh, a mattis nunc. Duis tincidunt dolor eu nisl semper posuere. Sed ligula dolor, scelerisque quis lacus et, ultrices blandit neque.",
+              },
+              {
+                commentID: 2,
+                user: "Fred",
+                text: "bunnies are better",
+              },
+            ],
+            tags: [
+              "Enter in the sub text field and press button to add tags",
+              "checks for duplicates and empty tags",
+            ],
+          },
+        ],
+        bookmarks: [],
+      },
+      {
+        username: "user2",
+        role: "user",
+        profileImg: profileImg,
+        following: [],
+        followers: [],
+        mainPosts: [
+          {
+            postID: 1,
+            date: "29/10/2020",
+            user: "Ariana",
+            text:
+              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia imperdiet ipsum, a accumsan ligula pulvinar ut. Aliquam at accumsan velit, quis molestie magna. Proin sit amet finibus nibh, a mattis nunc. Duis tincidunt dolor eu nisl semper posuere. Sed ligula dolor, scelerisque quis lacus et, ultrices blandit neque.",
+            commentCount: 1,
+            comments: [
+              {
+                commentID: 1,
+                user: "Ariana",
+                text:
+                  "wow me too \nLorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia imperdiet ipsum, a accumsan ligula pulvinar ut. Aliquam at accumsan velit, quis molestie magna. Proin sit amet finibus nibh, a mattis nunc. Duis tincidunt dolor eu nisl semper posuere. Sed ligula dolor, scelerisque quis lacus et, ultrices blandit neque.",
+              },
+            ],
+            bookmarked: false,
+            tags: [
+              "Hard Coded Tags under App.js",
+              "Tags can be added properly under My blog",
+            ],
+          },
+        ],
+        userPostCount: 0,
+        userPosts: [
+          {
+            postID: 1,
+            date: "30/10/2020",
+            user: "user2",
+            text: "Dogs are cute :D",
+            image: "",
+            commentCount: 1,
+            comments: [
+              {
+                commentID: 1,
+                user: "Sherry",
+                text:
+                  "wow me too.",
+              },
+            ],
+            tags: [
+              "Enter in the sub text field and press button to add tags",
+              "Tag5",
+            ],
+          },
+        ],
         bookmarks: [],
       },
     ],
     userCreds: [
       { username: "user", password: "user" },
+      { username: "user2", password: "user2" },
       { username: "admin", password: "admin" },
     ],
   };
@@ -224,6 +307,17 @@ class App extends React.Component {
               render={() =>
                 Auth.isAuthenticated() ? (
                   <Bookmarks app={this} />
+                ) : (
+                    <Redirect to="/" />
+                  )
+              }
+            />
+            <Route
+              exact
+              path="/profile"
+              render={() =>
+                Auth.isAuthenticated() ? (
+                  <Profile app={this} />
                 ) : (
                     <Redirect to="/" />
                   )

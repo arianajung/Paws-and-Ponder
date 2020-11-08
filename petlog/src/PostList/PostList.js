@@ -14,7 +14,6 @@ class PostList extends React.Component {
       myBlog,
       bookmarksView,
       profileImg,
-      isMain,
       page,
       role
     } = this.props;
@@ -32,7 +31,6 @@ class PostList extends React.Component {
             myBlog={myBlog}
             bookmarksView={bookmarksView}
             profileImg={profileImg}
-            isMain={isMain}
             page={page}
             role={role}
           />
