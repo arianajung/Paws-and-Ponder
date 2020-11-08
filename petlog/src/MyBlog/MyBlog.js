@@ -67,7 +67,8 @@ class MyBlog extends Component {
     if (this.state.searchText !== "") {
       this.setState({
         posts: this.state.all_posts.filter((post) => {
-          return post.tags.includes(this.state.searchText);
+          return post.tags.includes(this.state.searchText) ||
+          post.user.toLowerCase() === this.state.searchText.toLowerCase();;
         }),
       });
     } else {
@@ -181,6 +182,8 @@ class MyBlog extends Component {
             {/* needs a component */}
             <SearchBar
               value={this.state.searchText}
+              placeholder="Search by Tags or Usernames"
+              onCancelSearch={() => this.setState({ searchText: "" })}
               onChange={(newValue) => this.setState({ searchText: newValue })}
               onRequestSearch={() => this.searchRequest()}
             />
@@ -228,6 +231,12 @@ class MyBlog extends Component {
                 value={this.state.new_tag}
                 onChange={(e) => {
                   this.setState({ new_tag: e.target.value });
+                }}
+                onKeyPress={(ev) => {
+                  if (ev.key === 'Enter') {
+                    ev.preventDefault();
+                    this.addTag();
+                  }
                 }}
               />
 
