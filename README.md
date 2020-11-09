@@ -31,27 +31,27 @@ Functionalities walkthrough:
 1. **Main Page**: 
 
 	In this view, as a user, you can:
-- Interact with the navigation bar displayed on the left, which takes you to different views. (**->Main, My Blog, Bookmarks, Settings, Log In Page**)
+	- Interact with the navigation bar displayed on the left, which takes you to different views. (**->Main, My Blog, Bookmarks, Settings, Log In Page**)
 
-- View all the posts made by the users that you follow in the middle. You may like, bookmark, or comment on each post. Clicking on the avatar of a post or comment brings you to the profile page of that user. (**->Profile**)
+	- View all the posts made by the users that you follow in the middle. You may like, bookmark, or comment on each post. Clicking on the avatar of a post or comment brings you to the profile page of that user. (**->Profile**)
 
-- Bookmark a post by pressing the bookmark button on the top right of each post, and it will be added to your Bookmarks view (**->Bookmarks**). 
+	- Bookmark a post by pressing the bookmark button on the top right of each post, and it will be added to your Bookmarks view (**->Bookmarks**). 
 
-- You can make a new comment by typing in the comment text field under each post and pressing the comment button. You can also delete a comment that you've made by pressing the remove button on the right side of your comment.
+	- You can make a new comment by typing in the comment text field under each post and pressing the comment button. You can also delete a comment that you've made by pressing the remove button on the right side of your comment.
 
-- Search by tags or usernames with the search bar displayed on the top. The search is not case-sensitive and will return all posts from the current view that matches the username or tag. You may only search for one tag/username at a time. To display all existing posts from this view again, search with an empty string.
+	- Search by tags or usernames with the search bar displayed on the top. The search is not case-sensitive and will return all posts from the current view that matches the username or tag. You may only search for one tag/username at a time. To display all existing posts from this view again, search with an empty string.
 
-- View all your followers and the users that you are following on the right. Clicking on an avatar brings you to that user's profile page. (**->Profile**)
+	- View all your followers and the users that you are following on the right. Clicking on an avatar brings you to that user's profile page. (**->Profile**)
 
 2. **My Blog**: 
 
 	This view contains all of the user's own posts and shares some similarities with the Main view in terms of functionalities:
 
-- The Navigation Bar, the search bar, and the Followers/Following Section work the same as in Main.
+	- The Navigation Bar, the search bar, and the Followers/Following Section work the same as in Main.
 
-- For the post section, in addition to commenting, you can also delete any comments made by other users. You can also delete your post by pressing the delete button on the top right of each post.
+	- For the post section, in addition to commenting, you can also delete any comments made by other users. You can also delete your post by pressing the delete button on the top right of each post.
 
-- You can make a new post by typing in the post textbox on top of the page. You may add custom tags by typing in the tag text field and pressing the "add button" or the "enter key". These tags will respond to the searches made by the search bar within this view. You may delete an added tag by pressing the delete icon on each of the new tag before making your post. Pressing the image icon will insert a hardcoded image into your post, this will be generalized to custom images uploaded by the user in phase 2. Finally, you may press the POST button to create your new post.
+	- You can make a new post by typing in the post textbox on top of the page. You may add custom tags by typing in the tag text field and pressing the "add button" or the "enter key". These tags will respond to the searches made by the search bar within this view. You may delete an added tag by pressing the delete icon on each of the new tag before making your post. Pressing the image icon will insert a hardcoded image into your post, this will be generalized to custom images uploaded by the user in phase 2. Finally, you may press the POST button to create your new post.
 
 3. **Bookmarks**: 
 
@@ -60,20 +60,20 @@ Functionalities walkthrough:
 4. **Profile**: 
 
 	This view also works the same as the Main View, with a few differences:
-- It only displays posts made by this specific user
+	- It only displays posts made by this specific user
 
-- You may follow or unfollow this user by clicking on the button displayed below the avatar in the navigation bar. Doing so will add/remove this user from your following list on the right.
+	- You may follow or unfollow this user by clicking on the button displayed below the avatar in the navigation bar. Doing so will add/remove this user from your following list on the right.
 
 5. **Settings**: 
 
 	This view contains the frontend for various settings and customization that we wish to implement in our phase 2.
-- **Note that it outputs "Warning: findDOMNode is deprecated in StrictMode" when expanding an Accordion, this is because the latest version of MaterialUI is making a browser API call that is deprecated in strict mode, which we cannot handle easily**
+	- **Note that it outputs "Warning: findDOMNode is deprecated in StrictMode" when expanding an Accordion, this is because the latest version of MaterialUI is making a browser API call that is deprecated in strict mode, which we cannot handle easily**
 
-- Expand each accordion to see which settings we wish to implement for a user, each of these will send an API request to the server to update specific information about the user in Phase 2.
+	- Expand each accordion to see which settings we wish to implement for a user, each of these will send an API request to the server to update specific information about the user in Phase 2.
 
-- For now, the profile picture setting allows 3 hardcoded pictures for the user to select from, this is however not reflect in the user profile because we plan to make this change to the server later, same with the other settings.
+	- For now, the profile picture setting allows 3 hardcoded pictures for the user to select from, this is however not reflect in the user profile because we plan to make this change to the server later, same with the other settings.
 
-- The tabs in the navigation bar on the left are intended to bring you to that specific section of settings, this is however not necessary for this stage of development, as we do not have enough settings to populate the view. You may still go back to the Main view or log on by pressing the corresponding buttons. (**->Main, Log In Page**)
+	- The tabs in the navigation bar on the left are intended to bring you to that specific section of settings, this is however not necessary for this stage of development, as we do not have enough settings to populate the view. You may still go back to the Main view or log on by pressing the corresponding buttons. (**->Main, Log In Page**)
 
 
 ### Admin
