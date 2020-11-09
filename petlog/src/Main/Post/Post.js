@@ -14,6 +14,7 @@ import { removePost } from "../../MyBlog/actions/removePost";
 import updateBookmarkedStatus from "../actions/updateBookmarkedStatus";
 import getCurrentUserAndIndex from "../../actions/getCurrentUserAndIndex"
 import MenuListComposition from "./AdminPostMenu/AdminPostMenu";
+import { handleProfileBtn } from "../../actions/handleProfileBtn"
 import { Link } from "react-router-dom";
 
 /* A Post Component */
@@ -41,28 +42,6 @@ class Post extends React.Component {
       updateBookmarkedStatus(app_users, current_username, post, true);
     }
   }
-
-  handleProfileBtn(app, username, profile) {
-    app.setState({
-      profile_username: username,
-    });
-
-    const { users } = app.state;
-
-    const [profile_user_index, profile_user] = getCurrentUserAndIndex(
-      users,
-      username
-    )
-
-    profile.setState({
-      profile_user_index: profile_user_index,
-      profile_username: profile_user.username,
-      profile_user_role: profile_user.role,
-      profile_profileImg: profile_user.profileImg,
-      posts: profile_user.userPosts,
-      all_posts: profile_user.userPosts
-    })
-  };
 
   render() {
     const {
@@ -163,7 +142,7 @@ class Post extends React.Component {
       )
     } else {
       userImg = (
-        <Link to={"/profile"} onClick={() => this.handleProfileBtn(page.props.app, post.user, page)}>
+        <Link to={"/profile"} onClick={() => handleProfileBtn(page.props.app, post.user, page)}>
           <img id="userIcon" src={getCurrentUserAndIndex(app_users, post.user)[1].profileImg} alt="tempImage" />
         </Link>
       )

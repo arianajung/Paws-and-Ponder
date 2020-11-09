@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import getCurrentUserAndIndex from "../../actions/getCurrentUserAndIndex"
+import { handleProfileBtn } from "../../actions/handleProfileBtn"
 import { removeComment } from "../actions/removeComment";
 import MyBlog from "../../MyBlog/MyBlog"
 import { Link } from "react-router-dom";
@@ -10,28 +11,6 @@ import { Link } from "react-router-dom";
 import "./Comment.css";
 
 class Comment extends Component {
-  handleProfileBtn(app, username, profile) {
-    app.setState({
-      profile_username: username,
-    });
-
-    const { users } = app.state;
-
-    const [profile_user_index, profile_user] = getCurrentUserAndIndex(
-      users,
-      username
-    )
-
-    profile.setState({
-      profile_user_index: profile_user_index,
-      profile_username: profile_user.username,
-      profile_user_role: profile_user.role,
-      profile_profileImg: profile_user.profileImg,
-      posts: profile_user.userPosts,
-      all_posts: profile_user.userPosts
-    })
-  };
-
   render() {
     const {
       current_username,
@@ -43,6 +22,7 @@ class Comment extends Component {
       postID,
       role
     } = this.props;
+
     let removeBtn = "";
     // should retrieve this information from server later
     if (role === "admin") {
@@ -83,7 +63,7 @@ class Comment extends Component {
       )
     } else {
       userImg = (
-        <Link to={"/profile"} onClick={() => this.handleProfileBtn(page.props.app, comment_user, page)}>
+        <Link to={"/profile"} onClick={() => handleProfileBtn(page.props.app, comment_user, page)}>
           <img id="user-icon" src={getCurrentUserAndIndex(page.props.app.state.users, comment_user)[1].profileImg} alt="tempImage" />
         </Link>
       )

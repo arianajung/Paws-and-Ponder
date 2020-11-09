@@ -41,7 +41,7 @@ class Bookmarks extends React.Component {
       this.setState({
         bookmarks: this.state.all_posts.filter((post) => {
           return post.tags.map(tag => tag.toLowerCase()).includes(this.state.searchText.toLowerCase()) ||
-          post.user.toLowerCase() === this.state.searchText.toLowerCase();
+            post.user.toLowerCase() === this.state.searchText.toLowerCase();
         }),
       });
     } else {
