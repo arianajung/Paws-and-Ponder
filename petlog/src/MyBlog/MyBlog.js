@@ -18,7 +18,7 @@ import PostList from "./../PostList/PostList";
 import postImg from "./static/post_img.jpeg";
 import getCurrentUserAndIndex from "../actions/getCurrentUserAndIndex";
 import getPostIndex from "../actions/getPostIndex";
-import searchRequest from "../actions/searchRequest"
+import searchRequest from "../actions/searchRequest";
 
 // css
 import "./MyBlog.css";
@@ -47,7 +47,7 @@ class MyBlog extends Component {
       new_post_img: "",
       new_tag: "",
       new_post_tags: [],
-      post_count: current_user.userPostCount,
+      total_num_posts: props.app.state.total_num_posts,
       posts: current_user.userPosts,
       following: current_user.following,
       followers: current_user.followers,
@@ -106,7 +106,7 @@ class MyBlog extends Component {
       this.state.new_post_img.trim() !== ""
     ) {
       const new_post = {
-        postID: this.state.post_count + 1,
+        postID: this.state.total_num_posts + 1,
         date: new Date().toLocaleString(),
         user: this.state.current_username,
         text: this.state.new_post_text,
@@ -128,17 +128,20 @@ class MyBlog extends Component {
       current_user.userPosts = posts_copy;
       let newUsers = this.state.app_users.slice();
       newUsers.splice(this.state.current_user_index, 1, current_user);
+      console.log(current_user.userPosts);
 
       this.setState({
         new_post_text: "",
         new_post_img: "",
         new_tag: "",
         new_post_tags: [],
-        post_count: this.state.post_count + 1,
+        total_num_posts: this.state.total_num_posts + 1,
         posts: posts_copy,
         app_users: newUsers,
         all_posts: all_posts_copy,
       });
+
+      this.props.app.incrementTotalNumPosts();
     }
   }
 
@@ -235,7 +238,7 @@ class MyBlog extends Component {
                   this.setState({ new_tag: e.target.value });
                 }}
                 onKeyPress={(ev) => {
-                  if (ev.key === 'Enter') {
+                  if (ev.key === "Enter") {
                     ev.preventDefault();
                     this.addTag();
                   }

@@ -4,24 +4,26 @@ export default function updateBookmarkedStatus(
   app_users,
   current_username,
   post,
-  bookmark
+  bookmarked
 ) {
   const [current_user_index, current_user] = getCurrentUserAndIndex(
     app_users,
     current_username
   );
 
-  const updatedPost = post;
-  if (bookmark === true) {
-    updatedPost.bookmarked = true;
+  const current_bookmarks = app_users[current_user_index].bookmarks;
+
+  let updatedBookmarks;
+  if (bookmarked === true) {
+    updatedBookmarks = current_bookmarks.slice();
+    updatedBookmarks.push(post);
   } else {
-    updatedPost.bookmarked = false;
+    updatedBookmarks = current_bookmarks.filter((p) => {
+      return p.postID !== post.postID;
+    });
   }
 
-  // is bookmarked from Main
-  const updatedMainPosts = current_user.mainPosts.slice();
-  updatedMainPosts.splice(post.postID - 1, 1, updatedPost);
-  current_user.mainPosts = updatedMainPosts;
+  current_user.bookmarks = updatedBookmarks;
 
   let newAppUsers = app_users.slice();
   newAppUsers.splice(current_user_index, 1, current_user);
