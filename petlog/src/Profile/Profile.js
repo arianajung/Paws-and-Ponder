@@ -95,6 +95,8 @@ class Profile extends Component {
                 <div>
                     <Navbar
                         view="profile"
+                        profile={this}
+                        following={this.state.following}
                         current_user={this.state.profile_username}
                         current_user_role={this.state.profile_user_role}
                         profileImg={this.state.profile_profileImg}

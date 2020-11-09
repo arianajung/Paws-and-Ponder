@@ -5,8 +5,36 @@ import { Link } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
 import PetsIcon from "@material-ui/icons/Pets";
 import Auth from "../../Auth/Auth"
+import IconButton from "@material-ui/core/IconButton";
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import PersonAddDisabledIcon from '@material-ui/icons/PersonAddDisabled';
 
-function Navbar({ view, current_user, current_user_role, profileImg }) {
+function contains(current_user, following) {
+  for (let i = 0; i < following.length; i++) {
+    if (following[i] === current_user) {
+      return true
+    }
+  }
+  return false
+}
+
+function handleFollowBtn(current_user, following, profile) {
+  if (contains(current_user, following)) {
+    const filtered = following.filter((username) => {
+      return username !== current_user
+    })
+    profile.setState({
+      following: filtered
+    })
+  } else {
+    following.push(current_user)
+    profile.setState({
+      following: following
+    })
+  }
+}
+
+function Navbar({ profile, following, view, current_user, current_user_role, profileImg }) {
   let userProfile;
   if (view === "myBlog" || view === "profile") {
     userProfile = (
@@ -29,6 +57,19 @@ function Navbar({ view, current_user, current_user_role, profileImg }) {
     );
   }
 
+  let followBtn;
+  if (view === "profile") {
+    followBtn = (
+      <div className="followBtn">
+        <IconButton
+          onClick={() => handleFollowBtn(current_user, following, profile)}
+        >
+          {contains(current_user, following) ? <PersonAddDisabledIcon /> : <PersonAddIcon />}
+        </IconButton>
+      </div>
+    );
+  }
+
   return (
     <div className="wrapper">
       <div className="navbar">
@@ -42,6 +83,7 @@ function Navbar({ view, current_user, current_user_role, profileImg }) {
         </Typography>
 
         {userProfile}
+        {followBtn}
 
         <ul className="navbar-list">
           {NavbarData.map((val, key) => {
