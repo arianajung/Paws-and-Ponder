@@ -11,7 +11,10 @@ import BookmarkIcon from "@material-ui/icons/TurnedInNot";
 import BookmarkedIcon from "@material-ui/icons/TurnedIn";
 import Chip from "@material-ui/core/Chip";
 import { removePost } from "../../MyBlog/actions/removePost";
+import { removeComment } from "../../MyBlog/actions/removeComment";
 import updateBookmarkedStatus from "../actions/updateBookmarkedStatus";
+
+import AdminDropDownMenu from "./AdminPostMenu/AdminPostMenu";
 import getCurrentUserAndIndex from "../../actions/getCurrentUserAndIndex";
 import MenuListComposition from "./AdminPostMenu/AdminPostMenu";
 import { handleProfileBtn } from "../../actions/profile";
@@ -107,12 +110,16 @@ class Post extends React.Component {
         </div>
       );
 
-    const adminButton =
-      role === "admin" ? (
-        <div className="admin-button">
-          <MenuListComposition>postUser={post.user}</MenuListComposition>
-        </div>
-      ) : null;
+    const adminButton = (isPost) => (role === "admin" && post.user !== current_username) ? (
+      <div className="admin-button">
+        <AdminDropDownMenu
+          user={post.user}
+          page={page}
+          isPost={isPost}
+          postID={postID}
+        />
+      </div>
+    ) : null
 
     // // should retrieve this information from server later
     // let userImg;
@@ -188,7 +195,7 @@ class Post extends React.Component {
               </div>
               <div className="buttons">
                 {bookmarkOrRemoveButton}
-                {adminButton}
+                {adminButton(true)}
               </div>
 
               {/* Need to add more user stuff here like user pic*/}

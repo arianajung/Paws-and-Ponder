@@ -59,19 +59,29 @@
   position: relative;
   display: flex; */
   margin-left: auto;
+  margin-right: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  width: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .removeBtn {
   /* margin-left: 108%;
   height: 50px;
   position: aboslute; */
-  margin-left: auto;
+  
 }
 
 .bookmarkBtn {
   /* position: absolute;
   left: 57px; */
-  margin-left: auto;
+  
+}
+
+.admin-button {
 }
 
 .post {
@@ -163,6 +173,12 @@
 
 .leave-a-comment .MuiOutlinedInput-root:hover fieldset {
   border: solid 2px rgba(187, 181, 157, 0.507);
+}
+
+.remove-button-element.MuiIconButton-root:hover {
+  color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(187, 181, 157, 0.507);
+
 }
 
 .comments {
