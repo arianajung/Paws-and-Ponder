@@ -12,6 +12,7 @@ import BookmarkIcon from "@material-ui/icons/TurnedInNot";
 import BookmarkedIcon from "@material-ui/icons/TurnedIn";
 import Chip from "@material-ui/core/Chip";
 import { removePost } from "../../MyBlog/actions/removePost";
+import { removeComment } from "../../MyBlog/actions/removeComment";
 import updateBookmarkedStatus from "../actions/updateBookmarkedStatus";
 
 import AdminDropDownMenu from "./AdminPostMenu/AdminPostMenu";
@@ -67,25 +68,27 @@ class Post extends React.Component {
     ) : ( // remove button
       <div className="removeBtn">
         <IconButton
-          id="remove-button-element"
+          className="remove-button-element"
           onClick={() => removePost(page, postID)}
         >
           <DeleteIcon />
         </IconButton>
       </div>
     )
-
-    const adminButton = (role === "admin") ? (
+    
+    const adminButton = (isPost) => (role === "admin" && post.user !== current_username) ? (
       <div className="admin-button">
         <AdminDropDownMenu
           postUser={post.user}
           page={page}
+          isPost={isPost}
           postID={postID}
-          removePost={removePost}
         />
       </div>
     ) : null
+    
 
+    
     // should retrieve this information from server later
     let userImg;
     if (post.user === current_username) {
@@ -137,7 +140,7 @@ class Post extends React.Component {
               </div>
               <div className="buttons">
                 {bookmarkOrRemoveButton}
-                {adminButton}
+                {adminButton(true)}
               </div>
 
               {/* Need to add more user stuff here like user pic*/}

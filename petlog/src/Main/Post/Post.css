@@ -175,7 +175,7 @@
   border: solid 2px rgba(187, 181, 157, 0.507);
 }
 
-#remove-button-element.MuiIconButton-root:hover {
+.remove-button-element.MuiIconButton-root:hover {
   color: rgba(0, 0, 0, 0.8);
   background-color: rgba(187, 181, 157, 0.507);
 

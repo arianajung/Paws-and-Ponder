@@ -3,12 +3,16 @@ import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import imgsrc from "../../static/img_1.jpg";
 import { removeComment } from "../actions/removeComment";
-import MyBlog from "../../MyBlog/MyBlog"
+import MyBlog from "../../MyBlog/MyBlog";
+import AdminDropDownMenu from "../../Main/Post/AdminPostMenu/AdminPostMenu";
 
 // css
 import "./Comment.css";
 
 class Comment extends Component {
+  constructor(props) {
+    super(props)
+  }
   render() {
     const {
       current_username,
@@ -18,29 +22,20 @@ class Comment extends Component {
       commentID,
       page,
       postID,
-      role
+      role,
     } = this.props;
-    let removeBtn = "";
-    // should retrieve this information from server later
-    if (role === "admin") {
-      removeBtn = (
-        <IconButton onClick={() => removeComment(page, postID, commentID)}>
+
+    // if the current page is user's personal blog or the comment is their own
+    const removeButton = (page instanceof MyBlog || comment_user === current_username) ? ( 
+      <div className="removeBtn">
+        <IconButton 
+          className="remove-button-element"
+          onClick={() => removeComment(page, postID, commentID)}
+        >
           <DeleteIcon />
         </IconButton>
-      );
-    } else if (page instanceof MyBlog) {
-      removeBtn = (
-        <IconButton onClick={() => removeComment(page, postID, commentID)}>
-          <DeleteIcon />
-        </IconButton>
-      );
-    } else if (comment_user === current_username) {
-      removeBtn = (
-        <IconButton onClick={() => removeComment(page, postID, commentID)}>
-          <DeleteIcon />
-        </IconButton>
-      );
-    }
+      </div>
+    ) : null
 
     // should retrieve this information from server later
     let userImg;
@@ -50,6 +45,18 @@ class Comment extends Component {
       userImg = <img id="user-icon" src={imgsrc} alt="tempImage"></img>;
     }
 
+    const adminButton2 = (isPost) => (role === "admin" && comment_user !== current_username) ? (
+      <div className="admin-button">
+        <AdminDropDownMenu
+          user={comment_user}
+          page={page}
+          isPost={isPost}
+          commentID={commentID}
+          postID={postID}
+        />
+      </div>
+    ) : null
+
     return (
       <div className="comment">
         <div className="comment-icon">{userImg}</div>
@@ -57,7 +64,10 @@ class Comment extends Component {
           <div id="comment-name">{comment_user}</div>
           <div id="comment-text">{comment_text}</div>
         </div>
-        <div className="removeCommentBtn">{removeBtn}</div>
+        <div className="buttons">
+          {removeButton}
+          {adminButton2(false)}
+        </div>
       </div>
     );
   }
