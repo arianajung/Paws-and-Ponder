@@ -18,6 +18,7 @@ import PostList from "./../PostList/PostList";
 import postImg from "./static/post_img.jpeg";
 import getCurrentUserAndIndex from "../actions/getCurrentUserAndIndex";
 import getPostIndex from "../actions/getPostIndex";
+import searchRequest from "../actions/searchRequest"
 
 // css
 import "./MyBlog.css";
@@ -63,18 +64,19 @@ class MyBlog extends Component {
   }
 
   // Filter to only display posts that include the tags in the search bar
-  searchRequest() {
-    if (this.state.searchText !== "") {
-      this.setState({
-        posts: this.state.all_posts.filter((post) => {
-          return post.tags.includes(this.state.searchText) ||
-          post.user.toLowerCase() === this.state.searchText.toLowerCase();;
-        }),
-      });
-    } else {
-      this.setState({ posts: this.state.all_posts });
-    }
-  }
+  // searchRequest() {
+  //   if (this.state.searchText !== "") {
+  //     this.setState({
+  //       posts: this.state.all_posts.filter((post) => {
+  //         //Filter to retain the posts that contains the same tag or made by the user (not case-sensitive)
+  //         return post.tags.map(tag => tag.toLowerCase()).includes(this.state.searchText.toLowerCase()) ||
+  //         post.user.toLowerCase() === this.state.searchText.toLowerCase();
+  //       }),
+  //     });
+  //   } else {
+  //     this.setState({ posts: this.state.all_posts });
+  //   }
+  // }
 
   addComment(comment, postID) {
     const posts_copy = this.state.posts.slice();
@@ -185,7 +187,7 @@ class MyBlog extends Component {
               placeholder="Search by Tags or Usernames"
               onCancelSearch={() => this.setState({ searchText: "" })}
               onChange={(newValue) => this.setState({ searchText: newValue })}
-              onRequestSearch={() => this.searchRequest()}
+              onRequestSearch={() => searchRequest(this)}
             />
           </div>
 

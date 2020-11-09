@@ -33,6 +33,7 @@ function handle(app, username, profile) {
     profile_user_role: profile_user.role,
     profile_profileImg: profile_user.profileImg,
     posts: profile_user.userPosts,
+    all_posts: profile_user.userPosts
   })
 };
 

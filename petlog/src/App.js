@@ -146,6 +146,7 @@ class App extends React.Component {
             tags: [
               "Hard Coded Tags under App.js",
               "Tags can be added properly under My blog",
+              "tag1", "tag2"
             ],
           },
         ],
@@ -172,10 +173,24 @@ class App extends React.Component {
               },
             ],
             tags: [
-              "Enter in the sub text field and press button to add tags",
-              "checks for duplicates and empty tags",
+              "tag1",
+              "tag2",
             ],
           },
+          {
+            postID: 2,
+            date: "30/10/2020",
+            user: "admin",
+            text: "More posts to make searching for tags more interesting :D",
+            image: "",
+            commentCount: 0,
+            comments: [
+            ],
+            tags: [
+              "tag1",
+              "tag3",
+            ],
+          }
         ],
         bookmarks: [],
       },

@@ -9,6 +9,7 @@ import Navbar from "../Main/Navbar/Navbar";
 import PostList from "./../PostList/PostList";
 import getCurrentUserAndIndex from "../actions/getCurrentUserAndIndex";
 import getPostIndex from "../actions/getPostIndex";
+import searchRequest from "../actions/searchRequest"
 
 // css
 import "../MyBlog/MyBlog.css";
@@ -45,27 +46,13 @@ class Profile extends Component {
             profile_profileImg: profile_user.profileImg,
             //this is added for search purposes, need a way to know all posts that exist currently
             //the post we had can be understood as "posts to be displayed" -- Fred
-            all_posts: current_user.userPosts,
+            all_posts: profile_user.userPosts,
         };
-        // For searching purposes, display initial posts if searching with empty string
     }
 
     // fetch post info from db and store in state
     componentDidMount() {
-        console.log("MyBlog.js: componenetDidMount()");
-    }
-
-    // Filter to only display posts that include the tags in the search bar
-    searchRequest() {
-        if (this.state.searchText !== "") {
-            this.setState({
-                posts: this.state.all_posts.filter((post) => {
-                    return post.tags.includes(this.state.searchText);
-                }),
-            });
-        } else {
-            this.setState({ posts: this.state.all_posts });
-        }
+        console.log("Profile.js: componenetDidMount()");
     }
 
     addComment(comment, postID) {
@@ -104,12 +91,12 @@ class Profile extends Component {
                 </div>
                 <div className="blog-middle-area">
                     <div className="search-bar">
-                        {" "}
-                        {/* needs a component */}
                         <SearchBar
                             value={this.state.searchText}
+                            placeholder="Search by Tags or Usernames"
+                            onCancelSearch={() => this.setState({ searchText: "" })}
                             onChange={(newValue) => this.setState({ searchText: newValue })}
-                            onRequestSearch={() => this.searchRequest()}
+                            onRequestSearch={() => searchRequest(this)}
                         />
                     </div>
                     {/* map posts  */}
