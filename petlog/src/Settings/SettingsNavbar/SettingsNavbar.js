@@ -3,6 +3,7 @@ import "../../Main/Navbar/Navbar.css";
 import { SettingsNavbarData } from "./SettingsNavbarData";
 import { Link } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
+import Auth from "../../Auth/Auth"
 
 function SettingsNavbar() {
   return (
@@ -21,7 +22,7 @@ function SettingsNavbar() {
           {SettingsNavbarData.map((val, key) => {
             return (
               <div key={key}>
-                <Link to={val.link}>
+                <Link to={val.link} onClick={() => val.title === "Log Out" ? Auth.logout() : ""}>
                   <li className="row">
                     <div id="icon">{val.icon}</div>{" "}
                     <div id="title">{val.title}</div>
