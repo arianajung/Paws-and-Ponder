@@ -10,6 +10,9 @@ import Bookmarks from "./Bookmarks/Bookmarks";
 import Settings from "./Settings/Settings";
 import Profile from "./Profile/Profile";
 import profileImg from "./static/bunny.jpg";
+import dogImg from "./static/dog.jpg";
+import catImg from "./static/cat.jpg";
+import defaultImg from "./static/img_1.jpg";
 import adminProfileImg from "./static/admin.png";
 import Auth from "./Auth/Auth";
 
@@ -65,13 +68,19 @@ class App extends React.Component {
             text:
               "Some text to enable scrolling. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia imperdiet ipsum, a accumsan ligula pulvinar ut. Aliquam at accumsan velit, quis molestie magna. Proin sit amet finibus nibh, a mattis nunc. Duis tincidunt dolor eu nisl semper posuere. Sed ligula dolor, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia imperdiet ipsum, a accumsan ligula pulvinar ut. Aliquam at accumsan velit, quis molestie magna. Proin sit amet finibus nibh, a mattis nunc. Duis tincidunt dolor eu nisl semper posuere. Sed ligula dolor, scelerisque quis lacus et, ultrices blandit neque.scelerisque quis lacus et, ultrices blandit neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia imperdiet ipsum, a accumsan ligula pulvinar ut. Aliquam at accumsan velit, quis molestie magna. Proin sit amet finibus nibh, a mattis nunc. Duis tincidunt dolor eu nisl semper posuere. Sed ligula dolor, scelerisque quis lacus et, ultrices blandit neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia imperdiet ipsum, a accumsan ligula pulvinar ut. Aliquam at accumsan velit, quis molestie magna. Proin sit amet finibus nibh, a mattis nunc. Duis tincidunt dolor eu nisl semper posuere. Sed ligula dolor, scelerisque quis lacus et, ultrices blandit neque.",
             commentCount: 0,
-            comments: [],
+            comments: [
+              {
+                commentID: 1,
+                user: "Ovidiu",
+                text: "wow me too.",
+              },
+            ],
             tags: ["tag1", "tag3"],
           },
           {
             postID: 4,
             date: "29/10/2020",
-            user: "Enable Scrolling",
+            user: "Ovidiu",
             text:
               "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia imperdiet ipsum, a accumsan ligula pulvinar ut. Aliquam at accumsan velit, quis molestie magna. Proin sit amet finibus nibh, a mattis nunc. Duis tincidunt dolor eu nisl semper posuere. Sed ligula dolor, scelerisque quis lacus et, ultrices blandit neque.",
             commentCount: 0,
@@ -81,7 +90,7 @@ class App extends React.Component {
           {
             postID: 5,
             date: "29/10/2020",
-            user: "Ariana",
+            user: "user2",
             text: "hi",
             commentCount: 0,
             comments: [],
@@ -200,7 +209,7 @@ class App extends React.Component {
             comments: [
               {
                 commentID: 1,
-                user: "Ariana",
+                user: "Ovidiu",
                 text:
                   "wow me too \nLorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia imperdiet ipsum, a accumsan ligula pulvinar ut. Aliquam at accumsan velit, quis molestie magna. Proin sit amet finibus nibh, a mattis nunc. Duis tincidunt dolor eu nisl semper posuere. Sed ligula dolor, scelerisque quis lacus et, ultrices blandit neque.",
               },
@@ -232,6 +241,50 @@ class App extends React.Component {
             ],
           },
         ],
+        bookmarks: [],
+      },
+      {
+        username: "Ariana",
+        role: "user",
+        profileImg: defaultImg,
+        following: [],
+        followers: [],
+        mainPosts: [],
+        userPostCount: 0,
+        userPosts: [],
+        bookmarks: [],
+      },
+      {
+        username: "Sherry",
+        role: "user",
+        profileImg: defaultImg,
+        following: [],
+        followers: [],
+        mainPosts: [],
+        userPostCount: 0,
+        userPosts: [],
+        bookmarks: [],
+      },
+      {
+        username: "Fred",
+        role: "user",
+        profileImg: catImg,
+        following: [],
+        followers: [],
+        mainPosts: [],
+        userPostCount: 0,
+        userPosts: [],
+        bookmarks: [],
+      },
+      {
+        username: "Ovidiu",
+        role: "user",
+        profileImg: dogImg,
+        following: [],
+        followers: [],
+        mainPosts: [],
+        userPostCount: 0,
+        userPosts: [],
         bookmarks: [],
       },
     ],

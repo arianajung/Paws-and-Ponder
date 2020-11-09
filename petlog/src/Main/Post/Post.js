@@ -7,7 +7,6 @@ import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 // Need to change this to import specific user image instead
-import imgsrc from "../../static/img_1.jpg";
 import BookmarkIcon from "@material-ui/icons/TurnedInNot";
 import BookmarkedIcon from "@material-ui/icons/TurnedIn";
 import Chip from "@material-ui/core/Chip";
@@ -15,6 +14,8 @@ import { removePost } from "../../MyBlog/actions/removePost";
 import updateBookmarkedStatus from "../actions/updateBookmarkedStatus";
 import getCurrentUserAndIndex from "../../actions/getCurrentUserAndIndex";
 import MenuListComposition from "./AdminPostMenu/AdminPostMenu";
+import { handleProfileBtn } from "../../actions/handleProfileBtn";
+import { Link } from "react-router-dom";
 
 /* A Post Component */
 class Post extends React.Component {
@@ -113,12 +114,35 @@ class Post extends React.Component {
         </div>
       ) : null;
 
+    // // should retrieve this information from server later
+    // let userImg;
+    // if (post.user === current_username) {
+    //   userImg = <img id="userIcon" src={profileImg} alt="tempImage"></img>;
+    // } else {
+    //   userImg = <img id="userIcon" src={imgsrc} alt="tempImage"></img>;
+    // }
+
     // should retrieve this information from server later
     let userImg;
     if (post.user === current_username) {
-      userImg = <img id="userIcon" src={profileImg} alt="tempImage"></img>;
+      userImg = (
+        <Link to={"/blog"}>
+          <img id="userIcon" src={profileImg} alt="tempImage" />
+        </Link>
+      );
     } else {
-      userImg = <img id="userIcon" src={imgsrc} alt="tempImage"></img>;
+      userImg = (
+        <Link
+          to={"/profile"}
+          onClick={() => handleProfileBtn(page.props.app, post.user, page)}
+        >
+          <img
+            id="userIcon"
+            src={getCurrentUserAndIndex(app_users, post.user)[1].profileImg}
+            alt="tempImage"
+          />
+        </Link>
+      );
     }
 
     // create comment components

@@ -16,7 +16,7 @@ export default function updateBookmarkedStatus(
   let updatedBookmarks;
   if (bookmarked === true) {
     updatedBookmarks = current_bookmarks.slice();
-    updatedBookmarks.push(post);
+    updatedBookmarks.unshift(post);
   } else {
     updatedBookmarks = current_bookmarks.filter((p) => {
       return p.postID !== post.postID;
