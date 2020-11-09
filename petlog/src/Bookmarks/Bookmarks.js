@@ -25,6 +25,7 @@ class Bookmarks extends React.Component {
       app_users: props.app.state.users,
       searchText: "",
       current_username: current_user.username,
+      current_user_role: current_user.role,
       profileImg: current_user.profileImg,
       following: current_user.following,
       followers: current_user.followers,
@@ -99,6 +100,8 @@ class Bookmarks extends React.Component {
               bookmarksView={this}
               addComment={this.addComment}
               profileImg={this.state.profileImg}
+              page={this}
+              role={this.state.current_user_role}
             />
           </div>
         </div>
