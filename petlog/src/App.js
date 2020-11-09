@@ -22,7 +22,7 @@ class App extends React.Component {
         username: "user",
         role: "user",
         profileImg: profileImg,
-        following: ["Ovi", "Ariana", "Fred"],
+        following: [],
         followers: ["admin", "user2"],
         mainPosts: [
           {
@@ -124,7 +124,7 @@ class App extends React.Component {
         username: "admin",
         role: "admin",
         profileImg: adminProfileImg,
-        following: [],
+        following: ["user"],
         followers: [],
         mainPosts: [
           {
@@ -198,7 +198,7 @@ class App extends React.Component {
         username: "user2",
         role: "user",
         profileImg: profileImg,
-        following: [],
+        following: ["user"],
         followers: [],
         mainPosts: [
           {

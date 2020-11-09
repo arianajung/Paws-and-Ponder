@@ -94,7 +94,7 @@ class Post extends React.Component {
     //     );
     //   }
     // }
-    
+
     const bookmarkOrRemoveButton = (post.user !== current_username) ? ( // bookmark button
       <div className="bookmarkBtn">
         <IconButton
@@ -102,18 +102,18 @@ class Post extends React.Component {
             this.handleBookmarkBtn(app_users, current_username, post)
           }
         >
-          {post.bookmarked === false ? <BookmarkIcon/> : <BookmarkedIcon/>}
+          {post.bookmarked === false ? <BookmarkIcon /> : <BookmarkedIcon />}
         </IconButton>
       </div>
     ) : ( // remove button
-      <div className="removeBtn">
-        <IconButton
-          onClick={() => removePost(myBlog, postID, current_username, app_users)}
-        >
-          <DeleteIcon />
-        </IconButton>
-      </div>
-    )
+        <div className="removeBtn">
+          <IconButton
+            onClick={() => removePost(myBlog, postID, current_username, app_users)}
+          >
+            <DeleteIcon />
+          </IconButton>
+        </div>
+      )
 
     const adminButton = (role === "admin") ? (
       <div className="admin-button">

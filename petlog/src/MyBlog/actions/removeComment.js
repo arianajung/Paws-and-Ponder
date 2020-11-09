@@ -12,9 +12,7 @@ export const removeComment = (page, postID, commentID) => {
         postIndex
     ].comments = filteredComments;
 
-    // posts_copy[postID - 1].commentCount--;
-
     page.setState({
-      posts: posts_copy,
+        posts: posts_copy,
     });
 };

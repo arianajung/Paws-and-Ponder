@@ -11,7 +11,6 @@ import "./Drawer.css";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 // Need to change this to import specific user image instead
-import imgsrc from "../../static/img_1.jpg";
 import { Link } from "react-router-dom";
 import getCurrentUserAndIndex from "../../actions/getCurrentUserAndIndex";
 
@@ -59,13 +58,13 @@ export default function PermanentDrawerRight(props) {
         </Typography>
         <List>
           {/* Generate list for  */}
-          {followers.map((text) => (
-            <Link key={text} to={"/profile"}>
-              <ListItem button key={text} onClick={() => handle(app, text, profile)}>
+          {followers.map((username) => (
+            <Link key={username} to={"/profile"}>
+              <ListItem button key={username} onClick={() => handle(app, username, profile)}>
                 <ListItemAvatar>
-                  <Avatar alt={text} src={imgsrc} />
+                  <Avatar alt={username} src={getCurrentUserAndIndex(app.state.users, username)[1].profileImg} />
                 </ListItemAvatar>
-                <ListItemText primary={text} />
+                <ListItemText primary={username} />
               </ListItem>
             </Link>
           ))}
@@ -75,13 +74,15 @@ export default function PermanentDrawerRight(props) {
           Following
         </Typography>
         <List>
-          {following.map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemAvatar>
-                <Avatar alt={text} src={imgsrc} />
-              </ListItemAvatar>
-              <ListItemText primary={text} />
-            </ListItem>
+          {following.map((username) => (
+            <Link key={username} to={"/profile"}>
+              <ListItem button key={username} onClick={() => handle(app, username, profile)}>
+                <ListItemAvatar>
+                  <Avatar alt={username} src={getCurrentUserAndIndex(app.state.users, username)[1].profileImg} />
+                </ListItemAvatar>
+                <ListItemText primary={username} />
+              </ListItem>
+            </Link>
           ))}
         </List>
       </Drawer>

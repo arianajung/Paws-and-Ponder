@@ -44,6 +44,7 @@ class Profile extends Component {
             profile_username: profile_user.username,
             profile_user_role: profile_user.role,
             profile_profileImg: profile_user.profileImg,
+            profile_followers: profile_user.followers,
             //this is added for search purposes, need a way to know all posts that exist currently
             //the post we had can be understood as "posts to be displayed" -- Fred
             all_posts: profile_user.userPosts,
@@ -84,6 +85,8 @@ class Profile extends Component {
                         view="profile"
                         profile={this}
                         following={this.state.following}
+                        profile_followers={this.state.profile_followers}
+                        viewing_user={this.state.current_username}
                         current_user={this.state.profile_username}
                         current_user_role={this.state.profile_user_role}
                         profileImg={this.state.profile_profileImg}
