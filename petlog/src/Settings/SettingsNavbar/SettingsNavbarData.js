@@ -3,6 +3,7 @@ import MainIcon from "@material-ui/icons/Home";
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import BuildIcon from '@material-ui/icons/Build';
 import NotificationsIcon from '@material-ui/icons/Notifications';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import Badge from '@material-ui/core/Badge';
 
 export const SettingsNavbarData = [
@@ -25,6 +26,11 @@ export const SettingsNavbarData = [
     title: "Notifications",
     icon: <Badge badgeContent={1} color="primary"> <NotificationsIcon /></Badge>,
     link: "/settings",
-  }
+  },
+  {
+    title: "Log Out",
+    icon: <ExitToAppIcon />,
+    link: "/",
+  },
   //whether or not a new view is created for profile/customization/notifications is debatable
 ];

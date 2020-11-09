@@ -9,27 +9,56 @@ import FormControl from '@material-ui/core/FormControl';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Button from '@material-ui/core/Button';
+import Radio from '@material-ui/core/Radio';
 
 import { useStyles } from './subSettingsStyles';
+import "../Settings.css"
 
-export default function ProfileSettings() {
+import bunnysrc from "../../static/bunny.jpg"
+import catsrc from "../../static/cat.jpg"
+import dogsrc from "../../static/dog.jpg"
+
+export default function ProfileSettings(props) {
   const classes = useStyles()
   const [expanded, setExpanded] = React.useState(false)
+  const [selectedImage, setSelectedImage] = React.useState('img1');
 
   //Should initialize state with current username
   const [values, setValues] = React.useState({
-      name: 'Default Name',
+      name: props.name,
       password: '',
       bio: 'Default Bio',
-      profilePic: '',
+      profilePic: props.profileImg,
       personalData: '',
       showPassword: false,
+      app_users: props.app_users,
+      current_user_index: props.current_user_index,
+      curr_account: props.curr_account
   })
 
   //Expands and collapses Accordion Components 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
+
+  const changeUsername = () => {
+        //cannot be reflected to top level
+        // let current_user = values.app_users.slice()[values.current_user_index];
+        // let curr_account = values.curr_account
+        // curr_account = values.name
+        // current_user.username = values.name;
+  }
+
+
+  const selectAvatar = (e) => {
+      setSelectedImage(e.target.value);
+  }
+
+  const changeAvatar = () => {
+        // setValues({...values, profilePic: avatars[selectedImage]})
+        // let current_user = values.app_users.slice()[values.current_user_index];
+        // current_user.profileImg = avatars[selectedImage];
+  }
 
   //Reflect input changes to hooks
   const inputChange = (prop) => (event) => {
@@ -40,6 +69,7 @@ export default function ProfileSettings() {
   const logOutput = (prop) => (event) => {
       console.log(`new ${prop}: ${{...values}[prop]}`);
   };
+
 
   return (
     <div className={classes.root}>
@@ -69,7 +99,7 @@ export default function ProfileSettings() {
 
             <AccordionActions>
                 <Button size="small">Cancel</Button>
-                <Button size="small" color="primary" onClick={logOutput('name')}>
+                <Button size="small" color="primary" onClick={changeUsername()}>
                     Save
                 </Button>
             </AccordionActions>
@@ -120,19 +150,45 @@ export default function ProfileSettings() {
             </AccordionSummary>
 
             <AccordionDetails>
-                <FormControl fullWidth className={classes.margin}>
-                    <InputLabel>Need to change form of input</InputLabel>
-                        <Input
-                            id="newUserProfilePic"
-                            value={values.profilePic}
-                            onChange={inputChange('profilePic')}
-                        />
+                <FormControl className={classes.margin}>
+                    <div className = "avatar-settings">
+                        <div className = "avatar-selector-wrapper">
+                            <img className="img" src={bunnysrc} alt="profile-pic" />
+                            <Radio
+                                checked={selectedImage === 'img1'}
+                                onChange={selectAvatar}
+                                value="img1"
+                                name="default img1"
+                                inputProps={{ 'aria-label': 'img1' }}
+                            />
+                        </div>
+                        <div className = "avatar-selector-wrapper">
+                            <img className="img" src={catsrc} alt="profile-pic" />
+                            <Radio
+                                checked={selectedImage === 'img2'}
+                                onChange={selectAvatar}
+                                value="img2"
+                                name="default img2"
+                                inputProps={{ 'aria-label': 'img2' }}
+                            />
+                        </div>
+                        <div className = "avatar-selector-wrapper">
+                            <img className="img" src={dogsrc} alt="profile-pic" />
+                            <Radio
+                                checked={selectedImage === 'img3'}
+                                onChange={selectAvatar}
+                                value="img3"
+                                name="default img3"
+                                inputProps={{ 'aria-label': 'img3' }}
+                            />
+                        </div>
+                    </div>
                     </FormControl>
             </AccordionDetails>
 
             <AccordionActions>
                 <Button size="small">Cancel</Button>
-                <Button size="small" color="primary" onClick={logOutput('profilePic')}>
+                <Button size="small" color="primary" onClick={() => changeAvatar()}>
                     Save
                 </Button>
             </AccordionActions>

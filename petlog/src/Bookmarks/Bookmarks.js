@@ -29,22 +29,22 @@ class Bookmarks extends React.Component {
       following: current_user.following,
       followers: current_user.followers,
       bookmarks: bookmarkedPosts,
+      all_posts: bookmarkedPosts
     };
-    this.initialposts = this.state.bookmarks;
   }
 
-  //Does not work as intended for the moment, if you unbookmark a post,
-  //such post will still appear for a search until you switch the page
+  //May want to change the field "bookmarks" to "post" to use the search function under actions/searchRequests
   searchRequest() {
     console.log(this.state.searchText);
     if (this.state.searchText !== "") {
       this.setState({
-        bookmarks: this.initialposts.filter((post) => {
-          return post.tags.includes(this.state.searchText);
+        bookmarks: this.state.all_posts.filter((post) => {
+          return post.tags.map(tag => tag.toLowerCase()).includes(this.state.searchText.toLowerCase()) ||
+          post.user.toLowerCase() === this.state.searchText.toLowerCase();
         }),
       });
     } else {
-      this.setState({ bookmarks: this.initialposts });
+      this.setState({ bookmarks: this.state.all_posts });
     }
   }
 
@@ -85,6 +85,8 @@ class Bookmarks extends React.Component {
           <div className="search-bar">
             <SearchBar
               value={this.state.searchText}
+              placeholder="Search by Tags or Usernames"
+              onCancelSearch={() => this.setState({ searchText: "" })}
               onChange={(newValue) => this.setState({ searchText: newValue })}
               onRequestSearch={() => this.searchRequest()}
             />
@@ -102,6 +104,8 @@ class Bookmarks extends React.Component {
         </div>
         <div>
           <PermanentDrawerRight
+            app={this.props.app}
+            profile={this}
             following={this.state.following}
             followers={this.state.followers}
           />

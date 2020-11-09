@@ -18,6 +18,7 @@ import PostList from "./../PostList/PostList";
 import postImg from "./static/post_img.jpeg";
 import getCurrentUserAndIndex from "../actions/getCurrentUserAndIndex";
 import getPostIndex from "../actions/getPostIndex";
+import searchRequest from "../actions/searchRequest"
 
 // css
 import "./MyBlog.css";
@@ -63,17 +64,19 @@ class MyBlog extends Component {
   }
 
   // Filter to only display posts that include the tags in the search bar
-  searchRequest() {
-    if (this.state.searchText !== "") {
-      this.setState({
-        posts: this.state.all_posts.filter((post) => {
-          return post.tags.includes(this.state.searchText);
-        }),
-      });
-    } else {
-      this.setState({ posts: this.state.all_posts });
-    }
-  }
+  // searchRequest() {
+  //   if (this.state.searchText !== "") {
+  //     this.setState({
+  //       posts: this.state.all_posts.filter((post) => {
+  //         //Filter to retain the posts that contains the same tag or made by the user (not case-sensitive)
+  //         return post.tags.map(tag => tag.toLowerCase()).includes(this.state.searchText.toLowerCase()) ||
+  //         post.user.toLowerCase() === this.state.searchText.toLowerCase();
+  //       }),
+  //     });
+  //   } else {
+  //     this.setState({ posts: this.state.all_posts });
+  //   }
+  // }
 
   addComment(comment, postID) {
     const posts_copy = this.state.posts.slice();
@@ -181,8 +184,10 @@ class MyBlog extends Component {
             {/* needs a component */}
             <SearchBar
               value={this.state.searchText}
+              placeholder="Search by Tags or Usernames"
+              onCancelSearch={() => this.setState({ searchText: "" })}
               onChange={(newValue) => this.setState({ searchText: newValue })}
-              onRequestSearch={() => this.searchRequest()}
+              onRequestSearch={() => searchRequest(this)}
             />
           </div>
 
@@ -229,6 +234,12 @@ class MyBlog extends Component {
                 onChange={(e) => {
                   this.setState({ new_tag: e.target.value });
                 }}
+                onKeyPress={(ev) => {
+                  if (ev.key === 'Enter') {
+                    ev.preventDefault();
+                    this.addTag();
+                  }
+                }}
               />
 
               <IconButton id="add-tag-button" onClick={(e) => this.addTag(e)}>
@@ -260,7 +271,6 @@ class MyBlog extends Component {
               addComment={this.addComment}
               myBlog={this}
               profileImg={this.state.profileImg}
-              isMain={false}
               page={this}
               role={this.state.current_user_role}
             />
@@ -268,6 +278,8 @@ class MyBlog extends Component {
         </div>
         <div>
           <PermanentDrawerRight
+            app={this.props.app}
+            profile={this}
             following={this.state.following}
             followers={this.state.followers}
           />

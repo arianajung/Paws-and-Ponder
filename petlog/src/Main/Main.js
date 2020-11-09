@@ -5,6 +5,7 @@ import SearchBar from "material-ui-search-bar";
 import PermanentDrawerRight from "./DrawerMenu/Drawer";
 import "./Main.css";
 import getPostIndex from "../actions/getPostIndex";
+import searchRequest from "../actions/searchRequest";
 
 /* Main page where the user views all of the posts made by people that they follow*/
 class Main extends React.Component {
@@ -30,28 +31,8 @@ class Main extends React.Component {
       followers: current_user.followers,
       posts: current_user.mainPosts,
       comment_count: current_user.commentCount,
-      all_posts: current_user.mainPosts,
+      all_posts: current_user.mainPosts
     };
-    
-    // Temperoal solution to render all initial posts when the search filters
-    // some of the posts away, would be nice if current_user.mainPosts is accessable
-    // from other functions
-    this.initialposts = this.state.posts;
-  }
-
-  //Triggered when a search request is sent
-  // Filter to only display posts that include the tags in the search bar
-  searchRequest() {
-    console.log(this.state.searchText);
-    if (this.state.searchText !== "") {
-      this.setState({
-        posts: this.initialposts.filter((post) => {
-          return post.tags.includes(this.state.searchText);
-        }),
-      });
-    } else {
-      this.setState({ posts: this.initialposts });
-    }
   }
 
   addComment(comment, postID) {
@@ -85,8 +66,10 @@ class Main extends React.Component {
           <div className="search-bar">
             <SearchBar
               value={this.state.searchText}
+              placeholder="Search by Tags or Usernames"
+              onCancelSearch={() => this.setState({ searchText: "" })}
               onChange={(newValue) => this.setState({ searchText: newValue })}
-              onRequestSearch={() => this.searchRequest()}
+              onRequestSearch={() => searchRequest(this)}
             />
           </div>
           <div className="post-area">
@@ -96,7 +79,6 @@ class Main extends React.Component {
               posts={this.state.posts}
               addComment={this.addComment}
               profileImg={this.state.profileImg}
-              isMain={true}
               page={this}
               role={this.state.current_user_role}
             />
@@ -104,6 +86,8 @@ class Main extends React.Component {
         </div>
         <div>
           <PermanentDrawerRight
+            app={this.props.app}
+            profile={this}
             following={this.state.following}
             followers={this.state.followers}
           />
