@@ -1,7 +1,7 @@
 import React from "react";
 import { withRouter } from 'react-router-dom';
 import SignUpForm from "../SignUpForm/SignUpForm";
-import { addUser } from "../actions/authentication";
+import Auth from "../Auth/Auth";
 
 class SignUp extends React.Component {
   state = {
@@ -23,7 +23,13 @@ class SignUp extends React.Component {
           username={this.state.username}
           password={this.state.password}
           handleChange={this.handleChange}
-          addUser={() => addUser(this, this.props.app, () => {this.props.history.push("/main")})}
+          auth={() =>
+            Auth.signup(this, this.props.app, () => {
+              this.props.history.push("/main");
+              this.props.app.setState({ 
+                current_username: this.state.username 
+              });
+          })}
         />
       </div>
     );

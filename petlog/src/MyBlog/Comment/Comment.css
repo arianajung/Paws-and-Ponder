@@ -1,41 +1,46 @@
 #comment-name {
-    padding-left: 5px;
-    padding-right: 5px;
-    font-weight: bold;
-    font-size: large;
+  padding-left: 5px;
+  padding-right: 5px;
+  font-weight: bold;
+  font-size: large;
 }
 
 #comment-text {
-    width: 100%;
-    white-space: pre-wrap;
-    padding-left: 5px;
-    padding-right: 5px;
-    font-size: 15px;
+  width: 100%;
+  white-space: pre-wrap;
+  padding-left: 5px;
+  padding-right: 5px;
+  font-size: 15px;
 }
 
 .comment {
-    display: inline-flex;
-    flex-direction: row;
-    margin: 10px;
-    border: solid rgba(156, 185, 177, 0.507) 2px;
-    border-radius: 10px;
+  display: inline-flex;
+  flex-direction: row;
+  margin: 10px;
+  border: solid rgba(211, 205, 180, 0.507) 2px;
+  border-radius: 10px;
+  background-color: rgba(245, 243, 240, 0.479);
 }
 
 .comment-icon {
-    padding: 2px;
-    display: inline-flex;
-    flex-direction: column;
-    text-align: center;
+  padding: 2px;
+  display: inline-flex;
+  flex-direction: column;
+  text-align: center;
 }
 
 .comment-content {
-    padding-top: 5px;
-    padding-bottom: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.removeCommentBtn {
+  margin-left: auto;
 }
 
 #user-icon {
-    margin: 5px;
-    width: 60px;
-	height: 60px;
-    border-radius: 50%;
+  margin: 5px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
 }

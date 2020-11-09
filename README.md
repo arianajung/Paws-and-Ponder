@@ -1,5 +1,4 @@
 
-
 # team33
 
 # List of Framework/Libraries
@@ -24,6 +23,8 @@ Phase 1: (Ordered by Priority)
 -   ~~Ability to add pictures to a post~~
 -   ~~Deleting a post for a user~~
 	- ~~Fix problem with CSS styling that occurs when all posts from MyBlog are removed~~
+-   Admin View and functionalities
+-   Notifications
 -   ~~Like/Bookmark Buttons for a post~~
 -   ~~View for bookmarked posts~~
 -   ~~Tags for posts to enable search bar(?)~~

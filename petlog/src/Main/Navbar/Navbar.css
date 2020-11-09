@@ -15,13 +15,14 @@ a:visited {
 
 .petlog-title.MuiTypography-root {
   padding-top: 30px;
+  margin-bottom: 6%;
 }
 
 .wrapper {
   width: 250px;
   height: 100%;
   display: flex;
-  box-shadow: 3px 1px 8px #888888;
+  box-shadow: 3px 1px 8px #e2e1e1;
   background-color: rgb(255, 255, 255);
   padding: 0px;
 }
@@ -29,7 +30,22 @@ a:visited {
 .navbar {
   width: 250px;
   height: 100%;
-  position: fixed;
+}
+
+.img {
+  width: 200px;
+  height: 200px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 50%;
+  margin-top: 4%;
+  margin-bottom: 4%;
+}
+
+.role.MuiTypography-h6 {
+  color: rgb(177, 177, 177);
+  font-size: 1.3em;
 }
 
 .navbar-list {
@@ -64,4 +80,8 @@ a:visited {
 
 .row #title {
   flex: 70%;
+}
+
+.followBtn {
+  text-align: center;
 }

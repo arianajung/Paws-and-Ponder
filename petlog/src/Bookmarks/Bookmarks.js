@@ -1,84 +1,109 @@
 import React from "react";
+import Navbar from "../Main/Navbar/Navbar";
 import PostList from "./../PostList/PostList";
-import Navbar from "./Navbar/Navbar";
 import SearchBar from "material-ui-search-bar";
-import PermanentDrawerRight from "./DrawerMenu/Drawer";
-import "./Main.css";
+import PermanentDrawerRight from "../Main/DrawerMenu/Drawer";
+import "./Bookmarks.css";
 import getPostIndex from "../actions/getPostIndex";
-import searchRequest from "../actions/searchRequest";
 
-/* Main page where the user views all of the posts made by people that they follow*/
-class Main extends React.Component {
+class Bookmarks extends React.Component {
   constructor(props) {
     super(props);
     this.addComment = this.addComment.bind(this);
-
     // Obtain information about current user
     const { current_username, users } = props.app.state;
     const current_user = users.filter((user) => {
       return user.username === current_username;
     })[0];
-    
+
+    // const bookmarkedPosts = current_user.mainPosts.filter((p) => {
+    //   return p.bookmarked === true;
+    // });
 
     this.state = {
       //searchText for search bar
       app_users: props.app.state.users,
-      userCreds: props.app.state.userCreds,
       searchText: "",
       current_username: current_user.username,
       current_user_role: current_user.role,
       profileImg: current_user.profileImg,
       following: current_user.following,
       followers: current_user.followers,
+      // bookmarks: bookmarkedPosts,
+      // all_posts: bookmarkedPosts
       bookmarks: current_user.bookmarks,
-      posts: current_user.mainPosts,
-      comment_count: current_user.commentCount,
-      all_posts: current_user.mainPosts,
+      all_posts: current_user.bookmarks,
     };
   }
 
+  //May want to change the field "bookmarks" to "post" to use the search function under actions/searchRequests
+  searchRequest() {
+    console.log(this.state.searchText);
+    if (this.state.searchText !== "") {
+      this.setState({
+        bookmarks: this.state.all_posts.filter((post) => {
+          return (
+            post.tags
+              .map((tag) => tag.toLowerCase())
+              .includes(this.state.searchText.toLowerCase()) ||
+            post.user.toLowerCase() === this.state.searchText.toLowerCase()
+          );
+        }),
+      });
+    } else {
+      this.setState({ bookmarks: this.state.all_posts });
+    }
+  }
+
   addComment(comment, postID) {
-    const posts_copy = this.state.posts.slice();
-    const postIndex = getPostIndex(this.state.posts, postID);
+    const posts_copy = this.state.bookmarks.slice();
 
     const new_comment = {
-      commentID: this.state.posts[postIndex].commentCount + 1,
       user: this.state.current_username,
       text: comment,
     };
 
-    posts_copy[postIndex].comments = this.state.posts[
+    // let postIndex = 0;
+    // while (postIndex < this.state.bookmarks.length) {
+    //   if (this.state.bookmarks[postIndex].postID === postID) {
+    //     break;
+    //   }
+    //   postIndex += 1;
+    // }
+
+    const postIndex = getPostIndex(this.state.bookmarks, postID);
+
+    posts_copy[postIndex].comments = this.state.bookmarks[
       postIndex
     ].comments.concat(new_comment);
 
-    posts_copy[postIndex].commentCount++;
-
     this.setState({
-      posts: posts_copy,
+      bookmarks: posts_copy,
     });
   }
 
   render() {
     return (
-      <div className="main-container">
+      <div className="bookmarks-container">
         <div>
-          <Navbar view="main" />
+          <Navbar view="bookmarks" />
         </div>
-        <div className="main-middle-area">
+        <div className="bookmarks-middle-area">
           <div className="search-bar">
             <SearchBar
               value={this.state.searchText}
               placeholder="Search by Tags or Usernames"
               onCancelSearch={() => this.setState({ searchText: "" })}
               onChange={(newValue) => this.setState({ searchText: newValue })}
-              onRequestSearch={() => searchRequest(this)}
+              onRequestSearch={() => this.searchRequest()}
             />
           </div>
           <div className="post-area">
             <PostList
               current_username={this.state.current_username}
+              posts={this.state.bookmarks}
               app_users={this.state.app_users}
-              posts={this.state.posts}
+              bookmarks={this.state.bookmarks}
               addComment={this.addComment}
               profileImg={this.state.profileImg}
               page={this}
@@ -98,5 +123,4 @@ class Main extends React.Component {
     );
   }
 }
-
-export default Main;
+export default Bookmarks;

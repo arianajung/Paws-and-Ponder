@@ -5,22 +5,21 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import MailIcon from "@material-ui/icons/Mail";
-import PeopleIcon from "@material-ui/icons/People";
 import Typography from "@material-ui/core/Typography";
 import "./Drawer.css";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 // Need to change this to import specific user image instead
-import imgsrc from "../Post/static/img_1.jpg";
+import { Link } from "react-router-dom";
+import getCurrentUserAndIndex from "../../actions/getCurrentUserAndIndex";
+import { handleProfileBtn } from "../../actions/profile"
 
 export default function PermanentDrawerRight(props) {
   // retreive style sheet for Drawer
   const classes = useStyles();
 
-  const { following, followers } = props;
+  const { app, page, following, followers } = props;
 
   return (
     <div className={classes.root}>
@@ -33,19 +32,20 @@ export default function PermanentDrawerRight(props) {
         }}
         anchor="right"
       >
-        <div className={classes.toolbar} />
         <Typography className="title" variant="h6">
           Followers
         </Typography>
         <List>
           {/* Generate list for  */}
-          {followers.map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemAvatar>
-                <Avatar alt={text} src={imgsrc} />
-              </ListItemAvatar>
-              <ListItemText primary={text} />
-            </ListItem>
+          {followers.map((username) => (
+            <Link key={username} to={"/profile"}>
+              <ListItem button key={username} onClick={() => handleProfileBtn(app, username, page)}>
+                <ListItemAvatar>
+                  <Avatar alt={username} src={getCurrentUserAndIndex(app.state.users, username)[1].profileImg} />
+                </ListItemAvatar>
+                <ListItemText primary={username} />
+              </ListItem>
+            </Link>
           ))}
         </List>
         <Divider />
@@ -53,16 +53,18 @@ export default function PermanentDrawerRight(props) {
           Following
         </Typography>
         <List>
-          {following.map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemAvatar>
-                <Avatar alt={text} src={imgsrc} />
-              </ListItemAvatar>
-              <ListItemText primary={text} />
-            </ListItem>
+          {following.map((username) => (
+            <Link key={username} to={"/profile"}>
+              <ListItem button key={username} onClick={() => handleProfileBtn(app, username, page)}>
+                <ListItemAvatar>
+                  <Avatar alt={username} src={getCurrentUserAndIndex(app.state.users, username)[1].profileImg} />
+                </ListItemAvatar>
+                <ListItemText primary={username} />
+              </ListItem>
+            </Link>
           ))}
         </List>
       </Drawer>
-    </div>
+    </div >
   );
 }
