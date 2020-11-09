@@ -129,8 +129,6 @@ class MyBlog extends Component {
       current_user.userPosts = posts_copy;
       let newUsers = this.state.app_users.slice();
       newUsers.splice(this.state.current_user_index, 1, current_user);
-      console.log(current_user.userPosts);
-
       this.setState({
         new_post_text: "",
         new_post_img: "",

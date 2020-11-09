@@ -26,14 +26,11 @@ export const removePost = (blog_page, user_postID) => {
   // as well as the current user's post list (if we still have that representation after adding back-end) -- Ovi
   
   const selected_user = app_users.find( ({ username }) => username === ((blog_page instanceof Profile) ? profile_username : current_username) );
-  console.log((blog_page instanceof Profile) ? profile_username : current_username)
-  console.log(selected_user)
   const [current_user_index, current_user] = getCurrentUserAndIndex(
     app_users,
     selected_user.username
   );
 
-  console.log(current_user)
   if (blog_page instanceof MyBlog || blog_page instanceof Profile) {
     current_user.userPosts = filteredPosts;
   } else
