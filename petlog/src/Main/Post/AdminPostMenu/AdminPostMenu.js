@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component, useRef } from 'react';
 import Button from '@material-ui/core/Button';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Grow from '@material-ui/core/Grow';
@@ -7,6 +7,7 @@ import Popper from '@material-ui/core/Popper';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import { makeStyles } from '@material-ui/core/styles';
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MenuListComposition() {
+export default function AdminDropDownMenu(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
@@ -51,6 +52,7 @@ export default function MenuListComposition() {
     prevOpen.current = open;
   }, [open]);
 
+  const deletePost = () => {}
   return (
     <div className={classes.root}>
       <div>
@@ -60,7 +62,7 @@ export default function MenuListComposition() {
           aria-haspopup="true"
           onClick={handleToggle}
         >
-          M
+          <ArrowDropDownIcon/>
           </Button>
         <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
           {({ TransitionProps, placement }) => (
@@ -71,8 +73,8 @@ export default function MenuListComposition() {
               <Paper>
                 <ClickAwayListener onClickAway={handleClose}>
                   <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
-                    <MenuItem onClick={handleClose}>Delete</MenuItem>
-                    <MenuItem onClick={handleClose}>test2</MenuItem>
+                    <MenuItem onClick={() => props.removePost(props.page, props.postID)}>Delete Post</MenuItem>
+                    <MenuItem onClick={handleClose}>Ban {props.postUser}</MenuItem>
                     <MenuItem onClick={handleClose}>test3</MenuItem>
                   </MenuList>
                 </ClickAwayListener>

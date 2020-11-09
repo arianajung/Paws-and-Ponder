@@ -8,6 +8,7 @@ class PostList extends React.Component {
   render() {
     const {
       current_username,
+      current_user_role,
       app_users,
       posts,
       addComment,

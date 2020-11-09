@@ -14,7 +14,7 @@ import Chip from "@material-ui/core/Chip";
 import { removePost } from "../../MyBlog/actions/removePost";
 import updateBookmarkedStatus from "../actions/updateBookmarkedStatus";
 
-import MenuListComposition from "./AdminPostMenu/AdminPostMenu";
+import AdminDropDownMenu from "./AdminPostMenu/AdminPostMenu";
 
 /* A Post Component */
 class Post extends React.Component {
@@ -54,47 +54,6 @@ class Post extends React.Component {
       page,
       role
     } = this.props;
-
-    // let removeBtn;
-    // // should retrieve this information from server later
-    // if (post.user === current_username) {
-    //   removeBtn = (
-    //     <IconButton
-    //       onClick={() =>
-    //         removePost(myBlog, postID, current_username, app_users)
-    //       }
-    //     >
-    //       <DeleteIcon />
-    //     </IconButton>
-    //   );
-    // } else {
-    //   removeBtn = "";
-    // }
-
-    // let bookmarkBtn;
-    // if (post.user !== current_username) {
-    //   if (post.bookmarked === false) {
-    //     bookmarkBtn = (
-    //       <IconButton
-    //         onClick={() =>
-    //           this.handleBookmarkBtn(app_users, current_username, post)
-    //         }
-    //       >
-    //         <BookmarkIcon />
-    //       </IconButton>
-    //     );
-    //   } else {
-    //     bookmarkBtn = (
-    //       <IconButton
-    //         onClick={() =>
-    //           this.handleBookmarkBtn(app_users, current_username, post)
-    //         }
-    //       >
-    //         <BookmarkedIcon />
-    //       </IconButton>
-    //     );
-    //   }
-    // }
     
     const bookmarkOrRemoveButton = (post.user !== current_username) ? ( // bookmark button
       <div className="bookmarkBtn">
@@ -109,7 +68,8 @@ class Post extends React.Component {
     ) : ( // remove button
       <div className="removeBtn">
         <IconButton
-          onClick={() => removePost(myBlog, postID, current_username, app_users)}
+          id="remove-button-element"
+          onClick={() => removePost(page, postID)}
         >
           <DeleteIcon />
         </IconButton>
@@ -118,9 +78,12 @@ class Post extends React.Component {
 
     const adminButton = (role === "admin") ? (
       <div className="admin-button">
-        <MenuListComposition>
+        <AdminDropDownMenu
           postUser={post.user}
-        </MenuListComposition>
+          page={page}
+          postID={postID}
+          removePost={removePost}
+        />
       </div>
     ) : null
 

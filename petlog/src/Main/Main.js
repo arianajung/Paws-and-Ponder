@@ -17,6 +17,7 @@ class Main extends React.Component {
     const current_user = users.filter((user) => {
       return user.username === current_username;
     })[0];
+    
 
     this.state = {
       //searchText for search bar
@@ -29,8 +30,9 @@ class Main extends React.Component {
       followers: current_user.followers,
       posts: current_user.mainPosts,
       comment_count: current_user.commentCount,
+      all_posts: current_user.mainPosts,
     };
-
+    
     // Temperoal solution to render all initial posts when the search filters
     // some of the posts away, would be nice if current_user.mainPosts is accessable
     // from other functions
