@@ -1,4 +1,4 @@
-import React, { Component, useRef } from 'react';
+import React from 'react';
 import Button from '@material-ui/core/Button';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Grow from '@material-ui/core/Grow';
@@ -11,7 +11,6 @@ import MenuIcon from '@material-ui/icons/Menu';
 import MyBlog from "../../../MyBlog/MyBlog";
 import { removePost } from "../../../MyBlog/actions/removePost";
 import { removeComment } from "../../../MyBlog/actions/removeComment";
-import getCurrentUserAndIndex from "../../../actions/getCurrentUserAndIndex";
 
 
 
