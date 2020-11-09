@@ -1,6 +1,5 @@
 import getCurrentUserAndIndex from "../../actions/getCurrentUserAndIndex";
 import MyBlog from "../MyBlog";
-import Main from "../../Main/Main.js";
 import Profile from "../../Profile/Profile.js"
 
 export const removePost = (blog_page, user_postID) => {
