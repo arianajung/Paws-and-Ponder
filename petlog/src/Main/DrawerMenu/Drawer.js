@@ -11,31 +11,9 @@ import "./Drawer.css";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 // Need to change this to import specific user image instead
-import imgsrc from "../../static/img_1.jpg";
 import { Link } from "react-router-dom";
 import getCurrentUserAndIndex from "../../actions/getCurrentUserAndIndex";
-
-function handle(app, username, profile) {
-  app.setState({
-    profile_username: username,
-  });
-
-  const { users } = app.state;
-
-  const [profile_user_index, profile_user] = getCurrentUserAndIndex(
-    users,
-    username
-  )
-
-  profile.setState({
-    profile_user_index: profile_user_index,
-    profile_username: profile_user.username,
-    profile_user_role: profile_user.role,
-    profile_profileImg: profile_user.profileImg,
-    posts: profile_user.userPosts,
-    all_posts: profile_user.userPosts
-  })
-};
+import { handleProfileBtn } from "../../actions/handleProfileBtn"
 
 export default function PermanentDrawerRight(props) {
   // retreive style sheet for Drawer
@@ -59,13 +37,13 @@ export default function PermanentDrawerRight(props) {
         </Typography>
         <List>
           {/* Generate list for  */}
-          {followers.map((text) => (
-            <Link key={text} to={"/profile"}>
-              <ListItem button key={text} onClick={() => handle(app, text, profile)}>
+          {followers.map((username) => (
+            <Link key={username} to={"/profile"}>
+              <ListItem button key={username} onClick={() => handleProfileBtn(app, username, profile)}>
                 <ListItemAvatar>
-                  <Avatar alt={text} src={imgsrc} />
+                  <Avatar alt={username} src={getCurrentUserAndIndex(app.state.users, username)[1].profileImg} />
                 </ListItemAvatar>
-                <ListItemText primary={text} />
+                <ListItemText primary={username} />
               </ListItem>
             </Link>
           ))}
@@ -75,13 +53,15 @@ export default function PermanentDrawerRight(props) {
           Following
         </Typography>
         <List>
-          {following.map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemAvatar>
-                <Avatar alt={text} src={imgsrc} />
-              </ListItemAvatar>
-              <ListItemText primary={text} />
-            </ListItem>
+          {following.map((username) => (
+            <Link key={username} to={"/profile"}>
+              <ListItem button key={username} onClick={() => handleProfileBtn(app, username, profile)}>
+                <ListItemAvatar>
+                  <Avatar alt={username} src={getCurrentUserAndIndex(app.state.users, username)[1].profileImg} />
+                </ListItemAvatar>
+                <ListItemText primary={username} />
+              </ListItem>
+            </Link>
           ))}
         </List>
       </Drawer>

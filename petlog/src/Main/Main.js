@@ -29,9 +29,10 @@ class Main extends React.Component {
       profileImg: current_user.profileImg,
       following: current_user.following,
       followers: current_user.followers,
+      bookmarks: current_user.bookmarks,
       posts: current_user.mainPosts,
       comment_count: current_user.commentCount,
-      all_posts: current_user.mainPosts
+      all_posts: current_user.mainPosts,
     };
   }
 

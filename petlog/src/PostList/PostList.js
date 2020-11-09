@@ -13,10 +13,10 @@ class PostList extends React.Component {
       posts,
       addComment,
       myBlog,
-      bookmarksView,
       profileImg,
+      bookmarks,
       page,
-      role
+      role,
     } = this.props;
     /* Our post list. */
     return (
@@ -30,7 +30,7 @@ class PostList extends React.Component {
             post={post}
             addComment={addComment}
             myBlog={myBlog}
-            bookmarksView={bookmarksView}
+            bookmarks={bookmarks}
             profileImg={profileImg}
             page={page}
             role={role}

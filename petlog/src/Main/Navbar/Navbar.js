@@ -18,23 +18,31 @@ function contains(current_user, following) {
   return false
 }
 
-function handleFollowBtn(current_user, following, profile) {
+function handleFollowBtn(viewing_user, current_user, following, profile_followers, profile) {
   if (contains(current_user, following)) {
-    const filtered = following.filter((username) => {
+    const filteredFollowing = following.filter((username) => {
       return username !== current_user
     })
+    const filteredFollowers = profile_followers.filter((username) => {
+      return username !== viewing_user
+    })
+
     profile.setState({
-      following: filtered
+      following: filteredFollowing,
+      profile_followers: filteredFollowers
     })
   } else {
     following.push(current_user)
+    profile_followers.push(viewing_user)
+
     profile.setState({
-      following: following
+      following: following,
+      profile_followers: profile_followers
     })
   }
 }
 
-function Navbar({ profile, following, view, current_user, current_user_role, profileImg }) {
+function Navbar({ profile, following, profile_followers, view, viewing_user, current_user, current_user_role, profileImg }) {
   let userProfile;
   if (view === "myBlog" || view === "profile") {
     userProfile = (
@@ -62,7 +70,7 @@ function Navbar({ profile, following, view, current_user, current_user_role, pro
     followBtn = (
       <div className="followBtn">
         <IconButton
-          onClick={() => handleFollowBtn(current_user, following, profile)}
+          onClick={() => handleFollowBtn(viewing_user, current_user, following, profile_followers, profile)}
         >
           {contains(current_user, following) ? <PersonAddDisabledIcon /> : <PersonAddIcon />}
         </IconButton>

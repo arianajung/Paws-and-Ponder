@@ -8,29 +8,28 @@ class Auth {
   login(login, app, callback) {
     if (this.checkCred(login, app)) {
       this.authenticated = true;
-      console.log("Login successful")
+      console.log("Login successful");
       callback();
     } else {
-      console.log("Login fail")
+      console.log("Login fail");
     }
-    
   }
 
   signup(signup, app, callback) {
     if (this.addUser(signup, app)) {
       this.authenticated = true;
-      console.log("Account successfully created")
-      console.log(app.state.users)
-      console.log(app.state.userCreds)
+      console.log("Account successfully created");
+      console.log(app.state.users);
+      console.log(app.state.userCreds);
       callback();
     } else {
-      console.log("Invalid")
+      console.log("Invalid");
     }
   }
 
   logout() {
     this.authenticated = false;
-    console.log("You have been successfully logged out")
+    console.log("You have been successfully logged out");
   }
 
   isAuthenticated() {
@@ -41,7 +40,7 @@ class Auth {
     const usersList = app.state.users;
     const userCredsList = app.state.userCreds;
     const username = signup.state.username;
-    const password = signup.state.password
+    const password = signup.state.password;
     const user = {
       username: username,
       role: "user",
@@ -49,46 +48,48 @@ class Auth {
       following: [],
       followers: [],
       mainPosts: [],
-      userPostCount: 0,
       userPosts: [],
       bookmarks: [],
-    }
+    };
     const userCred = {
       username: username,
-      password: password
-    }
-  
+      password: password,
+    };
+
     if (username !== "" && password !== "") {
-      let notFound = true
+      let notFound = true;
       for (let i = 0; i < userCredsList.length; i++) {
         if (userCredsList[i].username === username) {
-          notFound = false
+          notFound = false;
         }
       }
-  
+
       if (notFound) {
         userCredsList.push(userCred);
         app.setState({ userCreds: userCredsList });
         usersList.push(user);
         app.setState({ users: usersList });
-        return true
+        return true;
       }
-      return false
+      return false;
     }
-  }
+  };
 
   checkCred = (login, app) => {
     const userList = app.state.userCreds;
     const username = login.state.username;
-    const password = login.state.password
-  
+    const password = login.state.password;
+
     for (let i = 0; i < userList.length; i++) {
-      if (userList[i].username === username && userList[i].password === password) {
-        return true
+      if (
+        userList[i].username === username &&
+        userList[i].password === password
+      ) {
+        return true;
       }
     }
-    return false
-  }
+    return false;
+  };
 }
 
 export default new Auth();

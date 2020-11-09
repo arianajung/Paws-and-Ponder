@@ -16,20 +16,23 @@ class Bookmarks extends React.Component {
       return user.username === current_username;
     })[0];
 
-    const bookmarkedPosts = current_user.mainPosts.filter((p) => {
-      return p.bookmarked === true;
-    });
+    // const bookmarkedPosts = current_user.mainPosts.filter((p) => {
+    //   return p.bookmarked === true;
+    // });
 
     this.state = {
       //searchText for search bar
       app_users: props.app.state.users,
       searchText: "",
       current_username: current_user.username,
+      current_user_role: current_user.role,
       profileImg: current_user.profileImg,
       following: current_user.following,
       followers: current_user.followers,
-      bookmarks: bookmarkedPosts,
-      all_posts: bookmarkedPosts
+      // bookmarks: bookmarkedPosts,
+      // all_posts: bookmarkedPosts
+      bookmarks: current_user.bookmarks,
+      all_posts: current_user.bookmarks,
     };
   }
 
@@ -39,8 +42,12 @@ class Bookmarks extends React.Component {
     if (this.state.searchText !== "") {
       this.setState({
         bookmarks: this.state.all_posts.filter((post) => {
-          return post.tags.map(tag => tag.toLowerCase()).includes(this.state.searchText.toLowerCase()) ||
-          post.user.toLowerCase() === this.state.searchText.toLowerCase();
+          return (
+            post.tags
+              .map((tag) => tag.toLowerCase())
+              .includes(this.state.searchText.toLowerCase()) ||
+            post.user.toLowerCase() === this.state.searchText.toLowerCase()
+          );
         }),
       });
     } else {
@@ -96,9 +103,11 @@ class Bookmarks extends React.Component {
               current_username={this.state.current_username}
               posts={this.state.bookmarks}
               app_users={this.state.app_users}
-              bookmarksView={this}
+              bookmarks={this.state.bookmarks}
               addComment={this.addComment}
               profileImg={this.state.profileImg}
+              page={this}
+              role={this.state.current_user_role}
             />
           </div>
         </div>

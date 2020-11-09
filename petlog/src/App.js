@@ -8,8 +8,11 @@ import Main from "./Main/Main";
 import MyBlog from "./MyBlog/MyBlog";
 import Bookmarks from "./Bookmarks/Bookmarks";
 import Settings from "./Settings/Settings";
-import Profile from "./Profile/Profile"
+import Profile from "./Profile/Profile";
 import profileImg from "./static/bunny.jpg";
+import dogImg from "./static/dog.jpg";
+import catImg from "./static/cat.jpg";
+import defaultImg from "./static/img_1.jpg";
 import adminProfileImg from "./static/admin.png";
 import Auth from "./Auth/Auth";
 
@@ -17,12 +20,13 @@ class App extends React.Component {
   state = {
     current_username: "", // username of the currently logged in user
     profile_username: "",
+    total_num_posts: 11, // number of posts currently hard-coded into our state
     users: [
       {
         username: "user",
         role: "user",
         profileImg: profileImg,
-        following: ["Ovi", "Ariana", "Fred"],
+        following: [],
         followers: ["admin", "user2"],
         mainPosts: [
           {
@@ -40,11 +44,11 @@ class App extends React.Component {
                   "wow me too \nLorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia imperdiet ipsum, a accumsan ligula pulvinar ut. Aliquam at accumsan velit, quis molestie magna. Proin sit amet finibus nibh, a mattis nunc. Duis tincidunt dolor eu nisl semper posuere. Sed ligula dolor, scelerisque quis lacus et, ultrices blandit neque.",
               },
             ],
-            bookmarked: false,
             tags: [
               "Hard Coded Tags under App.js",
               "Tags can be added properly under My blog",
-              "tag1", "tag2"
+              "tag1",
+              "tag2",
             ],
           },
           {
@@ -55,7 +59,6 @@ class App extends React.Component {
               "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia imperdiet ipsum, a accumsan ligula pulvinar ut. Aliquam at accumsan velit, quis molestie magna. Proin sit amet finibus nibh, a mattis nunc. Duis tincidunt dolor eu nisl semper posuere. Sed ligula dolor, scelerisque quis lacus et, ultrices blandit neque.",
             commentCount: 0,
             comments: [],
-            bookmarked: false,
             tags: ["tag1"],
           },
           {
@@ -65,36 +68,38 @@ class App extends React.Component {
             text:
               "Some text to enable scrolling. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia imperdiet ipsum, a accumsan ligula pulvinar ut. Aliquam at accumsan velit, quis molestie magna. Proin sit amet finibus nibh, a mattis nunc. Duis tincidunt dolor eu nisl semper posuere. Sed ligula dolor, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia imperdiet ipsum, a accumsan ligula pulvinar ut. Aliquam at accumsan velit, quis molestie magna. Proin sit amet finibus nibh, a mattis nunc. Duis tincidunt dolor eu nisl semper posuere. Sed ligula dolor, scelerisque quis lacus et, ultrices blandit neque.scelerisque quis lacus et, ultrices blandit neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia imperdiet ipsum, a accumsan ligula pulvinar ut. Aliquam at accumsan velit, quis molestie magna. Proin sit amet finibus nibh, a mattis nunc. Duis tincidunt dolor eu nisl semper posuere. Sed ligula dolor, scelerisque quis lacus et, ultrices blandit neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia imperdiet ipsum, a accumsan ligula pulvinar ut. Aliquam at accumsan velit, quis molestie magna. Proin sit amet finibus nibh, a mattis nunc. Duis tincidunt dolor eu nisl semper posuere. Sed ligula dolor, scelerisque quis lacus et, ultrices blandit neque.",
             commentCount: 0,
-            comments: [],
-            bookmarked: false,
+            comments: [
+              {
+                commentID: 1,
+                user: "Ovidiu",
+                text: "wow me too.",
+              },
+            ],
             tags: ["tag1", "tag3"],
           },
           {
             postID: 4,
             date: "29/10/2020",
-            user: "Enable Scrolling",
+            user: "Ovidiu",
             text:
               "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia imperdiet ipsum, a accumsan ligula pulvinar ut. Aliquam at accumsan velit, quis molestie magna. Proin sit amet finibus nibh, a mattis nunc. Duis tincidunt dolor eu nisl semper posuere. Sed ligula dolor, scelerisque quis lacus et, ultrices blandit neque.",
             commentCount: 0,
             comments: [],
-            bookmarked: false,
             tags: ["tag2", "tag3"],
           },
           {
             postID: 5,
             date: "29/10/2020",
-            user: "Ariana",
+            user: "user2",
             text: "hi",
             commentCount: 0,
             comments: [],
-            bookmarked: false,
             tags: ["tag4"],
           },
         ],
-        userPostCount: 1,
         userPosts: [
           {
-            postID: 1,
+            postID: 6,
             date: "30/10/2020",
             user: "user",
             text: "hi i like cats :D",
@@ -119,16 +124,17 @@ class App extends React.Component {
             ],
           },
         ],
+        bookmarks: [],
       },
       {
         username: "admin",
         role: "admin",
         profileImg: adminProfileImg,
-        following: [],
+        following: ["user"],
         followers: [],
         mainPosts: [
           {
-            postID: 1,
+            postID: 7,
             date: "29/10/2020",
             user: "Ariana",
             text:
@@ -142,18 +148,17 @@ class App extends React.Component {
                   "wow me too \nLorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia imperdiet ipsum, a accumsan ligula pulvinar ut. Aliquam at accumsan velit, quis molestie magna. Proin sit amet finibus nibh, a mattis nunc. Duis tincidunt dolor eu nisl semper posuere. Sed ligula dolor, scelerisque quis lacus et, ultrices blandit neque.",
               },
             ],
-            bookmarked: false,
             tags: [
               "Hard Coded Tags under App.js",
               "Tags can be added properly under My blog",
-              "tag1", "tag2"
+              "tag1",
+              "tag2",
             ],
           },
         ],
-        userPostCount: 0,
         userPosts: [
           {
-            postID: 1,
+            postID: 8,
             date: "30/10/2020",
             user: "admin",
             text: "Cats are cute :D",
@@ -172,25 +177,18 @@ class App extends React.Component {
                 text: "bunnies are better",
               },
             ],
-            tags: [
-              "tag1",
-              "tag2",
-            ],
+            tags: ["tag1", "tag2"],
           },
           {
-            postID: 2,
+            postID: 9,
             date: "30/10/2020",
             user: "admin",
             text: "More posts to make searching for tags more interesting :D",
             image: "",
             commentCount: 0,
-            comments: [
-            ],
-            tags: [
-              "tag1",
-              "tag3",
-            ],
-          }
+            comments: [],
+            tags: ["tag1", "tag3"],
+          },
         ],
         bookmarks: [],
       },
@@ -198,11 +196,11 @@ class App extends React.Component {
         username: "user2",
         role: "user",
         profileImg: profileImg,
-        following: [],
+        following: ["user"],
         followers: [],
         mainPosts: [
           {
-            postID: 1,
+            postID: 10,
             date: "29/10/2020",
             user: "Ariana",
             text:
@@ -211,22 +209,20 @@ class App extends React.Component {
             comments: [
               {
                 commentID: 1,
-                user: "Ariana",
+                user: "Ovidiu",
                 text:
                   "wow me too \nLorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia imperdiet ipsum, a accumsan ligula pulvinar ut. Aliquam at accumsan velit, quis molestie magna. Proin sit amet finibus nibh, a mattis nunc. Duis tincidunt dolor eu nisl semper posuere. Sed ligula dolor, scelerisque quis lacus et, ultrices blandit neque.",
               },
             ],
-            bookmarked: false,
             tags: [
               "Hard Coded Tags under App.js",
               "Tags can be added properly under My blog",
             ],
           },
         ],
-        userPostCount: 0,
         userPosts: [
           {
-            postID: 1,
+            postID: 11,
             date: "30/10/2020",
             user: "user2",
             text: "Dogs are cute :D",
@@ -236,8 +232,7 @@ class App extends React.Component {
               {
                 commentID: 1,
                 user: "Sherry",
-                text:
-                  "wow me too.",
+                text: "wow me too.",
               },
             ],
             tags: [
@@ -248,12 +243,60 @@ class App extends React.Component {
         ],
         bookmarks: [],
       },
+      {
+        username: "Ariana",
+        role: "user",
+        profileImg: defaultImg,
+        following: [],
+        followers: [],
+        mainPosts: [],
+        userPostCount: 0,
+        userPosts: [],
+        bookmarks: [],
+      },
+      {
+        username: "Sherry",
+        role: "user",
+        profileImg: defaultImg,
+        following: [],
+        followers: [],
+        mainPosts: [],
+        userPostCount: 0,
+        userPosts: [],
+        bookmarks: [],
+      },
+      {
+        username: "Fred",
+        role: "user",
+        profileImg: catImg,
+        following: [],
+        followers: [],
+        mainPosts: [],
+        userPostCount: 0,
+        userPosts: [],
+        bookmarks: [],
+      },
+      {
+        username: "Ovidiu",
+        role: "user",
+        profileImg: dogImg,
+        following: [],
+        followers: [],
+        mainPosts: [],
+        userPostCount: 0,
+        userPosts: [],
+        bookmarks: [],
+      },
     ],
     userCreds: [
       { username: "user", password: "user" },
       { username: "user2", password: "user2" },
       { username: "admin", password: "admin" },
     ],
+  };
+
+  incrementTotalNumPosts = () => {
+    this.setState({ total_num_posts: this.state.total_num_posts + 1 });
   };
 
   render() {
@@ -268,8 +311,8 @@ class App extends React.Component {
                 Auth.isAuthenticated() ? (
                   <Redirect to="/main" />
                 ) : (
-                    <Login app={this} />
-                  )
+                  <Login app={this} />
+                )
               }
             />
             <Route
@@ -279,8 +322,8 @@ class App extends React.Component {
                 Auth.isAuthenticated() ? (
                   <Redirect to="/main" />
                 ) : (
-                    <SignUp app={this} />
-                  )
+                  <SignUp app={this} />
+                )
               }
             />
             <Route
@@ -290,8 +333,8 @@ class App extends React.Component {
                 Auth.isAuthenticated() ? (
                   <Main app={this} />
                 ) : (
-                    <Redirect to="/" />
-                  )
+                  <Redirect to="/" />
+                )
               }
             />
             <Route
@@ -301,8 +344,8 @@ class App extends React.Component {
                 Auth.isAuthenticated() ? (
                   <MyBlog app={this} />
                 ) : (
-                    <Redirect to="/" />
-                  )
+                  <Redirect to="/" />
+                )
               }
             />
             <Route
@@ -312,8 +355,8 @@ class App extends React.Component {
                 Auth.isAuthenticated() ? (
                   <Settings app={this} />
                 ) : (
-                    <Redirect to="/" />
-                  )
+                  <Redirect to="/" />
+                )
               }
             />
             <Route
@@ -323,8 +366,8 @@ class App extends React.Component {
                 Auth.isAuthenticated() ? (
                   <Bookmarks app={this} />
                 ) : (
-                    <Redirect to="/" />
-                  )
+                  <Redirect to="/" />
+                )
               }
             />
             <Route
@@ -334,8 +377,8 @@ class App extends React.Component {
                 Auth.isAuthenticated() ? (
                   <Profile app={this} />
                 ) : (
-                    <Redirect to="/" />
-                  )
+                  <Redirect to="/" />
+                )
               }
             />
             {/* <Route exact path="/main" render={() => <Main app={this} />} />
