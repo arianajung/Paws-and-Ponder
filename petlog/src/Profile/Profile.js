@@ -84,6 +84,7 @@ class Profile extends Component {
                     <Navbar
                         view="profile"
                         profile={this}
+                        app_users={this.state.app_users}
                         following={this.state.following}
                         profile_followers={this.state.profile_followers}
                         viewing_user={this.state.current_username}
@@ -118,7 +119,7 @@ class Profile extends Component {
                 <div>
                     <PermanentDrawerRight
                         app={this.props.app}
-                        profile={this}
+                        page={this}
                         following={this.state.following}
                         followers={this.state.followers}
                     />

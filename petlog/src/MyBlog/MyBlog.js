@@ -282,7 +282,7 @@ class MyBlog extends Component {
         <div>
           <PermanentDrawerRight
             app={this.props.app}
-            profile={this}
+            page={this}
             following={this.state.following}
             followers={this.state.followers}
           />

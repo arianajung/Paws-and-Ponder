@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import getCurrentUserAndIndex from "../../actions/getCurrentUserAndIndex"
-import { handleProfileBtn } from "../../actions/handleProfileBtn"
+import { handleProfileBtn } from "../../actions/profile"
 import { removeComment } from "../actions/removeComment";
 import MyBlog from "../../MyBlog/MyBlog"
 import { Link } from "react-router-dom";

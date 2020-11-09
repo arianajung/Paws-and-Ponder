@@ -8,41 +8,9 @@ import Auth from "../../Auth/Auth"
 import IconButton from "@material-ui/core/IconButton";
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import PersonAddDisabledIcon from '@material-ui/icons/PersonAddDisabled';
+import {contains, handleFollowBtn } from "../../actions/profile"
 
-function contains(current_user, following) {
-  for (let i = 0; i < following.length; i++) {
-    if (following[i] === current_user) {
-      return true
-    }
-  }
-  return false
-}
-
-function handleFollowBtn(viewing_user, current_user, following, profile_followers, profile) {
-  if (contains(current_user, following)) {
-    const filteredFollowing = following.filter((username) => {
-      return username !== current_user
-    })
-    const filteredFollowers = profile_followers.filter((username) => {
-      return username !== viewing_user
-    })
-
-    profile.setState({
-      following: filteredFollowing,
-      profile_followers: filteredFollowers
-    })
-  } else {
-    following.push(current_user)
-    profile_followers.push(viewing_user)
-
-    profile.setState({
-      following: following,
-      profile_followers: profile_followers
-    })
-  }
-}
-
-function Navbar({ profile, following, profile_followers, view, viewing_user, current_user, current_user_role, profileImg }) {
+function Navbar({ app_users, profile, following, profile_followers, view, viewing_user, current_user, current_user_role, profileImg }) {
   let userProfile;
   if (view === "myBlog" || view === "profile") {
     userProfile = (
@@ -70,7 +38,7 @@ function Navbar({ profile, following, profile_followers, view, viewing_user, cur
     followBtn = (
       <div className="followBtn">
         <IconButton
-          onClick={() => handleFollowBtn(viewing_user, current_user, following, profile_followers, profile)}
+          onClick={() => handleFollowBtn(app_users, viewing_user, current_user, following, profile_followers, profile)}
         >
           {contains(current_user, following) ? <PersonAddDisabledIcon /> : <PersonAddIcon />}
         </IconButton>

@@ -13,13 +13,13 @@ import Avatar from "@material-ui/core/Avatar";
 // Need to change this to import specific user image instead
 import { Link } from "react-router-dom";
 import getCurrentUserAndIndex from "../../actions/getCurrentUserAndIndex";
-import { handleProfileBtn } from "../../actions/handleProfileBtn"
+import { handleProfileBtn } from "../../actions/profile"
 
 export default function PermanentDrawerRight(props) {
   // retreive style sheet for Drawer
   const classes = useStyles();
 
-  const { app, profile, following, followers } = props;
+  const { app, page, following, followers } = props;
 
   return (
     <div className={classes.root}>
@@ -39,7 +39,7 @@ export default function PermanentDrawerRight(props) {
           {/* Generate list for  */}
           {followers.map((username) => (
             <Link key={username} to={"/profile"}>
-              <ListItem button key={username} onClick={() => handleProfileBtn(app, username, profile)}>
+              <ListItem button key={username} onClick={() => handleProfileBtn(app, username, page)}>
                 <ListItemAvatar>
                   <Avatar alt={username} src={getCurrentUserAndIndex(app.state.users, username)[1].profileImg} />
                 </ListItemAvatar>
@@ -55,7 +55,7 @@ export default function PermanentDrawerRight(props) {
         <List>
           {following.map((username) => (
             <Link key={username} to={"/profile"}>
-              <ListItem button key={username} onClick={() => handleProfileBtn(app, username, profile)}>
+              <ListItem button key={username} onClick={() => handleProfileBtn(app, username, page)}>
                 <ListItemAvatar>
                   <Avatar alt={username} src={getCurrentUserAndIndex(app.state.users, username)[1].profileImg} />
                 </ListItemAvatar>

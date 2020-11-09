@@ -14,7 +14,7 @@ import { removePost } from "../../MyBlog/actions/removePost";
 import updateBookmarkedStatus from "../actions/updateBookmarkedStatus";
 import getCurrentUserAndIndex from "../../actions/getCurrentUserAndIndex";
 import MenuListComposition from "./AdminPostMenu/AdminPostMenu";
-import { handleProfileBtn } from "../../actions/handleProfileBtn";
+import { handleProfileBtn } from "../../actions/profile";
 import { Link } from "react-router-dom";
 
 /* A Post Component */
