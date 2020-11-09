@@ -38,6 +38,7 @@ class MyBlog extends Component {
 
     this.state = {
       app_users: props.app.state.users,
+      userCreds: props.app.state.userCreds,
       current_user_index: current_user_index,
       current_username: current_user.username,
       current_user_role: current_user.role,

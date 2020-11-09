@@ -113,20 +113,13 @@ class Post extends React.Component {
     const adminButton = (isPost) => (role === "admin" && post.user !== current_username) ? (
       <div className="admin-button">
         <AdminDropDownMenu
-          postUser={post.user}
+          user={post.user}
           page={page}
           isPost={isPost}
           postID={postID}
         />
       </div>
     ) : null
-
-    const adminButton =
-      role === "admin" ? (
-        <div className="admin-button">
-          <MenuListComposition>postUser={post.user}</MenuListComposition>
-        </div>
-      ) : null;
 
     // // should retrieve this information from server later
     // let userImg;
@@ -136,7 +129,6 @@ class Post extends React.Component {
     //   userImg = <img id="userIcon" src={imgsrc} alt="tempImage"></img>;
     // }
 
-    
     // should retrieve this information from server later
     let userImg;
     if (post.user === current_username) {

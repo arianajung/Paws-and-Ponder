@@ -11,6 +11,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import MyBlog from "../../../MyBlog/MyBlog";
 import { removePost } from "../../../MyBlog/actions/removePost";
 import { removeComment } from "../../../MyBlog/actions/removeComment";
+import getCurrentUserAndIndex from "../../../actions/getCurrentUserAndIndex";
+
 
 
 import "./AdminPostMenu.css"
@@ -68,15 +70,21 @@ export default function AdminDropDownMenu(props) {
 
   const remove = () => {
     if (isPost) {
-      console.log("post")
       removePost(page, postID)
     } else {
-      console.log("comment")
-      console.log(page)
-      console.log(postID)
-      console.log(commentID)
       removeComment(page, postID, commentID)
     }
+  }
+
+  const ban = () => {
+    // const user_to_delete = page.state.app_users.find( ({ username }) => username === user)
+    // console.log(user_to_delete)
+    // console.log(user)
+    // console.log(page.state.userCreds)
+    // const users_to_keep = page.state.userCreds.filter( ({ username }) => username !== user )
+    // console.log(users_to_keep)
+    page.props.app.state.userCreds = page.props.app.state.userCreds.filter( ({ username }) => username !== user )
+    console.log(page.props.app.state.userCreds)
   }
 
   const deleteOption = (page instanceof MyBlog) ? null : (
@@ -107,8 +115,7 @@ export default function AdminDropDownMenu(props) {
                 <ClickAwayListener onClickAway={handleClose}>
                   <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
                     {deleteOption}
-                    <MenuItem onClick={handleClose}>Ban {user}</MenuItem>
-                    <MenuItem onClick={handleClose}>test3</MenuItem>
+                    <MenuItem onClick={ban}>Ban {user}</MenuItem>
                   </MenuList>
                 </ClickAwayListener>
               </Paper>

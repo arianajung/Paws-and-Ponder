@@ -6,7 +6,6 @@ import { handleProfileBtn } from "../../actions/handleProfileBtn"
 import { removeComment } from "../actions/removeComment";
 import MyBlog from "../../MyBlog/MyBlog";
 import AdminDropDownMenu from "../../Main/Post/AdminPostMenu/AdminPostMenu";
-import MyBlog from "../../MyBlog/MyBlog"
 import { Link } from "react-router-dom";
 
 // css

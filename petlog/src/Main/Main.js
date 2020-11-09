@@ -23,6 +23,7 @@ class Main extends React.Component {
     this.state = {
       //searchText for search bar
       app_users: props.app.state.users,
+      userCreds: props.app.state.userCreds,
       searchText: "",
       current_username: current_user.username,
       current_user_role: current_user.role,
