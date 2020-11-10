@@ -1,6 +1,12 @@
+<<<<<<< HEAD:petlog/src/actions/remove/removePost.js
 import getCurrentUserAndIndex from "../getCurrentUserAndIndex";
 import MyBlog from "../../react-components/MyBlog/MyBlog";
 import Profile from "../../react-components/Profile/Profile";
+=======
+import getCurrentUserAndIndex from "../../actions/getCurrentUserAndIndex";
+import MyBlog from "../MyBlog";
+import Profile from "../../Profile/Profile.js"
+>>>>>>> 7c43ab3fc2b3502bfd0e2d7a69a59a3959275b3d:petlog/src/MyBlog/actions/removePost.js
 
 export default function removePost(blog_page, user_postID) {
   const {current_username, profile_username, app_users} = blog_page.state

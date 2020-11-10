@@ -5,7 +5,10 @@ import Grid from "@material-ui/core/Grid";
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { Link } from "react-router-dom";
+<<<<<<< HEAD:petlog/src/react-components/SignUpForm/SignUpForm.js
 
+=======
+>>>>>>> 7c43ab3fc2b3502bfd0e2d7a69a59a3959275b3d:petlog/src/SignUpForm/SignUpForm.js
 import "./SignUpForm.css";
 
 /* Sign Up form with username and password inputs and a button */
@@ -15,7 +18,7 @@ class SignUpForm extends React.Component {
 
     return (
       <Container className="sign-up-form" maxWidth="xs">
-        <Typography 
+        <Typography
           className="sign-up-header"
           align="center"
           component="h1"
@@ -23,7 +26,7 @@ class SignUpForm extends React.Component {
         >
           Create Account
         </Typography>
-        
+
         <TextField
           variant="outlined"
           margin="normal"
@@ -34,7 +37,7 @@ class SignUpForm extends React.Component {
           value={username}
           onChange={handleChange}
         />
-        
+
         <TextField
           variant="outlined"
           margin="normal"
@@ -68,9 +71,6 @@ class SignUpForm extends React.Component {
             Sign Up
           </Button>
         </Grid>
-      
-        
-        
       </Container>
     );
   }

@@ -5,7 +5,6 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import { Link } from "react-router-dom";
-
 import "./LoginForm.css";
 
 /* Login form with username and password inputs and a button */
@@ -52,8 +51,8 @@ class LoginForm extends React.Component {
         </Grid>
 
         <Grid className="login-btn" item>
-          <Button 
-            variant="outlined" 
+          <Button
+            variant="outlined"
             size="large"
             onClick={auth}
           >
