@@ -11,12 +11,10 @@ import BookmarkIcon from "@material-ui/icons/TurnedInNot";
 import BookmarkedIcon from "@material-ui/icons/TurnedIn";
 import Chip from "@material-ui/core/Chip";
 import { removePost } from "../../MyBlog/actions/removePost";
-import { removeComment } from "../../MyBlog/actions/removeComment";
 import updateBookmarkedStatus from "../actions/updateBookmarkedStatus";
 
 import AdminDropDownMenu from "./AdminPostMenu/AdminPostMenu";
 import getCurrentUserAndIndex from "../../actions/getCurrentUserAndIndex";
-import MenuListComposition from "./AdminPostMenu/AdminPostMenu";
 import { handleProfileBtn } from "../../actions/profile";
 import { Link } from "react-router-dom";
 

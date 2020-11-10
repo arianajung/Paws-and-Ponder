@@ -12,9 +12,6 @@ import { Link } from "react-router-dom";
 import "./Comment.css";
 
 class Comment extends Component {
-  constructor(props) {
-    super(props)
-  }
   render() {
     const {
       current_username,
