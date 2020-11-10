@@ -64,6 +64,8 @@ class MyBlog extends Component {
     console.log("MyBlog.js: componenetDidMount()");
   }
 
+  // handles adding a comment that reflects the changes in the instance of App.js which in turn 
+  // sets sends the POST request to the backend
   addComment(comment, postID) {
     const posts_copy = this.state.posts.slice();
     const postIndex = getPostIndex(this.state.posts, postID);
@@ -85,7 +87,7 @@ class MyBlog extends Component {
     });
   }
 
-  // need to collect time clicked
+  // reflects changes to App.js which in turn send the updates to the backend
   makePost(e) {
     if (
       this.state.new_post_text.trim() !== "" ||

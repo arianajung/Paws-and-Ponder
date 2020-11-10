@@ -41,7 +41,7 @@ class Post extends React.Component {
     };
   }
 
-  // handles button press
+  // handles adding a new comment 
   buttonPress(e) {
     if (this.state.new_comment.trim() !== "") {
       // if no white space
@@ -50,6 +50,8 @@ class Post extends React.Component {
     }
   }
 
+  // reflects changes in the instance of App.js that holds the component information that will send and
+  // receive updates to and from backend.
   handleBookmarkBtn(app_users, current_username, post) {
     if (this.state.bookmarked === true) {
       updateBookmarkedStatus(app_users, current_username, post, false);
