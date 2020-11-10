@@ -1,5 +1,5 @@
 import getCurrentUserAndIndex from "./getCurrentUserAndIndex"
-import Profile from "../Profile/Profile"
+import Profile from "../react-components/Profile/Profile"
 
 export const handleProfileBtn = (app, username, page) => {
     app.setState({
