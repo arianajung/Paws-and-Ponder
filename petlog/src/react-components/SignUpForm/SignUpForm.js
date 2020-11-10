@@ -5,10 +5,6 @@ import Grid from "@material-ui/core/Grid";
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { Link } from "react-router-dom";
-<<<<<<< HEAD:petlog/src/react-components/SignUpForm/SignUpForm.js
-
-=======
->>>>>>> 7c43ab3fc2b3502bfd0e2d7a69a59a3959275b3d:petlog/src/SignUpForm/SignUpForm.js
 import "./SignUpForm.css";
 
 /* Sign Up form with username and password inputs and a button */
