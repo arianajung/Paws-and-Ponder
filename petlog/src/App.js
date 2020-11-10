@@ -17,6 +17,13 @@ import adminProfileImg from "./static/admin.png";
 import Auth from "./actions/Auth/Auth";
 
 class App extends React.Component {
+
+  // The following state contains user information and posts that are hard coded for the moment, 
+  // we plan to retrieve this data from our backend in phase 2.
+  // We pass information in this state down to each View to display certain components,
+  // currently the operations on these Views will update the states here, but later they will be changed
+  // to sending update requests to our server.
+
   state = {
     current_username: "", // username of the currently logged in user
     profile_username: "",
