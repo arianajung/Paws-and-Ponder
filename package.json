@@ -1,0 +1,22 @@
+{
+  "name": "team33",
+  "version": "1.0.0",
+  "description": "Backend of the Petlog Webapp",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/csc309-fall-2020/team33.git"
+  },
+  "author": "Ariana Jung, Fengning Luo, Ovidiu Bunea, Sherry Wang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/csc309-fall-2020/team33/issues"
+  },
+  "homepage": "https://github.com/csc309-fall-2020/team33#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
