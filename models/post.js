@@ -17,6 +17,7 @@ const PostSchema = new mongoose.Schema({
     images: [], //Change this to array of image id
     likes: Number,
     comments: [CommentSchema], // ?
+    tags: [String],
 });
 
 const Post = mongoose.model('Post', PostSchema)
