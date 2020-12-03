@@ -1,0 +1,10 @@
+#menu-button:hover {
+  color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(187, 181, 157, 0.507);   
+}
+
+.dark-MenuItem.MuiMenuItem-root:hover {
+  font-weight: bolder;
+  color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(187, 181, 157, 0.507);   
+}

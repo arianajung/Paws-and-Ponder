@@ -1,0 +1,213 @@
+.post-wrapper {
+  width: 100%;
+  align-items: center;
+  min-height: 150px;
+  overflow: auto;
+  margin-bottom: 10px;
+}
+
+#post-user {
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 20px;
+  font-weight: bold;
+  font-size: 26px;
+  width: 100px;
+  display: flex;
+}
+
+.post-info {
+  width: 100%;
+}
+
+#post-date {
+  margin-left: 10px;
+  margin-right: 10px;
+  width: 180px;
+}
+
+#post-text {
+  width: 100%;
+  white-space: pre-wrap;
+  padding-left: 5px;
+  padding-right: 5px;
+  font-size: 15px;
+  margin-top: -20px;
+}
+
+#post-img {
+  max-width: 30%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 2%;
+  margin-top: 0px;
+}
+
+.user-profile {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.left-container {
+  display: flex;
+}
+
+.buttons {
+  /* margin-left: 67%;
+  position: relative;
+  display: flex; */
+  margin-left: auto;
+  margin-right: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  width: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.removeBtn {
+  /* margin-left: 108%;
+  height: 50px;
+  position: aboslute; */
+  
+}
+
+.bookmarkBtn {
+  /* position: absolute;
+  left: 57px; */
+  
+}
+
+.admin-button {
+}
+
+.post {
+  width: 100%;
+  overflow: auto;
+  min-height: 100px;
+  background-color: rgba(241, 236, 227, 0.479);
+  display: inline-flex;
+  flex-direction: column;
+  border: solidrgba(211, 205, 180, 0.507) 2px;
+  border-radius: 10px;
+  margin-bottom: 1%;
+  box-shadow: 5px 3px 8px #e2e1e1;
+}
+
+.userIconContainer {
+  padding: 2px;
+}
+
+/* temporary styles for post */
+#userIcon {
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 10px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+
+.post-content {
+  padding: 10px;
+}
+
+.tagsContainer {
+  margin-left: 18px;
+  margin-top: auto;
+  padding-top: 15px;
+  margin-bottom: 6px;
+}
+
+.tag.MuiChip-root {
+  padding: 5px;
+  margin-right: 5px;
+}
+
+.postContentPicture {
+  margin-left: 80px;
+  max-width: 500px;
+}
+
+.comment-area {
+  width: 95%;
+  background-color: rgba(226, 226, 241, 0.253);
+  border: solid 2px rgba(211, 205, 180, 0.507);
+  border-radius: 10px;
+  margin: auto;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.post-area {
+  width: 80%;
+  margin-left: 300px;
+}
+
+#comments-header {
+  font-size: large;
+  font-weight: bold;
+  padding-left: 5px;
+}
+
+.leave-a-comment.MuiTextField-root {
+  width: 96%;
+  margin-left: 2%;
+  margin-right: 2%;
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+.leave-a-comment label.Mui-focused {
+  color: rgba(51, 48, 39, 0.507);
+}
+
+.leave-a-comment .MuiOutlinedInput-root fieldset {
+  border-radius: 10px;
+  border-color: rgba(136, 122, 92, 0.6);
+}
+
+.leave-a-comment .MuiOutlinedInput-root.Mui-focused fieldset {
+  border: solid 2px rgba(187, 181, 157, 0.507);
+}
+
+.leave-a-comment .MuiOutlinedInput-root:hover fieldset {
+  border: solid 2px rgba(187, 181, 157, 0.507);
+}
+
+.dark-button-element.MuiIconButton-root:hover {
+  color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(187, 181, 157, 0.507);
+
+}
+
+.comments {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.button-container {
+  width: 100%;
+  display: flex;
+  margin-bottom: 10px;
+}
+
+#comment-button {
+  width: 10%;
+  min-width: 100px;
+  margin-left: auto;
+  margin-right: 2%;
+  border-radius: 10px;
+  font-size: 15px;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+#comment-button:hover {
+  font-weight: bolder;
+  color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(187, 181, 157, 0.507);
+}

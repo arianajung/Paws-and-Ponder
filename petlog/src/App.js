@@ -2,21 +2,28 @@ import React from "react";
 import { Route, Switch, BrowserRouter, Redirect } from "react-router-dom";
 import "./App.css";
 
-import Login from "./Login/Login";
-import SignUp from "./SignUp/SignUp";
-import Main from "./Main/Main";
-import MyBlog from "./MyBlog/MyBlog";
-import Bookmarks from "./Bookmarks/Bookmarks";
-import Settings from "./Settings/Settings";
-import Profile from "./Profile/Profile";
+import Login from "./react-components/Login/Login";
+import SignUp from "./react-components/SignUp/SignUp";
+import Main from "./react-components/Main/Main";
+import MyBlog from "./react-components/MyBlog/MyBlog";
+import Bookmarks from "./react-components/Bookmarks/Bookmarks";
+import Settings from "./react-components/Settings/Settings";
+import Profile from "./react-components/Profile/Profile";
 import profileImg from "./static/bunny.jpg";
 import dogImg from "./static/dog.jpg";
 import catImg from "./static/cat.jpg";
 import defaultImg from "./static/img_1.jpg";
 import adminProfileImg from "./static/admin.png";
-import Auth from "./Auth/Auth";
+import Auth from "./actions/Auth/Auth";
 
 class App extends React.Component {
+
+  // The following state contains user information and posts that are hard coded for the moment, 
+  // we plan to retrieve this data from our backend in phase 2.
+  // We pass information in this state down to each View to display certain components,
+  // currently the operations on these Views will update the states here, but later they will be changed
+  // to sending update requests to our server.
+
   state = {
     current_username: "", // username of the currently logged in user
     profile_username: "",
