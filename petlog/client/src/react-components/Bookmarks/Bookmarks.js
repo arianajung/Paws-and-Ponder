@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "../Navbar/Navbar";
-import PostList from "./../PostList/PostList";
+import PostList from "../PostList/PostList";
 import SearchBar from "material-ui-search-bar";
 import PermanentDrawerRight from "../DrawerMenu/Drawer";
 import "./Bookmarks.css";

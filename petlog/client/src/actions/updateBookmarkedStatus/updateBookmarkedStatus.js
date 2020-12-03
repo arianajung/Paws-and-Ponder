@@ -1,4 +1,4 @@
-import getCurrentUserAndIndex from "../../actions/getCurrentUserAndIndex";
+import getCurrentUserAndIndex from "../getCurrentUserAndIndex";
 
 export default function updateBookmarkedStatus(app_users,
                                                 current_username,

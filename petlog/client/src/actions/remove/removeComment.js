@@ -1,4 +1,4 @@
-import getPostIndex from "../../actions/getPostIndex";
+import getPostIndex from "../getPostIndex";
 
 export default function removeComment(page, postID, commentID) {
   const postIndex = getPostIndex(page.state.all_posts, postID);

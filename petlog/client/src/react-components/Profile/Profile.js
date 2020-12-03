@@ -6,7 +6,7 @@ import SearchBar from "material-ui-search-bar";
 // component imports
 import PermanentDrawerRight from "../DrawerMenu/Drawer";
 import Navbar from "../Navbar/Navbar";
-import PostList from "./../PostList/PostList";
+import PostList from "../PostList/PostList";
 import getCurrentUserAndIndex from "../../actions/getCurrentUserAndIndex";
 import getPostIndex from "../../actions/getPostIndex";
 import searchRequest from "../../actions/searchRequest"
