@@ -7,6 +7,7 @@ import "./Main.css";
 import getPostIndex from "../../actions/getPostIndex";
 import searchRequest from "../../actions/searchRequest";
 import { Typography } from "@material-ui/core";
+import { getFollowers, getFollowing } from "../../actions/user"
 
 /* Main page where the user views all of the posts made by people that they follow*/
 class Main extends React.Component {
@@ -35,8 +36,6 @@ class Main extends React.Component {
             //     current_username: current_user.username,
             //     current_user_role: current_user.role,
             //     profileImg: current_user.profileImg,
-            //     following: current_user.following,
-            //     followers: current_user.followers,
             //     bookmarks: current_user.bookmarks,
             //     posts: current_user.mainPosts,
             //     comment_count: current_user.commentCount,
@@ -71,7 +70,7 @@ class Main extends React.Component {
         return (
             <div className="main-container">
                 <div>
-                    <Navbar app={app}view="main" />
+                    <Navbar app={app} view="main" />
                 </div>
                 {console.log(`Logged in as ${app.state.currentUser}`)}
                 <div className="main-middle-area">
@@ -102,12 +101,10 @@ class Main extends React.Component {
                     </div>
                 </div>
                 <div>
-                    {/* <PermanentDrawerRight
-                        app={this.props.app}
+                    <PermanentDrawerRight
+                        app={app}
                         page={this}
-                        following={this.state.following}
-                        followers={this.state.followers}
-                    /> */}
+                    />
                 </div>
             </div>
         );

@@ -21,6 +21,7 @@ class App extends React.Component {
   state = {
     currentUser: null, // added for session
     curr_uid: null, // ObjectID of the curr user
+    profileUser: null, // user object used for profile page
   };
 
   render() {
@@ -64,7 +65,7 @@ class App extends React.Component {
               exact
               path="/blog"
               render={() =>
-                Auth.isAuthenticated() ? (
+                !currentUser ? (
                   <MyBlog app={this} />
                 ) : (
                     <Redirect to="/" />
@@ -75,7 +76,7 @@ class App extends React.Component {
               exact
               path="/settings"
               render={() =>
-                Auth.isAuthenticated() ? (
+                !currentUser ? (
                   <Settings app={this} />
                 ) : (
                     <Redirect to="/" />
@@ -86,7 +87,7 @@ class App extends React.Component {
               exact
               path="/bookmarks"
               render={() =>
-                Auth.isAuthenticated() ? (
+                !currentUser ? (
                   <Bookmarks app={this} />
                 ) : (
                     <Redirect to="/" />
@@ -97,10 +98,10 @@ class App extends React.Component {
               exact
               path="/profile"
               render={() =>
-                Auth.isAuthenticated() ? (
-                  <Profile app={this} />
-                ) : (
+                !currentUser ? (
                     <Redirect to="/" />
+                ) : (
+                    <Profile app={this} />
                   )
               }
             />

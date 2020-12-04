@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useStyles } from "./DrawerStyles";
 import Drawer from "@material-ui/core/Drawer";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -14,12 +14,21 @@ import Avatar from "@material-ui/core/Avatar";
 import { Link } from "react-router-dom";
 import getCurrentUserAndIndex from "../../actions/getCurrentUserAndIndex";
 import { handleProfileBtn } from "../../actions/profile"
+import { getFollowers, getFollowing } from "../../actions/user"
 
 export default function PermanentDrawerRight(props) {
   // retreive style sheet for Drawer
   const classes = useStyles();
 
-  const { app, page, following, followers } = props;
+  const { app, page, update } = props;
+
+  const [followers, setFollowers] = useState([]);
+  const [following, setFollowing] = useState([]);
+
+  useEffect(() => {
+    getFollowers(setFollowers)
+    getFollowing(setFollowing)
+  }, [update]);
 
   return (
     <div className={classes.root}>
@@ -37,13 +46,13 @@ export default function PermanentDrawerRight(props) {
         </Typography>
         <List>
           {/* Generate list for  */}
-          {followers.map((username) => (
-            <Link key={username} to={"/profile"}>
-              <ListItem button key={username} onClick={() => handleProfileBtn(app, username, page)}>
+          {followers.map((user) => (
+            <Link key={user} to={"/profile"}>
+              <ListItem button key={user} onClick={() => handleProfileBtn(app, user, page)}>
                 <ListItemAvatar>
-                  <Avatar alt={username} src={getCurrentUserAndIndex(app.state.users, username)[1].profileImg} />
+                  <Avatar alt={user.username} src={user.profileImg} />
                 </ListItemAvatar>
-                <ListItemText primary={username} />
+                <ListItemText primary={user.username} />
               </ListItem>
             </Link>
           ))}
@@ -53,13 +62,13 @@ export default function PermanentDrawerRight(props) {
           Following
         </Typography>
         <List>
-          {following.map((username) => (
-            <Link key={username} to={"/profile"}>
-              <ListItem button key={username} onClick={() => handleProfileBtn(app, username, page)}>
+          {following.map((user) => (
+            <Link key={user} to={"/profile"}>
+              <ListItem button key={user} onClick={() => handleProfileBtn(app, user, page)}>
                 <ListItemAvatar>
-                  <Avatar alt={username} src={getCurrentUserAndIndex(app.state.users, username)[1].profileImg} />
+                  <Avatar alt={user.username} src={user.profileImg} />
                 </ListItemAvatar>
-                <ListItemText primary={username} />
+                <ListItemText primary={user.username} />
               </ListItem>
             </Link>
           ))}

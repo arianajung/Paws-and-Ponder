@@ -265,6 +265,97 @@ app.get("/api/get-main-posts/", mongoChecker, authenticate, async (req, res) => 
     }
 );
 
+app.get('/api/followers', mongoChecker, authenticate, async (req, res) => {
+    try {
+        const user = await User.findById(req.user._id).populate('follower');
+        if (!user.follower) {
+            res.status(404).send("Resource not found");
+        } else {
+            res.send(user.follower);
+        }
+    } catch(error) {
+        log(error)
+        res.status(500).send("Internal Server Error")
+    }
+})
+
+app.get('/api/following', mongoChecker, authenticate, async (req, res) => {
+    try {
+        const user = await User.findById(req.user._id).populate('following')
+        if (!user.following) {
+            res.status(404).send("Resource not found");
+        } else {
+            res.send(user.following);
+        }
+    } catch(error) {
+        log(error)
+        res.status(500).send("Internal Server Error")
+    }
+})
+
+app.get('/api/user', mongoChecker, authenticate, async (req, res) => {
+    // Get the current user
+    try {
+        const user = await User.findById(req.user._id)
+        if (!user) {
+            res.status(404).send("Resource not found");
+        } else {
+            res.send(user);
+        }
+    } catch(error) {
+        log(error)
+        res.status(500).send("Internal Server Error")
+    }
+})
+
+app.patch('/api/followers:id', mongoChecker, async (req, res) => {
+	const id = req.params.id
+
+	// Good practise: Validate id immediately.
+	if (!ObjectID.isValid(id)) {
+		res.status(404).send('Resource not found')  // if invalid id, definitely can't find resource, 404.
+		return;  // so that we don't run the rest of the handler.
+	}
+
+	try {
+		const user = await User.findById(id).populate('follower');
+		if (!user.follower) {
+			res.status(404).send('Resource not found')  // could not find this restaurant
+		} else {
+            user.follower = req.body.follower
+            const result = await user.save()
+            res.send(result)
+		}
+	} catch(error) {
+		log(error) // log server error to the console, not to the client.
+		if (isMongoError(error)) { // check for if mongo server suddenly disconnected before this request.
+			res.status(500).send('Internal server error')
+		} else {
+			res.status(400).send('Bad Request') // bad request for changing the reservation.
+		}
+	}
+})
+
+app.patch('/api/following', mongoChecker, authenticate, async (req, res) => {
+	try {
+		const user = await User.findById(req.user._id).populate('following');
+		if (!user.following) {
+			res.status(404).send('Resource not found')  // could not find this restaurant
+		} else {
+            user.following = req.body.following
+            const result = await user.save()
+            res.send(result)
+		}
+	} catch(error) {
+		log(error) // log server error to the console, not to the client.
+		if (isMongoError(error)) { // check for if mongo server suddenly disconnected before this request.
+			res.status(500).send('Internal server error')
+		} else {
+			res.status(400).send('Bad Request') // bad request for changing the reservation.
+		}
+	}
+})
+
 // ********************* API Routes End Here **********************************
 
 /*** Webpage routes below **********************************/
@@ -274,7 +365,7 @@ app.use(express.static(path.join(__dirname, "/client/build")));
 // All routes other than above will go to index.html
 app.get("*", (req, res) => {
     // check for page routes that we expect in the frontend to provide correct status code.
-    const goodPageRoutes = ["/", "/login", "/main"];
+    const goodPageRoutes = ["/", "/login", "/main", "/profile"];
     if (!goodPageRoutes.includes(req.url)) {
         // if url not in expected page routes, set status to 404.
         res.status(404);
