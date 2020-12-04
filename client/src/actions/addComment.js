@@ -1,4 +1,4 @@
-import { getPosts } from "./user";
+import { getPosts, getUserPosts } from "./user";
 // Functions to help with user actions.
 
 export const addComment = async (new_comment, pid, postlist) => {
@@ -23,7 +23,11 @@ export const addComment = async (new_comment, pid, postlist) => {
             }
         }).then((json) => {
             // the resolved promise with the JSON body
-            getPosts(postlist)
+            if (postlist.state.type === "main") {
+                getPosts(this);
+            } else {
+                getUserPosts(this);
+            }
         })
         .catch(error => {
             console.log(error);

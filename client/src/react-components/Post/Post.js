@@ -18,7 +18,7 @@ import getCurrentUserAndIndex from "../../actions/getCurrentUserAndIndex";
 import { handleProfileBtn } from "../../actions/profile";
 import { Link } from "react-router-dom";
 import Moment from "react-moment";
-import moment from "moment";
+// import moment from "moment";
 
 import { addComment } from "../../actions/addComment"
 

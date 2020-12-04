@@ -176,12 +176,14 @@ app.post('/api/addComment', mongoChecker, authenticate, async (req, res) => {
     }
 })
 
-app.get('/api/getUserPosts', mongoChecker, async (req, res) => {
+app.get('/api/getUserPosts', mongoChecker, authenticate, async (req, res) => {
+    console.log(req.user);
     try {
         const posts = await Post
             .find({ owner_id: req.user._id })
             .sort({ timeStamp: -1 }); // returns posts sorted by latest
-        res.send(posts);
+        console.log(posts);
+        res.send({ posts });
     } catch (error) {
         log(error);
         res.status(500).send("getUserPosts: Internal Server Error");
@@ -192,7 +194,7 @@ app.get('/api/getUserPosts', mongoChecker, async (req, res) => {
 //  returns an array containing all posts by the user given
 //  request: { username: <username> }
 //  response: [ {post1}, {post2}, {etc} ]
-app.get('/api/getProfilePosts', mongoChecker, async (req, res) => {
+app.get('/api/getProfilePosts', mongoChecker, authenticate, async (req, res) => {
     const user_id = await User.findByUsername(req.query.username);
     try {
         const posts = await Post.find()
