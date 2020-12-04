@@ -178,11 +178,9 @@ app.post('/api/addComment', mongoChecker, async (req, res) => {
 
 app.get('/api/getUserPosts', mongoChecker, async (req, res) => {
     try {
-        const posts = await Post.find().populate({
-            path: 'owner_id', 
-            match: { owner_id: req.user._id },
-            sort: { timeStamp: -1 }
-        }); // returns posts sorted by latest
+        const posts = await Post
+            .find({ owner_id: req.user._id })
+            .sort({ timeStamp: -1 }); // returns posts sorted by latest
         res.send(posts);
     } catch (error) {
         log(error);
@@ -195,13 +193,11 @@ app.get('/api/getUserPosts', mongoChecker, async (req, res) => {
 //  request: { username: <username> }
 //  response: [ {post1}, {post2}, {etc} ]
 app.get('/api/getProfilePosts', mongoChecker, async (req, res) => {
-    const user_id = User.findByUsername(req.query.username);
+    const user_id = await User.findByUsername(req.query.username);
     try {
-        const posts = await Post.find().populate({
-            path: 'owner_id', 
-            match: { owner_id: user_id },
-            sort: { timeStamp: -1 }
-        }); // returns posts sorted by latest
+        const posts = await Post.find()
+        .find({ owner_id: user_id })
+        .sort({ timeStamp: -1 }); // returns posts sorted by latest
         res.send(posts);
     } catch (error) {
         log(error);
