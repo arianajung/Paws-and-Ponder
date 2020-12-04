@@ -29,12 +29,7 @@ class Login extends React.Component {
           password={this.state.password}
           handleChange={this.handleChange}
           auth={() =>
-            Auth.loginBackEnd(this, this.props.app, () => {
-              this.props.history.push("/main");
-              this.props.app.setState({
-                current_username: this.state.username
-              });
-            })
+            Auth.loginBackEnd(this, this.props.app)
           }
         />
       </div>

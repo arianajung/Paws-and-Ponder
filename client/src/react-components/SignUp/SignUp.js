@@ -23,13 +23,10 @@ class SignUp extends React.Component {
           username={this.state.username}
           password={this.state.password}
           handleChange={this.handleChange}
-          auth={() =>
-            Auth.signup(this, this.props.app, () => {
-              this.props.history.push("/main");
-              this.props.app.setState({ 
-                current_username: this.state.username 
-              });
-          })}
+          auth={() => {
+            Auth.signupBackEnd(this, this.props.app)
+          }
+          }
         />
       </div>
     );

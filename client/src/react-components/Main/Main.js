@@ -12,6 +12,8 @@ import { Typography } from "@material-ui/core";
 class Main extends React.Component {
   constructor(props) {
     super(props);
+    this.props.history.push("/main");
+    
     //this.addComment = this.addComment.bind(this);
 
     // Obtain information about current user
@@ -69,7 +71,7 @@ class Main extends React.Component {
       <div className="main-container">
         
         <div>
-          <Navbar view="main" />
+          <Navbar app = {app} view="main" />
         </div>
         <Typography> Logged in as {app.state.currentUser}</Typography>
         {/* <div className="main-middle-area">

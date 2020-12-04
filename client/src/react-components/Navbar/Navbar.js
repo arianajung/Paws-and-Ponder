@@ -10,7 +10,7 @@ import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import PersonAddDisabledIcon from '@material-ui/icons/PersonAddDisabled';
 import {contains, handleFollowBtn } from "../../actions/profile"
 
-function Navbar({ app_users, profile, following, profile_followers, view, viewing_user, current_user, current_user_role, profileImg }) {
+function Navbar({ app, app_users, profile, following, profile_followers, view, viewing_user, current_user, current_user_role, profileImg }) {
   let userProfile;
   if (view === "myBlog" || view === "profile") {
     userProfile = (
@@ -64,7 +64,7 @@ function Navbar({ app_users, profile, following, profile_followers, view, viewin
         <ul className="navbar-list">
           {NavbarData.map((val, key) => {
             return (
-              <Link key={key} to={val.link} onClick={() => val.title === "Log Out" ? Auth.logout() : ""}>
+              <Link key={key} to={val.link} onClick={() => val.title === "Log Out" ? Auth.logout(app) : ""}>
                 <li className="row">
                   <div id="icon">{val.icon}</div>{" "}
                   <div id="title">{val.title}</div>
