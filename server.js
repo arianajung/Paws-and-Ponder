@@ -14,11 +14,7 @@ mongoose.set('useFindAndModify', false); // for some deprecation issues
 // https://github.com/csc309-fall-2020/react-express-authentication/blob/master/server.js
 
 const { User } = require("./models/user");
-<<<<<<< HEAD
-const { Post, Comment } = require("./models/post");
-=======
 const { Comment, Post, Tag } = require("./models/post");
->>>>>>> ea7c339c16a2215ab32a0e107cb747207168c460
 const { Image } = require("./models/image");
 
 // to validate object IDs
@@ -163,7 +159,6 @@ app.post('/api/addUser', mongoChecker, async (req, res) => {
     }
 })
 
-<<<<<<< HEAD
 app.post('/api/addComment', mongoChecker, async (req, res) => {
     const new_comment = new Comment({
         owner_id: req.user._id,
@@ -213,7 +208,6 @@ app.get('/api/getProfilePosts', mongoChecker, async (req, res) => {
         res.status(500).send("getProfilePosts: Internal Server Error");
     }
 })
-=======
 // a route to get all posts for main (posts from all users the current user follows)
 app.get("/api/get-main-posts/", mongoChecker, authenticate, async (req, res) => {
         //console.log(req.user)
@@ -270,7 +264,6 @@ app.get("/api/get-main-posts/", mongoChecker, authenticate, async (req, res) => 
         }
     }
 );
->>>>>>> ea7c339c16a2215ab32a0e107cb747207168c460
 
 // ********************* API Routes End Here **********************************
 
