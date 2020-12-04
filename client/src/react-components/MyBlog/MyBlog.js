@@ -182,6 +182,7 @@ class MyBlog extends Component {
             current_user={this.state.current_username}
             current_user_role={this.state.current_user_role}
             profileImg={this.state.profileImg}
+            app={this.props.app}
           />
         </div>
         <div className="blog-middle-area">
