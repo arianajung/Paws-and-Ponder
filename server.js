@@ -14,7 +14,7 @@ mongoose.set('useFindAndModify', false); // for some deprecation issues
 // https://github.com/csc309-fall-2020/react-express-authentication/blob/master/server.js
 
 const { User } = require("./models/user");
-const { Post } = require("./models/post");
+const { Post, Comment } = require("./models/post");
 const { Image } = require("./models/image");
 
 // to validate object IDs
@@ -77,21 +77,53 @@ app.post('/api/addUser', mongoChecker, async (req, res) => {
 })
 
 app.post('/api/addComment', mongoChecker, async (req, res) => {
-
+    const new_comment = new Comment({
+        owner_id: req.user._id,
+        owner: req.user.username,
+        textContent: req.body.textContent,
+    });
+    try {
+        const post = await Post.findById(req.body.post_id);
+        post.comments.push(new_comment);
+        await post.save();
+        res.send(`Comment for post ${req.body.post_id} made by ${req.user._id}: ${req.body.textContent}`);
+    } catch (error) {
+        log(error);
+        res.status(500).send("addComment: Internal Server Error")
+    }
 })
 
-app.get('api/getUserPosts', mongoChecker, async (req, res, next) => {
+app.get('/api/getUserPosts', mongoChecker, async (req, res) => {
+    try {
+        const posts = await Post.find().populate({
+            path: 'owner_id', 
+            match: { owner_id: req.user._id },
+            sort: { timeStamp: -1 }
+        }); // returns posts sorted by latest
+        res.send(posts);
+    } catch (error) {
+        log(error);
+        res.status(500).send("getUserPosts: Internal Server Error");
+    }
+})
 
 
-    User.findById(req.session.user_id).then((user) => {
-        if (!user) {
-            return Promise.reject(new Error('getUserPosts: _id not found'));
-        } else {
-            for (const post in user.userPosts) {
-                
-            }
-        }
-    })
+//  returns an array containing all posts by the user given
+//  request: { username: <username> }
+//  response: [ {post1}, {post2}, {etc} ]
+app.get('/api/getProfilePosts', mongoChecker, async (req, res) => {
+    const user_id = User.findByUsername(req.query.username);
+    try {
+        const posts = await Post.find().populate({
+            path: 'owner_id', 
+            match: { owner_id: user_id },
+            sort: { timeStamp: -1 }
+        }); // returns posts sorted by latest
+        res.send(posts);
+    } catch (error) {
+        log(error);
+        res.status(500).send("getProfilePosts: Internal Server Error");
+    }
 })
 
 // ********************* API Routes End Here **********************************

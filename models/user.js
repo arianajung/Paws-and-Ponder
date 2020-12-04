@@ -70,6 +70,20 @@ UserSchema.statics.findByUsernamePassword = function (username, password) {
     });
 };
 
+// A static method to the User model that returns the ObjectID of a user
+// given the username 
+UserSchema.statics.findByUsername = function (username) {
+	const User = this; 
+
+	return User.findOne({ username: username }).then((user) => {
+		if (!user) {
+			return Promise.reject();
+		} else {
+			return user._id;
+		}
+	})
+}
+
 // make a model using the User schema
 const User = mongoose.model("User", UserSchema);
 module.exports = { User };
