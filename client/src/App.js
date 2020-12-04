@@ -63,9 +63,9 @@ class App extends React.Component {
             <Route
               exact
               path="/blog"
-              render={() =>
-                Auth.isAuthenticated() ? (
-                  <MyBlog app={this} />
+              render={(props) =>
+                currentUser ? (
+                  <MyBlog {...props} app={this} />
                 ) : (
                     <Redirect to="/" />
                   )
@@ -75,7 +75,7 @@ class App extends React.Component {
               exact
               path="/settings"
               render={() =>
-                Auth.isAuthenticated() ? (
+                currentUser ? (
                   <Settings app={this} />
                 ) : (
                     <Redirect to="/" />
@@ -86,7 +86,7 @@ class App extends React.Component {
               exact
               path="/bookmarks"
               render={() =>
-                Auth.isAuthenticated() ? (
+                currentUser ? (
                   <Bookmarks app={this} />
                 ) : (
                     <Redirect to="/" />
@@ -97,7 +97,7 @@ class App extends React.Component {
               exact
               path="/profile"
               render={() =>
-                Auth.isAuthenticated() ? (
+                currentUser ? (
                   <Profile app={this} />
                 ) : (
                     <Redirect to="/" />

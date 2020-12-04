@@ -139,7 +139,6 @@ app.post('/api/addUser', mongoChecker, async (req, res) => {
         profileImg: req.body.profileImg,
         following: [],
         follower: [],
-        userPosts: [],
         bookmarks: [],
         bio: req.body.bio
     })
@@ -159,7 +158,7 @@ app.post('/api/addUser', mongoChecker, async (req, res) => {
     }
 })
 
-app.post('/api/addComment', mongoChecker, async (req, res) => {
+app.post('/api/addComment', mongoChecker, authenticate, async (req, res) => {
     const new_comment = new Comment({
         owner_id: req.user._id,
         owner: req.user.username,
@@ -169,7 +168,8 @@ app.post('/api/addComment', mongoChecker, async (req, res) => {
         const post = await Post.findById(req.body.post_id);
         post.comments.push(new_comment);
         await post.save();
-        res.send(`Comment for post ${req.body.post_id} made by ${req.user._id}: ${req.body.textContent}`);
+        // `Comment for post ${req.body.post_id} made by ${req.user._id}: ${req.body.textContent}`
+        res.send({ new_comment });
     } catch (error) {
         log(error);
         res.status(500).send("addComment: Internal Server Error")

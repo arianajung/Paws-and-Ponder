@@ -12,6 +12,7 @@ class PostList extends React.Component {
 
     componentDidMount() {
         getPosts(this); //
+        console.log("Postlist ComponentDidMount Triggered")
     }
 
     render() {
@@ -45,6 +46,7 @@ class PostList extends React.Component {
                         profileImg={""}
                         page={page}
                         role={role}
+                        postlist={this}
                     />
                 ))}
             </Grid>

@@ -1,9 +1,9 @@
 // Functions to help with user actions.
 
-export const getPosts = (postList) => {
+export const getPosts = async (postList) => {
     const url = `/api/get-main-posts/`;
 
-    fetch(url, {
+    await fetch(url, {
         accepts: "application/json",
     })
         .then((res) => {
