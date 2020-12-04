@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-// to validate object ID
+// to validate object IDs
 const { ObjectID } = require("mongodb");
 
 const bcrypt = require("bcryptjs");
