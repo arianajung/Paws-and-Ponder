@@ -16,7 +16,7 @@ export const getPosts = (postList) => {
         })
         .then((json) => {
             // the resolved promise with the JSON body
-            postList.setState({ postList: json.posts });
+            postList.setState({ posts: json.posts });
         })
         .catch((error) => {
             console.log(error);

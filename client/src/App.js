@@ -64,7 +64,7 @@ class App extends React.Component {
               exact
               path="/blog"
               render={() =>
-                Auth.isAuthenticated() ? (
+                currentUser ? (
                   <MyBlog app={this} />
                 ) : (
                     <Redirect to="/" />

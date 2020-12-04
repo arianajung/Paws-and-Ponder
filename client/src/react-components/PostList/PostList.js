@@ -6,19 +6,23 @@ import { getPosts } from "../../actions/user";
 
 /* Component for the List of Posts */
 class PostList extends React.Component {
-    state = {
-        postList: [],
-    };
-
+    constructor(props) {
+        super(props)
+        this.state = {
+            postList: props.page.state.posts
+        };
+    
+    }
+   
     componentDidMount() {
-        getPosts(this); //
+        console.log("mounting:" + this.state.postList)
     }
 
     render() {
+        console.log("postlist posts: " + this.state.postList)
         const {
             currentUser,
             app_users,
-            posts,
             addComment,
             myBlog,
             profileImg,
@@ -26,8 +30,6 @@ class PostList extends React.Component {
             page,
             role,
         } = this.props;
-
-        console.log(this.state.postList);
 
         /* Our post list. */
         return (
