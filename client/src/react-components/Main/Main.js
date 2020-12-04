@@ -69,7 +69,7 @@ class Main extends React.Component {
     // }
 
     componentDidMount() {
-        getPosts(this);
+        //getPosts(this);
     }
 
     render() {
@@ -99,8 +99,9 @@ class Main extends React.Component {
                         <PostList
                             currentUser={app.state.currentUser}
                             curr_uid={app.state.curr_uid}
+                            type="main"
                             // app_users={this.state.app_users}
-                            posts={this.state.posts}
+                            //posts={this.state.posts}
                             // addComment={this.addComment}
                             // profileImg={this.state.profileImg}
                             page={this}

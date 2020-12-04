@@ -70,14 +70,13 @@ class MyBlog extends Component {
   }
 
   // retrieves posts made by this user from the database and stores it in state
-  componentDidMount() {
-    fetch('/api/getUserPosts')
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data.posts);
-        this.setState({ posts: data.posts });
-        return false;
-      });
+  async componentDidMount() {
+    // await fetch('/api/getUserPosts')
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     this.setState({ posts: data.posts });
+    //     return false;
+    //   });
     
   }
 
@@ -174,7 +173,7 @@ class MyBlog extends Component {
   }
 
   render() {
-    console.log(this.state.posts);
+    console.log("my blog posts:" + this.state.posts);
     return (
       <div className="myblog-container">
         <div>
@@ -276,6 +275,7 @@ class MyBlog extends Component {
               current_username={this.state.current_username}
               //app_users={this.state.app_users}
               posts={this.state.posts}
+              type="blog"
               // addComment={this.addComment}
               myBlog={this}
               profileImg={this.state.profileImg}

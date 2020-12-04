@@ -2,20 +2,24 @@ import React from "react";
 import { uid } from "react-uid";
 import Grid from "@material-ui/core/Grid";
 import Post from "../Post/Post";
-import { getPosts } from "../../actions/user";
+import { getPosts, getUserPosts } from "../../actions/user";
 
 /* Component for the List of Posts */
 class PostList extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            postList: props.page.state.posts
+            postList: []
         };
     
     }
    
     componentDidMount() {
-        console.log("mounting:" + this.state.postList)
+        if (this.props.type === "main") {
+            getPosts(this);
+        } else {
+            getUserPosts(this);
+        }
     }
 
     render() {
