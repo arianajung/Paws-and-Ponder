@@ -76,7 +76,23 @@ app.post('/api/addUser', mongoChecker, async (req, res) => {
     }
 })
 
+app.post('/api/addComment', mongoChecker, async (req, res) => {
 
+})
+
+app.get('api/getUserPosts', mongoChecker, async (req, res, next) => {
+
+
+    User.findById(req.session.user_id).then((user) => {
+        if (!user) {
+            return Promise.reject(new Error('getUserPosts: _id not found'));
+        } else {
+            for (const post in user.userPosts) {
+                
+            }
+        }
+    })
+})
 
 // ********************* API Routes End Here **********************************
 

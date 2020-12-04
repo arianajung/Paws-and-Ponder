@@ -61,6 +61,7 @@ class MyBlog extends Component {
 
   // fetch post info from db and store in state
   componentDidMount() {
+
     console.log("MyBlog.js: componenetDidMount()");
   }
 
