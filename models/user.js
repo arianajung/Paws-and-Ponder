@@ -21,7 +21,6 @@ const UserSchema = new mongoose.Schema({
     profileImg: String, // ?
     following: [{ type: ObjectID, ref: "User" }],
     follower: [{ type: ObjectID, ref: "User" }],
-    userPosts: [{ type: ObjectID, ref: "Post" }],
     bookmarks: [{ type: ObjectID, ref: "Post" }],
     // Unsure about the ones below
     bio: String,
