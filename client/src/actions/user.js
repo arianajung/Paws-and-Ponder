@@ -1,7 +1,7 @@
 // Functions to help with user actions.
 
-export const getPosts = (postList, currentUser) => {
-    const url = `/api/get-main-posts/${currentUser}`;
+export const getPosts = (postList) => {
+    const url = `/api/get-main-posts/`;
 
     fetch(url, {
         accepts: "application/json",

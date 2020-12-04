@@ -71,7 +71,7 @@ class Main extends React.Component {
         return (
             <div className="main-container">
                 <div>
-                    <Navbar view="main" />
+                    <Navbar app={app}view="main" />
                 </div>
                 {console.log(`Logged in as ${app.state.currentUser}`)}
                 <div className="main-middle-area">

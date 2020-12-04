@@ -11,7 +11,7 @@ class PostList extends React.Component {
     };
 
     componentDidMount() {
-        getPosts(this, "5fc9af679f63666428965b81");
+        getPosts(this); //
     }
 
     render() {
