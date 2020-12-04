@@ -108,6 +108,7 @@ class Profile extends Component {
                     <div className="post-area">
                         <PostList
                             current_username={this.state.current_username}
+                            type="profile"
                             app_users={this.state.app_users}
                             posts={this.state.posts}
                             addComment={this.addComment}
