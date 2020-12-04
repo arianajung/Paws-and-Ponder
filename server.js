@@ -77,7 +77,7 @@ app.use(
         resave: false,
         saveUninitialized: false,
         cookie: {
-            expires: 600000, //10 min
+            expires: 300000, //5 min
             httpOnly: true,
         },
     })
@@ -137,7 +137,7 @@ app.post("/api/addUser", mongoChecker, async (req, res) => {
     // Create a new user using the User mongoose model
     const user = new User({
         username: req.body.username,
-        role: req.body.role,
+        role: "user",
         password: req.body.password, // need to hash this
         profileImg: req.body.profileImg,
         following: [],

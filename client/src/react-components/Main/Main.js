@@ -12,6 +12,9 @@ import { Typography } from "@material-ui/core";
 class Main extends React.Component {
     constructor(props) {
         super(props);
+        this.props.history.push("/main");
+
+        //this.addComment = this.addComment.bind(this);
 
         //this.addComment = this.addComment.bind(this);
 
@@ -65,15 +68,12 @@ class Main extends React.Component {
     render() {
         const { history, app } = this.props;
 
-        console.log("from main", app.state.curr_uid);
-
         return (
             <div className="main-container">
                 <div>
                     <Navbar view="main" />
                 </div>
                 {console.log(`Logged in as ${app.state.currentUser}`)}
-                <br />
                 <div className="main-middle-area">
                     <div className="search-bar">
                         <SearchBar
