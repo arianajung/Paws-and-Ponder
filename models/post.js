@@ -1,24 +1,32 @@
-const mongoose = require('mongoose')
+"use strict";
 
-const { ObjectID } = require("mongodb");
+const mongoose = require("mongoose");
 
 // Schema Attempt for Comments
 const CommentSchema = new mongoose.Schema({
-    owner: { type: ObjectID, ref: 'User' },
+    owner_id: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    owner: String,
     timeStamp: { type: Date, default: Date.now }, // ?
     textContent: String,
 });
 
+const TagSchema = new mongoose.Schema({
+    tagName: String,
+});
+
 // Schema Attempt for Posts
 const PostSchema = new mongoose.Schema({
-    owner: { type: ObjectID, ref: 'User' },
+    owner_id: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    owner: String,
     timeStamp: { type: Date, default: Date.now }, // ?
     textContent: String,
     images: [], //Change this to array of image id
     likes: Number,
     comments: [CommentSchema], // ?
-    tags: [String],
+    tags: [{ type: mongoose.Schema.Types.ObjectId, ref: "Tag" }],
 });
 
-const Post = mongoose.model('Post', PostSchema)
-module.exports = { Post }
+const Tag = mongoose.model("Tag", TagSchema);
+const Comment = mongoose.model("Comment", CommentSchema);
+const Post = mongoose.model("Post", PostSchema);
+module.exports = { Comment, Post, Tag };
