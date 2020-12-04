@@ -6,65 +6,73 @@ import PermanentDrawerRight from "../DrawerMenu/Drawer";
 import "./Main.css";
 import getPostIndex from "../../actions/getPostIndex";
 import searchRequest from "../../actions/searchRequest";
+import { Typography } from "@material-ui/core";
 
 /* Main page where the user views all of the posts made by people that they follow*/
 class Main extends React.Component {
   constructor(props) {
     super(props);
-    this.addComment = this.addComment.bind(this);
+    //this.addComment = this.addComment.bind(this);
 
     // Obtain information about current user
-    const { current_username, users } = props.app.state;
-    const current_user = users.filter((user) => {
-      return user.username === current_username;
-    })[0];
+
+    // const { current_username, users } = props.app.state;
+
+    // const current_user = users.filter((user) => {
+    //   return user.username === current_username;
+    // })[0];
     
 
-    this.state = {
-      //searchText for search bar
-      app_users: props.app.state.users,
-      userCreds: props.app.state.userCreds,
-      searchText: "",
-      current_username: current_user.username,
-      current_user_role: current_user.role,
-      profileImg: current_user.profileImg,
-      following: current_user.following,
-      followers: current_user.followers,
-      bookmarks: current_user.bookmarks,
-      posts: current_user.mainPosts,
-      comment_count: current_user.commentCount,
-      all_posts: current_user.mainPosts,
-    };
+    // this.state = {
+    //   //searchText for search bar
+    //   app_users: props.app.state.users,
+    //   userCreds: props.app.state.userCreds,
+    //   searchText: "",
+    //   current_username: current_user.username,
+    //   current_user_role: current_user.role,
+    //   profileImg: current_user.profileImg,
+    //   following: current_user.following,
+    //   followers: current_user.followers,
+    //   bookmarks: current_user.bookmarks,
+    //   posts: current_user.mainPosts,
+    //   comment_count: current_user.commentCount,
+    //   all_posts: current_user.mainPosts,
+    // };
   }
 
-  addComment(comment, postID) {
-    const posts_copy = this.state.posts.slice();
-    const postIndex = getPostIndex(this.state.posts, postID);
+  // addComment(comment, postID) {
+  //   const posts_copy = this.state.posts.slice();
+  //   const postIndex = getPostIndex(this.state.posts, postID);
 
-    const new_comment = {
-      commentID: this.state.posts[postIndex].commentCount + 1,
-      user: this.state.current_username,
-      text: comment,
-    };
+  //   const new_comment = {
+  //     commentID: this.state.posts[postIndex].commentCount + 1,
+  //     user: this.state.current_username,
+  //     text: comment,
+  //   };
 
-    posts_copy[postIndex].comments = this.state.posts[
-      postIndex
-    ].comments.concat(new_comment);
+  //   posts_copy[postIndex].comments = this.state.posts[
+  //     postIndex
+  //   ].comments.concat(new_comment);
 
-    posts_copy[postIndex].commentCount++;
+  //   posts_copy[postIndex].commentCount++;
 
-    this.setState({
-      posts: posts_copy,
-    });
-  }
+  //   this.setState({
+  //     posts: posts_copy,
+  //   });
+  // }
 
   render() {
+
+    const { history, app } = this.props;
+
     return (
       <div className="main-container">
+        
         <div>
           <Navbar view="main" />
         </div>
-        <div className="main-middle-area">
+        <Typography> Logged in as {app.state.currentUser}</Typography>
+        {/* <div className="main-middle-area">
           <div className="search-bar">
             <SearchBar
               value={this.state.searchText}
@@ -93,7 +101,7 @@ class Main extends React.Component {
             following={this.state.following}
             followers={this.state.followers}
           />
-        </div>
+        </div> */}
       </div>
     );
   }

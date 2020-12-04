@@ -5,6 +5,26 @@ class Auth {
     this.authenticated = false;
   }
 
+  // Send a request to check if a user is logged in through the session cookie
+  checkSession = (app) => {
+    const url = "/users/check-session";
+
+    fetch(url)
+      .then(res => {
+        if (res.status === 200) {
+          return res.json();
+        }
+      })
+      .then(json => {
+        if (json && json.currentUser) {
+          app.setState({ currentUser: json.currentUser });
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
   login(login, app, callback) {
     if (this.checkCred(login, app)) {
       this.authenticated = true;
@@ -14,6 +34,38 @@ class Auth {
       console.log("Login fail");
     }
   }
+
+  loginBackEnd = (loginComp, app, callback) => {
+    // Create our request constructor with all the parameters we need
+    const request = new Request("/users/login", {
+      method: "post",
+      body: JSON.stringify(loginComp.state),
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "Content-Type": "application/json"
+      }
+    });
+
+    // Send the request with fetch()
+    fetch(request)
+      .then(res => {
+        if (res.status === 200) {
+          return res.json();
+        }
+      })
+      .then(json => {
+        if (json.currentUser !== undefined) {
+          app.setState({ currentUser: json.currentUser });
+          this.authenticated = true;
+          console.log("Login successful");
+          callback();
+        }
+      })
+      .catch(error => {
+        console.log(error);
+        console.log("Login Failed, be sure to use log in credentials in the Cloud DB");
+      });
+  };
 
   signup(signup, app, callback) {
     if (this.addUser(signup, app)) {

@@ -16,8 +16,12 @@ import defaultImg from "./static/img_1.jpg";
 import adminProfileImg from "./static/admin.png";
 import Auth from "./actions/Auth/Auth";
 
-class App extends React.Component {
 
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    Auth.checkSession(this); // sees if a user is logged in.
+  }
   // The following state contains user information and posts that are hard coded for the moment, 
   // we plan to retrieve this data from our backend in phase 2.
   // We pass information in this state down to each View to display certain components,
@@ -25,6 +29,7 @@ class App extends React.Component {
   // to sending update requests to our server.
 
   state = {
+    currentUser: null, // added for session
     current_username: "", // username of the currently logged in user
     profile_username: "",
     total_num_posts: 11, // number of posts currently hard-coded into our state
@@ -307,21 +312,29 @@ class App extends React.Component {
   };
 
   render() {
+    const { currentUser } = this.state;
+
     return (
       <div>
         <BrowserRouter>
           <Switch>
             <Route
+              exact path={["/", "/login", "/main"] /* any of these URLs are accepted. */}
+              render={props => (
+                !currentUser ? <Login {...props} app={this} /> : <Main {...props} app={this} />
+              )}
+            />
+            {/* <Route
               exact
               path="/"
-              render={() =>
-                Auth.isAuthenticated() ? (
+              render={(props) =>
+                currentUser ? (
                   <Redirect to="/main" />
                 ) : (
-                  <Login app={this} />
-                )
+                    <Login {...props} app={this} />
+                  )
               }
-            />
+            /> */}
             <Route
               exact
               path="/signup"
@@ -329,21 +342,21 @@ class App extends React.Component {
                 Auth.isAuthenticated() ? (
                   <Redirect to="/main" />
                 ) : (
-                  <SignUp app={this} />
-                )
+                    <SignUp app={this} />
+                  )
               }
             />
-            <Route
+            {/* <Route
               exact
               path="/main"
-              render={() =>
-                Auth.isAuthenticated() ? (
-                  <Main app={this} />
+              render={(props) =>
+                currentUser ? (
+                  <Main {...props} app={this} />
                 ) : (
-                  <Redirect to="/" />
-                )
+                    <Redirect to="/" />
+                  )
               }
-            />
+            /> */}
             <Route
               exact
               path="/blog"
@@ -351,8 +364,8 @@ class App extends React.Component {
                 Auth.isAuthenticated() ? (
                   <MyBlog app={this} />
                 ) : (
-                  <Redirect to="/" />
-                )
+                    <Redirect to="/" />
+                  )
               }
             />
             <Route
@@ -362,8 +375,8 @@ class App extends React.Component {
                 Auth.isAuthenticated() ? (
                   <Settings app={this} />
                 ) : (
-                  <Redirect to="/" />
-                )
+                    <Redirect to="/" />
+                  )
               }
             />
             <Route
@@ -373,8 +386,8 @@ class App extends React.Component {
                 Auth.isAuthenticated() ? (
                   <Bookmarks app={this} />
                 ) : (
-                  <Redirect to="/" />
-                )
+                    <Redirect to="/" />
+                  )
               }
             />
             <Route
@@ -384,10 +397,12 @@ class App extends React.Component {
                 Auth.isAuthenticated() ? (
                   <Profile app={this} />
                 ) : (
-                  <Redirect to="/" />
-                )
+                    <Redirect to="/" />
+                  )
               }
             />
+            { /* 404 if URL isn't expected. */}
+            <Route render={() => <div>404 Not found, the URL requested is invalid.</div>} />
             {/* <Route exact path="/main" render={() => <Main app={this} />} />
             <Route exact path="/blog" render={() => <MyBlog app={this} />} /> */}
             {/* <Route
