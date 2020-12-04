@@ -2,23 +2,32 @@ import React from "react";
 import { uid } from "react-uid";
 import Grid from "@material-ui/core/Grid";
 import Post from "../Post/Post";
-import { getPosts } from "../../actions/user";
+import { getPosts, getUserPosts } from "../../actions/user";
 
 /* Component for the List of Posts */
 class PostList extends React.Component {
-    state = {
-        postList: [],
-    };
-
+    constructor(props) {
+        super(props)
+        this.state = {
+            postList: [],
+            type: props.type
+        };
+    
+    }
+   
     componentDidMount() {
-        getPosts(this); //
+        if (this.state.type === "main") {
+            getPosts(this);
+        } else {
+            getUserPosts(this);
+        }
     }
 
     render() {
+        console.log("postlist posts: " + this.state.postList)
         const {
             currentUser,
             app_users,
-            posts,
             addComment,
             myBlog,
             profileImg,
@@ -26,8 +35,6 @@ class PostList extends React.Component {
             page,
             role,
         } = this.props;
-
-        console.log(this.state.postList);
 
         /* Our post list. */
         return (
@@ -45,6 +52,7 @@ class PostList extends React.Component {
                         profileImg={""}
                         page={page}
                         role={role}
+                        postlist={this}
                     />
                 ))}
             </Grid>

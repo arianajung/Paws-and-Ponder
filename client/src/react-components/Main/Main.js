@@ -8,6 +8,8 @@ import getPostIndex from "../../actions/getPostIndex";
 import searchRequest from "../../actions/searchRequest";
 import { Typography } from "@material-ui/core";
 import { getFollowers, getFollowing } from "../../actions/user"
+import { getPosts } from "../../actions/user";
+
 
 /* Main page where the user views all of the posts made by people that they follow*/
 class Main extends React.Component {
@@ -33,6 +35,7 @@ class Main extends React.Component {
             //     app_users: props.app.state.users,
             //     userCreds: props.app.state.userCreds,
             searchText: "",
+            posts: [],
             //     current_username: current_user.username,
             //     current_user_role: current_user.role,
             //     profileImg: current_user.profileImg,
@@ -64,6 +67,10 @@ class Main extends React.Component {
     //   });
     // }
 
+    componentDidMount() {
+        //getPosts(this);
+    }
+
     render() {
         const { history, app } = this.props;
 
@@ -91,8 +98,9 @@ class Main extends React.Component {
                         <PostList
                             currentUser={app.state.currentUser}
                             curr_uid={app.state.curr_uid}
+                            type="main"
                             // app_users={this.state.app_users}
-                            // posts={this.state.posts}
+                            //posts={this.state.posts}
                             // addComment={this.addComment}
                             // profileImg={this.state.profileImg}
                             page={this}

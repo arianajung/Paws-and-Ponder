@@ -122,6 +122,7 @@ class Profile extends React.Component {
                         <PostList
                             currentUser={this.state.profileUser.username}
                             curr_uid={this.state.profileUser._uid}
+                            type="profile"
                             // app_users={this.state.app_users}
                             // posts={this.state.posts}
                             // addComment={this.addComment}

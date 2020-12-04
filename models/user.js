@@ -74,12 +74,11 @@ UserSchema.statics.findByUsernamePassword = function (username, password) {
 // given the username 
 UserSchema.statics.findByUsername = function (username) {
 	const User = this; 
-
 	return User.findOne({ username: username }).then((user) => {
 		if (!user) {
 			return Promise.reject();
 		} else {
-			return user._id;
+			return Promise.resolve(user._id);
 		}
 	})
 }

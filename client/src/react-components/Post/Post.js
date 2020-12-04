@@ -18,7 +18,9 @@ import getCurrentUserAndIndex from "../../actions/getCurrentUserAndIndex";
 import { handleProfileBtn } from "../../actions/profile";
 import { Link } from "react-router-dom";
 import Moment from "react-moment";
-import moment from "moment";
+// import moment from "moment";
+
+import { addComment } from "../../actions/addComment"
 
 /* A Post Component */
 class Post extends React.Component {
@@ -44,13 +46,13 @@ class Post extends React.Component {
     }
 
     // // handles adding a new comment
-    // buttonPress(e) {
-    //   if (this.state.new_comment.trim() !== "") {
-    //     // if no white space
-    //     this.props.addComment(this.state.new_comment, this.props.postID);
-    //     this.setState({ new_comment: "" });
-    //   }
-    // }
+    buttonPress(e) {
+      if (this.state.new_comment.trim() !== "") {
+        // if no white space
+        addComment(this.state.new_comment, this.props.post._id, this.props.postlist);
+        this.setState({ new_comment: "" });
+      }
+    }
 
     // // reflects changes in the instance of App.js that holds the component information that will send and
     // // receive updates to and from backend.

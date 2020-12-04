@@ -64,9 +64,9 @@ class App extends React.Component {
             <Route
               exact
               path="/blog"
-              render={() =>
-                !currentUser ? (
-                  <MyBlog app={this} />
+              render={(props) =>
+                currentUser ? (
+                  <MyBlog {...props} app={this} />
                 ) : (
                     <Redirect to="/" />
                   )
@@ -76,7 +76,7 @@ class App extends React.Component {
               exact
               path="/settings"
               render={() =>
-                !currentUser ? (
+                currentUser ? (
                   <Settings app={this} />
                 ) : (
                     <Redirect to="/" />
@@ -87,7 +87,7 @@ class App extends React.Component {
               exact
               path="/bookmarks"
               render={() =>
-                !currentUser ? (
+                currentUser ? (
                   <Bookmarks app={this} />
                 ) : (
                     <Redirect to="/" />
@@ -98,11 +98,11 @@ class App extends React.Component {
               exact
               path="/profile"
               render={() =>
-                !currentUser ? (
-                    <Redirect to="/" />
+                currentUser ? (
+                  <Profile app={this} />
                 ) : (
-                    <Profile app={this} />
-                  )
+                    <Redirect to="/" />
+                )
               }
             />
             {/* 404 if URL isn't expected. */}

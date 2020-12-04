@@ -139,7 +139,6 @@ app.post('/api/addUser', mongoChecker, async (req, res) => {
         profileImg: req.body.profileImg,
         following: [],
         follower: [],
-        userPosts: [],
         bookmarks: [],
         bio: req.body.bio
     })
@@ -159,7 +158,7 @@ app.post('/api/addUser', mongoChecker, async (req, res) => {
     }
 })
 
-app.post('/api/addComment', mongoChecker, async (req, res) => {
+app.post('/api/addComment', mongoChecker, authenticate, async (req, res) => {
     const new_comment = new Comment({
         owner_id: req.user._id,
         owner: req.user.username,
@@ -169,21 +168,22 @@ app.post('/api/addComment', mongoChecker, async (req, res) => {
         const post = await Post.findById(req.body.post_id);
         post.comments.push(new_comment);
         await post.save();
-        res.send(`Comment for post ${req.body.post_id} made by ${req.user._id}: ${req.body.textContent}`);
+        // `Comment for post ${req.body.post_id} made by ${req.user._id}: ${req.body.textContent}`
+        res.send({ new_comment });
     } catch (error) {
         log(error);
         res.status(500).send("addComment: Internal Server Error")
     }
 })
 
-app.get('/api/getUserPosts', mongoChecker, async (req, res) => {
+app.get('/api/getUserPosts', mongoChecker, authenticate, async (req, res) => {
+    console.log(req.user);
     try {
-        const posts = await Post.find().populate({
-            path: 'owner_id', 
-            match: { owner_id: req.user._id },
-            sort: { timeStamp: -1 }
-        }); // returns posts sorted by latest
-        res.send(posts);
+        const posts = await Post
+            .find({ owner_id: req.user._id })
+            .sort({ timeStamp: -1 }); // returns posts sorted by latest
+        console.log(posts);
+        res.send({ posts });
     } catch (error) {
         log(error);
         res.status(500).send("getUserPosts: Internal Server Error");
@@ -194,14 +194,12 @@ app.get('/api/getUserPosts', mongoChecker, async (req, res) => {
 //  returns an array containing all posts by the user given
 //  request: { username: <username> }
 //  response: [ {post1}, {post2}, {etc} ]
-app.get('/api/getProfilePosts', mongoChecker, async (req, res) => {
-    const user_id = User.findByUsername(req.query.username);
+app.get('/api/getProfilePosts', mongoChecker, authenticate, async (req, res) => {
+    const user_id = await User.findByUsername(req.query.username);
     try {
-        const posts = await Post.find().populate({
-            path: 'owner_id', 
-            match: { owner_id: user_id },
-            sort: { timeStamp: -1 }
-        }); // returns posts sorted by latest
+        const posts = await Post.find()
+        .find({ owner_id: user_id })
+        .sort({ timeStamp: -1 }); // returns posts sorted by latest
         res.send(posts);
     } catch (error) {
         log(error);
