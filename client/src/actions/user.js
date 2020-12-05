@@ -183,8 +183,9 @@ export const getUserPosts = (postList) => {
         });
 };
 
-export const getProfilePosts = (postList) => {
-    const url = `/api/getProfilePosts?username=${postList.state.currentUser}`;
+export const getProfilePosts = (postList, profile_username) => {
+    const url = `/api/getProfilePosts?username=${profile_username}`;
+    console.log(`/api/getProfilePosts?username=${profile_username}`)
 
     fetch(url, {
         accepts: "application/json",
@@ -199,6 +200,7 @@ export const getProfilePosts = (postList) => {
         })
         .then((json) => {
             // the resolved promise with the JSON body
+            console.log("posts from user.js:" + json.posts)
             postList.setState({ postList: json.posts });
         })
         .catch((error) => {

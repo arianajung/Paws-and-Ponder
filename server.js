@@ -196,11 +196,13 @@ app.get('/api/getUserPosts', mongoChecker, authenticate, async (req, res) => {
 //  response: [ {post1}, {post2}, {etc} ]
 app.get('/api/getProfilePosts', mongoChecker, authenticate, async (req, res) => {
     const user_id = await User.findByUsername(req.query.username);
+    console.log(user_id);
     try {
         const posts = await Post.find()
         .find({ owner_id: user_id })
         .sort({ timeStamp: -1 }); // returns posts sorted by latest
-        res.send(posts);
+        console.log(posts);
+        res.send({ posts });
     } catch (error) {
         log(error);
         res.status(500).send("getProfilePosts: Internal Server Error");

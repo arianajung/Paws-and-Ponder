@@ -19,7 +19,8 @@ class PostList extends React.Component {
         if (this.state.type === "main") {
             getPosts(this);
         } else if (this.state.type === "profile") {
-            getProfilePosts(this);
+            console.log(this.props.profileUser.username);
+            getProfilePosts(this, this.props.profileUser.username);
         } else {
             getUserPosts(this);
         }
