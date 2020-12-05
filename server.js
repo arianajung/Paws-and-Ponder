@@ -72,7 +72,7 @@ app.use(
         resave: false,
         saveUninitialized: false,
         cookie: {
-            expires: 300000, //5 min
+            expires: 1800000, //30 min
             httpOnly: true
         }
     })
@@ -355,12 +355,12 @@ app.patch('/api/following', mongoChecker, authenticate, async (req, res) => {
     }
 })
 
-app.patch('/api/updateRelations', mongoChecker, authenticate, async (req, res) => {
+app.patch('/api/updateUserRelation', mongoChecker, authenticate, async (req, res) => {
 
     const curr_user = req.user //from authenticate
     const profile_id = req.query.profile_id
 
-    //console.log(curr_user,profile_id)
+    console.log(curr_user,profile_id)
 
     if (!ObjectID.isValid(profile_id) || req.user._id.equals(profile_id)) {
         res.status(404).send('Invalid id')  // if invalid id, definitely can't find resource, 404.
@@ -393,7 +393,7 @@ app.patch('/api/updateRelations', mongoChecker, authenticate, async (req, res) =
         if (isMongoError(error)) { // check for if mongo server suddenly disconnected before this request.
             res.status(500).send('Internal server error')
         } else {
-            res.status(400).send('Bad Request') // bad request for changing the reservation.
+            res.status(400).send('Bad Request') // bad request
         }
     }
 })

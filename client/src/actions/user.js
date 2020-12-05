@@ -93,71 +93,107 @@ export const getCurrentUser = (page) => {
         });
 };
 
+
+// Used when follow/unfollow a user on a profile page
+export const updateUserRelation = (page, profile_id) => {
+    // the URL for the request
+    const url = `/api/updateUserRelation?profile_id=${profile_id}`;
+
+    console.log(url)
+
+    const request = new Request(url, {
+        method: "PATCH",
+        headers: {
+            Accept: "application/json, text/plain, */*",
+            "Content-Type": "application/json"
+        }
+    });
+
+    // Since this is a GET request, simply call fetch on the URL
+    fetch(request)
+        .then(res => {
+            if (res.status === 200) {
+                // return a promise that resolves with the JSON body
+                return res.json();
+            } else {
+                alert("Follow/Unfollow Failed, check that your session is still running");
+            }
+        })
+        .then(json => {
+            // the resolved promise with the JSON body
+            page.setState({currentUser: json.curr_user})
+        })
+        .catch(error => {
+            console.log(error);
+        });
+}
+
+
 // for profile user's followrers
-export const patchFollowers = (page, id, followers) => {
-    // the URL for the request
-    const url = `/api/followers/${id}`;
+// export const patchFollowers = (page, id, followers) => {
+//     // the URL for the request
+//     const url = `/api/followers/${id}`;
 
-    const request = new Request(url, {
-        method: "patch",
-        body: JSON.stringify({follower: followers}),
-        headers: {
-            Accept: "application/json, text/plain, */*",
-            "Content-Type": "application/json"
-        }
-    });
+//     const request = new Request(url, {
+//         method: "patch",
+//         body: JSON.stringify({follower: followers}),
+//         headers: {
+//             Accept: "application/json, text/plain, */*",
+//             "Content-Type": "application/json"
+//         }
+//     });
 
-    // Since this is a GET request, simply call fetch on the URL
-    fetch(request)
-        .then(res => {
-            if (res.status === 200) {
-                // return a promise that resolves with the JSON body
-                return res.json();
-            } else {
-                alert("Could not patch the followers");
-            }
-        })
-        .then(json => {
-            // the resolved promise with the JSON body
-            page.setState({profileUser: json})
-        })
-        .catch(error => {
-            console.log(error);
-        });
-}
+//     // Since this is a GET request, simply call fetch on the URL
+//     fetch(request)
+//         .then(res => {
+//             if (res.status === 200) {
+//                 // return a promise that resolves with the JSON body
+//                 return res.json();
+//             } else {
+//                 alert("Could not patch the followers");
+//             }
+//         })
+//         .then(json => {
+//             // the resolved promise with the JSON body
+//             page.setState({profileUser: json})
+//         })
+//         .catch(error => {
+//             console.log(error);
+//         });
+// }
 
-// need to change this without id, use session
-export const patchFollowing = (page, following) => {
-    // the URL for the request
-    const url = "/api/following";
+// // need to change this without id, use session
+// export const patchFollowing = (page, following) => {
+//     // the URL for the request
+//     const url = "/api/following";
 
-    const request = new Request(url, {
-        method: "patch",
-        body: JSON.stringify({following: following}),
-        headers: {
-            Accept: "application/json, text/plain, */*",
-            "Content-Type": "application/json"
-        }
-    });
+//     const request = new Request(url, {
+//         method: "patch",
+//         body: JSON.stringify({following: following}),
+//         headers: {
+//             Accept: "application/json, text/plain, */*",
+//             "Content-Type": "application/json"
+//         }
+//     });
 
-    // Since this is a GET request, simply call fetch on the URL
-    fetch(request)
-        .then(res => {
-            if (res.status === 200) {
-                // return a promise that resolves with the JSON body
-                return res.json();
-            } else {
-                alert("Could not patch the following");
-            }
-        })
-        .then(json => {
-            // the resolved promise with the JSON body
-            page.setState({currentUser: json})
-        })
-        .catch(error => {
-            console.log(error);
-        });
-}
+//     // Since this is a GET request, simply call fetch on the URL
+//     fetch(request)
+//         .then(res => {
+//             if (res.status === 200) {
+//                 // return a promise that resolves with the JSON body
+//                 return res.json();
+//             } else {
+//                 alert("Could not patch the following");
+//             }
+//         })
+//         .then(json => {
+//             // the resolved promise with the JSON body
+//             page.setState({currentUser: json})
+//         })
+//         .catch(error => {
+//             console.log(error);
+//         });
+// }
 
 
 export const getUserPosts = (postList) => {

@@ -9,7 +9,7 @@ import IconButton from "@material-ui/core/IconButton";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import PersonAddDisabledIcon from "@material-ui/icons/PersonAddDisabled";
 import Avatar from "@material-ui/core/Avatar";
-import { contains, handleFollowBtn } from "../../actions/profile";
+import { contains, handleFollowBtn, handleFollowButton } from "../../actions/profile";
 
 function Navbar({
     app,
@@ -56,16 +56,9 @@ function Navbar({
             <div className="followBtn">
                 <IconButton
                     onClick={() =>
-                        handleFollowBtn(
-                            profilePage,
+                        handleFollowButton(
                             profileUser,
-                            currentUser,
-                            // app_users,
-                            // viewing_user,
-                            // current_user,
-                            // following,
-                            // profile_followers,
-                            // profile
+                            profilePage,
                         )
                     }
                 >

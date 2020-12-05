@@ -1,6 +1,6 @@
 import getCurrentUserAndIndex from "./getCurrentUserAndIndex"
 import Profile from "../react-components/Profile/Profile"
-import { patchFollowers, patchFollowing } from "./user"
+import { patchFollowers, patchFollowing, updateUserRelation } from "./user"
 
 export const handleProfileBtn = (app, user, page) => {
     app.setState({
@@ -29,63 +29,72 @@ export const contains = (_id, following) => {
     return false
 }
 
-export const handleFollowBtn = (profilePage, profileUser, currentUser) => {
-    const currentUser_id = currentUser._id
+export const handleFollowButton = (profileUser, profilePage) => {
+    console.log("here", profileUser)
     const profileUser_id = profileUser._id
-    const currentUserFollowingList = currentUser.following
-    const profileUserFollowersList = profileUser.follower
+    updateUserRelation(profilePage, profileUser_id)
+}
 
-    // patch user's following list
-    // patch profile's followers list
-    // update profile user and current user object in drawer and profile page in state, maybe navbar
-    if (contains(profileUser_id, currentUserFollowingList)) {
 
-        const filteredFollowing = currentUserFollowingList.filter((_id) => {
-            return _id !== profileUser_id
-        })
-        const filteredFollowers = profileUserFollowersList.filter((_id) => {
-            return _id !== currentUser_id
-        })
 
-        patchFollowing(profilePage, filteredFollowing)
-        patchFollowers(profilePage, profileUser_id, filteredFollowers)
+
+// export const handleFollowBtn = (profilePage, profileUser, currentUser) => {
+//     const currentUser_id = currentUser._id
+//     const profileUser_id = profileUser._id
+//     const currentUserFollowingList = currentUser.following
+//     const profileUserFollowersList = profileUser.follower
+
+//     // patch user's following list
+//     // patch profile's followers list
+//     // update profile user and current user object in drawer and profile page in state, maybe navbar
+//     if (contains(profileUser_id, currentUserFollowingList)) {
+
+//         const filteredFollowing = currentUserFollowingList.filter((_id) => {
+//             return _id !== profileUser_id
+//         })
+//         const filteredFollowers = profileUserFollowersList.filter((_id) => {
+//             return _id !== currentUser_id
+//         })
+
+//         patchFollowing(profilePage, filteredFollowing)
+//         patchFollowers(profilePage, profileUser_id, filteredFollowers)
         
 
-        // let newUsers = app_users.slice();
+//         // let newUsers = app_users.slice();
 
-        // const [viewing_user_index, viewing_user] = getCurrentUserAndIndex(
-        //     app_users,
-        //     viewing_username
-        // );
+//         // const [viewing_user_index, viewing_user] = getCurrentUserAndIndex(
+//         //     app_users,
+//         //     viewing_username
+//         // );
 
-        // viewing_user.following = filteredFollowing;
-        // newUsers.splice(viewing_user_index, 1, viewing_user);
+//         // viewing_user.following = filteredFollowing;
+//         // newUsers.splice(viewing_user_index, 1, viewing_user);
 
-        // const [current_user_index, current_user] = getCurrentUserAndIndex(
-        //     app_users,
-        //     current_username
-        // );
+//         // const [current_user_index, current_user] = getCurrentUserAndIndex(
+//         //     app_users,
+//         //     current_username
+//         // );
 
-        // current_user.followers = filteredFollowers;
-        // newUsers.splice(current_user_index, 1, current_user);
+//         // current_user.followers = filteredFollowers;
+//         // newUsers.splice(current_user_index, 1, current_user);
 
-        // profile.setState({
-        //     following: filteredFollowing,
-        //     profile_followers: filteredFollowers
-        // })
-    } else {
-        currentUserFollowingList.push(profileUser_id)
-        profileUserFollowersList.push(currentUser_id)
+//         // profile.setState({
+//         //     following: filteredFollowing,
+//         //     profile_followers: filteredFollowers
+//         // })
+//     } else {
+//         currentUserFollowingList.push(profileUser_id)
+//         profileUserFollowersList.push(currentUser_id)
 
-        patchFollowing(profilePage, currentUserFollowingList)
-        patchFollowers(profilePage, profileUser_id, profileUserFollowersList)
+//         patchFollowing(profilePage, currentUserFollowingList)
+//         patchFollowers(profilePage, profileUser_id, profileUserFollowersList)
 
-        // following.push(current_username)
-        // profile_followers.push(viewing_username)
+//         // following.push(current_username)
+//         // profile_followers.push(viewing_username)
 
-        // profile.setState({
-        //     following: following,
-        //     profile_followers: profile_followers
-        // })
-    }
-}
+//         // profile.setState({
+//         //     following: following,
+//         //     profile_followers: profile_followers
+//         // })
+//     }
+// }
