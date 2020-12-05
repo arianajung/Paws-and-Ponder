@@ -23,6 +23,8 @@ import searchRequest from "../../actions/searchRequest";
 // css
 import "./MyBlog.css";
 
+import { getCurrentUser } from "../../actions/user"
+
 class MyBlog extends Component {
   constructor(props) {
     super(props);
@@ -45,6 +47,7 @@ class MyBlog extends Component {
       profileImg: "",
       following: [],
       followers: [],
+      currentUser: null,
     }
     // this.state = {
     //   app_users: props.app.state.users,
@@ -70,7 +73,7 @@ class MyBlog extends Component {
   }
 
   // retrieves posts made by this user from the database and stores it in state
-  async componentDidMount() {
+  // async componentDidMount() {
     // await fetch('/api/getUserPosts')
     //   .then((response) => response.json())
     //   .then((data) => {
@@ -78,7 +81,12 @@ class MyBlog extends Component {
     //     return false;
     //   });
     
-  }
+  // }
+
+  componentDidMount() {
+    console.log("MyBlog.js: componenetDidMount()");
+    getCurrentUser(this)
+}
 
   // handles adding a comment that reflects the changes in the instance of App.js which in turn 
   // sets sends the POST request to the backend
@@ -178,11 +186,16 @@ class MyBlog extends Component {
       <div className="myblog-container">
         <div>
           <Navbar
-            view="myBlog"
-            current_user={this.state.current_username}
-            current_user_role={this.state.current_user_role}
-            profileImg={this.state.profileImg}
             app={this.props.app}
+            view="myblog"
+            currentUser={this.state.currentUser}
+
+
+            // view="myBlog"
+            // current_user={this.state.current_username}
+            // current_user_role={this.state.current_user_role}
+            // profileImg={this.state.profileImg}
+            
           />
         </div>
         <div className="blog-middle-area">
@@ -289,8 +302,8 @@ class MyBlog extends Component {
           <PermanentDrawerRight
             app={this.props.app}
             page={this}
-            following={this.state.following}
-            followers={this.state.followers}
+            // following={this.state.following}
+            // followers={this.state.followers}
           />
         </div>
       </div>

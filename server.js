@@ -201,7 +201,6 @@ app.get('/api/getProfilePosts', mongoChecker, authenticate, async (req, res) => 
         const posts = await Post.find()
         .find({ owner_id: user_id })
         .sort({ timeStamp: -1 }); // returns posts sorted by latest
-        console.log(posts);
         res.send({ posts });
     } catch (error) {
         log(error);

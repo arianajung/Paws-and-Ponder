@@ -27,7 +27,9 @@ function Navbar({
     profilePage
 }) {
     let userProfile;
-    if ((view === "myBlog" || view === "profile")) {
+    // console.log(currentUser)
+    // console.log(profileUser)
+    if ((view === "myblog" || view === "profile") && currentUser !== null) {
         userProfile = (
             <div className="profile-wrapper">
                 <img className="img" src={view === "myblog" ? currentUser.profileImg : (view === "profile" ? profileUser.profileImg : null) }  alt="profile-pic"/>
