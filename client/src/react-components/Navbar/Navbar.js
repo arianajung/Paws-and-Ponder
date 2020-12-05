@@ -98,9 +98,9 @@ function Navbar({
                             <Link
                                 key={key}
                                 to={val.link}
-                                onClick={() =>
+                                onClick={async () =>
                                     val.title === "Log Out"
-                                        ? Auth.logout(app)
+                                        ? await Auth.logout(app)
                                         : ""
                                 }
                             >

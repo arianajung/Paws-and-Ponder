@@ -2,7 +2,7 @@ import React from "react";
 import { uid } from "react-uid";
 import Grid from "@material-ui/core/Grid";
 import Post from "../Post/Post";
-import { getPosts, getUserPosts } from "../../actions/user";
+import { getPosts, getUserPosts, getProfilePosts} from "../../actions/user";
 
 /* Component for the List of Posts */
 class PostList extends React.Component {
@@ -10,14 +10,16 @@ class PostList extends React.Component {
         super(props)
         this.state = {
             postList: [],
-            type: props.type
+            type: props.type,
+            currentuser: props.currentUser,
         };
-    
     }
    
     componentDidMount() {
         if (this.state.type === "main") {
             getPosts(this);
+        } else if (this.state.type === "profile") {
+            getProfilePosts(this);
         } else {
             getUserPosts(this);
         }

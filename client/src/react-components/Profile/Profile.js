@@ -123,10 +123,19 @@ class Profile extends React.Component {
                             currentUser={this.state.profileUser.username}
                             curr_uid={this.state.profileUser._uid}
                             type="profile"
+                            // // app_users={this.state.app_users}
+                            // // posts={this.state.posts}
+                            // // addComment={this.addComment}
+                            // // profileImg={this.state.profileImg}
+
+                            // current_username={this.state.current_username}
+                            // type="profile"
                             // app_users={this.state.app_users}
                             // posts={this.state.posts}
                             // addComment={this.addComment}
                             // profileImg={this.state.profileImg}
+
+
                             page={this}
                             // role={this.state.current_user_role}
                         />
