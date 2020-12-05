@@ -29,7 +29,7 @@ export const getFollowers = (set) => {
 
     // Since this is a GET request, simply call fetch on the URL
     fetch(url)
-        .then(res => {
+        .then((res) => {
             if (res.status === 200) {
                 // return a promise that resolves with the JSON body
                 return res.json();
@@ -37,14 +37,14 @@ export const getFollowers = (set) => {
                 alert("Could not get the followers");
             }
         })
-        .then(json => {
+        .then((json) => {
             // the resolved promise with the JSON body
             set(json);
         })
-        .catch(error => {
+        .catch((error) => {
             console.log(error);
         });
-}
+};
 
 export const getFollowing = (set) => {
     // the URL for the request
@@ -52,7 +52,7 @@ export const getFollowing = (set) => {
 
     // Since this is a GET request, simply call fetch on the URL
     fetch(url)
-        .then(res => {
+        .then((res) => {
             if (res.status === 200) {
                 // return a promise that resolves with the JSON body
                 return res.json();
@@ -60,14 +60,14 @@ export const getFollowing = (set) => {
                 alert("Could not get the following");
             }
         })
-        .then(json => {
+        .then((json) => {
             // the resolved promise with the JSON body
             set(json);
         })
-        .catch(error => {
+        .catch((error) => {
             console.log(error);
         });
-}
+};
 
 // A function to send a GET request to the web server
 export const getCurrentUser = (page) => {
@@ -76,7 +76,7 @@ export const getCurrentUser = (page) => {
 
     // Since this is a GET request, simply call fetch on the URL
     fetch(url)
-        .then(res => {
+        .then((res) => {
             if (res.status === 200) {
                 // return a promise that resolves with the JSON body
                 return res.json();
@@ -84,11 +84,11 @@ export const getCurrentUser = (page) => {
                 alert("Could not get the user");
             }
         })
-        .then(json => {
+        .then((json) => {
             // the resolved promise with the JSON body
             page.setState({ currentUser: json });
         })
-        .catch(error => {
+        .catch((error) => {
             console.log(error);
         });
 };
@@ -100,16 +100,16 @@ export const patchFollowers = (page, id, followers) => {
 
     const request = new Request(url, {
         method: "patch",
-        body: JSON.stringify({follower: followers}),
+        body: JSON.stringify({ follower: followers }),
         headers: {
             Accept: "application/json, text/plain, */*",
-            "Content-Type": "application/json"
-        }
+            "Content-Type": "application/json",
+        },
     });
 
     // Since this is a GET request, simply call fetch on the URL
     fetch(request)
-        .then(res => {
+        .then((res) => {
             if (res.status === 200) {
                 // return a promise that resolves with the JSON body
                 return res.json();
@@ -117,14 +117,14 @@ export const patchFollowers = (page, id, followers) => {
                 alert("Could not patch the followers");
             }
         })
-        .then(json => {
+        .then((json) => {
             // the resolved promise with the JSON body
-            page.setState({profileUser: json})
+            page.setState({ profileUser: json });
         })
-        .catch(error => {
+        .catch((error) => {
             console.log(error);
         });
-}
+};
 
 // need to change this without id, use session
 export const patchFollowing = (page, following) => {
@@ -133,16 +133,16 @@ export const patchFollowing = (page, following) => {
 
     const request = new Request(url, {
         method: "patch",
-        body: JSON.stringify({following: following}),
+        body: JSON.stringify({ following: following }),
         headers: {
             Accept: "application/json, text/plain, */*",
-            "Content-Type": "application/json"
-        }
+            "Content-Type": "application/json",
+        },
     });
 
     // Since this is a GET request, simply call fetch on the URL
     fetch(request)
-        .then(res => {
+        .then((res) => {
             if (res.status === 200) {
                 // return a promise that resolves with the JSON body
                 return res.json();
@@ -150,15 +150,14 @@ export const patchFollowing = (page, following) => {
                 alert("Could not patch the following");
             }
         })
-        .then(json => {
+        .then((json) => {
             // the resolved promise with the JSON body
-            page.setState({currentUser: json})
+            page.setState({ currentUser: json });
         })
-        .catch(error => {
+        .catch((error) => {
             console.log(error);
         });
-}
-
+};
 
 export const getUserPosts = (postList) => {
     const url = `/api/getUserPosts/`;
@@ -185,9 +184,9 @@ export const getUserPosts = (postList) => {
 
 export const getProfilePosts = (postList) => {
     const url = `/api/getProfilePosts?username=${postList.state.currentuser}`;
-// export const getProfilePosts = (postList, profile_username) => {
-//     const url = `/api/getProfilePosts?username=${profile_username}`;
-//     console.log(`/api/getProfilePosts?username=${profile_username}`)
+    // export const getProfilePosts = (postList, profile_username) => {
+    //     const url = `/api/getProfilePosts?username=${profile_username}`;
+    //     console.log(`/api/getProfilePosts?username=${profile_username}`)
 
     fetch(url, {
         accepts: "application/json",
@@ -202,7 +201,6 @@ export const getProfilePosts = (postList) => {
         })
         .then((json) => {
             // the resolved promise with the JSON body
-            console.log("posts from user.js:" + json.posts)
             postList.setState({ postList: json.posts });
         })
         .catch((error) => {
@@ -216,21 +214,22 @@ export const addComment = async (new_comment, pid, postlist) => {
         method: "post",
         body: JSON.stringify({
             textContent: new_comment,
-            post_id: pid
+            post_id: pid,
         }),
         headers: {
             Accept: "application/json, text/plain, */*",
-            "Content-Type": "application/json"
-        }
+            "Content-Type": "application/json",
+        },
     });
 
     // Send the request with fetch()
     await fetch(request)
-        .then(res => {
+        .then((res) => {
             if (res.status === 200) {
                 return res.json();
             }
-        }).then((json) => {
+        })
+        .then((json) => {
             // the resolved promise with the JSON body
             if (postlist.state.type === "main") {
                 getPosts(postlist);
@@ -240,8 +239,38 @@ export const addComment = async (new_comment, pid, postlist) => {
                 getUserPosts(postlist);
             }
         })
-        .catch(error => {
+        .catch((error) => {
             console.log(error);
             console.log("Failed to add comment");
+        });
+};
+
+export const makePost = async (new_post, images, tags) => {
+    // Create our request constructor with all the parameters we need
+    const request = new Request("/api/makePost", {
+        method: "post",
+        body: JSON.stringify({
+            textContent: new_post,
+            images: images,
+            tags: tags,
+        }),
+        headers: {
+            Accept: "application/json, text/plain, */*",
+            "Content-Type": "application/json",
+        },
+    });
+    // Send the request with fetch()
+    await fetch(request)
+        .then((res) => {
+            if (res.status === 200) {
+                return res.json();
+            }
+        })
+        .then((json) => {
+            console.log("correctly fetched MyBlog makePost result");
+        })
+        .catch((error) => {
+            console.log(error);
+            console.log("Failed to make post");
         });
 };
