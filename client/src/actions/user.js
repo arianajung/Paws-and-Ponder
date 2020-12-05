@@ -183,9 +183,11 @@ export const getUserPosts = (postList) => {
         });
 };
 
-export const getProfilePosts = (postList, profile_username) => {
-    const url = `/api/getProfilePosts?username=${profile_username}`;
-    console.log(`/api/getProfilePosts?username=${profile_username}`)
+export const getProfilePosts = (postList) => {
+    const url = `/api/getProfilePosts?username=${postList.state.currentuser}`;
+// export const getProfilePosts = (postList, profile_username) => {
+//     const url = `/api/getProfilePosts?username=${profile_username}`;
+//     console.log(`/api/getProfilePosts?username=${profile_username}`)
 
     fetch(url, {
         accepts: "application/json",

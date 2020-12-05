@@ -19,10 +19,20 @@ class PostList extends React.Component {
         if (this.state.type === "main") {
             getPosts(this);
         } else if (this.state.type === "profile") {
-            console.log(this.props.profileUser.username);
-            getProfilePosts(this, this.props.profileUser.username);
+            // console.log(this.props.profileUser.username);
+            // getProfilePosts(this, this.props.profileUser.username);
+            getProfilePosts(this);
         } else {
             getUserPosts(this);
+        }
+    }
+
+    async componentDidUpdate() {
+        if (this.state.type === "profile") {
+            if (this.state.currentuser !== this.props.currentUser) {
+                await this.setState({currentuser: this.props.currentUser})
+                getProfilePosts(this);
+            }
         }
     }
 
