@@ -184,7 +184,7 @@ export const getUserPosts = (postList) => {
 };
 
 export const getProfilePosts = (postList) => {
-    const url = `/api/getProfilePosts?username=${postList.state.currentUser}`;
+    const url = `/api/getProfilePosts?username=${postList.state.currentuser}`;
 
     fetch(url, {
         accepts: "application/json",

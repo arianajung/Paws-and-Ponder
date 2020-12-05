@@ -92,7 +92,7 @@ app.post("/users/login", (req, res) => {
             // We can check later if this exists to ensure we are logged in.
             req.session.user_id = user._id;
             req.session.username = user.username;
-            res.send({ 
+            res.send({
                 currentUser: user.username,
                 curr_uid: user._id // also send id ()
             });
@@ -196,10 +196,11 @@ app.get('/api/getUserPosts', mongoChecker, authenticate, async (req, res) => {
 //  response: [ {post1}, {post2}, {etc} ]
 app.get('/api/getProfilePosts', mongoChecker, authenticate, async (req, res) => {
     const user_id = await User.findByUsername(req.query.username);
+    console.log(user_id)
     try {
         const posts = await Post.find()
-        .find({ owner_id: user_id })
-        .sort({ timeStamp: -1 }); // returns posts sorted by latest
+            .find({ owner_id: user_id })
+            .sort({ timeStamp: -1 }); // returns posts sorted by latest
         res.send(posts);
     } catch (error) {
         log(error);
@@ -208,59 +209,59 @@ app.get('/api/getProfilePosts', mongoChecker, authenticate, async (req, res) => 
 })
 // a route to get all posts for main (posts from all users the current user follows)
 app.get("/api/get-main-posts/", mongoChecker, authenticate, async (req, res) => {
-        //console.log(req.user)
-        const user_id = req.user._id;
+    //console.log(req.user)
+    const user_id = req.user._id;
 
-        // Good practise: Validate id immediately.
-        if (!ObjectID.isValid(user_id)) {
-            res.status(404).send(); // if invalid id, definitely can't find resource, 404.
-            return; // so that we don't run the rest of the handler.
+    // Good practise: Validate id immediately.
+    if (!ObjectID.isValid(user_id)) {
+        res.status(404).send(); // if invalid id, definitely can't find resource, 404.
+        return; // so that we don't run the rest of the handler.
+    }
+
+    // array of id's of users that the current user follows
+    let followingUsersArray;
+
+    try {
+        const followingUsers = await User.findOne({ _id: user_id })
+            .populate("following")
+            .exec();
+        if (!followingUsers) {
+            res.status(404).send("Resource not found");
+        } else {
+            followingUsersArray = followingUsers.following.map((user) => {
+                return user._id;
+            });
         }
-
-        // array of id's of users that the current user follows
-        let followingUsersArray;
-
-        try {
-            const followingUsers = await User.findOne({ _id: user_id })
-                .populate("following")
-                .exec();
-            if (!followingUsers) {
-                res.status(404).send("Resource not found");
-            } else {
-                followingUsersArray = followingUsers.following.map((user) => {
-                    return user._id;
-                });
-            }
-        } catch (error) {
-            log(error); // log server error to the console, not to the client.
-            if (isMongoError(error)) {
-                // check for if mongo server suddenly dissconnected before this request.
-                res.status(500).send("Internal server error");
-            } else {
-                res.status(400).send("Bad Request"); // 400 for bad request gets sent to client.
-            }
-        }
-
-        // find all posts that have its owner value with the user_id's in followingUsersArray
-        try {
-            const posts = await Post.find({
-                owner_id: { $in: followingUsersArray },
-            }).populate();
-            if (!posts) {
-                res.status(404).send("Resource not found");
-            } else {
-                res.send({ posts });
-            }
-        } catch (error) {
-            log(error); // log server error to the console, not to the client.
-            if (isMongoError(error)) {
-                // check for if mongo server suddenly dissconnected before this request.
-                res.status(500).send("Internal server error");
-            } else {
-                res.status(400).send("Bad Request"); // 400 for bad request gets sent to client.
-            }
+    } catch (error) {
+        log(error); // log server error to the console, not to the client.
+        if (isMongoError(error)) {
+            // check for if mongo server suddenly dissconnected before this request.
+            res.status(500).send("Internal server error");
+        } else {
+            res.status(400).send("Bad Request"); // 400 for bad request gets sent to client.
         }
     }
+
+    // find all posts that have its owner value with the user_id's in followingUsersArray
+    try {
+        const posts = await Post.find({
+            owner_id: { $in: followingUsersArray },
+        }).populate();
+        if (!posts) {
+            res.status(404).send("Resource not found");
+        } else {
+            res.send({ posts });
+        }
+    } catch (error) {
+        log(error); // log server error to the console, not to the client.
+        if (isMongoError(error)) {
+            // check for if mongo server suddenly dissconnected before this request.
+            res.status(500).send("Internal server error");
+        } else {
+            res.status(400).send("Bad Request"); // 400 for bad request gets sent to client.
+        }
+    }
+}
 );
 
 app.get('/api/followers', mongoChecker, authenticate, async (req, res) => {
@@ -271,7 +272,7 @@ app.get('/api/followers', mongoChecker, authenticate, async (req, res) => {
         } else {
             res.send(user.follower);
         }
-    } catch(error) {
+    } catch (error) {
         log(error)
         res.status(500).send("Internal Server Error")
     }
@@ -285,7 +286,7 @@ app.get('/api/following', mongoChecker, authenticate, async (req, res) => {
         } else {
             res.send(user.following);
         }
-    } catch(error) {
+    } catch (error) {
         log(error)
         res.status(500).send("Internal Server Error")
     }
@@ -300,58 +301,101 @@ app.get('/api/user', mongoChecker, authenticate, async (req, res) => {
         } else {
             res.send(user);
         }
-    } catch(error) {
+    } catch (error) {
         log(error)
         res.status(500).send("Internal Server Error")
     }
 })
 
 app.patch('/api/followers:id', mongoChecker, async (req, res) => {
-	const id = req.params.id
+    const id = req.params.id
 
-	// Good practise: Validate id immediately.
-	if (!ObjectID.isValid(id)) {
-		res.status(404).send('Resource not found')  // if invalid id, definitely can't find resource, 404.
-		return;  // so that we don't run the rest of the handler.
-	}
+    // Good practise: Validate id immediately.
+    if (!ObjectID.isValid(id)) {
+        res.status(404).send('Resource not found')  // if invalid id, definitely can't find resource, 404.
+        return;  // so that we don't run the rest of the handler.
+    }
 
-	try {
-		const user = await User.findById(id).populate('follower');
-		if (!user.follower) {
-			res.status(404).send('Resource not found')  // could not find this restaurant
-		} else {
+    try {
+        const user = await User.findById(id).populate('follower');
+        if (!user.follower) {
+            res.status(404).send('Resource not found')  // could not find this restaurant
+        } else {
             user.follower = req.body.follower
             const result = await user.save()
             res.send(result)
-		}
-	} catch(error) {
-		log(error) // log server error to the console, not to the client.
-		if (isMongoError(error)) { // check for if mongo server suddenly disconnected before this request.
-			res.status(500).send('Internal server error')
-		} else {
-			res.status(400).send('Bad Request') // bad request for changing the reservation.
-		}
-	}
+        }
+    } catch (error) {
+        log(error) // log server error to the console, not to the client.
+        if (isMongoError(error)) { // check for if mongo server suddenly disconnected before this request.
+            res.status(500).send('Internal server error')
+        } else {
+            res.status(400).send('Bad Request') // bad request for changing the reservation.
+        }
+    }
 })
 
 app.patch('/api/following', mongoChecker, authenticate, async (req, res) => {
-	try {
-		const user = await User.findById(req.user._id).populate('following');
-		if (!user.following) {
-			res.status(404).send('Resource not found')  // could not find this restaurant
-		} else {
+    try {
+        const user = await User.findById(req.user._id).populate('following');
+        if (!user.following) {
+            res.status(404).send('Resource not found')
+        } else {
             user.following = req.body.following
             const result = await user.save()
             res.send(result)
-		}
-	} catch(error) {
-		log(error) // log server error to the console, not to the client.
-		if (isMongoError(error)) { // check for if mongo server suddenly disconnected before this request.
-			res.status(500).send('Internal server error')
-		} else {
-			res.status(400).send('Bad Request') // bad request for changing the reservation.
-		}
-	}
+        }
+    } catch (error) {
+        log(error) // log server error to the console, not to the client.
+        if (isMongoError(error)) { // check for if mongo server suddenly disconnected before this request.
+            res.status(500).send('Internal server error')
+        } else {
+            res.status(400).send('Bad Request') // bad request for changing the reservation.
+        }
+    }
+})
+
+app.patch('/api/updateRelations', mongoChecker, authenticate, async (req, res) => {
+
+    const curr_user = req.user //from authenticate
+    const profile_id = req.query.profile_id
+
+    //console.log(curr_user,profile_id)
+
+    if (!ObjectID.isValid(profile_id) || req.user._id.equals(profile_id)) {
+        res.status(404).send('Invalid id')  // if invalid id, definitely can't find resource, 404.
+        return;  // so that we don't run the rest of the handler.
+    }
+    try {
+        const profile_user = await User.findById(profile_id)
+
+        if (!profile_user) {
+            res.status(404).send('Resource not found')  // could not find this profile user (somehow)
+        } else {
+            if (curr_user.following.includes(profile_id)) { // already following -> remove
+                curr_user.following = curr_user.following.filter(function (ids) {
+                    return !ids.equals(profile_id);
+                });
+                profile_user.follower = profile_user.follower.filter(function (ids) {
+                    return !ids.equals(curr_user._id);
+                });
+            }
+            else { // not following -> add
+                curr_user.following.push(profile_id)
+                profile_user.follower.push(curr_user._id)
+            }
+            await curr_user.save()
+            await profile_user.save()
+            res.send({curr_user})
+        }
+    } catch (error) {
+        log(error) // log server error to the console, not to the client.
+        if (isMongoError(error)) { // check for if mongo server suddenly disconnected before this request.
+            res.status(500).send('Internal server error')
+        } else {
+            res.status(400).send('Bad Request') // bad request for changing the reservation.
+        }
+    }
 })
 
 // ********************* API Routes End Here **********************************

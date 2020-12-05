@@ -40,7 +40,7 @@ class MyBlog extends Component {
       new_post_img: "",
       new_tag: "",
       new_post_tags: [],
-      current_username: "bruh",//props.current_username,
+      current_username: "encrypt",//props.current_username,
       current_user_role: "user",//props.current_user_role,
       profileImg: "",
       following: [],
