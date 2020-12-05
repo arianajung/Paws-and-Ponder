@@ -9,7 +9,11 @@ import IconButton from "@material-ui/core/IconButton";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import PersonAddDisabledIcon from "@material-ui/icons/PersonAddDisabled";
 import Avatar from "@material-ui/core/Avatar";
-import { contains, handleFollowBtn } from "../../actions/profile";
+import {
+    contains,
+    handleFollowBtn,
+    handleFollowButton,
+} from "../../actions/profile";
 
 function Navbar({
     app,
@@ -24,7 +28,7 @@ function Navbar({
     // profileImg,
     profileUser,
     currentUser,
-    profilePage
+    profilePage,
 }) {
     let userProfile;
     // console.log(currentUser)
@@ -32,7 +36,17 @@ function Navbar({
     if ((view === "myblog" || view === "profile") && currentUser !== null) {
         userProfile = (
             <div className="profile-wrapper">
-                <img className="img" src={view === "myblog" ? currentUser.profileImg : (view === "profile" ? profileUser.profileImg : null) }  alt="profile-pic"/>
+                <img
+                    className="img"
+                    src={
+                        view === "myblog"
+                            ? currentUser.profileImg
+                            : view === "profile"
+                            ? profileUser.profileImg
+                            : null
+                    }
+                    alt="profile-pic"
+                />
                 <div className="profile-info">
                     <Typography
                         className="username"
@@ -40,10 +54,18 @@ function Navbar({
                         align="center"
                         variant="h4"
                     >
-                        {view === "myblog" ? currentUser.username : (view === "profile" ? profileUser.username : null)}
+                        {view === "myblog"
+                            ? currentUser.username
+                            : view === "profile"
+                            ? profileUser.username
+                            : null}
                     </Typography>
                     <Typography className="role" align="center" variant="h6">
-                        {view === "myblog" ? currentUser.role : (view === "profile" ? profileUser.role : null)}
+                        {view === "myblog"
+                            ? currentUser.role
+                            : view === "profile"
+                            ? profileUser.role
+                            : null}
                     </Typography>
                 </div>
             </div>
@@ -55,19 +77,7 @@ function Navbar({
         followBtn = (
             <div className="followBtn">
                 <IconButton
-                    onClick={() =>
-                        handleFollowBtn(
-                            profilePage,
-                            profileUser,
-                            currentUser,
-                            // app_users,
-                            // viewing_user,
-                            // current_user,
-                            // following,
-                            // profile_followers,
-                            // profile
-                        )
-                    }
+                    onClick={() => handleFollowButton(profileUser, profilePage)}
                 >
                     {contains(profileUser._id, currentUser.following) ? (
                         <PersonAddDisabledIcon />

@@ -77,7 +77,7 @@ app.use(
         resave: false,
         saveUninitialized: false,
         cookie: {
-            expires: 300000, //5 min
+            expires: 1800000, //30 min
             httpOnly: true,
         },
     })
@@ -346,7 +346,7 @@ app.patch("/api/following", mongoChecker, authenticate, async (req, res) => {
     try {
         const user = await User.findById(req.user._id).populate("following");
         if (!user.following) {
-            res.status(404).send("Resource not found"); // could not find this restaurant
+            res.status(404).send("Resource not found");
         } else {
             user.following = req.body.following;
             const result = await user.save();
@@ -362,6 +362,59 @@ app.patch("/api/following", mongoChecker, authenticate, async (req, res) => {
         }
     }
 });
+
+app.patch(
+    "/api/updateUserRelation",
+    mongoChecker,
+    authenticate,
+    async (req, res) => {
+        const curr_user = req.user; //from authenticate
+        const profile_id = req.query.profile_id;
+
+        console.log(curr_user, profile_id);
+
+        if (!ObjectID.isValid(profile_id) || req.user._id.equals(profile_id)) {
+            res.status(404).send("Invalid id"); // if invalid id, definitely can't find resource, 404.
+            return; // so that we don't run the rest of the handler.
+        }
+        try {
+            const profile_user = await User.findById(profile_id);
+
+            if (!profile_user) {
+                res.status(404).send("Resource not found"); // could not find this profile user (somehow)
+            } else {
+                if (curr_user.following.includes(profile_id)) {
+                    // already following -> remove
+                    curr_user.following = curr_user.following.filter(function (
+                        ids
+                    ) {
+                        return !ids.equals(profile_id);
+                    });
+                    profile_user.follower = profile_user.follower.filter(
+                        function (ids) {
+                            return !ids.equals(curr_user._id);
+                        }
+                    );
+                } else {
+                    // not following -> add
+                    curr_user.following.push(profile_id);
+                    profile_user.follower.push(curr_user._id);
+                }
+                await curr_user.save();
+                await profile_user.save();
+                res.send({ curr_user });
+            }
+        } catch (error) {
+            log(error); // log server error to the console, not to the client.
+            if (isMongoError(error)) {
+                // check for if mongo server suddenly disconnected before this request.
+                res.status(500).send("Internal server error");
+            } else {
+                res.status(400).send("Bad Request"); // bad request
+            }
+        }
+    }
+);
 
 app.post("/api/makePost", mongoChecker, authenticate, async (req, res) => {
     const new_post = new Post({
