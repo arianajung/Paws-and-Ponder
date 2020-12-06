@@ -7,9 +7,8 @@ import "./Main.css";
 import getPostIndex from "../../actions/getPostIndex";
 import searchRequest from "../../actions/searchRequest";
 import { Typography } from "@material-ui/core";
-import { getFollowers, getFollowing } from "../../actions/user"
+import { getFollowers, getFollowing } from "../../actions/user";
 import { getPosts } from "../../actions/user";
-
 
 /* Main page where the user views all of the posts made by people that they follow*/
 class Main extends React.Component {
@@ -73,7 +72,6 @@ class Main extends React.Component {
 
     render() {
         const { history, app } = this.props;
-
         return (
             <div className="main-container">
                 <div>
@@ -109,10 +107,7 @@ class Main extends React.Component {
                     </div>
                 </div>
                 <div>
-                    <PermanentDrawerRight
-                        app={app}
-                        page={this}
-                    />
+                    <PermanentDrawerRight app={app} page={this} />
                 </div>
             </div>
         );

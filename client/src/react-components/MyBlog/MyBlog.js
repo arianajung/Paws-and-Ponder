@@ -44,11 +44,11 @@ class MyBlog extends Component {
             new_tag: "",
             new_post_tags: [],
             req: "blog",
-            current_username: "bruh", //props.current_username,
-            current_user_role: "user", //props.current_user_role,
-            profileImg: "",
-            following: [],
-            followers: [],
+            // current_username: "bruh", //props.current_username,
+            // current_user_role: "user", //props.current_user_role,
+            // profileImg: "",
+            // following: [],
+            // followers: [],
             currentUser: null,
         };
         // this.state = {
@@ -86,8 +86,8 @@ class MyBlog extends Component {
     // }
 
     componentDidMount() {
-        console.log("MyBlog.js: componenetDidMount()");
         getCurrentUser(this);
+        console.log("MyBlog.js: componenetDidMount()");
     }
 
     componentDidUpdate() {
@@ -96,73 +96,6 @@ class MyBlog extends Component {
             this.setState({ req: "blog" });
         }
     }
-
-    // handles adding a comment that reflects the changes in the instance of App.js which in turn
-    // sets sends the POST request to the backend
-    // addComment(comment, postID) {
-    //   const posts_copy = this.state.posts.slice();
-    //   const postIndex = getPostIndex(this.state.posts, postID);
-
-    //   const new_comment = {
-    //     commentID: this.state.posts[postIndex].commentCount + 1,
-    //     user: this.state.current_username,
-    //     text: comment,
-    //   };
-
-    //   posts_copy[postIndex].comments = this.state.posts[
-    //     postIndex
-    //   ].comments.concat(new_comment);
-
-    //   posts_copy[postIndex].commentCount++;
-
-    //   this.setState({
-    //     posts: posts_copy,
-    //   });
-    // }
-
-    // reflects changes to App.js which in turn send the updates to the backend
-    // makePost(e) {
-    //   if (
-    //     this.state.new_post_text.trim() !== "" ||
-    //     this.state.new_post_img.trim() !== ""
-    //   ) {
-    //     const new_post = {
-    //       postID: this.state.total_num_posts + 1,
-    //       date: new Date().toLocaleString(),
-    //       user: this.state.current_username,
-    //       text: this.state.new_post_text,
-    //       image: this.state.new_post_img,
-    //       bookmarked: false,
-    //       commentCount: 0,
-    //       comments: [],
-    //       tags: this.state.new_post_tags,
-    //     };
-
-    //     let posts_copy = this.state.posts.slice();
-    //     posts_copy = [new_post].concat(this.state.posts);
-    //     let all_posts_copy = [new_post].concat(this.state.all_posts);
-
-    //     // update the same info in App component
-    //     let current_user = this.state.app_users.slice()[
-    //       this.state.current_user_index
-    //     ];
-    //     current_user.userPosts = posts_copy;
-    //     let newUsers = this.state.app_users.slice();
-    //     newUsers.splice(this.state.current_user_index, 1, current_user);
-    //     this.setState({
-    //       new_post_text: "",
-    //       new_post_img: "",
-    //       new_tag: "",
-    //       new_post_tags: [],
-    //       total_num_posts: this.state.total_num_posts + 1,
-    //       posts: posts_copy,
-    //       app_users: newUsers,
-    //       all_posts: all_posts_copy,
-    //     });
-
-    //     this.props.app.incrementTotalNumPosts();
-    //   }
-    // }
 
     /*
      logic to make a post
@@ -331,6 +264,7 @@ class MyBlog extends Component {
                             // current_username={this.state.current_username}
                             //app_users={this.state.app_users}
                             // posts={this.state.posts}
+                            currentUser={this.state.currentUser}
                             type={this.state.req}
                             // addComment={this.addComment}
                             myBlog={this}

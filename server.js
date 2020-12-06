@@ -444,6 +444,31 @@ app.post("/api/makePost", mongoChecker, authenticate, async (req, res) => {
     }
 });
 
+app.delete(
+    "/api/removePost/:postID",
+    mongoChecker,
+    authenticate,
+    async (req, res) => {
+        const postID = req.params.postID;
+        // Validate id
+        if (!ObjectID.isValid(postID)) {
+            res.status(404).send("Post not found");
+            return;
+        }
+        try {
+            const removedPost = await Post.findOneAndDelete({ _id: postID });
+            if (!removedPost) {
+                res.status(404).send("Resource not found");
+            } else {
+                res.send(removedPost);
+            }
+        } catch (error) {
+            log(error);
+            res.status(500).send(); // server error, could not delete.
+        }
+    }
+);
+
 // ********************* API Routes End Here **********************************
 
 /*** Webpage routes below **********************************/

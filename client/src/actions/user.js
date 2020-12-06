@@ -304,10 +304,39 @@ export const makePost = async (new_post, images, tags) => {
             }
         })
         .then((json) => {
-            console.log("correctly fetched MyBlog makePost result");
+            console.log(
+                "correctly fetched MyBlog makePost result from database"
+            );
         })
         .catch((error) => {
             console.log(error);
             console.log("Failed to make post");
+        });
+};
+
+export const removePost = async (postID, postList) => {
+    const url = `/api/removePost/${postID}`;
+    const request = new Request(url, {
+        method: "delete",
+        headers: {
+            Accept: "application/json, text/plain, */*",
+            "Content-Type": "application/json",
+        },
+    });
+    // Send the request with fetch()
+    await fetch(request)
+        .then((res) => {
+            if (res.status === 200) {
+                return res.json();
+            }
+        })
+        .then((json) => {
+            console.log("correctly deleted post from database");
+            // probably will have to distinguish if it's a req from user vs. admin later
+            getUserPosts(postList);
+        })
+        .catch((error) => {
+            console.log(error);
+            console.log("Failed to remove post from database");
         });
 };
