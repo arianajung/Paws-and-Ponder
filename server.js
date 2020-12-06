@@ -252,7 +252,11 @@ app.get(
         try {
             const posts = await Post.find({
                 owner_id: { $in: followingUsersArray },
-            }).populate();
+            })
+                .sort({
+                    timeStamp: -1,
+                })
+                .populate();
             if (!posts) {
                 res.status(404).send("Resource not found");
             } else {

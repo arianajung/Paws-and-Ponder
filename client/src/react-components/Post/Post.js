@@ -20,7 +20,7 @@ import { Link } from "react-router-dom";
 import Moment from "react-moment";
 // import moment from "moment";
 
-import { addComment } from "../../actions/user"
+import { addComment } from "../../actions/user";
 
 /* A Post Component */
 class Post extends React.Component {
@@ -47,11 +47,15 @@ class Post extends React.Component {
 
     // // handles adding a new comment
     buttonPress(e) {
-      if (this.state.new_comment.trim() !== "") {
-        // if no white space
-        addComment(this.state.new_comment, this.props.post._id, this.props.postlist);
-        this.setState({ new_comment: "" });
-      }
+        if (this.state.new_comment.trim() !== "") {
+            // if no white space
+            addComment(
+                this.state.new_comment,
+                this.props.post._id,
+                this.props.postlist
+            );
+            this.setState({ new_comment: "" });
+        }
     }
 
     // // reflects changes in the instance of App.js that holds the component information that will send and
@@ -191,7 +195,7 @@ class Post extends React.Component {
                                 <div className="post-info">
                                     <div id="post-user">{post.owner}</div>
                                     <div id="post-date">
-                                        <Moment format="YYYY/MM/DD hh:mm">
+                                        <Moment format="YYYY/MM/DD HH:mm">
                                             {post.timeStamp}
                                         </Moment>
                                     </div>
