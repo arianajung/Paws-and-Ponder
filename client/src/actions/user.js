@@ -340,3 +340,36 @@ export const removePost = async (postID, postList) => {
             console.log("Failed to remove post from database");
         });
 };
+
+export const removeComment = async (postID, commentID, postList) => {
+    const url = `/api/removeComment/${postID}/${commentID}`;
+    const request = new Request(url, {
+        method: "delete",
+        headers: {
+            Accept: "application/json, text/plain, */*",
+            "Content-Type": "application/json",
+        },
+    });
+    // Send the request with fetch()
+    await fetch(request)
+        .then((res) => {
+            if (res.status === 200) {
+                return res.json();
+            }
+        })
+        .then((json) => {
+            // probably will have to distinguish if it's a req from user vs. admin later
+            if (postList.state.type === "main") {
+                getPosts(postList);
+            } else if (postList.state.type === "profile") {
+                getProfilePosts(postList);
+            } else {
+                getUserPosts(postList);
+            }
+            console.log("removed from database");
+        })
+        .catch((error) => {
+            console.log(error);
+            console.log("Failed to remove comment from database");
+        });
+};

@@ -469,6 +469,34 @@ app.delete(
     }
 );
 
+app.delete(
+    "/api/removeComment/:postID/:commentID",
+    mongoChecker,
+    authenticate,
+    async (req, res) => {
+        const postID = req.params.postID;
+        const commentID = req.params.commentID;
+        // Validate id
+        if (!ObjectID.isValid(postID) || !ObjectID.isValid(commentID)) {
+            res.status(401).send("Post or comment not found");
+            return;
+        }
+        try {
+            const foundPost = await Post.findOne({ _id: postID });
+            if (!foundPost) {
+                res.status(404).send("Comment not found");
+            } else {
+                const comment = foundPost.comments.id(commentID).remove();
+                const post = await foundPost.save();
+                res.send({ post, comment });
+            }
+        } catch (error) {
+            log(error);
+            res.status(500).send(); // server error, could not delete.
+        }
+    }
+);
+
 // ********************* API Routes End Here **********************************
 
 /*** Webpage routes below **********************************/

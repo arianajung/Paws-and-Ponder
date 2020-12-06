@@ -8,7 +8,7 @@ import getPostIndex from "../../actions/getPostIndex";
 import searchRequest from "../../actions/searchRequest";
 import { Typography } from "@material-ui/core";
 import { getFollowers, getFollowing } from "../../actions/user";
-import { getPosts } from "../../actions/user";
+import { getCurrentUser } from "../../actions/user";
 
 /* Main page where the user views all of the posts made by people that they follow*/
 class Main extends React.Component {
@@ -35,6 +35,7 @@ class Main extends React.Component {
             //     userCreds: props.app.state.userCreds,
             searchText: "",
             posts: [],
+            currentUser: null,
             //     current_username: current_user.username,
             //     current_user_role: current_user.role,
             //     profileImg: current_user.profileImg,
@@ -67,7 +68,8 @@ class Main extends React.Component {
     // }
 
     componentDidMount() {
-        //getPosts(this);
+        getCurrentUser(this);
+        console.log("Main.js ComponentDidMount()");
     }
 
     render() {
@@ -94,14 +96,14 @@ class Main extends React.Component {
                     </div>
                     <div className="post-area">
                         <PostList
-                            currentUser={app.state.currentUser}
-                            curr_uid={app.state.curr_uid}
+                            currentUser={this.state.currentUser}
                             type="main"
+                            page={this}
+                            // curr_uid={app.state.curr_uid}
                             // app_users={this.state.app_users}
                             //posts={this.state.posts}
                             // addComment={this.addComment}
                             // profileImg={this.state.profileImg}
-                            page={this}
                             // role={this.state.current_user_role}
                         />
                     </div>

@@ -261,16 +261,16 @@ class MyBlog extends Component {
                     {/* map posts  */}
                     <div className="post-area">
                         <PostList
-                            // current_username={this.state.current_username}
-                            //app_users={this.state.app_users}
-                            // posts={this.state.posts}
                             currentUser={this.state.currentUser}
                             type={this.state.req}
-                            // addComment={this.addComment}
                             myBlog={this}
                             profileImg={this.state.profileImg}
                             page={this}
                             role={this.state.current_user_role}
+                            // addComment={this.addComment}
+                            // current_username={this.state.current_username}
+                            //app_users={this.state.app_users}
+                            // posts={this.state.posts}
                         />
                     </div>
                 </div>

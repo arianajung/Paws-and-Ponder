@@ -46,7 +46,7 @@ class Post extends React.Component {
     }
 
     // // handles adding a new comment
-    buttonPress(e) {
+    addCommentButtonPress(e) {
         if (this.state.new_comment.trim() !== "") {
             // if no white space
             addComment(
@@ -85,7 +85,7 @@ class Post extends React.Component {
 
     render() {
         const {
-            currentUser,
+            // currentUser,
             // app_users,
             post,
             postlist,
@@ -162,11 +162,14 @@ class Post extends React.Component {
             return (
                 <Comment
                     key={uid(comment)}
-                    currentUser={currentUser}
-                    comment_user={comment.owner}
-                    comment_text={comment.textContent}
+                    postID={post._id}
+                    currentUser={this.state.currentUser}
+                    comment={comment}
+                    postList={postlist}
+                    // comment_user={comment.owner}
+                    // comment_text={comment.textContent}
                     // profileImg={profileImg}
-                    // commentID={comment.commentID}
+                    // commentID={comment._id}
                     // page={page}
                     // postID={postID}
                     // role={role}
@@ -233,7 +236,7 @@ class Post extends React.Component {
                             <Button
                                 id="comment-button"
                                 size="small"
-                                onClick={(e) => this.buttonPress(e)}
+                                onClick={(e) => this.addCommentButtonPress(e)}
                             >
                                 Comment
                             </Button>
