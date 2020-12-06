@@ -174,10 +174,16 @@ class MyBlog extends Component {
     */
     makePostButtonPress(e) {
         const { new_post_text, new_post_img, new_post_tags } = this.state;
+        console.log(new_post_tags);
         if (new_post_text.trim() !== "") {
             // add the post to the database
             makePost(new_post_text, new_post_img, new_post_tags);
-            this.setState({ req: "makePost" });
+            this.setState({
+                req: "makePost",
+                new_post_text: "",
+                new_post_tags: [],
+                new_post_img: "",
+            });
         }
     }
 

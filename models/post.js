@@ -10,10 +10,6 @@ const CommentSchema = new mongoose.Schema({
     textContent: String,
 });
 
-const TagSchema = new mongoose.Schema({
-    tagName: String,
-});
-
 // Schema Attempt for Posts
 const PostSchema = new mongoose.Schema({
     owner_id: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
@@ -23,10 +19,11 @@ const PostSchema = new mongoose.Schema({
     images: [], //Change this to array of image id
     likes: Number,
     comments: [CommentSchema], // ?
-    tags: [{ type: mongoose.Schema.Types.ObjectId, ref: "Tag" }],
+    // tags: [{ type: mongoose.Schema.Types.ObjectId, ref: "Tag" }],
+    tags: [],
 });
 
-const Tag = mongoose.model("Tag", TagSchema);
+// const Tag = mongoose.model("Tag", TagSchema);
 const Comment = mongoose.model("Comment", CommentSchema);
 const Post = mongoose.model("Post", PostSchema);
-module.exports = { Comment, Post, Tag };
+module.exports = { Comment, Post };

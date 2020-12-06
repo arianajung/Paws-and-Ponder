@@ -14,7 +14,7 @@ mongoose.set("useFindAndModify", false); // for some deprecation issues
 // https://github.com/csc309-fall-2020/react-express-authentication/blob/master/server.js
 
 const { User } = require("./models/user");
-const { Comment, Post, Tag } = require("./models/post");
+const { Comment, Post } = require("./models/post");
 const { Image } = require("./models/image");
 
 // to validate object IDs
