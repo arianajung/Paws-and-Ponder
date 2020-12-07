@@ -190,6 +190,15 @@ app.delete("/images/:imageId", (req, res) => {
 });
 
 
+// Middleware for verifying Admin permission of resources
+const isAdmin = (req, res, next) => {
+    if (req.user.role === "admin") {
+        next();
+    } else {
+        res.status(401).send("Unauthorized");
+    }
+}
+
 /*** Session handling **************************************/
 // Create a session and session cookie
 app.use(
@@ -573,10 +582,14 @@ app.delete(
             return;
         }
         try {
-            const removedPost = await Post.findOneAndDelete({ _id: postID });
+            const removedPost = await Post.findOne({ _id: postID });
             if (!removedPost) {
                 res.status(404).send("Resource not found");
-            } else {
+            } else if (!removedPost.owner_id.equals(req.user._id) && req.user.role !== "admin") {
+                res.status(401).send("Unauthorized");
+            }
+            else {
+                await removedPost.delete()
                 res.send(removedPost);
             }
         } catch (error) {
@@ -603,9 +616,17 @@ app.delete(
             if (!foundPost) {
                 res.status(404).send("Comment not found");
             } else {
-                const comment = foundPost.comments.id(commentID).remove();
-                const post = await foundPost.save();
-                res.send({ post, comment });
+                const comment = foundPost.comments.id(commentID)
+                console.log(comment)
+                if (!comment) {
+                    res.status(404).send("Comment not found");
+                } else if (!comment.owner_id.equals(req.user._id) && req.user.role !== "admin") {
+                    res.status(401).send("Unauthorized");
+                } else {
+                    await comment.remove();
+                    const post = await foundPost.save();
+                    res.send({ post, comment });
+                }
             }
         } catch (error) {
             log(error);
@@ -613,6 +634,11 @@ app.delete(
         }
     }
 );
+
+// ********************* Admin APIs **********************************
+// if any
+
+
 
 // ********************* API Routes End Here **********************************
 
