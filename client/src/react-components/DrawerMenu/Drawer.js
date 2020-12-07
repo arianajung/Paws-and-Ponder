@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useStyles } from "./DrawerStyles";
 import Drawer from "@material-ui/core/Drawer";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -13,58 +13,84 @@ import Avatar from "@material-ui/core/Avatar";
 // Need to change this to import specific user image instead
 import { Link } from "react-router-dom";
 import getCurrentUserAndIndex from "../../actions/getCurrentUserAndIndex";
-import { handleProfileBtn } from "../../actions/profile"
+import { handleProfileBtn } from "../../actions/profile";
+import { getFollowers, getFollowing } from "../../actions/user";
+import { uid } from "react-uid";
 
 export default function PermanentDrawerRight(props) {
-  // retreive style sheet for Drawer
-  const classes = useStyles();
+    // retreive style sheet for Drawer
+    const classes = useStyles();
 
-  const { app, page, following, followers } = props;
+    const { app, page, update } = props;
 
-  return (
-    <div className={classes.root}>
-      <CssBaseline />
-      <Drawer
-        className={classes.drawer}
-        variant="permanent"
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-        anchor="right"
-      >
-        <Typography className="title" variant="h6">
-          Followers
-        </Typography>
-        <List>
-          {/* Generate list for  */}
-          {followers.map((username) => (
-            <Link key={username} to={"/profile"}>
-              <ListItem button key={username} onClick={() => handleProfileBtn(app, username, page)}>
-                <ListItemAvatar>
-                  <Avatar alt={username} src={getCurrentUserAndIndex(app.state.users, username)[1].profileImg} />
-                </ListItemAvatar>
-                <ListItemText primary={username} />
-              </ListItem>
-            </Link>
-          ))}
-        </List>
-        <Divider />
-        <Typography className="title" variant="h6">
-          Following
-        </Typography>
-        <List>
-          {following.map((username) => (
-            <Link key={username} to={"/profile"}>
-              <ListItem button key={username} onClick={() => handleProfileBtn(app, username, page)}>
-                <ListItemAvatar>
-                  <Avatar alt={username} src={getCurrentUserAndIndex(app.state.users, username)[1].profileImg} />
-                </ListItemAvatar>
-                <ListItemText primary={username} />
-              </ListItem>
-            </Link>
-          ))}
-        </List>
-      </Drawer>
-    </div >
-  );
+    const [followers, setFollowers] = useState([]);
+    const [following, setFollowing] = useState([]);
+
+    useEffect(() => {
+        getFollowers(setFollowers);
+        getFollowing(setFollowing);
+    }, [update]);
+
+    return (
+        <div className={classes.root}>
+            <CssBaseline />
+            <Drawer
+                className={classes.drawer}
+                variant="permanent"
+                classes={{
+                    paper: classes.drawerPaper,
+                }}
+                anchor="right"
+            >
+                <Typography className="title" variant="h6">
+                    Followers
+                </Typography>
+                <List>
+                    {/* Generate list for  */}
+                    {followers.map((user) => (
+                        <Link key={uid(user)} to={"/profile"}>
+                            <ListItem
+                                button
+                                onClick={() =>
+                                    handleProfileBtn(app, user, page)
+                                }
+                            >
+                                <ListItemAvatar>
+                                    <Avatar
+                                        alt={user.username}
+                                        src={user.profileImg}
+                                    />
+                                </ListItemAvatar>
+                                <ListItemText primary={user.username} />
+                            </ListItem>
+                        </Link>
+                    ))}
+                </List>
+                <Divider />
+                <Typography className="title" variant="h6">
+                    Following
+                </Typography>
+                <List>
+                    {following.map((user) => (
+                        <Link key={uid(user)} to={"/profile"}>
+                            <ListItem
+                                button
+                                onClick={() =>
+                                    handleProfileBtn(app, user, page)
+                                }
+                            >
+                                <ListItemAvatar>
+                                    <Avatar
+                                        alt={user.username}
+                                        src={user.profileImg}
+                                    />
+                                </ListItemAvatar>
+                                <ListItemText primary={user.username} />
+                            </ListItem>
+                        </Link>
+                    ))}
+                </List>
+            </Drawer>
+        </div>
+    );
 }

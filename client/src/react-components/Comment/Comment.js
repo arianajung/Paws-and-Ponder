@@ -3,10 +3,10 @@ import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import getCurrentUserAndIndex from "../../actions/getCurrentUserAndIndex";
 import { handleProfileBtn } from "../../actions/profile";
-import removeComment from "../../actions/remove/removeComment";
 import MyBlog from "../MyBlog/MyBlog";
 import AdminDropDownMenu from "../AdminMenu/AdminDropDownMenu";
 import { Link } from "react-router-dom";
+import { removeComment } from "../../actions/user";
 
 // css
 import "./Comment.css";
@@ -15,27 +15,30 @@ class Comment extends Component {
     render() {
         const {
             currentUser,
-            comment_user,
-            comment_text,
-            profileImg,
-            commentID,
-            page,
+            comment,
             postID,
-            role,
+            postList,
+            // comment_user,
+            // comment_text,
+            // profileImg,
+            // commentID,
+            // page,
+            // role,
         } = this.props;
 
-        // // if the current page is user's personal blog or the comment is their own
-        // const removeButton =
-        //     page instanceof MyBlog || comment_user === current_username ? (
-        //         <div className="removeBtn">
-        //             <IconButton
-        //                 className="dark-button-element"
-        //                 onClick={() => removeComment(page, postID, commentID)}
-        //             >
-        //                 <DeleteIcon />
-        //             </IconButton>
-        //         </div>
-        //     ) : null;
+        const removeButton =
+            comment.owner_id === currentUser._id ? (
+                <div className="removeBtn">
+                    <IconButton
+                        className="dark-button-element"
+                        onClick={() =>
+                            removeComment(postID, comment._id, postList)
+                        }
+                    >
+                        <DeleteIcon />
+                    </IconButton>
+                </div>
+            ) : null;
 
         // should retrieve this information from server later
         // let userImg;
@@ -58,30 +61,30 @@ class Comment extends Component {
         //     );
         // }
 
-        const adminButton2 = (isPost) =>
-            role === "admin" && comment_user !== currentUser ? (
-                <div className="admin-button">
-                    <AdminDropDownMenu
-                        user={comment_user}
-                        page={page}
-                        isPost={isPost}
-                        commentID={commentID}
-                        postID={postID}
-                    />
-                </div>
-            ) : null;
+        // const adminButton2 = (isPost) =>
+        //     role === "admin" && comment_user !== currentUser ? (
+        //         <div className="admin-button">
+        //             <AdminDropDownMenu
+        //                 user={comment_user}
+        //                 page={page}
+        //                 isPost={isPost}
+        //                 commentID={commentID}
+        //                 postID={postID}
+        //             />
+        //         </div>
+        //     ) : null;
 
         return (
             <div className="comment">
                 {/* <div className="comment-icon">{userImg}</div> */}
                 <div className="comment-content">
-                    <div id="comment-name">{comment_user}</div>
-                    <div id="comment-text">{comment_text}</div>
+                    <div id="comment-name">{comment.owner}</div>
+                    <div id="comment-text">{comment.textContent}</div>
                 </div>
-                {/* <div className="buttons">
+                <div className="buttons">
                     {removeButton}
-                    {adminButton2(false)}
-                </div> */}
+                    {/* {adminButton2(false)} */}
+                </div>
             </div>
         );
     }

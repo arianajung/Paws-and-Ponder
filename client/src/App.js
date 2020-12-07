@@ -21,6 +21,7 @@ class App extends React.Component {
   state = {
     currentUser: null, // added for session
     curr_uid: null, // ObjectID of the curr user
+    profileUser: null, // user object used for profile page
   };
 
   render() {
@@ -101,7 +102,7 @@ class App extends React.Component {
                   <Profile app={this} />
                 ) : (
                     <Redirect to="/" />
-                  )
+                )
               }
             />
             {/* 404 if URL isn't expected. */}
