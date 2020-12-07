@@ -16,7 +16,7 @@ class PostList extends React.Component {
     }
 
     componentDidMount() {
-        console.log("Postlist mounted");
+        //console.log("Postlist mounted");
         if (this.state.type === "main") {
             getPosts(this);
         } else if (this.state.type === "profile") {
