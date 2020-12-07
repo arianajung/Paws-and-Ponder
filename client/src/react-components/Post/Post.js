@@ -113,15 +113,15 @@ class Post extends React.Component {
                 // </div>
                 <span></span> // TEMP, DELETE WHEN IMPLEMENTING BOOKMARKS
             ) : (
-                <div className="removeBtn">
-                    <IconButton
-                        className="dark-button-element"
-                        onClick={() => removePost(post._id, postlist)}
-                    >
-                        <DeleteIcon />
-                    </IconButton>
-                </div>
-            );
+                    <div className="removeBtn">
+                        <IconButton
+                            className="dark-button-element"
+                            onClick={() => removePost(post._id, postlist)}
+                        >
+                            <DeleteIcon />
+                        </IconButton>
+                    </div>
+                );
 
         // const adminButton = (isPost) => (role === "admin" && post.user !== current_username) ? (
         //   <div className="admin-button">
@@ -166,13 +166,13 @@ class Post extends React.Component {
                     currentUser={this.state.currentUser}
                     comment={comment}
                     postList={postlist}
-                    // comment_user={comment.owner}
-                    // comment_text={comment.textContent}
-                    // profileImg={profileImg}
-                    // commentID={comment._id}
-                    // page={page}
-                    // postID={postID}
-                    // role={role}
+                // comment_user={comment.owner}
+                // comment_text={comment.textContent}
+                // profileImg={profileImg}
+                // commentID={comment._id}
+                // page={page}
+                // postID={postID}
+                // role={role}
                 />
             );
         });
@@ -223,12 +223,12 @@ class Post extends React.Component {
                             {/* Need to add more user stuff here like user pic*/}
                         </div>
                         <div className="post-content">
-                            <div className="image-list">
-                                {images}
-                            </div>
-
                             <div id="post-text">
                                 {post.textContent}
+                            </div>
+
+                            <div className="image-list">
+                                {images}
                             </div>
                         </div>
                         <div className="tagsContainer">

@@ -88,7 +88,8 @@ class MyBlog extends Component {
                 new_post_tags: [],
                 new_post_img: "",
                 local_image_urls: [],
-            });
+                image_files: []
+            });  
         }
     }
 
