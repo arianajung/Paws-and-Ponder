@@ -100,19 +100,20 @@ app.post("/images", multipartMiddleware, (req, res) => {
                     console.log("error from upload: ", error);
                     reject(error);
                 } else {
-                    const image = new Image({
-                        image_id: result.public_id,
-                        image_url: result.url,
-                        created_at: new Date(),
-                    });
-                    image.save().then((save_res) => {
-                        //image_array.push(save_res);
-                        console.log("resolve from upload: ", save_res);
-                        resolve(save_res);
-                    },
-                    (error) => {
-                        res.status(500).send("POST /images: Internal Server Error", error);
-                    }); 
+                    // const image = new Image({
+                    //     image_id: result.public_id,
+                    //     image_url: result.url,
+                    //     created_at: new Date(),
+                    // });
+                    // image.save().then((save_res) => {
+                    //     //image_array.push(save_res);
+                    //     console.log("resolve from upload: ", save_res);
+                    //     resolve(save_res);
+                    // },
+                    // (error) => {
+                    //     res.status(500).send("POST /images: Internal Server Error", error);
+                    // }); 
+                    resolve(result.url);
                 }
             })
         })
