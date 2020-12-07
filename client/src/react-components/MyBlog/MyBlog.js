@@ -88,8 +88,13 @@ class MyBlog extends Component {
                 new_post_tags: [],
                 new_post_img: "",
                 local_image_urls: [],
+<<<<<<< HEAD
                 image_files: []
             });  
+=======
+                image_files: [],
+            });
+>>>>>>> 70389e1641cac8a32e53e894ffcb8e1730441390
         }
     }
 
@@ -135,6 +140,7 @@ class MyBlog extends Component {
             // need to tell user that max upload limit has been reached
             console.log(`MAX UPLOAD LIMIT (${MAX_POSTS}) CANNOT BE EXCEEDED`);
         }
+        event.target.value = null;
         
     };
 

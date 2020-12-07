@@ -1,16 +1,22 @@
 // code from react-cloudinary respository
 
 //import image from "../../models/image";
+import imageCompression from 'browser-image-compression';
 
 // A function to send a POST request with a new image
 export const addImage = async (file, component) => {
     // the URL for the request
     const url = "/images";
 
+    const compression_options = {
+        maxSizeMB: 0.2,
+    };
+
     // The data we are going to send in our request
     const imageData = new FormData();
     for (const file_idx in file) {
-        imageData.append(`file${file_idx}`, file[file_idx]);
+        const compressed_file = await imageCompression(file[file_idx], compression_options);
+        imageData.append(`file${file_idx}`, compressed_file);
     }
     console.log("image data: ", imageData);
 
