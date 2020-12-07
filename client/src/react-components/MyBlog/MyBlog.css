@@ -8,6 +8,12 @@
   margin-right: 5%;
 }
 
+.image-container {
+  height: 200px;
+  width: auto;
+  margin: 10px;
+}
+
 .search-bar {
   width: 60%;
   margin-left: 10%;

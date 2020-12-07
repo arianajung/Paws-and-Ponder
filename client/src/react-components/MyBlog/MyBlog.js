@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useRef } from "react";
 import { uid } from "react-uid";
 
 // material-ui imports
@@ -24,23 +24,23 @@ import searchRequest from "../../actions/searchRequest";
 import "./MyBlog.css";
 
 import { getCurrentUser, makePost } from "../../actions/user";
+import { addImage } from "../../actions/image";
+
+
+const MAX_POSTS = 4;
+
+const hiddenFileInput = React.createRef();
 
 class MyBlog extends Component {
     constructor(props) {
         super(props);
-        //this.addComment = this.addComment.bind(this);
-
-        // Obtain information about current user
-
-        // const [current_user_index, current_user] = getCurrentUserAndIndex(
-        //   users,
-        //   current_username
-        // );
 
         this.state = {
             posts: [],
             new_post_text: "",
             new_post_img: "",
+            local_image_urls: [],
+            image_files: [],
             new_tag: "",
             new_post_tags: [],
             req: "blog",
@@ -51,48 +51,16 @@ class MyBlog extends Component {
             // followers: [],
             currentUser: null,
         };
-        // this.state = {
-        //   app_users: props.app.state.users,
-        //   userCreds: props.app.state.userCreds,
-        //   current_user_index: current_user_index,
-        //   current_username: current_user.username,
-        //   current_user_role: current_user.role,
-        //   profileImg: current_user.profileImg,
-        //   searchText: "",
-        //   new_post_text: "",
-        //   new_post_img: "",
-        //   new_tag: "",
-        //   new_post_tags: [],
-        //   total_num_posts: props.app.state.total_num_posts,
-        //   posts: current_user.userPosts,
-        //   following: current_user.following,
-        //   followers: current_user.followers,
-        //   //this is added for search purposes, need a way to know all posts that exist currently
-        //   //the post we had can be understood as "posts to be displayed" -- Fred
-        //   all_posts: current_user.userPosts,
-        // };
-        // For searching purposes, display initial posts if searching with empty string
     }
-
-    // retrieves posts made by this user from the database and stores it in state
-    // async componentDidMount() {
-    // await fetch('/api/getUserPosts')
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     this.setState({ posts: data.posts });
-    //     return false;
-    //   });
-
-    // }
 
     componentDidMount() {
         getCurrentUser(this);
-        console.log("MyBlog.js: componenetDidMount()");
+        //console.log("MyBlog.js: componenetDidMount()");
     }
 
     componentDidUpdate() {
         if (this.state.req === "makePost") {
-            console.log("MyBlog.js: componenetDidUpdate()");
+            //console.log("MyBlog.js: componenetDidUpdate()");
             this.setState({ req: "blog" });
         }
     }
@@ -105,17 +73,21 @@ class MyBlog extends Component {
      4. componentDidUpdate() invoked in MyBlog as rendering finished - call setState({req: "blog"})
      5. MyBlog re-renders, but since "type" in PostList's state === our new req prop "blog", getUserPosts not called
     */
-    makePostButtonPress(e) {
-        const { new_post_text, new_post_img, new_post_tags } = this.state;
-        console.log(new_post_tags);
+    makePostButtonPress = async (e) => {
+        const { new_post_text, local_image_urls, image_files, new_post_tags } = this.state;
+        console.log("new post tags: ", new_post_tags);
         if (new_post_text.trim() !== "") {
+            // add images to database
+            const image_urls = await addImage(image_files, this);
+
             // add the post to the database
-            makePost(new_post_text, new_post_img, new_post_tags);
+            makePost(new_post_text, image_urls, new_post_tags);
             this.setState({
                 req: "makePost",
                 new_post_text: "",
                 new_post_tags: [],
                 new_post_img: "",
+                local_image_urls: [],
             });
         }
     }
@@ -147,7 +119,41 @@ class MyBlog extends Component {
         });
     }
 
+    uploadFile(event) {
+        if (this.state.local_image_urls.length < MAX_POSTS) {
+            const fileUploaded = event.target.files[0];
+
+            const image_files = this.state.image_files.concat([fileUploaded]);
+            console.log("image files: ", image_files);
+
+            const local_image_urls = this.state.local_image_urls.concat([URL.createObjectURL(fileUploaded)]);
+            console.log("image urls: ", local_image_urls)
+
+            this.setState({ local_image_urls: local_image_urls, image_files: image_files });
+        } else {
+            // need to tell user that max upload limit has been reached
+            console.log(`MAX UPLOAD LIMIT (${MAX_POSTS}) CANNOT BE EXCEEDED`);
+        }
+        
+    };
+
+    handleClick() {
+        hiddenFileInput.current.click();
+    };
+
     render() {
+        const images = this.state.local_image_urls.map((image_files) => {
+            return (
+                <div>
+                    <img 
+                        className="image-container" 
+                        src={image_files} 
+                        alt="">
+                   </img>
+                </div>
+            )
+        });
+
         return (
             <div className="myblog-container">
                 <div>
@@ -156,10 +162,10 @@ class MyBlog extends Component {
                         view="myblog"
                         currentUser={this.state.currentUser}
 
-                        // view="myBlog"
-                        // current_user={this.state.current_username}
-                        // current_user_role={this.state.current_user_role}
-                        // profileImg={this.state.profileImg}
+                    // view="myBlog"
+                    // current_user={this.state.current_username}
+                    // current_user_role={this.state.current_user_role}
+                    // profileImg={this.state.profileImg}
                     />
                 </div>
                 <div className="blog-middle-area">
@@ -182,11 +188,9 @@ class MyBlog extends Component {
                     <div className="make-a-post-container">
                         <div>
                             {/* Server called needed here to display a preview of the image chosen by the user */}
-                            <img
-                                className="preview-img"
-                                src={this.state.new_post_img}
-                                alt=""
-                            />
+                            <div style={{display: "flex"}}>
+                                {images}
+                            </div>
                             <TextField
                                 className="make-a-post-text"
                                 variant="outlined"
@@ -242,12 +246,20 @@ class MyBlog extends Component {
                                 <AddCircleIcon />
                             </IconButton>
 
+                            
                             <IconButton
                                 id="attach-button"
-                                onClick={(e) => this.attachImage(e)}
+                                onClick={() => this.handleClick()}
                             >
                                 <InsertPhotoIcon />
                             </IconButton>
+                            <input 
+                                name="image" 
+                                ref={hiddenFileInput}
+                                onChange={(e) => this.uploadFile(e)}
+                                type="file" 
+                                style={{display: 'none'}}
+                            />
                             <Button
                                 id="post-button"
                                 size="small"
@@ -267,10 +279,10 @@ class MyBlog extends Component {
                             profileImg={this.state.profileImg}
                             page={this}
                             role={this.state.current_user_role}
-                            // addComment={this.addComment}
-                            // current_username={this.state.current_username}
-                            //app_users={this.state.app_users}
-                            // posts={this.state.posts}
+                        // addComment={this.addComment}
+                        // current_username={this.state.current_username}
+                        //app_users={this.state.app_users}
+                        // posts={this.state.posts}
                         />
                     </div>
                 </div>
@@ -278,8 +290,8 @@ class MyBlog extends Component {
                     <PermanentDrawerRight
                         app={this.props.app}
                         page={this}
-                        // following={this.state.following}
-                        // followers={this.state.followers}
+                    // following={this.state.following}
+                    // followers={this.state.followers}
                     />
                 </div>
             </div>

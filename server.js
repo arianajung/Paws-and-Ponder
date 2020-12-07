@@ -89,27 +89,65 @@ const authenticate = (req, res, next) => {
 app.post("/images", multipartMiddleware, (req, res) => {
 
     // Use uploader.upload API to upload image to cloudinary server.
-    cloudinary.uploader.upload(
-        req.files.image.path, // req.files contains uploaded files
-        function (result) {
-
-            // Create a new image using the Image mongoose model
-            var img = new Image({
-                image_id: result.public_id, // image id on cloudinary server
-                image_url: result.url, // image url on cloudinary server
-                created_at: new Date(),
-            });
-
-            // Save image to the database
-            img.save().then(
-                saveRes => {
-                    res.send(saveRes);
-                },
-                error => {
-                    res.status(400).send(error); // 400 for bad request
+    console.log("request files: ", req.files);
+    // let image_array = [];
+    let upload_responses = [];
+    for (const file_name in req.files) {
+        const upload_res = new Promise((resolve, reject) => {
+            console.log(req.files[file_name].path);
+            cloudinary.uploader.upload(req.files[file_name].path, function (result, error) {
+                if (error) {
+                    console.log("error from upload: ", error);
+                    reject(error);
+                } else {
+                    const image = new Image({
+                        image_id: result.public_id,
+                        image_url: result.url,
+                        created_at: new Date(),
+                    });
+                    image.save().then((save_res) => {
+                        //image_array.push(save_res);
+                        console.log("resolve from upload: ", save_res);
+                        resolve(save_res);
+                    },
+                    (error) => {
+                        res.status(500).send("POST /images: Internal Server Error", error);
+                    }); 
                 }
-            );
-        });
+            })
+        })
+        console.log("upload_res promise: ", upload_res);
+        upload_responses.push(upload_res);
+    }
+
+    Promise.all(upload_responses).then((result) => {
+        console.log(result);
+        res.send({ result });
+    }).catch((error) => {
+        console.log("error from promise.all: ", error);
+    })
+    // cloudinary.uploader.upload(
+    //     req.files.file.path, // req.files contains uploaded files
+    //     function (result) {
+
+    //         // Create a new image using the Image mongoose model
+    //         var img = new Image({
+    //             image_id: result.public_id, // image id on cloudinary server
+    //             image_url: result.url, // image url on cloudinary server
+    //             created_at: new Date(),
+    //         });
+
+    //         // Save image to the database
+    //         img.save().then(
+    //             saveRes => {
+    //                 console.log(saveRes);
+    //                 res.send(saveRes);
+    //             },
+    //             error => {
+    //                 res.status(400).send(error); // 400 for bad request
+    //             }
+    //         );
+    //     });
 });
 
 // a GET route to get all images
@@ -123,6 +161,10 @@ app.get("/images", (req, res) => {
         }
     );
 });
+
+// app.get("/images"), (req, res) => {
+//     Image.findBy
+// });
 
 /// a DELETE route to remove an image by its id.
 app.delete("/images/:imageId", (req, res) => {
@@ -260,12 +302,10 @@ app.post("/api/addComment", mongoChecker, authenticate, async (req, res) => {
 });
 
 app.get("/api/getUserPosts", mongoChecker, authenticate, async (req, res) => {
-    console.log(req.user);
     try {
         const posts = await Post.find({ owner_id: req.user._id }).sort({
             timeStamp: -1,
         }); // returns posts sorted by latest
-        console.log(posts);
         res.send({ posts });
     } catch (error) {
         log(error);
@@ -282,7 +322,6 @@ app.get(
     authenticate,
     async (req, res) => {
         const user_id = await User.findByUsername(req.query.username);
-        console.log(user_id);
         try {
             const posts = await Post.find()
                 .find({ owner_id: user_id })
@@ -300,7 +339,6 @@ app.get(
     mongoChecker,
     authenticate,
     async (req, res) => {
-        //console.log(req.user)
         const user_id = req.user._id;
 
         // array of id's of users that the current user follows
