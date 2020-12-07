@@ -465,10 +465,14 @@ app.delete(
             return;
         }
         try {
-            const removedPost = await Post.findOneAndDelete({ _id: postID });
+            const removedPost = await Post.findOne({ _id: postID });
             if (!removedPost) {
                 res.status(404).send("Resource not found");
-            } else {
+            } else if (!removedPost.owner_id.equals(req.user._id) && req.user.role !== "admin") {
+                res.status(401).send("Unauthorized");
+            }
+            else {
+                await removedPost.delete()
                 res.send(removedPost);
             }
         } catch (error) {
