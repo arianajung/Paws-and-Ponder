@@ -96,43 +96,44 @@ class Post extends React.Component {
         } = this.props;
 
         const bookmarkOrRemoveButton =
-            post.owner_id !== this.state.currentUser._id ? ( // bookmark button
-                // <div className="bookmarkBtn">
-                //   <IconButton
-                //     className="dark-button-element"
-                //     onClick={() =>
-                //       this.handleBookmarkBtn(app_users, current_username, post)
-                //     }
-                //   >
-                //     {this.state.bookmarked === false ? (
-                //       <BookmarkIcon />
-                //     ) : (
-                //       <BookmarkedIcon />
-                //     )}
-                //   </IconButton>
-                // </div>
-                <span></span> // TEMP, DELETE WHEN IMPLEMENTING BOOKMARKS
+            (post.owner_id === this.state.currentUser._id) ? ( // bookmark button
+                <div className="removeBtn">
+                    <IconButton
+                        className="dark-button-element"
+                        onClick={() => removePost(post._id, postlist)}
+                    >
+                        <DeleteIcon />
+                    </IconButton>
+                </div>
             ) : (
-                    <div className="removeBtn">
-                        <IconButton
-                            className="dark-button-element"
-                            onClick={() => removePost(post._id, postlist)}
-                        >
-                            <DeleteIcon />
-                        </IconButton>
-                    </div>
+                    // <div className="bookmarkBtn">
+                    //   <IconButton
+                    //     className="dark-button-element"
+                    //     onClick={() =>
+                    //       this.handleBookmarkBtn(app_users, current_username, post)
+                    //     }
+                    //   >
+                    //     {this.state.bookmarked === false ? (
+                    //       <BookmarkIcon />
+                    //     ) : (
+                    //       <BookmarkedIcon />
+                    //     )}
+                    //   </IconButton>
+                    // </div>
+                    <span></span> // TEMP, DELETE WHEN IMPLEMENTING BOOKMARKS
                 );
 
-        // const adminButton = (isPost) => (role === "admin" && post.user !== current_username) ? (
-        //   <div className="admin-button">
-        //     <AdminDropDownMenu
-        //       user={post.user}
-        //       page={page}
-        //       isPost={isPost}
-        //       postID={postID}
-        //     />
-        //   </div>
-        // ) : null
+        const adminButton = (isPost) => (this.state.currentUser.role === "admin") ? (
+          <div className="admin-button">
+            <AdminDropDownMenu
+              user={post.owner}
+              page={postlist.page}
+              postID={post._id}
+              isPost={isPost}
+              postlist={postlist}
+            />
+          </div>
+        ) : null
 
         // // should retrieve this information from server later
         // let userImg;
@@ -166,6 +167,7 @@ class Post extends React.Component {
                     currentUser={this.state.currentUser}
                     comment={comment}
                     postList={postlist}
+                    postOwner={post.owner}
                 // comment_user={comment.owner}
                 // comment_text={comment.textContent}
                 // profileImg={profileImg}
@@ -217,7 +219,7 @@ class Post extends React.Component {
                             </div>
                             <div className="buttons">
                                 {bookmarkOrRemoveButton}
-                                {/* {adminButton(true)} */}
+                                {adminButton(true)}
                             </div>
 
                             {/* Need to add more user stuff here like user pic*/}

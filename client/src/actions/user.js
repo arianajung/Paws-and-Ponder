@@ -333,7 +333,14 @@ export const removePost = async (postID, postList) => {
         .then((json) => {
             console.log("correctly deleted post from database");
             // probably will have to distinguish if it's a req from user vs. admin later
-            getUserPosts(postList);
+            // including types of post list becase an admin can delete from different pages
+            if (postList.state.type === "main") { 
+                getPosts(postList);
+            } else if (postList.state.type === "profile") {
+                getProfilePosts(postList);
+            } else {
+                getUserPosts(postList);
+            }
         })
         .catch((error) => {
             console.log(error);

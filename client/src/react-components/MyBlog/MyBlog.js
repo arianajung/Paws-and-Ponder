@@ -88,13 +88,8 @@ class MyBlog extends Component {
                 new_post_tags: [],
                 new_post_img: "",
                 local_image_urls: [],
-<<<<<<< HEAD
-                image_files: []
-            });  
-=======
                 image_files: [],
             });
->>>>>>> 70389e1641cac8a32e53e894ffcb8e1730441390
         }
     }
 
@@ -194,10 +189,7 @@ class MyBlog extends Component {
 
                     <div className="make-a-post-container">
                         <div>
-                            {/* Server called needed here to display a preview of the image chosen by the user */}
-                            <div style={{display: "flex"}}>
-                                {images}
-                            </div>
+                            {/* Server called needed here to display a preview of the image chosen by the user */}                    
                             <TextField
                                 className="make-a-post-text"
                                 variant="outlined"
@@ -210,6 +202,9 @@ class MyBlog extends Component {
                                     });
                                 }}
                             />
+                            <div style={{display: "flex"}}>
+                                {images}
+                            </div>
                         </div>
 
                         <div className="post-options">

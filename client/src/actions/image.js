@@ -37,7 +37,7 @@ export const addImage = async (file, component) => {
 
                 let image_urls = [];
                 for (const idx in data.result) {
-                    image_urls.push(data.result[idx].image_url);//);
+                    image_urls.push(data.result[idx]);
                 }
                 return image_urls;
             } else {
