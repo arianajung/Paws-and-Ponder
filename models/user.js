@@ -23,6 +23,7 @@ const UserSchema = new mongoose.Schema({
     follower: [{ type: ObjectID, ref: "User" }],
     bookmarks: [{ type: ObjectID, ref: "Post" }],
     // Unsure about the ones below
+    status: String,
     bio: String,
 });
 
