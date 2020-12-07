@@ -80,7 +80,7 @@ class Post extends React.Component {
 
     componentDidMount() {
         getCurrentUser(this);
-        console.log("Post.js ComponentDidMount()");
+        //console.log("Post.js ComponentDidMount()");
     }
 
     render() {
@@ -189,6 +189,14 @@ class Post extends React.Component {
             );
         });
 
+        const images = post.images.map((image) => {
+            return (
+                <div>
+                    <img className="image-container" src={image} alt=""></img>
+                </div>
+            )
+        });
+
         return (
             <div>
                 <div className="post-wrapper">
@@ -215,10 +223,17 @@ class Post extends React.Component {
                             {/* Need to add more user stuff here like user pic*/}
                         </div>
                         <div className="post-content">
-                            {/* <img id="post-img" src={post.image} alt=""></img> */}
-                            <div id="post-text">{post.textContent}</div>
+                            <div className="image-list">
+                                {images}
+                            </div>
+
+                            <div id="post-text">
+                                {post.textContent}
+                            </div>
                         </div>
-                        <div className="tagsContainer">Tags: {tags}</div>
+                        <div className="tagsContainer">
+                            Tags: {tags}
+                        </div>
                     </div>
 
                     <div className="comment-area">
