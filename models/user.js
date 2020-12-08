@@ -23,7 +23,9 @@ const UserSchema = new mongoose.Schema({
     follower: [{ type: ObjectID, ref: "User" }],
     bookmarks: [{ type: ObjectID, ref: "Post" }],
     // Unsure about the ones belows
-    bio: { type: String, default: "Hello and welcome to PetLog! Please visit the settings to customize your bio!" }
+    bio: { type: String, default: "Hello and welcome to PetLog! Please visit the settings to customize your bio!" },
+    // Unsure about the ones below
+    status: String,
 });
 
 // An example of Mongoose middleware.
@@ -57,6 +59,11 @@ UserSchema.statics.findByUsernamePassword = function (username, password) {
         if (!user) {
             return Promise.reject(); // a rejected promise
         }
+
+        if (user.status === "banned"){
+            return Promise.reject(); // prevent banned user from logging in
+        }
+
         // if the user exists, make sure their password is correct
         return new Promise((resolve, reject) => {
             bcrypt.compare(password, user.password, (err, result) => {

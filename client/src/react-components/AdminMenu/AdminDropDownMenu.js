@@ -9,8 +9,9 @@ import MenuList from '@material-ui/core/MenuList';
 import { makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import MyBlog from "../MyBlog/MyBlog";
-import removePost from "../../actions/remove/removePost";
-import removeComment from "../../actions/remove/removeComment";
+
+import { removePost, removeComment } from "../../actions/user";
+import { toggleBanStatus } from "../../actions/admin"
 
 import "./AdminDropDownMenu.css"
 
@@ -30,6 +31,8 @@ export default function AdminDropDownMenu(props) {
     isPost,
     postID,
     commentID,
+    postlist,
+    banID,
   } = props
 
   const classes = useStyles();
@@ -66,15 +69,19 @@ export default function AdminDropDownMenu(props) {
   }, [open]);
 
   const remove = (e) => {
-    if (isPost)
-      removePost(page, postID);
-    else 
-      removeComment(page, postID, commentID);
+    if (isPost){
+      removePost(postID, postlist)
+    }
+    else {
+      removeComment(postID, commentID, postlist)
+    }
+    //   removeComment(page, postID, commentID);
     handleClose(e);
   }
 
   const ban = (e) => {
-    page.props.app.state.userCreds = page.props.app.state.userCreds.filter( ({ username }) => username !== user );
+    // page.props.app.state.userCreds = page.props.app.state.userCreds.filter( ({ username }) => username !== user );
+    toggleBanStatus(banID)
     handleClose(e);
   }
 
@@ -106,7 +113,7 @@ export default function AdminDropDownMenu(props) {
                 <ClickAwayListener onClickAway={handleClose}>
                   <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
                     {deleteOption}
-                    <MenuItem className="dark-MenuItem" onClick={ban}>Ban {user}</MenuItem>
+                    <MenuItem className="dark-MenuItem" onClick={ban}>Ban/Unban {user}</MenuItem>
                   </MenuList>
                 </ClickAwayListener>
               </Paper>

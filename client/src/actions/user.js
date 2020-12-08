@@ -11,7 +11,7 @@ export const getPosts = async (postList) => {
                 // return a promise that resolves with the JSON body
                 return res.json();
             } else {
-                alert("Could not get posts");
+                alert("Could not get main posts");
             }
         })
         .then((json) => {
@@ -34,7 +34,7 @@ export const getFollowers = (set) => {
                 // return a promise that resolves with the JSON body
                 return res.json();
             } else {
-                alert("Could not get the followers");
+                alert("Could not get user followers");
             }
         })
         .then((json) => {
@@ -57,7 +57,7 @@ export const getFollowing = (set) => {
                 // return a promise that resolves with the JSON body
                 return res.json();
             } else {
-                alert("Could not get the following");
+                alert("Could not get following users");
             }
         })
         .then((json) => {
@@ -81,7 +81,7 @@ export const getCurrentUser = (page) => {
                 // return a promise that resolves with the JSON body
                 return res.json();
             } else {
-                alert("Could not get the user");
+                alert("Could not get current user info");
             }
         })
         .then((json) => {
@@ -115,9 +115,7 @@ export const updateUserRelation = (page, profile_id) => {
                 // return a promise that resolves with the JSON body
                 return res.json();
             } else {
-                alert(
-                    "Follow/Unfollow Failed, check that your session is still running"
-                );
+                alert("Follow/Unfollow Failed, check that your session is still running");
             }
         })
         .then((json) => {
@@ -128,72 +126,6 @@ export const updateUserRelation = (page, profile_id) => {
             console.log(error);
         });
 };
-
-// for profile user's followrers
-// export const patchFollowers = (page, id, followers) => {
-//     // the URL for the request
-//     const url = `/api/followers/${id}`;
-
-//     const request = new Request(url, {
-//         method: "patch",
-//         body: JSON.stringify({follower: followers}),
-//         headers: {
-//             Accept: "application/json, text/plain, */*",
-//             "Content-Type": "application/json"
-//         }
-//     });
-
-//     // Since this is a GET request, simply call fetch on the URL
-//     fetch(request)
-//         .then(res => {
-//             if (res.status === 200) {
-//                 // return a promise that resolves with the JSON body
-//                 return res.json();
-//             } else {
-//                 alert("Could not patch the followers");
-//             }
-//         })
-//         .then(json => {
-//             // the resolved promise with the JSON body
-//             page.setState({profileUser: json})
-//         })
-//         .catch(error => {
-//             console.log(error);
-//         });
-// }
-
-// // need to change this without id, use session
-// export const patchFollowing = (page, following) => {
-//     // the URL for the request
-//     const url = "/api/following";
-
-//     const request = new Request(url, {
-//         method: "patch",
-//         body: JSON.stringify({following: following}),
-//         headers: {
-//             Accept: "application/json, text/plain, */*",
-//             "Content-Type": "application/json"
-//         }
-//     });
-
-//     // Since this is a GET request, simply call fetch on the URL
-//     fetch(request)
-//         .then(res => {
-//             if (res.status === 200) {
-//                 // return a promise that resolves with the JSON body
-//                 return res.json();
-//             } else {
-//                 alert("Could not patch the following");
-//             }
-//         })
-//         .then(json => {
-//             // the resolved promise with the JSON body
-//             page.setState({currentUser: json})
-//         })
-//         .catch(error => {
-//             console.log(error);
-//         });
-// }
 
 export const getUserPosts = (postList) => {
     const url = `/api/getUserPosts/`;
@@ -206,7 +138,7 @@ export const getUserPosts = (postList) => {
                 // return a promise that resolves with the JSON body
                 return res.json();
             } else {
-                alert("Could not get posts");
+                alert("Could not get user my-blog posts");
             }
         })
         .then((json) => {
@@ -232,7 +164,7 @@ export const getProfilePosts = (postList) => {
                 // return a promise that resolves with the JSON body
                 return res.json();
             } else {
-                alert("Could not get posts");
+                alert("Could not get user profile posts");
             }
         })
         .then((json) => {
@@ -304,9 +236,7 @@ export const makePost = async (new_post, images, tags) => {
             }
         })
         .then((json) => {
-            console.log(
-                "correctly fetched MyBlog makePost result from database"
-            );
+            console.log("correctly fetched MyBlog makePost result from database");
         })
         .catch((error) => {
             console.log(error);
@@ -333,7 +263,14 @@ export const removePost = async (postID, postList) => {
         .then((json) => {
             console.log("correctly deleted post from database");
             // probably will have to distinguish if it's a req from user vs. admin later
-            getUserPosts(postList);
+            // including types of post list becase an admin can delete from different pages
+            if (postList.state.type === "main") { 
+                getPosts(postList);
+            } else if (postList.state.type === "profile") {
+                getProfilePosts(postList);
+            } else {
+                getUserPosts(postList);
+            }
         })
         .catch((error) => {
             console.log(error);
@@ -373,3 +310,31 @@ export const removeComment = async (postID, commentID, postList) => {
             console.log("Failed to remove comment from database");
         });
 };
+
+export const getSearchedPosts = async (postlist, search_text, mainpage) => {
+    const url = `/api/getSearchedPost?search_text=${search_text}`;
+    // export const getProfilePosts = (postList, profile_username) => {
+    //     const url = `/api/getProfilePosts?username=${profile_username}`;
+    //     console.log(`/api/getProfilePosts?username=${profile_username}`)
+
+    fetch(url, {
+        accepts: "application/json",
+    })
+        .then((res) => {
+            if (res.status === 200) {
+                // return a promise that resolves with the JSON body
+                return res.json();
+            } else {
+                alert("Search failed");
+            }
+        })
+        .then((json) => {
+            // the resolved promise with the JSON body
+            console.log("Successfully Retrieved posts");
+            postlist.setState({ postList: json.posts });
+            mainpage.setState({ type : "searched"})
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+}

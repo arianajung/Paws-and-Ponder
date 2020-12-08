@@ -55,7 +55,7 @@ class Auth {
       })
       .catch(error => {
         console.log(error);
-        console.log("Login Failed, be sure to use log in credentials in the Cloud DB");
+        alert("Login Failed. Check your credentials and User Status");
       });
   };
 

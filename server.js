@@ -399,6 +399,22 @@ app.get(
     }
 );
 
+app.get(
+    "/api/getSearchedPost",
+    mongoChecker,
+    authenticate,
+    async (req, res) => {
+        try {
+            const posts = await Post.find({$or:[{ tags: new RegExp(req.query.search_text, 'i')}, { owner: new RegExp(req.query.search_text, 'i') }]})
+                .sort({ timeStamp: -1 }); // returns posts sorted by latest
+            res.send({ posts });
+        } catch (error) {
+            log(error);
+            res.status(500).send("getProfilePosts: Internal Server Error");
+        }
+    }
+);
+
 app.get("/api/followers", mongoChecker, authenticate, async (req, res) => {
     try {
         const user = await User.findById(req.user._id).populate("follower");
@@ -635,8 +651,44 @@ app.delete(
 );
 
 // ********************* Admin APIs **********************************
-// if any
-
+// Ban/Unban a user
+app.patch(
+    "/api/admin/toggleBanStatus/:user_id",
+    mongoChecker,
+    authenticate,
+    isAdmin,
+    async (req, res) => {
+        const user_id = req.params.user_id;
+        // Validate id
+        if (!ObjectID.isValid(user_id)) {
+            res.status(404).send("Post not found");
+            return;
+        }
+        try {
+            const user = await User.findById(user_id);
+            if (!user) {
+                res.status(404).send("User not found");
+            }
+            else {
+                // check if status exists
+                if(!user.status || user.status == "normal"){
+                    user.status = "banned";
+                } else {
+                    user.status = "normal";
+                }
+                await user.save()
+                res.send({
+                    message: `You have set the status of the user with name ${user.username} to ${user.status}`,
+                    username: user.username,
+                    status : user.status
+                });
+            }
+        } catch (error) {
+            log(error);
+            res.status(500).send(); // server error, could not delete.
+        }
+    }
+);
 
 
 // ********************* API Routes End Here **********************************
