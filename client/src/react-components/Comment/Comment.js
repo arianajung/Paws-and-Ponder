@@ -71,6 +71,7 @@ class Comment extends Component {
                 commentID={comment._id}
                 isPost={isPost}
                 postlist={postList}
+                banID={comment.owner_id}
               />
             </div>
           ) : null

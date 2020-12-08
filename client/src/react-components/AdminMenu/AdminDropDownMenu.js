@@ -11,6 +11,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import MyBlog from "../MyBlog/MyBlog";
 
 import { removePost, removeComment } from "../../actions/user";
+import { toggleBanStatus } from "../../actions/admin"
 
 import "./AdminDropDownMenu.css"
 
@@ -31,6 +32,7 @@ export default function AdminDropDownMenu(props) {
     postID,
     commentID,
     postlist,
+    banID,
   } = props
 
   const classes = useStyles();
@@ -79,6 +81,7 @@ export default function AdminDropDownMenu(props) {
 
   const ban = (e) => {
     // page.props.app.state.userCreds = page.props.app.state.userCreds.filter( ({ username }) => username !== user );
+    toggleBanStatus(banID)
     handleClose(e);
   }
 
@@ -110,7 +113,7 @@ export default function AdminDropDownMenu(props) {
                 <ClickAwayListener onClickAway={handleClose}>
                   <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
                     {deleteOption}
-                    <MenuItem className="dark-MenuItem" onClick={ban}>Ban {user}</MenuItem>
+                    <MenuItem className="dark-MenuItem" onClick={ban}>Ban/Unban {user}</MenuItem>
                   </MenuList>
                 </ClickAwayListener>
               </Paper>

@@ -131,6 +131,7 @@ class Post extends React.Component {
               postID={post._id}
               isPost={isPost}
               postlist={postlist}
+              banID={post.owner_id}
             />
           </div>
         ) : null
