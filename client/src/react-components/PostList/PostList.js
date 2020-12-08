@@ -31,7 +31,6 @@ class PostList extends React.Component {
     }
 
     async componentDidUpdate() {
-        console.log("POSTLIST PROPS TYPE", this.props.type);
         if (this.state.type === "profile") {
             if (this.state.currentuser !== this.props.currentUser) {
                 await this.setState({ currentuser: this.props.currentUser });

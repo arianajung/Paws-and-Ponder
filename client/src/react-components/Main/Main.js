@@ -38,7 +38,6 @@ class Main extends React.Component {
 
     componentDidUpdate() {
         if (this.state.req === "searched") {
-            //console.log("MyBlog.js: componenetDidUpdate()");
             this.setState({ req: "main" });
         }
     }
@@ -50,7 +49,6 @@ class Main extends React.Component {
                 <div>
                     <Navbar app={app} view="main" />
                 </div>
-                {console.log(`Logged in as ${app.state.currentUser}`)}
                 <div className="main-middle-area">
                     <div className="search-bar">
                         <SearchBar
@@ -72,7 +70,6 @@ class Main extends React.Component {
                             }}
                         />
                     </div>
-                    {console.log("main this.state.type", this.state.type)}
                     <div className="post-area">
                         <PostList
                             currentUser={this.state.currentUser}

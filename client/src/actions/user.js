@@ -330,7 +330,7 @@ export const getSearchedPosts = async (postlist, search_text, mainpage) => {
         })
         .then((json) => {
             // the resolved promise with the JSON body
-            console.log("searched posts: " + json.posts);
+            console.log("Successfully Retrieved posts");
             postlist.setState({ postList: json.posts });
             mainpage.setState({ type : "searched"})
         })
