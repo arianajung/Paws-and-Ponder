@@ -310,3 +310,31 @@ export const removeComment = async (postID, commentID, postList) => {
             console.log("Failed to remove comment from database");
         });
 };
+
+export const getSearchedPosts = async (postlist, search_text, mainpage) => {
+    const url = `/api/getSearchedPost?search_text=${search_text}`;
+    // export const getProfilePosts = (postList, profile_username) => {
+    //     const url = `/api/getProfilePosts?username=${profile_username}`;
+    //     console.log(`/api/getProfilePosts?username=${profile_username}`)
+
+    fetch(url, {
+        accepts: "application/json",
+    })
+        .then((res) => {
+            if (res.status === 200) {
+                // return a promise that resolves with the JSON body
+                return res.json();
+            } else {
+                alert("Search failed");
+            }
+        })
+        .then((json) => {
+            // the resolved promise with the JSON body
+            console.log("searched posts: " + json.posts);
+            postlist.setState({ postList: json.posts });
+            mainpage.setState({ type : "searched"})
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+}

@@ -89,15 +89,6 @@ class Bookmarks extends React.Component {
           <Navbar view="bookmarks" />
         </div>
         <div className="bookmarks-middle-area">
-          <div className="search-bar">
-            <SearchBar
-              value={this.state.searchText}
-              placeholder="Search by Tags or Usernames"
-              onCancelSearch={() => this.setState({ searchText: "" })}
-              onChange={(newValue) => this.setState({ searchText: newValue })}
-              onRequestSearch={() => this.searchRequest()}
-            />
-          </div>
           <div className="post-area">
             <PostList
               current_username={this.state.current_username}

@@ -16,26 +16,11 @@ class Main extends React.Component {
         super(props);
         this.props.history.push("/main");
 
-        //this.addComment = this.addComment.bind(this);
-
-        //this.addComment = this.addComment.bind(this);
-
-        // Obtain information about current user
-
-        // const { current_username, users } = props.app.state;
-
-        // const current_user = users.filter((user) => {
-        //     return user.username === current_username;
-        // })[0];
-
         this.state = {
-            //     //searchText for search bar
-            //     app: props.app,
-            //     app_users: props.app.state.users,
-            //     userCreds: props.app.state.userCreds,
             searchText: "",
             posts: [],
             currentUser: null,
+            type: "main",
             //     current_username: current_user.username,
             //     current_user_role: current_user.role,
             //     profileImg: current_user.profileImg,
@@ -46,34 +31,20 @@ class Main extends React.Component {
         };
     }
 
-    // addComment(comment, postID) {
-    //   const posts_copy = this.state.posts.slice();
-    //   const postIndex = getPostIndex(this.state.posts, postID);
-
-    //   const new_comment = {
-    //     commentID: this.state.posts[postIndex].commentCount + 1,
-    //     user: this.state.current_username,
-    //     text: comment,
-    //   };
-
-    //   posts_copy[postIndex].comments = this.state.posts[
-    //     postIndex
-    //   ].comments.concat(new_comment);
-
-    //   posts_copy[postIndex].commentCount++;
-
-    //   this.setState({
-    //     posts: posts_copy,
-    //   });
-    // }
-
     componentDidMount() {
         getCurrentUser(this);
         console.log("Main.js ComponentDidMount()");
     }
 
+    componentDidUpdate() {
+        if (this.state.req === "searched") {
+            //console.log("MyBlog.js: componenetDidUpdate()");
+            this.setState({ req: "main" });
+        }
+    }
+
     render() {
-        const { history, app } = this.props;
+        const { app } = this.props;
         return (
             <div className="main-container">
                 <div>
@@ -85,27 +56,37 @@ class Main extends React.Component {
                         <SearchBar
                             value={this.state.searchText}
                             placeholder="Search by Tags or Usernames"
-                            onCancelSearch={() =>
+                            onCancelSearch={() => {
                                 this.setState({ searchText: "" })
+                                this.setState({ type: "refresh" })
+                            }
                             }
                             onChange={(newValue) =>
                                 this.setState({ searchText: newValue })
                             }
-                            onRequestSearch={() => searchRequest(this)}
+                            onRequestSearch={() => {
+                                if(this.state.searchText === "")
+                                    this.setState({ type: "refresh" })
+                                else 
+                                    this.setState({ type: "searching" })
+                            }}
                         />
                     </div>
+                    {console.log("main this.state.type", this.state.type)}
                     <div className="post-area">
                         <PostList
                             currentUser={this.state.currentUser}
-                            type="main"
+                            type={this.state.type}
                             page={this}
-                            // curr_uid={app.state.curr_uid}
-                            // app_users={this.state.app_users}
-                            //posts={this.state.posts}
-                            // addComment={this.addComment}
-                            // profileImg={this.state.profileImg}
-                            // role={this.state.current_user_role}
+                            search_text={this.state.searchText}
+                        // curr_uid={app.state.curr_uid}
+                        // app_users={this.state.app_users}
+                        //posts={this.state.posts}
+                        // addComment={this.addComment}
+                        // profileImg={this.state.profileImg}
+                        // role={this.state.current_user_role}
                         />
+                        
                     </div>
                 </div>
                 <div>

@@ -96,7 +96,7 @@ class Post extends React.Component {
         } = this.props;
 
         const bookmarkOrRemoveButton =
-            (post.owner_id === this.state.currentUser._id) ? ( // bookmark button
+            (post.owner_id === this.state.currentUser._id ) ? ( // bookmark button
                 <div className="removeBtn">
                     <IconButton
                         className="dark-button-element"
@@ -123,7 +123,7 @@ class Post extends React.Component {
                     <span></span> // TEMP, DELETE WHEN IMPLEMENTING BOOKMARKS
                 );
 
-        const adminButton = (isPost) => (this.state.currentUser.role === "admin") ? (
+        const adminButton = (isPost) => (post.owner_id !== this.state.currentUser._id && this.state.currentUser.role === "admin") ? (
           <div className="admin-button">
             <AdminDropDownMenu
               user={post.owner}

@@ -171,22 +171,6 @@ class MyBlog extends Component {
                     />
                 </div>
                 <div className="blog-middle-area">
-                    <div className="search-bar">
-                        {" "}
-                        {/* needs a component */}
-                        <SearchBar
-                            value={this.state.searchText}
-                            placeholder="Search by Tags or Usernames"
-                            onCancelSearch={() =>
-                                this.setState({ searchText: "" })
-                            }
-                            onChange={(newValue) =>
-                                this.setState({ searchText: newValue })
-                            }
-                            onRequestSearch={() => searchRequest(this)}
-                        />
-                    </div>
-
                     <div className="make-a-post-container">
                         <div>
                             {/* Server called needed here to display a preview of the image chosen by the user */}                    
@@ -281,6 +265,7 @@ class MyBlog extends Component {
                             profileImg={this.state.profileImg}
                             page={this}
                             role={this.state.current_user_role}
+                            searchText={this.searchText}
                         // addComment={this.addComment}
                         // current_username={this.state.current_username}
                         //app_users={this.state.app_users}

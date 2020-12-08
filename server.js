@@ -401,6 +401,22 @@ app.get(
     }
 );
 
+app.get(
+    "/api/getSearchedPost",
+    mongoChecker,
+    authenticate,
+    async (req, res) => {
+        try {
+            const posts = await Post.find({$or:[{ tags: new RegExp(req.query.search_text, 'i')}, { owner: new RegExp(req.query.search_text, 'i') }]})
+                .sort({ timeStamp: -1 }); // returns posts sorted by latest
+            res.send({ posts });
+        } catch (error) {
+            log(error);
+            res.status(500).send("getProfilePosts: Internal Server Error");
+        }
+    }
+);
+
 app.get("/api/followers", mongoChecker, authenticate, async (req, res) => {
     try {
         const user = await User.findById(req.user._id).populate("follower");
