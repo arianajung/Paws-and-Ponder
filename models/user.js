@@ -58,6 +58,11 @@ UserSchema.statics.findByUsernamePassword = function (username, password) {
         if (!user) {
             return Promise.reject(); // a rejected promise
         }
+
+        if (user.status === "banned"){
+            return Promise.reject(); // prevent banned user from logging in
+        }
+
         // if the user exists, make sure their password is correct
         return new Promise((resolve, reject) => {
             bcrypt.compare(password, user.password, (err, result) => {

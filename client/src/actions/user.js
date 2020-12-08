@@ -11,7 +11,7 @@ export const getPosts = async (postList) => {
                 // return a promise that resolves with the JSON body
                 return res.json();
             } else {
-                alert("Could not get posts");
+                alert("Could not get main posts");
             }
         })
         .then((json) => {
@@ -34,7 +34,7 @@ export const getFollowers = (set) => {
                 // return a promise that resolves with the JSON body
                 return res.json();
             } else {
-                alert("Could not get the followers");
+                alert("Could not get user followers");
             }
         })
         .then((json) => {
@@ -57,7 +57,7 @@ export const getFollowing = (set) => {
                 // return a promise that resolves with the JSON body
                 return res.json();
             } else {
-                alert("Could not get the following");
+                alert("Could not get following users");
             }
         })
         .then((json) => {
@@ -81,7 +81,7 @@ export const getCurrentUser = (page) => {
                 // return a promise that resolves with the JSON body
                 return res.json();
             } else {
-                alert("Could not get the user");
+                alert("Could not get current user info");
             }
         })
         .then((json) => {
@@ -115,9 +115,7 @@ export const updateUserRelation = (page, profile_id) => {
                 // return a promise that resolves with the JSON body
                 return res.json();
             } else {
-                alert(
-                    "Follow/Unfollow Failed, check that your session is still running"
-                );
+                alert("Follow/Unfollow Failed, check that your session is still running");
             }
         })
         .then((json) => {
@@ -140,7 +138,7 @@ export const getUserPosts = (postList) => {
                 // return a promise that resolves with the JSON body
                 return res.json();
             } else {
-                alert("Could not get posts");
+                alert("Could not get user my-blog posts");
             }
         })
         .then((json) => {
@@ -166,7 +164,7 @@ export const getProfilePosts = (postList) => {
                 // return a promise that resolves with the JSON body
                 return res.json();
             } else {
-                alert("Could not get posts");
+                alert("Could not get user profile posts");
             }
         })
         .then((json) => {
@@ -238,9 +236,7 @@ export const makePost = async (new_post, images, tags) => {
             }
         })
         .then((json) => {
-            console.log(
-                "correctly fetched MyBlog makePost result from database"
-            );
+            console.log("correctly fetched MyBlog makePost result from database");
         })
         .catch((error) => {
             console.log(error);
