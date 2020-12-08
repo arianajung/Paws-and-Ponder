@@ -18,12 +18,12 @@ const UserSchema = new mongoose.Schema({
         required: true,
         minlength: 4,
     },
-    profileImg: String, // ?
+    profileImg: { type: String, default: "https://res.cloudinary.com/ddgs1ughh/image/upload/v1607364715/default_profile_image_wdvdbh.png" }, // ?
     following: [{ type: ObjectID, ref: "User" }],
     follower: [{ type: ObjectID, ref: "User" }],
     bookmarks: [{ type: ObjectID, ref: "Post" }],
-    // Unsure about the ones below
-    bio: String,
+    // Unsure about the ones belows
+    bio: { type: String, default: "Hello and welcome to PetLog! Please visit the settings to customize your bio!" }
 });
 
 // An example of Mongoose middleware.

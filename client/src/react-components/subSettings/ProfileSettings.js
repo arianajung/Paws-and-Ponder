@@ -10,6 +10,8 @@ import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Button from "@material-ui/core/Button";
 import Radio from "@material-ui/core/Radio";
+import IconButton from "@material-ui/core/IconButton";
+import InsertPhotoIcon from "@material-ui/icons/InsertPhoto";
 
 import { useStyles } from "./subSettingsStyles";
 import "../Settings/Settings.css";
@@ -18,215 +20,261 @@ import bunnysrc from "../../static/bunny.jpg";
 import catsrc from "../../static/cat.jpg";
 import dogsrc from "../../static/dog.jpg";
 
+
+
 export default function ProfileSettings(props) {
-  const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
-  const [selectedImage, setSelectedImage] = React.useState("img1");
+	const classes = useStyles();
+	const [expanded, setExpanded] = React.useState(false);
+	const [selectedImage, setSelectedImage] = React.useState("img1");
 
-  //Should initialize state with current username
-  const [values, setValues] = React.useState({
-    name: props.name,
-    password: "",
-    bio: "Default Bio",
-    profilePic: props.profileImg,
-    personalData: "",
-    showPassword: false,
-    app_users: props.app_users,
-    current_user_index: props.current_user_index,
-    curr_account: props.curr_account,
-  });
+	const [imageFiles, updateImageFiles] = React.useReducer((imageFiles, { type, newFile }) => {
+		switch (type) {
+			case "add":
+				return [...imageFiles, newFile];
+			case "remove":
+				return imageFiles.filter(({ name }) => name !== newFile.name);
+			default:
+				return imageFiles;
+		}
+	}, []);
 
-  //Expands and collapses Accordion Components
-  const handleChange = (panel) => (event, isExpanded) => {
-    setExpanded(isExpanded ? panel : false);
-  };
+	//Should initialize state with current username
+	const [values, setValues] = React.useState({
+		name: props.currentUserInfo.name,
+		password: "",
+		bio: props.currentUserInfo.bio,
+		profilePic: props.currentUserInfo.profileImg,
+		personalData: "",
+		showPassword: false,
+		//app_users: props.app_users,
+		//current_user_index: props.current_user_index,
+		//curr_account: props.curr_account,
+	});
 
-  const changeUsername = () => {
-    // plan to update information to back-end in phase 2
-    // cannot be reflected to top level
-    // let current_user = values.app_users.slice()[values.current_user_index];
-    // let curr_account = values.curr_account
-    // curr_account = values.name
-    // current_user.username = values.name;
-  };
+	//Expands and collapses Accordion Components
+	const handleChange = (panel) => (event, isExpanded) => {
+		setExpanded(isExpanded ? panel : false);
+	};
 
-  const selectAvatar = (e) => {
-    setSelectedImage(e.target.value);
-  };
+	const changeUsername = () => {
+		// plan to update information to back-end in phase 2
+		// cannot be reflected to top level
+		// let current_user = values.app_users.slice()[values.current_user_index];
+		// let curr_account = values.curr_account
+		// curr_account = values.name
+		// current_user.username = values.name;
+	};
 
-  
-  const changeAvatar = () => {
-    // plan to update information to back-end in phase 2
-    // setValues({...values, profilePic: avatars[selectedImage]})
-    // let current_user = values.app_users.slice()[values.current_user_index];
-    // current_user.profileImg = avatars[selectedImage];
-  };
+	const selectAvatar = (e) => {
+		setSelectedImage(e.target.value);
+	};
 
-  //Reflect input changes to hooks
-  const inputChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value });
-  };
 
-  // Log the new input of corresponding prop when a "Save" button is pressed
-  const logOutput = (prop) => (event) => {
-    console.log(`new ${prop}: ${{ ...values }[prop]}`);
-  };
+	const changeAvatar = () => {
+		// plan to update information to back-end in phase 2
+		// setValues({...values, profilePic: avatars[selectedImage]})
+		// let current_user = values.app_users.slice()[values.current_user_index];
+		// current_user.profileImg = avatars[selectedImage];
 
-  return (
-    <div className={classes.root}>
-      <Typography className={classes.sectionHeading}>
-        Profile Settings
+	};
+
+	//Reflect input changes to hooks
+	const inputChange = (prop) => (event) => {
+		setValues({ ...values, [prop]: event.target.value });
+	};
+
+	// Log the new input of corresponding prop when a "Save" button is pressed
+	const logOutput = (prop) => (event) => {
+		console.log(`new ${prop}: ${{ ...values }[prop]}`);
+	};
+
+	const hiddenFileInputRef = React.useRef();
+
+	const handleClick = () => {
+		hiddenFileInputRef.current.click();
+	};
+
+	const uploadFile = (e) => {
+		const fileUploaded = e.target.files[0];
+
+		updateImageFiles({ type: "add", value: fileUploaded });
+
+		console.log("imageFiles: ", imageFiles);
+
+
+		//this.setState({ local_image_urls: local_image_urls, image_files: image_files });
+        e.target.value = null;
+        
+    };
+
+	return (
+		<div className={classes.root}>
+			<Typography className={classes.sectionHeading}>
+				Profile Settings
       </Typography>
 
-      <Accordion
-        expanded={expanded === "panel1"}
-        onChange={handleChange("panel1")}
-      >
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1bh-content"
-          id="panel1bh-header"
-        >
-          <Typography className={classes.heading}>Username</Typography>
-          <Typography className={classes.secondaryHeading}>
-            Change your username
+			<Accordion
+				expanded={expanded === "panel1"}
+				onChange={handleChange("panel1")}
+			>
+				<AccordionSummary
+					expandIcon={<ExpandMoreIcon />}
+					aria-controls="panel1bh-content"
+					id="panel1bh-header"
+				>
+					<Typography className={classes.heading}>Username</Typography>
+					<Typography className={classes.secondaryHeading}>
+						Change your username
           </Typography>
-        </AccordionSummary>
+				</AccordionSummary>
 
-        <AccordionDetails>
-          <FormControl fullWidth className={classes.margin}>
-            <InputLabel>New Username</InputLabel>
-            <Input
-              id="newUserNamee"
-              value={values.name}
-              onChange={inputChange("name")}
-            />
-          </FormControl>
-        </AccordionDetails>
+				<AccordionDetails>
+					<FormControl fullWidth className={classes.margin}>
+						<InputLabel>New Username</InputLabel>
+						<Input
+							id="newUserNamee"
+							value={values.name}
+							onChange={inputChange("name")}
+						/>
+					</FormControl>
+				</AccordionDetails>
 
-        <AccordionActions>
-          <Button size="small">Cancel</Button>
-          <Button size="small" color="primary" onClick={changeUsername()}>
-            Save
+				<AccordionActions>
+					<Button size="small">Cancel</Button>
+					<Button size="small" color="primary" onClick={changeUsername()}>
+						Save
           </Button>
-        </AccordionActions>
-      </Accordion>
+				</AccordionActions>
+			</Accordion>
 
-      <Accordion
-        expanded={expanded === "panel2"}
-        onChange={handleChange("panel2")}
-      >
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel2bh-content"
-          id="panel2bh-header"
-        >
-          <Typography className={classes.heading}>Bio</Typography>
-          <Typography className={classes.secondaryHeading}>
-            Change your biography
+			<Accordion
+				expanded={expanded === "panel2"}
+				onChange={handleChange("panel2")}
+			>
+				<AccordionSummary
+					expandIcon={<ExpandMoreIcon />}
+					aria-controls="panel2bh-content"
+					id="panel2bh-header"
+				>
+					<Typography className={classes.heading}>Bio</Typography>
+					<Typography className={classes.secondaryHeading}>
+						Change your biography
           </Typography>
-        </AccordionSummary>
+				</AccordionSummary>
 
-        <AccordionDetails>
-          <FormControl fullWidth className={classes.margin}>
-            <InputLabel>New Bio</InputLabel>
-            <Input
-              id="newUserBio"
-              value={values.bio}
-              onChange={inputChange("bio")}
-            />
-          </FormControl>
-        </AccordionDetails>
+				<AccordionDetails>
+					<FormControl fullWidth className={classes.margin}>
+						<InputLabel>New Bio</InputLabel>
+						<Input
+							id="newUserBio"
+							value={values.bio}
+							onChange={inputChange("bio")}
+						/>
+					</FormControl>
+				</AccordionDetails>
 
-        <AccordionActions>
-          <Button size="small">Cancel</Button>
-          <Button size="small" color="primary" onClick={logOutput("bio")}>
-            Save
+				<AccordionActions>
+					<Button size="small">Cancel</Button>
+					<Button size="small" color="primary" onClick={logOutput("bio")}>
+						Save
           </Button>
-        </AccordionActions>
-      </Accordion>
+				</AccordionActions>
+			</Accordion>
 
-      <Accordion
-        expanded={expanded === "panel3"}
-        onChange={handleChange("panel3")}
-      >
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel3bh-content"
-          id="panel3bh-header"
-        >
-          <Typography className={classes.heading}>Profile Picture</Typography>
-          <Typography className={classes.secondaryHeading}>
-            Change your profile picture
+			<Accordion
+				expanded={expanded === "panel3"}
+				onChange={handleChange("panel3")}
+			>
+				<AccordionSummary
+					expandIcon={<ExpandMoreIcon />}
+					aria-controls="panel3bh-content"
+					id="panel3bh-header"
+				>
+					<Typography className={classes.heading}>Profile Picture</Typography>
+					<Typography className={classes.secondaryHeading}>
+						Change your profile picture
           </Typography>
-        </AccordionSummary>
+				</AccordionSummary>
 
-        <AccordionDetails>
-          <FormControl className={classes.margin}>
-            <div className="avatar-settings">
-              <div className="avatar-selector-wrapper">
-                <img className="img" src={bunnysrc} alt="profile-pic" />
-                <Radio
-                  checked={selectedImage === "img1"}
-                  onChange={selectAvatar}
-                  value="img1"
-                  name="default img1"
-                  inputProps={{ "aria-label": "img1" }}
-                />
-              </div>
-              <div className="avatar-selector-wrapper">
-                <img className="img" src={catsrc} alt="profile-pic" />
-                <Radio
-                  checked={selectedImage === "img2"}
-                  onChange={selectAvatar}
-                  value="img2"
-                  name="default img2"
-                  inputProps={{ "aria-label": "img2" }}
-                />
-              </div>
-              <div className="avatar-selector-wrapper">
-                <img className="img" src={dogsrc} alt="profile-pic" />
-                <Radio
-                  checked={selectedImage === "img3"}
-                  onChange={selectAvatar}
-                  value="img3"
-                  name="default img3"
-                  inputProps={{ "aria-label": "img3" }}
-                />
-              </div>
-            </div>
-          </FormControl>
-        </AccordionDetails>
+				<AccordionDetails>
+					<FormControl className={classes.margin}>
+						<div className="avatar-settings">
+							<div className="avatar-selector-wrapper">
+								<img className="img" src={bunnysrc} alt="profile-pic" />
+								<Radio
+									checked={selectedImage === "img1"}
+									onChange={selectAvatar}
+									value="img1"
+									name="default img1"
+									inputProps={{ "aria-label": "img1" }}
+								/>
+							</div>
+							<div className="avatar-selector-wrapper">
+								<img className="img" src={catsrc} alt="profile-pic" />
+								<Radio
+									checked={selectedImage === "img2"}
+									onChange={selectAvatar}
+									value="img2"
+									name="default img2"
+									inputProps={{ "aria-label": "img2" }}
+								/>
+							</div>
+							<div className="avatar-selector-wrapper">
+								<img className="img" src={dogsrc} alt="profile-pic" />
+								<Radio
+									checked={selectedImage === "img3"}
+									onChange={selectAvatar}
+									value="img3"
+									name="default img3"
+									inputProps={{ "aria-label": "img3" }}
+								/>
+							</div>
+						</div>
+					</FormControl>
+					<IconButton
+						id="attach-button"
+						onClick={() => handleClick()}
+					>
+						<InsertPhotoIcon />
+					</IconButton>
+					<input
+						name="image"
+						ref={hiddenFileInputRef}
+						onChange={(e) => uploadFile(e)} 
+						type="file"
+						style={{ display: 'none' }}
+					/>
+				</AccordionDetails>
 
-        <AccordionActions>
-          <Button size="small">Cancel</Button>
-          <Button size="small" color="primary" onClick={() => changeAvatar()}>
-            Save
+				<AccordionActions>
+					<Button size="small">Cancel</Button>
+					<Button size="small" color="primary" onClick={() => changeAvatar()}>
+						Save
           </Button>
-        </AccordionActions>
-      </Accordion>
+				</AccordionActions>
+			</Accordion>
 
-      <Accordion
-        expanded={expanded === "panel4"}
-        onChange={handleChange("panel4")}
-      >
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel4bh-content"
-          id="panel4bh-header"
-        >
-          <Typography className={classes.heading}>Personal data</Typography>
-        </AccordionSummary>
+			<Accordion
+				expanded={expanded === "panel4"}
+				onChange={handleChange("panel4")}
+			>
+				<AccordionSummary
+					expandIcon={<ExpandMoreIcon />}
+					aria-controls="panel4bh-content"
+					id="panel4bh-header"
+				>
+					<Typography className={classes.heading}>Personal data</Typography>
+				</AccordionSummary>
 
-        <AccordionDetails>
-          <Typography>
-            Number of Posts: 321 <br />
+				<AccordionDetails>
+					<Typography>
+						Number of Posts: 321 <br />
             Followers: 237 <br />
             Following: 56 <br />
             Total Likes: 5899
           </Typography>
-        </AccordionDetails>
-      </Accordion>
-    </div>
-  );
+				</AccordionDetails>
+			</Accordion>
+		</div>
+	);
 }

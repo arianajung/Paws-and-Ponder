@@ -31,7 +31,7 @@ function Navbar({
     profilePage,
 }) {
     let userProfile;
-    // console.log(currentUser)
+    console.log(currentUser)
     // console.log(profileUser)
     if ((view === "myblog" || view === "profile") && currentUser !== null) {
         userProfile = (
@@ -42,8 +42,8 @@ function Navbar({
                         view === "myblog"
                             ? currentUser.profileImg
                             : view === "profile"
-                            ? profileUser.profileImg
-                            : null
+                                ? profileUser.profileImg
+                                : null
                     }
                     alt="profile-pic"
                 />
@@ -57,15 +57,15 @@ function Navbar({
                         {view === "myblog"
                             ? currentUser.username
                             : view === "profile"
-                            ? profileUser.username
-                            : null}
+                                ? profileUser.username
+                                : null}
                     </Typography>
                     <Typography className="role" align="center" variant="h6">
                         {view === "myblog"
                             ? currentUser.role
                             : view === "profile"
-                            ? profileUser.role
-                            : null}
+                                ? profileUser.role
+                                : null}
                     </Typography>
                 </div>
             </div>
@@ -82,8 +82,8 @@ function Navbar({
                     {contains(profileUser._id, currentUser.following) ? (
                         <PersonAddDisabledIcon />
                     ) : (
-                        <PersonAddIcon />
-                    )}
+                            <PersonAddIcon />
+                        )}
                 </IconButton>
             </div>
         );

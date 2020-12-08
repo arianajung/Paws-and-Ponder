@@ -93,10 +93,6 @@ class MyBlog extends Component {
         }
     }
 
-    attachImage(e) {
-        this.setState({ new_post_img: postImg });
-    }
-
     addTag(e) {
         if (
             this.state.new_tag !== "" &&

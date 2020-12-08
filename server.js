@@ -270,11 +270,9 @@ app.post("/api/addUser", mongoChecker, async (req, res) => {
         username: req.body.username,
         role: "user",
         password: req.body.password, // need to hash this
-        profileImg: req.body.profileImg,
         following: [],
         follower: [],
         bookmarks: [],
-        bio: req.body.bio,
     });
 
     // Save user to the database
