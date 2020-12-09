@@ -24,19 +24,17 @@ const { ObjectID } = require("mongodb");
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 
-const multipart = require('connect-multiparty');
+const multipart = require("connect-multiparty");
 const multipartMiddleware = multipart();
 
 // cloudinary: configure using credentials found on your Cloudinary Dashboard
 // sign up for a free account here: https://cloudinary.com/users/register/free
-const cloudinary = require('cloudinary');
+const cloudinary = require("cloudinary");
 cloudinary.config({
-    cloud_name: 'ddgs1ughh',
-    api_key: '349627335224938',
-    api_secret: 'bppS8HO_P8rQO6vy5slZfXjDTdI'
+    cloud_name: "ddgs1ughh",
+    api_key: "349627335224938",
+    api_secret: "bppS8HO_P8rQO6vy5slZfXjDTdI",
 });
-
-
 
 // express-session for managing user sessions
 const session = require("express-session");
@@ -81,13 +79,12 @@ const authenticate = (req, res, next) => {
     } else {
         res.status(401).send("Unauthorized");
     }
-}
+};
 
 /*** Image API Routes below ************************************/
 
 // a POST route to *create* an image
 app.post("/images", multipartMiddleware, (req, res) => {
-
     // Use uploader.upload API to upload image to cloudinary server.
     console.log("request files: ", req.files);
     // let image_array = [];
@@ -95,38 +92,43 @@ app.post("/images", multipartMiddleware, (req, res) => {
     for (const file_name in req.files) {
         const upload_res = new Promise((resolve, reject) => {
             console.log(req.files[file_name].path);
-            cloudinary.uploader.upload(req.files[file_name].path, function (result, error) {
-                if (error) {
-                    console.log("error from upload: ", error);
-                    reject(error);
-                } else {
-                    // const image = new Image({
-                    //     image_id: result.public_id,
-                    //     image_url: result.url,
-                    //     created_at: new Date(),
-                    // });
-                    // image.save().then((save_res) => {
-                    //     //image_array.push(save_res);
-                    //     console.log("resolve from upload: ", save_res);
-                    //     resolve(save_res);
-                    // },
-                    // (error) => {
-                    //     res.status(500).send("POST /images: Internal Server Error", error);
-                    // }); 
-                    resolve(result.url);
+            cloudinary.uploader.upload(
+                req.files[file_name].path,
+                function (result, error) {
+                    if (error) {
+                        console.log("error from upload: ", error);
+                        reject(error);
+                    } else {
+                        // const image = new Image({
+                        //     image_id: result.public_id,
+                        //     image_url: result.url,
+                        //     created_at: new Date(),
+                        // });
+                        // image.save().then((save_res) => {
+                        //     //image_array.push(save_res);
+                        //     console.log("resolve from upload: ", save_res);
+                        //     resolve(save_res);
+                        // },
+                        // (error) => {
+                        //     res.status(500).send("POST /images: Internal Server Error", error);
+                        // });
+                        resolve(result.url);
+                    }
                 }
-            })
-        })
+            );
+        });
         console.log("upload_res promise: ", upload_res);
         upload_responses.push(upload_res);
     }
 
-    Promise.all(upload_responses).then((result) => {
-        console.log(result);
-        res.send({ result });
-    }).catch((error) => {
-        console.log("error from promise.all: ", error);
-    })
+    Promise.all(upload_responses)
+        .then((result) => {
+            console.log(result);
+            res.send({ result });
+        })
+        .catch((error) => {
+            console.log("error from promise.all: ", error);
+        });
     // cloudinary.uploader.upload(
     //     req.files.file.path, // req.files contains uploaded files
     //     function (result) {
@@ -154,10 +156,10 @@ app.post("/images", multipartMiddleware, (req, res) => {
 // a GET route to get all images
 app.get("/images", (req, res) => {
     Image.find().then(
-        images => {
+        (images) => {
             res.send({ images }); // can wrap in object if want to add more properties
         },
-        error => {
+        (error) => {
             res.status(500).send(error); // server error
         }
     );
@@ -174,22 +176,20 @@ app.delete("/images/:imageId", (req, res) => {
     // Delete an image by its id (NOT the database ID, but its id on the cloudinary server)
     // on the cloudinary server
     cloudinary.uploader.destroy(imageId, function (result) {
-
         // Delete the image from the database
         Image.findOneAndRemove({ image_id: imageId })
-            .then(img => {
+            .then((img) => {
                 if (!img) {
                     res.status(404).send();
                 } else {
                     res.send(img);
                 }
             })
-            .catch(error => {
+            .catch((error) => {
                 res.status(500).send(); // server error, could not delete.
             });
     });
 });
-
 
 // Middleware for verifying Admin permission of resources
 const isAdmin = (req, res, next) => {
@@ -198,7 +198,7 @@ const isAdmin = (req, res, next) => {
     } else {
         res.status(401).send("Unauthorized");
     }
-}
+};
 
 /*** Session handling **************************************/
 // Create a session and session cookie
@@ -405,8 +405,12 @@ app.get(
     authenticate,
     async (req, res) => {
         try {
-            const posts = await Post.find({$or:[{ tags: new RegExp(req.query.search_text, 'i')}, { owner: new RegExp(req.query.search_text, 'i') }]})
-                .sort({ timeStamp: -1 }); // returns posts sorted by latest
+            const posts = await Post.find({
+                $or: [
+                    { tags: new RegExp(req.query.search_text, "i") },
+                    { owner: new RegExp(req.query.search_text, "i") },
+                ],
+            }).sort({ timeStamp: -1 }); // returns posts sorted by latest
             res.send({ posts });
         } catch (error) {
             log(error);
@@ -600,11 +604,13 @@ app.delete(
             const removedPost = await Post.findOne({ _id: postID });
             if (!removedPost) {
                 res.status(404).send("Resource not found");
-            } else if (!removedPost.owner_id.equals(req.user._id) && req.user.role !== "admin") {
+            } else if (
+                !removedPost.owner_id.equals(req.user._id) &&
+                req.user.role !== "admin"
+            ) {
                 res.status(401).send("Unauthorized");
-            }
-            else {
-                await removedPost.delete()
+            } else {
+                await removedPost.delete();
                 res.send(removedPost);
             }
         } catch (error) {
@@ -631,11 +637,14 @@ app.delete(
             if (!foundPost) {
                 res.status(404).send("Comment not found");
             } else {
-                const comment = foundPost.comments.id(commentID)
-                console.log(comment)
+                const comment = foundPost.comments.id(commentID);
+                console.log(comment);
                 if (!comment) {
                     res.status(404).send("Comment not found");
-                } else if (!comment.owner_id.equals(req.user._id) && req.user.role !== "admin") {
+                } else if (
+                    !comment.owner_id.equals(req.user._id) &&
+                    req.user.role !== "admin"
+                ) {
                     res.status(401).send("Unauthorized");
                 } else {
                     await comment.remove();
@@ -646,6 +655,90 @@ app.delete(
         } catch (error) {
             log(error);
             res.status(500).send(); // server error, could not delete.
+        }
+    }
+);
+
+app.post(
+    "/api/bookmarkPost/:postID",
+    mongoChecker,
+    authenticate,
+    async (req, res) => {
+        const postID = req.params.postID;
+        // Validate id
+        if (!ObjectID.isValid(postID)) {
+            res.status(401).send("Post not found");
+            return;
+        }
+        try {
+            const user = await User.findOne({ _id: req.user._id });
+            if (!user) {
+                res.status(404).send("Resource not found"); // could not find this profile user (somehow)
+            } else {
+                user.bookmarks.push(postID);
+                await user.save();
+                res.send(user.bookmarks);
+            }
+        } catch (error) {
+            log(error);
+            res.status(500).send(); // server error, could not delete.
+        }
+    }
+);
+
+app.delete(
+    "/api/unbookmarkPost/:postID",
+    mongoChecker,
+    authenticate,
+    async (req, res) => {
+        const postID = req.params.postID;
+        // Validate id
+        if (!ObjectID.isValid(postID)) {
+            res.status(401).send("Post not found");
+            return;
+        }
+        try {
+            const user = await User.findOne({ _id: req.user._id });
+            if (!user) {
+                res.status(404).send("Resource not found"); // could not find this profile user (somehow)
+            } else {
+                user.bookmarks = user.bookmarks.filter((p) => {
+                    return !p.equals(postID);
+                });
+                const updatedUser = await user.save();
+                res.send(updatedUser);
+            }
+        } catch (error) {
+            log(error);
+            res.status(500).send(); // server error, could not delete.
+        }
+    }
+);
+
+app.get(
+    "/api/getBookmarkPosts",
+    mongoChecker,
+    authenticate,
+    async (req, res) => {
+        const user_id = req.user._id;
+
+        try {
+            const user = await User.findOne({ _id: user_id })
+                .populate("bookmarks")
+                .exec();
+            if (!user) {
+                res.status(404).send("Resource not found");
+            } else {
+                res.send(user.bookmarks);
+            }
+        } catch (error) {
+            log(error); // log server error to the console, not to the client.
+            if (isMongoError(error)) {
+                // check for if mongo server suddenly dissconnected before this request.
+                res.status(500).send("Internal server error");
+            } else {
+                res.status(400).send("Bad Request"); // 400 for bad request gets sent to client.
+            }
         }
     }
 );
@@ -668,19 +761,18 @@ app.patch(
             const user = await User.findById(user_id);
             if (!user) {
                 res.status(404).send("User not found");
-            }
-            else {
+            } else {
                 // check if status exists
-                if(!user.status || user.status == "normal"){
+                if (!user.status || user.status == "normal") {
                     user.status = "banned";
                 } else {
                     user.status = "normal";
                 }
-                await user.save()
+                await user.save();
                 res.send({
                     message: `You have set the status of the user with name ${user.username} to ${user.status}`,
                     username: user.username,
-                    status : user.status
+                    status: user.status,
                 });
             }
         } catch (error) {
@@ -689,7 +781,6 @@ app.patch(
         }
     }
 );
-
 
 // ********************* API Routes End Here **********************************
 
@@ -700,7 +791,16 @@ app.use(express.static(path.join(__dirname, "/client/build")));
 // All routes other than above will go to index.html
 app.get("*", (req, res) => {
     // check for page routes that we expect in the frontend to provide correct status code.
-    const goodPageRoutes = ["/", "/login", "/main", "/signup", "/blog", "/settings", "/bookmarks", "/profile"];
+    const goodPageRoutes = [
+        "/",
+        "/login",
+        "/main",
+        "/signup",
+        "/blog",
+        "/settings",
+        "/bookmarks",
+        "/profile",
+    ];
     if (!goodPageRoutes.includes(req.url)) {
         // if url not in expected page routes, set status to 404.
         res.status(404);

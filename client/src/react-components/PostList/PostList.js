@@ -2,7 +2,13 @@ import React from "react";
 import { uid } from "react-uid";
 import Grid from "@material-ui/core/Grid";
 import Post from "../Post/Post";
-import { getPosts, getUserPosts, getProfilePosts, getSearchedPosts } from "../../actions/user";
+import {
+    getPosts,
+    getUserPosts,
+    getProfilePosts,
+    getSearchedPosts,
+    getBookmarkPosts,
+} from "../../actions/user";
 
 /* Component for the List of Posts */
 class PostList extends React.Component {
@@ -27,6 +33,8 @@ class PostList extends React.Component {
         } else if (this.state.type === "blog") {
             getUserPosts(this);
             this.setState({ currentuser: this.props.currentUser });
+        } else if (this.state.type === "bookmarks") {
+            getBookmarkPosts(this);
         }
     }
 
@@ -35,17 +43,17 @@ class PostList extends React.Component {
             if (this.state.currentuser !== this.props.currentUser) {
                 await this.setState({ currentuser: this.props.currentUser });
                 getProfilePosts(this);
-            }   
-        } 
+            }
+        }
         // Autistic way to retrieve search posts, I can't figure out an easier way :c
-        else if (this.props.type === "searching"){
+        else if (this.props.type === "searching") {
             getSearchedPosts(this, this.props.search_text, this.props.page);
-            console.log("searching posts")
+            console.log("searching posts");
         } else if (this.props.type === "searched") {
-            console.log("done searching")
-        } else if (this.props.type === "refresh"){
+            console.log("done searching");
+        } else if (this.props.type === "refresh") {
             getPosts(this);
-            this.props.page.setState({type : "main"})
+            this.props.page.setState({ type: "main" });
         }
         // invoked whenever a modification happens in a view (so far only in MyBlog.js), i.e. add post, delete post
         else if (this.props.type !== this.state.type) {

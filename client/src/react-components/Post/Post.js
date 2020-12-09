@@ -19,29 +19,23 @@ import { Link } from "react-router-dom";
 import Moment from "react-moment";
 // import moment from "moment";
 
-import { addComment, removePost, getCurrentUser } from "../../actions/user";
+import {
+    addComment,
+    removePost,
+    getCurrentUser,
+    bookmarkPost,
+    unbookmarkPost,
+} from "../../actions/user";
 
 /* A Post Component */
 class Post extends React.Component {
     constructor(props) {
         super(props);
 
-        // const { current_username, app_users, post } = this.props;
-        // const [current_user_index] = getCurrentUserAndIndex(
-        //     app_users,
-        //     current_username
-        // );
-
-        //     // determine if this post is already bookmarked or not
-        //     const bookmarkedVal = this.isBookmarked(
-        //         app_users[current_user_index].bookmarks,
-        //         post
-        //     );
-
         this.state = {
             new_comment: "",
             currentUser: "",
-            // bookmarked: bookmarkedVal,
+            bookmarked: false,
         };
     }
 
@@ -58,29 +52,35 @@ class Post extends React.Component {
         }
     }
 
-    // // reflects changes in the instance of App.js that holds the component information that will send and
-    // // receive updates to and from backend.
-    // handleBookmarkBtn(app_users, current_username, post) {
-    //   if (this.state.bookmarked === true) {
-    //     updateBookmarkedStatus(app_users, current_username, post, false);
-    //     this.setState({ bookmarked: false });
-    //   } else {
-    //     updateBookmarkedStatus(app_users, current_username, post, true);
-    //     this.setState({ bookmarked: true });
-    //   }
-    // }
+    bookmarkButtonPress(pid) {
+        // initially alrdy bookmarked OR has been bookmarked during "curr render"
+        if (
+            this.state.currentUser.bookmarks.includes(pid) ||
+            this.state.bookmarked === true
+        ) {
+            unbookmarkPost(pid, this.props.postlist);
+            this.updateCurrentUserBookmarksState(pid);
+            this.setState({ bookmarked: false });
+            alert("Removed post from bookmarks.");
+        } else {
+            bookmarkPost(pid);
+            this.setState({ bookmarked: true });
+            alert("Added post to bookmarks.");
+        }
+    }
 
-    // isBookmarked(bookmarks, post) {
-    //   return (
-    //     bookmarks.filter((p) => {
-    //       return p.postID === post.postID;
-    //     }).length > 0
-    //   );
-    // }
+    // modify bookmarks array in this.state.currUser.bookmarks
+    updateCurrentUserBookmarksState(pid) {
+        const updatedBookmarks = this.state.currentUser.bookmarks.filter(
+            (p) => {
+                return p !== pid;
+            }
+        );
+        this.state.currentUser.bookmarks = updatedBookmarks;
+    }
 
     componentDidMount() {
         getCurrentUser(this);
-        //console.log("Post.js ComponentDidMount()");
     }
 
     render() {
@@ -96,7 +96,7 @@ class Post extends React.Component {
         } = this.props;
 
         const bookmarkOrRemoveButton =
-            (post.owner_id === this.state.currentUser._id ) ? ( // bookmark button
+            post.owner_id === this.state.currentUser._id ? ( // bookmark button
                 <div className="removeBtn">
                     <IconButton
                         className="dark-button-element"
@@ -106,35 +106,30 @@ class Post extends React.Component {
                     </IconButton>
                 </div>
             ) : (
-                    // <div className="bookmarkBtn">
-                    //   <IconButton
-                    //     className="dark-button-element"
-                    //     onClick={() =>
-                    //       this.handleBookmarkBtn(app_users, current_username, post)
-                    //     }
-                    //   >
-                    //     {this.state.bookmarked === false ? (
-                    //       <BookmarkIcon />
-                    //     ) : (
-                    //       <BookmarkedIcon />
-                    //     )}
-                    //   </IconButton>
-                    // </div>
-                    <span></span> // TEMP, DELETE WHEN IMPLEMENTING BOOKMARKS
-                );
+                <div className="bookmarkBtn">
+                    <IconButton
+                        className="dark-button-element"
+                        onClick={() => this.bookmarkButtonPress(post._id)}
+                    >
+                        <BookmarkIcon />
+                    </IconButton>
+                </div>
+            );
 
-        const adminButton = (isPost) => (post.owner_id !== this.state.currentUser._id && this.state.currentUser.role === "admin") ? (
-          <div className="admin-button">
-            <AdminDropDownMenu
-              user={post.owner}
-              page={postlist.page}
-              postID={post._id}
-              isPost={isPost}
-              postlist={postlist}
-              banID={post.owner_id}
-            />
-          </div>
-        ) : null
+        const adminButton = (isPost) =>
+            post.owner_id !== this.state.currentUser._id &&
+            this.state.currentUser.role === "admin" ? (
+                <div className="admin-button">
+                    <AdminDropDownMenu
+                        user={post.owner}
+                        page={postlist.page}
+                        postID={post._id}
+                        isPost={isPost}
+                        postlist={postlist}
+                        banID={post.owner_id}
+                    />
+                </div>
+            ) : null;
 
         // // should retrieve this information from server later
         // let userImg;
@@ -169,13 +164,13 @@ class Post extends React.Component {
                     comment={comment}
                     postList={postlist}
                     postOwner={post.owner}
-                // comment_user={comment.owner}
-                // comment_text={comment.textContent}
-                // profileImg={profileImg}
-                // commentID={comment._id}
-                // page={page}
-                // postID={postID}
-                // role={role}
+                    // comment_user={comment.owner}
+                    // comment_text={comment.textContent}
+                    // profileImg={profileImg}
+                    // commentID={comment._id}
+                    // page={page}
+                    // postID={postID}
+                    // role={role}
                 />
             );
         });
@@ -197,7 +192,7 @@ class Post extends React.Component {
                 <div>
                     <img className="image-container" src={image} alt=""></img>
                 </div>
-            )
+            );
         });
 
         return (
@@ -226,17 +221,11 @@ class Post extends React.Component {
                             {/* Need to add more user stuff here like user pic*/}
                         </div>
                         <div className="post-content">
-                            <div id="post-text">
-                                {post.textContent}
-                            </div>
+                            <div id="post-text">{post.textContent}</div>
 
-                            <div className="image-list">
-                                {images}
-                            </div>
+                            <div className="image-list">{images}</div>
                         </div>
-                        <div className="tagsContainer">
-                            Tags: {tags}
-                        </div>
+                        <div className="tagsContainer">Tags: {tags}</div>
                     </div>
 
                     <div className="comment-area">

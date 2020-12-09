@@ -115,7 +115,9 @@ export const updateUserRelation = (page, profile_id) => {
                 // return a promise that resolves with the JSON body
                 return res.json();
             } else {
-                alert("Follow/Unfollow Failed, check that your session is still running");
+                alert(
+                    "Follow/Unfollow Failed, check that your session is still running"
+                );
             }
         })
         .then((json) => {
@@ -204,6 +206,8 @@ export const addComment = async (new_comment, pid, postlist) => {
                 getPosts(postlist);
             } else if (postlist.state.type === "profile") {
                 getProfilePosts(postlist);
+            } else if (postlist.state.type === "bookmarks") {
+                getBookmarkPosts(postlist);
             } else {
                 getUserPosts(postlist);
             }
@@ -236,7 +240,9 @@ export const makePost = async (new_post, images, tags) => {
             }
         })
         .then((json) => {
-            console.log("correctly fetched MyBlog makePost result from database");
+            console.log(
+                "correctly fetched MyBlog makePost result from database"
+            );
         })
         .catch((error) => {
             console.log(error);
@@ -264,7 +270,7 @@ export const removePost = async (postID, postList) => {
             console.log("correctly deleted post from database");
             // probably will have to distinguish if it's a req from user vs. admin later
             // including types of post list becase an admin can delete from different pages
-            if (postList.state.type === "main") { 
+            if (postList.state.type === "main") {
                 getPosts(postList);
             } else if (postList.state.type === "profile") {
                 getProfilePosts(postList);
@@ -300,6 +306,8 @@ export const removeComment = async (postID, commentID, postList) => {
                 getPosts(postList);
             } else if (postList.state.type === "profile") {
                 getProfilePosts(postList);
+            } else if (postList.state.type === "bookmarks") {
+                getBookmarkPosts(postList);
             } else {
                 getUserPosts(postList);
             }
@@ -332,9 +340,93 @@ export const getSearchedPosts = async (postlist, search_text, mainpage) => {
             // the resolved promise with the JSON body
             console.log("Successfully Retrieved posts");
             postlist.setState({ postList: json.posts });
-            mainpage.setState({ type : "searched"})
+            mainpage.setState({ type: "searched" });
         })
         .catch((error) => {
             console.log(error);
         });
-}
+};
+
+export const bookmarkPost = async (postID) => {
+    const url = `/api/bookmarkPost/${postID}`;
+
+    const request = new Request(url, {
+        method: "post",
+        headers: {
+            Accept: "application/json, text/plain, */*",
+            "Content-Type": "application/json",
+        },
+    });
+
+    // Send the request with fetch()
+    await fetch(request)
+        .then((res) => {
+            if (res.status === 200) {
+                return res.json();
+            }
+        })
+        .then((json) => {
+            console.log(
+                "Added the post in the bookmarks array in the database."
+            );
+        })
+        .catch((error) => {
+            console.log(error);
+            console.log("Failed to make post");
+        });
+};
+
+export const unbookmarkPost = async (postID, postlist) => {
+    const url = `/api/unbookmarkPost/${postID}`;
+
+    const request = new Request(url, {
+        method: "delete",
+        headers: {
+            Accept: "application/json, text/plain, */*",
+            "Content-Type": "application/json",
+        },
+    });
+
+    // Send the request with fetch()
+    await fetch(request)
+        .then((res) => {
+            if (res.status === 200) {
+                return res.json();
+            }
+        })
+        .then((json) => {
+            console.log(
+                "Deleted the post from the bookmarks array in the database."
+            );
+            if (postlist.state.type === "bookmarks") {
+                getBookmarkPosts(postlist);
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+            console.log("Failed to make post");
+        });
+};
+
+export const getBookmarkPosts = async (postList) => {
+    const url = `/api/getBookmarkPosts`;
+
+    await fetch(url, {
+        accepts: "application/json",
+    })
+        .then((res) => {
+            if (res.status === 200) {
+                // return a promise that resolves with the JSON body
+                return res.json();
+            } else {
+                alert("Could not get bookmarked posts");
+            }
+        })
+        .then((json) => {
+            // the resolved promise with the JSON body
+            postList.setState({ postList: json });
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+};
