@@ -6,12 +6,24 @@ import { handleProfileBtn } from "../../actions/profile";
 import MyBlog from "../MyBlog/MyBlog";
 import AdminDropDownMenu from "../AdminMenu/AdminDropDownMenu";
 import { Link } from "react-router-dom";
-import { removeComment } from "../../actions/user";
+import { removeComment, getSpecificUser } from "../../actions/user";
 
 // css
 import "./Comment.css";
 
 class Comment extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            specificUser: "",
+        };
+    }
+
+    componentDidMount() {
+        getSpecificUser(this, this.props.comment.owner_id)
+    }
+
     render() {
         const {
             currentUser,
@@ -25,6 +37,8 @@ class Comment extends Component {
             // commentID,
             // page,
             // role,
+            app,
+            page,
         } = this.props;
 
         const removeButton =
@@ -41,26 +55,25 @@ class Comment extends Component {
                 </div>
             ) : null;
 
-        // should retrieve this information from server later
-        // let userImg;
-        // if (comment_user === current_username) {
-        //     userImg = (
-        //         <Link to={"/blog"}>
-        //             <img id="user-icon" src={profileImg} alt="profileImg" />
-        //         </Link>
-        //     );
-        // } else {
-        //     userImg = (
-        //         <Link
-        //             to={"/profile"}
-        //             onClick={() =>
-        //                 handleProfileBtn(page.props.app, comment_user, page)
-        //             }
-        //         >
-        //             <img id="user-icon" src={getCurrentUserAndIndex(page.props.app.state.users, comment_user)[1].profileImg} alt="tempImage" />
-        //         </Link>
-        //     );
-        // }
+        let userImg;
+        if (this.state.specificUser._id === currentUser._id) {
+            userImg = (
+                <Link to={"/blog"}>
+                    <img id="user-icon" src={currentUser.profileImg} alt={currentUser.username} />
+                </Link>
+            );
+        } else {
+            userImg = (
+                <Link
+                    to={"/profile"}
+                    onClick={() =>
+                        handleProfileBtn(app, this.state.specificUser, page)
+                    }
+                >
+                    <img id="user-icon" src={this.state.specificUser.profileImg} alt={this.state.specificUser.username} />
+                </Link>
+            );
+        }
 
         const adminButton = (isPost) => (currentUser.role === "admin" && comment.owner_id !== currentUser._id) ? (
             <div className="admin-button">
@@ -91,7 +104,7 @@ class Comment extends Component {
 
         return (
             <div className="comment">
-                {/* <div className="comment-icon">{userImg}</div> */}
+                <div className="comment-icon">{userImg}</div>
                 <div className="comment-content">
                     <div id="comment-name">{comment.owner}</div>
                     <div id="comment-text">{comment.textContent}</div>

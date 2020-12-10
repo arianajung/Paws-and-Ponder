@@ -257,11 +257,12 @@ class MyBlog extends Component {
                         <PostList
                             currentUser={this.state.currentUser}
                             type={this.state.req}
-                            myBlog={this}
-                            profileImg={this.state.profileImg}
-                            page={this}
-                            role={this.state.current_user_role}
+                            // myBlog={this}
+                            // profileImg={this.state.profileImg}
+                            // role={this.state.current_user_role}
                             searchText={this.searchText}
+                            app={this.props.app}
+                            page={this}
                         // addComment={this.addComment}
                         // current_username={this.state.current_username}
                         //app_users={this.state.app_users}

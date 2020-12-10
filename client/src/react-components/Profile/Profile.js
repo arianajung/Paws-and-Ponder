@@ -117,6 +117,7 @@ class Profile extends React.Component {
                             curr_uid={this.state.profileUser._uid}
                             type="profile"
                             // profileUser={this.state.profileUser}
+                            app={app}
                             page={this}
                         />
                     </div>

@@ -93,6 +93,29 @@ export const getCurrentUser = (page) => {
         });
 };
 
+export const getSpecificUser = (page, postUser_id) => {
+    // the URL for the request
+    const url = `/api/user/${postUser_id}`;
+
+    // Since this is a GET request, simply call fetch on the URL
+    fetch(url)
+        .then((res) => {
+            if (res.status === 200) {
+                // return a promise that resolves with the JSON body
+                return res.json();
+            } else {
+                alert("Could not get current user info");
+            }
+        })
+        .then((json) => {
+            // the resolved promise with the JSON body
+            page.setState({ specificUser: json });
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+};
+
 // Used when follow/unfollow a user on a profile page
 export const updateUserRelation = (page, profile_id) => {
     // the URL for the request

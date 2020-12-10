@@ -25,6 +25,7 @@ import {
     getCurrentUser,
     bookmarkPost,
     unbookmarkPost,
+    getSpecificUser,
 } from "../../actions/user";
 
 /* A Post Component */
@@ -36,6 +37,7 @@ class Post extends React.Component {
             new_comment: "",
             currentUser: "",
             bookmarked: false,
+            specificUser: "",
         };
     }
 
@@ -81,6 +83,7 @@ class Post extends React.Component {
 
     componentDidMount() {
         getCurrentUser(this);
+        getSpecificUser(this, this.props.post.owner_id)
     }
 
     render() {
@@ -93,6 +96,8 @@ class Post extends React.Component {
             // profileImg,
             // page,
             // role,
+            app,
+            page,
         } = this.props;
 
         const bookmarkOrRemoveButton =
@@ -131,28 +136,27 @@ class Post extends React.Component {
                 </div>
             ) : null;
 
-        // // should retrieve this information from server later
-        // let userImg;
-        // if (post.user === current_username) {
-        //   userImg = (
-        //     <Link to={"/blog"}>
-        //       <img id="userIcon" src={profileImg} alt="tempImage" />
-        //     </Link>
-        //   );
-        // } else {
-        //   userImg = (
-        //     <Link
-        //       to={"/profile"}
-        //       onClick={() => handleProfileBtn(page.props.app, post.user, page)}
-        //     >
-        //       <img
-        //         id="userIcon"
-        //         src={getCurrentUserAndIndex(app_users, post.user)[1].profileImg}
-        //         alt="tempImage"
-        //       />
-        //     </Link>
-        //   );
-        // }
+        let userImg;
+        if (this.state.specificUser._id === this.state.currentUser._id) {
+          userImg = (
+            <Link to={"/blog"}>
+              <img id="userIcon" src={this.state.currentUser.profileImg} alt={this.state.currentUser.username} />
+            </Link>
+          );
+        } else {
+          userImg = (
+            <Link
+              to={"/profile"}
+              onClick={() => handleProfileBtn(app, this.state.specificUser, page)}
+            >
+              <img
+                id="userIcon"
+                src={this.state.specificUser.profileImg}
+                alt={this.state.specificUser.username}
+              />
+            </Link>
+          );
+        }
 
         // create comment components
         const comments = post.comments.map((comment) => {
@@ -171,6 +175,8 @@ class Post extends React.Component {
                     // page={page}
                     // postID={postID}
                     // role={role}
+                    app={app}
+                    page={page}
                 />
             );
         });
@@ -202,7 +208,7 @@ class Post extends React.Component {
                         <div className="user-profile">
                             <div className="left-container">
                                 <div className="userIconContainer">
-                                    {/* {userImg} */}
+                                    {userImg}
                                 </div>
                                 <div className="post-info">
                                     <div id="post-user">{post.owner}</div>

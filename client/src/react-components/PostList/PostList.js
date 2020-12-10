@@ -73,6 +73,8 @@ class PostList extends React.Component {
             // bookmarks,
             // page,
             // role,
+            app,
+            page,
         } = this.props;
 
         /* Our post list. */
@@ -92,6 +94,8 @@ class PostList extends React.Component {
                         // page={page}
                         // role={role}
                         postlist={this}
+                        app={app}
+                        page={page}
                     />
                 ))}
             </Grid>

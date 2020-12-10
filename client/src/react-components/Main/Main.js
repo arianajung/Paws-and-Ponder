@@ -74,8 +74,9 @@ class Main extends React.Component {
                         <PostList
                             currentUser={this.state.currentUser}
                             type={this.state.type}
-                            page={this}
                             search_text={this.state.searchText}
+                            app={app}
+                            page={this}
                         // curr_uid={app.state.curr_uid}
                         // app_users={this.state.app_users}
                         //posts={this.state.posts}

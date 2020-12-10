@@ -31,8 +31,6 @@ function Navbar({
     profilePage,
 }) {
     let userProfile;
-    console.log(currentUser)
-    // console.log(profileUser)
     if ((view === "myblog" || view === "profile") && currentUser !== null) {
         userProfile = (
             <div className="profile-wrapper">

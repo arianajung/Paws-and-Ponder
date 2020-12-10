@@ -110,6 +110,8 @@ class Bookmarks extends React.Component {
                             // profileImg={this.state.profileImg}
                             // page={this}
                             // role={this.state.current_user_role}
+                            app={this.props.app}
+                            page={this}
                         />
                     </div>
                 </div>
