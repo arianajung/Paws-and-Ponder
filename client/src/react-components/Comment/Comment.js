@@ -7,6 +7,7 @@ import MyBlog from "../MyBlog/MyBlog";
 import AdminDropDownMenu from "../AdminMenu/AdminDropDownMenu";
 import { Link } from "react-router-dom";
 import { removeComment, getSpecificUser } from "../../actions/user";
+import Moment from "react-moment";
 
 // css
 import "./Comment.css";
@@ -107,6 +108,11 @@ class Comment extends Component {
                 <div className="comment-icon">{userImg}</div>
                 <div className="comment-content">
                     <div id="comment-name">{this.state.specificUser.username}</div>
+                    <div id="comment-date">
+                        <Moment format="YYYY/MM/DD HH:mm">
+                            {comment.timeStamp}
+                        </Moment>
+                    </div>
                     <div id="comment-text">{comment.textContent}</div>
                 </div>
                 <div className="buttons">
