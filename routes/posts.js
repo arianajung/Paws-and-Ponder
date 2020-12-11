@@ -14,6 +14,7 @@ const { ObjectID } = require("mongodb");
 // helpers
 const { mongoChecker, isMongoError } = require("./helpers/mongo_helpers");
 const { authenticate } = require("./helpers/authentication");
+const user = require("../models/user");
 
 router.get(
     "/api/getUserPosts",
@@ -189,19 +190,20 @@ router.delete(
         }
 
         try {
-            const allUsers = await User.find({});
+            const allUsers = await User.find({ bookmarks: postID });
             if (!allUsers) {
                 res.status(404).send("Resource not found");
             } else {
-                allUsers.forEach(async (user) => {
+                let i = 0;
+                for (i = 0; i < allUsers.length; i++) {
+                    let user = allUsers[i];
                     if (user.bookmarks.includes(postID)) {
                         user.bookmarks = user.bookmarks.filter((p) => {
                             return !p.equals(postID);
                         });
-                        const updatedUser = await user.save();
-                        res.send(updatedUser);
+                        await user.save();
                     }
-                });
+                }
             }
         } catch (error) {
             log(error);
