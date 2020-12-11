@@ -9,12 +9,12 @@ import Navbar from "../Navbar/Navbar";
 import PostList from "../PostList/PostList";
 import getCurrentUserAndIndex from "../../actions/getCurrentUserAndIndex";
 import getPostIndex from "../../actions/getPostIndex";
-import searchRequest from "../../actions/searchRequest"
+import searchRequest from "../../actions/searchRequest";
 
 // css
 import "../MyBlog/MyBlog.css";
 
-import { getCurrentUser } from "../../actions/user"
+import { getCurrentUser } from "../../actions/users";
 
 class Profile extends React.Component {
     constructor(props) {
@@ -58,7 +58,7 @@ class Profile extends React.Component {
     // fetch post info from db and store in state
     componentDidMount() {
         console.log("Profile.js: componenetDidMount()");
-        getCurrentUser(this)
+        getCurrentUser(this);
     }
 
     // addComment(comment, postID) {

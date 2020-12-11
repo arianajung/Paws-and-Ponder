@@ -8,7 +8,6 @@ import Auth from "../../actions/Auth/Auth";
 import IconButton from "@material-ui/core/IconButton";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import PersonAddDisabledIcon from "@material-ui/icons/PersonAddDisabled";
-import Avatar from "@material-ui/core/Avatar";
 import {
     contains,
     handleFollowButton,
@@ -54,6 +53,13 @@ function Navbar({
                             ? currentUser.role
                             : view === "profile"
                                 ? profileUser.role
+                                : null}
+                    </Typography>
+                    <Typography className="navbar-bio" align="center">
+                        {view === "myblog"
+                            ? currentUser.bio
+                            : view === "profile"
+                                ? profileUser.bio
                                 : null}
                     </Typography>
                 </div>

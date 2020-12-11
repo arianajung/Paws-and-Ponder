@@ -14,7 +14,7 @@ import Avatar from "@material-ui/core/Avatar";
 import { Link } from "react-router-dom";
 import getCurrentUserAndIndex from "../../actions/getCurrentUserAndIndex";
 import { handleProfileBtn } from "../../actions/profile";
-import { getFollowers, getFollowing } from "../../actions/user";
+import { getFollowers, getFollowing } from "../../actions/interactions";
 import { uid } from "react-uid";
 
 export default function PermanentDrawerRight(props) {

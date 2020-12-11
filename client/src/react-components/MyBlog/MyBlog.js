@@ -19,7 +19,8 @@ import postImg from "./static/post_img.jpeg";
 // css
 import "./MyBlog.css";
 
-import { getCurrentUser, makePost } from "../../actions/user";
+import { getCurrentUser } from "../../actions/users";
+import { makePost } from "../../actions/posts";
 import { addImage } from "../../actions/image";
 
 const MAX_POSTS = 4;
@@ -176,9 +177,11 @@ class MyBlog extends Component {
                                     });
                                 }}
                             />
-                            <div style={{display: "flex"}}>
+                            <div style={{ display: "flex" }}>
                                 {images}
-                                {this.state.local_image_urls.length === 0 ? null: `(${this.state.local_image_urls.length}/${MAX_POSTS})`}
+                                {this.state.local_image_urls.length === 0
+                                    ? null
+                                    : `(${this.state.local_image_urls.length}/${MAX_POSTS})`}
                             </div>
                         </div>
 

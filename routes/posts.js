@@ -133,7 +133,10 @@ router.get(
     }
 );
 
-router.post("/api/makePost", mongoChecker, authenticate, async (req, res) => {
+router.post("/api/makePost", 
+    mongoChecker, 
+    authenticate, 
+    async (req, res) => {
     const new_post = new Post({
         owner_id: req.user._id,
         textContent: req.body.textContent,
