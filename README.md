@@ -60,13 +60,13 @@ Functionalities walkthrough:
 
 	- Search by tags or usernames with the search bar displayed on the top. The search is NOT case-sensitive and will return **all posts from the entire Post collection in the database that contains the searched text as a _substring_ in the username or tag**. You may only search for one tag/username at a time. To display all existing posts from this view again, search with an empty string, or click on the "X" button at the right side of the search bar.
 	
-	**- Clicking on a tag in a post will act like searching for that specific tag (as a substring).**
+	- **Clicking on a tag in a post will act like searching for that specific tag (as a substring).**
 	
-	**- As of Phase 2, the search bar only exists in the Main Blog, but you may still click on tags in other views to perform a search**
+	- **As of Phase 2, the search bar only exists in the Main Blog, but you may still click on tags in other views to perform a search**
 
 	- View all your followers and the users that you are following on the right. Clicking on an avatar brings you to that user's profile page. (**->Profile**)
 	
-	**- A newly signed up user will automatically have an Admin user in their following list. This is so that all new users have some posts and users to interact with in t heir main page. They can also search up new posts and users with the search bar, and of course they may unfollow the admin user if intended.**
+	- **A newly signed up user will automatically have an Admin user in their following list. This is so that all new users have some posts and users to interact with in t heir main page. They can also search up new posts and users with the search bar, and of course they may unfollow the admin user if intended.**
 
 2. **My Blog**: 
 
@@ -96,11 +96,11 @@ Functionalities walkthrough:
 
 	- Expand each accordion to see which settings we wish to implement for a user.
 	
-	**- You may change your username, Bio, and password in the corresponding sections, and press the save button to update it.**
+	- **You may change your username, Bio, and password in the corresponding sections, and press the save button to update it.**
 
 	- The profile picture setting allows 3 hardcoded pictures for the user to select from, **you may also upload a picture of your own to set as your profile avatar, which will be displayed as the fourth avatar. Select one of the four radio buttons and press save will update your user profile image**.
 	
-	**- All of the above changes are reflected in the posts/comments that you've made, as well as when another user vists your profile page.**
+	- **All of the above changes are reflected in the posts/comments that you've made, as well as when another user vists your profile page.**
 
 ---
 
@@ -123,7 +123,7 @@ Functionalities walkthrough:
 
 - The admin user can choose to Ban **and Unban** a user from a post or a comment. This can be done by clicking on the menu button beside the post or comment made by a user and clicking on the "Ban User" option. This will prevent that user from logging in, but that user's posts and profile page will still be accessible by other users.
 
-**- The Admin user will automatically be followed by newly created users, so that new users will be provided a more interactive, user-friendly landing page upon sign-up.**
+- **The Admin user will automatically be followed by newly created users, so that new users will be provided a more interactive, user-friendly landing page upon sign-up.**
 
 ## Documentations For Our Express Routes
 ### Middlewares 
