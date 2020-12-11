@@ -179,6 +179,7 @@ app.patch("/api/admin/toggleBanStatus/:user_id",
 **Data Returned:**
 
 ```javascript
+// If successful
 {
     message: `You have set the status of the user with name ${user.username} to ${user.status}`,
     username: user.username,
@@ -201,9 +202,14 @@ router.post(
 ```
 **Data Expected:**
 
+    The user ID of the authenticated user from middleware, and the postID of the targeted post.
+
 **Data Returned:**
 
+    If successful, return the array of IDs of the bookmarked posts.
+
 #### Unbookmark Post
+An API that sets the provided post for the authenticated user to unbookmarked
 ```javascript
 router.delete(
     "/api/unbookmarkPost/:postID",
@@ -212,9 +218,14 @@ router.delete(
 ```
 **Data Expected:**
 
+    The user ID of the authenticated user from middleware, and the postID of the targeted post.
+
 **Data Returned:**
 
+    If successful, return the updated user.
+
 #### Get Bookmark Posts
+An API that gets the bookmarked posts for the authenticated user.
 ```javascript
 router.get(
     "/api/getBookmarkPosts",
@@ -223,7 +234,11 @@ router.get(
 ```
 **Data Expected:**
 
+    The user ID of the authenticated user from middleware
+
 **Data Returned:**
+
+    If successful, return the bookmarked posts of the authenticated user.
 
 ---
 
@@ -231,16 +246,25 @@ router.get(
 API routes for handling comments
 
 #### Add Comment
+An API that creates a new comment for the post.
 ```javascript
 router.post("/api/addComment", 
     mongoChecker, 
     authenticate, ...)
 ```
 **Data Expected:**
-
+```javascript
+{
+    owner_id: req.user._id, // From authentication middleware
+    textContent: req.body.textContent, // Text content of the comment
+}
+```
 **Data Returned:**
 
+    If successful, return the new comment.
+
 #### Remove Comment
+An API that deletes a comment given the postID and the comment ID.
 ```javascript
 router.delete(
     "/api/removeComment/:postID/:commentID",
@@ -248,8 +272,17 @@ router.delete(
     authenticate, ...)
 ```
 **Data Expected:**
-
+```javascript
+{
+    const postID = req.params.postID; // ID of the target post
+    const commentID = req.params.commentID; // ID of the target comment
+}
+```
 **Data Returned:**
+```javascript
+// If successful, return the post and comment as one object
+{ post, comment }
+```
 
 ---
 
