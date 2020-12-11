@@ -273,6 +273,7 @@ router.delete(
 ```
 Expected:
 ```javascript
+//req.user.role is used to verify if the action is done by an admin user
 {
     const postID = req.params.postID; // ID of the target post
     const commentID = req.params.commentID; // ID of the target comment
@@ -282,6 +283,8 @@ Returned:
 ```javascript
 // If successful, return the post and comment as one object
 { post, comment }
+// If the user is not an admin, and is not the owner of the post,
+// an Unauthorized message along with a status code 401 will be sent
 ```
 
 ---
@@ -316,6 +319,7 @@ Returned:
 API routes that handle follow/unfollow interations
 
 #### Get Followers
+API route that retrieves the followers for the authenticated user
 ```javascript
 router.get("/api/followers", 
     mongoChecker, 
@@ -323,9 +327,14 @@ router.get("/api/followers",
 ```
 Expected:
 
+    The user ID of the authenticated user from middleware
+
 Returned:
 
+    If successful, the followers of the authenticated user.
+
 #### Get Following
+API route that retrieves the following users for the authenticated user
 ```javascript
 router.get("/api/following", 
     mongoChecker, 
@@ -333,9 +342,14 @@ router.get("/api/following",
 ```
 Expected:
 
+    The user ID of the authenticated user from middleware
+
 Returned:
 
+    If successful, the following users of the authenticated user.
+
 #### Update User Relationship
+API route that update the Follow/Unfollow Relationship between two users
 ```javascript
 router.patch(
     "/api/updateUserRelation",
@@ -343,15 +357,23 @@ router.patch(
     authenticate, ...)
 ```
 Expected:
-
+```javascript
+    const curr_user = req.user; // Current user from authentication middleware
+    const profile_id = req.query.profile_id; // The target user for updating following relationship
+```
 Returned:
-
+```javascript
+    // If successful, the following, follower array of both users are updated accordingly,
+    // and the updated current user is returned
+    { curr_user }
+```
 ---
 
 ### Posts
 API routes that handle retrieving. creating, and deleting posts
 
 #### Get User Posts
+Get all the posts for the authenticated user to populate the My Blog View
 ```javascript
 router.get(
     "/api/getUserPosts",
@@ -360,9 +382,16 @@ router.get(
 ```
 Expected:
 
+    The user ID of the authenticated user from middleware
+
 Returned:
+```javascript
+// If successful, return the posts made by the authenticated user sorted from latest to oldest.
+{ posts }
+```
 
 #### Get Profile Posts
+Get all the posts for a specific user profile page
 ```javascript
 router.get(
     "/api/getProfilePosts",
@@ -370,10 +399,19 @@ router.get(
     authenticate, ...)
 ```
 Expected:
+```javascript
+// The username for the target user as a query
+req.query.username 
+```
 
 Returned:
+```javascript
+// If successful, return the posts made by this specific user
+{ posts }
+```
 
 #### Get Main View Posts
+Get all the posts made by the following users for an authenticated user.
 ```javascript
 router.get(
     "/api/get-main-posts/",
@@ -382,9 +420,16 @@ router.get(
 ```
 Expected:
 
+    The user ID of the authenticated user from middleware
+
 Returned:
+```javascript
+// If successful, return all posts made by the users followed by the authenticated user
+{ posts }
+```
 
 #### Get Searched Posts
+Retrieve all existing posts that contains the searched string as a substring in the owner username or tags.
 ```javascript
 router.get(
     "/api/getSearchedPost",
@@ -392,20 +437,39 @@ router.get(
     authenticate, ...)
 ```
 Expected:
+```javascript
+// The search text of interest as a query
+req.query.search_text
+```
 
 Returned:
+```javascript
+// If successful, return all posts that contains the search text as a substring in the owner username or tags.
+{ posts }
+```
 
 #### Make Post
+API route for creating a post
 ```javascript
 router.post("/api/makePost", 
     mongoChecker, 
     authenticate, ...)
 ```
 Expected:
-
+```javascript
+owner_id: req.user._id, // Authenticated user ID from middleware
+{
+    textContent: req.body.textContent, // Text content of the post
+    images: req.body.images, // Array of cloudinary image URLs
+    tags: req.body.tags, // Array of tags
+}
+```
 Returned:
 
+    Return the newly created post if successful.
+
 #### Remove Post
+API route for removing a post
 ```javascript
 router.delete(
     "/api/removePost/:postID",
@@ -413,8 +477,15 @@ router.delete(
     authenticate, ...)
 ```
 Expected:
+```javascript
+//req.user.role is used to verify if the action is done by an admin user
+const postID = req.params.postID; // target post ID as a parameter
+```
 
 Returned:
+    Return the removed post if successful.
+
+    If the user is not an admin, and is not the owner of the post, an Unauthorized message along with a status code 401 will be sent
 
 ---
 
@@ -422,22 +493,44 @@ Returned:
 API routes that handle user login/logout, fetching and updating user information
 
 #### User Login
+Login the user, also append the user id and username to the session
 ```javascript
 router.post("/users/login", ...)
 ```
 Expected:
+```javascript
+const username = req.body.username; // username of the user
+const password = req.body.password; // password of the user
+```
 
 Returned:
+```javascript
+// if credential verification was done successfully (compare encrypted password using bcrypt)
+{
+    currentUser: user.username, // the username of the logged in user
+    curr_uid: user._id, // the document id of the user
+}
+// User id and username is also appended to the session as:
+req.session.user_id = user._id;
+req.session.username = user.username;
+// where user is the document found in the collection by the credentials
+```
 
 #### User logout
+Route that destroy the current session, thus log out the current user
 ```javascript
 router.get("/users/logout", ...)
 ```
 Expected:
 
+    A session to be destroyed
+
 Returned:
 
+    None
+
 #### Update User Password
+API that updates the authenticated user's password
 ```javascript
 router.patch(
     "/api/updatePassword",
@@ -445,19 +538,35 @@ router.patch(
     authenticate, ...)
 ```
 Expected:
+```javascript
+// new password of the user in the req.body
+req.body.password
+```
 
 Returned:
 
+    If successful, a message that decribe that the action was done successfully.
+    Note that the password is encrypted by bcrypt with salt.
+
 #### Create User
+API for creating a new user
 ```javascript
 router.post("/api/addUser", 
     mongoChecker, ...)
 ```
 Expected:
+```javascript
+// Credentials for the new user in req.body
+username: req.body.username,
+password: req.body.password, 
+```
 
 Returned:
 
+    Error message if creation failed. DB update result if created successfully.
+
 #### Get User Info
+Route for retrieving user information
 ```javascript
 router.get("/api/user", 
     mongoChecker, 
@@ -465,18 +574,30 @@ router.get("/api/user",
 ```
 Expected:
 
+    The authenticated user ID from the middleware
+
 Returned:
 
+    The user information of the authenticated user on success.
+
 #### Get User By ID
+Retrieve user information by ID
 ```javascript
 router.get("/api/user/:id", 
     mongoChecker, ...)
 ```
 Expected:
+```javascript
+// The ID of the target user as a parameter
+req.params.id
+```
 
 Returned:
 
+    The user information of the targeted user.
+
 #### Update User Avatar By Link
+Route for updating the profile image of the authenticated user by an cloudinary image link
 ```javascript
 router.patch(
     "/api/updateProfileImgByLink",
@@ -484,8 +605,14 @@ router.patch(
     authenticate, ...)
 ```
 Expected:
+```javascript
+req.user._id // user ID of the authenticated user from middleware
+req.query.image_url // image link to the cloudinary image database
+```
 
 Returned:
+
+    A message that describe the action was done properly on success.
 
 ---
 
