@@ -8,6 +8,8 @@ import getCurrentUserAndIndex from "../../actions/getCurrentUserAndIndex";
 
 import { getCurrentUser } from "../../actions/user";
 
+import Navbar from "../Navbar/Navbar";
+
 import "./Settings.css";
 
 class Settings extends React.Component {
@@ -45,11 +47,16 @@ class Settings extends React.Component {
 	}
 
 	render() {
+		const { app } = this.props;
+		
 		return (
 			<div className="settings-container">
 				<div>
+                    <Navbar app={app} view="settings" />
+                </div>
+				{/* <div>
 					<SettingsNavbar />
-				</div>
+				</div> */}
 				{/* TODO: 
           The following component should be displayed based on 
           which tab is selected from the above Navigation bar. 
