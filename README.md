@@ -128,29 +128,36 @@ Functionalities walkthrough:
 ## Documentations For Our Express Routes
 ### Middlewares 
 
-**Explain the purpose for each middleware**
+#### mongoChecker
+Middleware for mongo connection error for routes that need it
 
-mongoChecker
+#### authenticate
+Middleware for authentication of resources, also append the current user information as part of the request. Used when API route should only be accessed by a logged in user.
 
-authenticate
+#### isAdmin
+Middleware for verifying Admin permission of resources, rejects any requests sent by a user without the admin role. Used when API route is exclusive to Admin users.
 
-isAdmin
+#### multipartMiddleware
 
-multipartMiddleware
 
 ---
 
 ### Session Handling
 
 #### Check Session
+A route to check if a user is logged in on the session
 ```javascript
 app.get("/users/check-session")
 ```
-Purpose/Usage:
+**Data Expected:**
 
-Data Expected:
+    The user ID of the user within the session as req.session.user_id
 
-Data Returned:
+**Data Returned:**
+
+    If such ID exists, then the user is already logged in, return the username for this user.
+    
+    Otherwise return status code 401.
 
 ---
 
@@ -158,14 +165,23 @@ Data Returned:
 API routes exclusive to admin users
 
 #### Toggle Ban Status
+A route that toggles the status of a user between "Normal" and "Banned"
 ```javascript
 app.patch("/api/admin/toggleBanStatus/:user_id", mongoChecker, authenticate, isAdmin, ...)
 ```
-Purpose/Usage:
+**Data Expected:**
 
-Data Expected:
+    The user ID of the target user as user_id
 
-Data Returned:
+**Data Returned:**
+
+```javascript
+{
+    message: `You have set the status of the user with name ${user.username} to ${user.status}`,
+    username: user.username,
+    status: user.status,
+}
+```
 
 ---
 
