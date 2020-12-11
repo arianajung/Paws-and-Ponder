@@ -89,3 +89,9 @@ a:visited {
 .navbar-bio {
   text-align: center;
 }
+
+.navbar-bio.MuiTypography-body1 {
+  margin-left: 30px;
+  margin-right: 30px;
+  font-size: 1.1em;
+}
