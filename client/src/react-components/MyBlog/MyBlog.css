@@ -1,5 +1,6 @@
 .blog-middle-area {
   width: 100%;
+  overflow: auto;
 }
 
 .post-area {
