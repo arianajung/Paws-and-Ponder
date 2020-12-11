@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 
 // material-ui imports
 import SearchBar from "material-ui-search-bar";
@@ -14,115 +14,106 @@ import searchRequest from "../../actions/searchRequest"
 // css
 import "../MyBlog/MyBlog.css";
 
-class Profile extends Component {
+import { getCurrentUser } from "../../actions/user"
+
+class Profile extends React.Component {
     constructor(props) {
         super(props);
-        this.addComment = this.addComment.bind(this);
+        // this.props.history.push("/profile");
+        // this.addComment = this.addComment.bind(this);
 
-        // Obtain information about current user
-        const { current_username, profile_username, users } = this.props.app.state;
+        // // Obtain information about current user
+        // const { current_username, profile_username, users } = this.props.app.state;
 
-        const current_user = getCurrentUserAndIndex(
-            users,
-            current_username
-        )[1];
+        // const current_user = getCurrentUserAndIndex(
+        //     users,
+        //     current_username
+        // )[1];
 
-        const profile_user = getCurrentUserAndIndex(
-            users,
-            profile_username
-        )[1];
+        // const profile_user = getCurrentUserAndIndex(
+        //     users,
+        //     profile_username
+        // )[1];
 
         this.state = {
-            app_users: props.app.state.users,
-            userCreds: props.app.state.userCreds,
-            current_username: current_user.username,
-            current_user_role: current_user.role,
-            profileImg: current_user.profileImg,
+            // app_users: props.app.state.users,
+            // userCreds: props.app.state.userCreds,
+            // current_username: current_user.username,
+            // current_user_role: current_user.role,
+            // profileImg: current_user.profileImg,
             searchText: "",
-            posts: profile_user.userPosts,
-            following: current_user.following,
-            followers: current_user.followers,
-            profile_username: profile_user.username,
-            profile_user_role: profile_user.role,
-            profile_profileImg: profile_user.profileImg,
-            profile_followers: profile_user.followers,
-            //this is added for search purposes, need a way to know all posts that exist currently
-            //the post we had can be understood as "posts to be displayed" -- Fred
-            all_posts: profile_user.userPosts,
+            profileUser: props.app.state.profileUser,
+            currentUser: null,
+            // posts: profile_user.userPosts,
+            // profile_username: profile_user.username,
+            // profile_user_role: profile_user.role,
+            // profile_profileImg: profile_user.profileImg,
+            // profile_followers: profile_user.followers,
+            // //this is added for search purposes, need a way to know all posts that exist currently
+            // //the post we had can be understood as "posts to be displayed" -- Fred
+            // all_posts: profile_user.userPosts,
         };
     }
 
     // fetch post info from db and store in state
     componentDidMount() {
         console.log("Profile.js: componenetDidMount()");
+        getCurrentUser(this)
     }
 
-    addComment(comment, postID) {
-        const posts_copy = this.state.posts.slice();
-        const postIndex = getPostIndex(this.state.posts, postID);
+    // addComment(comment, postID) {
+    //     const posts_copy = this.state.posts.slice();
+    //     const postIndex = getPostIndex(this.state.posts, postID);
 
-        const new_comment = {
-            commentID: this.state.posts[postIndex].commentCount + 1,
-            user: this.state.current_username,
-            text: comment,
-        };
+    //     const new_comment = {
+    //         commentID: this.state.posts[postIndex].commentCount + 1,
+    //         user: this.state.current_username,
+    //         text: comment,
+    //     };
 
-        posts_copy[postIndex].comments = this.state.posts[
-            postIndex
-        ].comments.concat(new_comment);
+    //     posts_copy[postIndex].comments = this.state.posts[
+    //         postIndex
+    //     ].comments.concat(new_comment);
 
-        posts_copy[postIndex].commentCount++;
+    //     posts_copy[postIndex].commentCount++;
 
-        this.setState({
-            posts: posts_copy,
-        });
-    }
+    //     this.setState({
+    //         posts: posts_copy,
+    //     });
+    // }
 
     render() {
+        const { app } = this.props;
+
         return (
             <div className="myblog-container">
                 <div>
                     <Navbar
+                        app={app}
                         view="profile"
-                        profile={this}
-                        app_users={this.state.app_users}
-                        following={this.state.following}
-                        profile_followers={this.state.profile_followers}
-                        viewing_user={this.state.current_username}
-                        current_user={this.state.profile_username}
-                        current_user_role={this.state.profile_user_role}
-                        profileImg={this.state.profile_profileImg}
+                        profileUser={this.state.profileUser}
+                        currentUser={this.state.currentUser}
+                        profilePage={this}
                     />
                 </div>
-                <div className="blog-middle-area">
-                    <div className="search-bar">
-                        <SearchBar
-                            value={this.state.searchText}
-                            placeholder="Search by Tags or Usernames"
-                            onCancelSearch={() => this.setState({ searchText: "" })}
-                            onChange={(newValue) => this.setState({ searchText: newValue })}
-                            onRequestSearch={() => searchRequest(this)}
-                        />
-                    </div>
+                <div className="profile-middle-area">
                     {/* map posts  */}
                     <div className="post-area">
                         <PostList
-                            current_username={this.state.current_username}
-                            app_users={this.state.app_users}
-                            posts={this.state.posts}
-                            addComment={this.addComment}
-                            profileImg={this.state.profileImg}
+                            currentUser={this.state.profileUser.username}
+                            curr_uid={this.state.profileUser._uid}
+                            type="profile"
+                            // profileUser={this.state.profileUser}
+                            app={app}
                             page={this}
-                            role={this.state.current_user_role}
                         />
                     </div>
                 </div>
                 <div>
                     <PermanentDrawerRight
-                        app={this.props.app}
+                        app={app}
                         page={this}
-                        following={this.state.following}
-                        followers={this.state.followers}
+                        update={this.state.currentUser}
                     />
                 </div>
             </div>

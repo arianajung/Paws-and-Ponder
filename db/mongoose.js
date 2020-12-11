@@ -5,9 +5,8 @@
 
    /* Connnect to our database */
    // Get the URI of the local database, or the one specified on deployment.
-   const petlogAPI = ''
-   const mongoURI = process.env.MONGODB_URI || `mongodb://localhost:27017/${petlogAPI}`
+   const mongoURI = process.env.MONGODB_URI || `mongodb+srv://Fred:freddbpw@csc309cluster.ocmqw.mongodb.net/CSC309Cluster?retryWrites=true&w=majority`
    
    mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true});
    
-   module.exports = { mongoose }  // Export the active connection.
+   module.exports = { mongoose }  // Export the active connection. 

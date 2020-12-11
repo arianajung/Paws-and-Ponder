@@ -19,7 +19,14 @@ const useStyles = makeStyles((theme) => ({
     },
     sectionHeading: {
       fontSize: theme.typography.pxToRem(25),
-    }
+    },
+    iconButtonRoot: {
+      borderRadius: 5,
+      borderWidth: 3,
+      '&:hover': {
+        backgroundColor: "#bbb59d",
+      }
+    },
   }));
 
 export { useStyles };

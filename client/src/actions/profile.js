@@ -1,73 +1,96 @@
-import getCurrentUserAndIndex from "./getCurrentUserAndIndex"
-import Profile from "../react-components/Profile/Profile"
+import getCurrentUserAndIndex from "./getCurrentUserAndIndex";
+import Profile from "../react-components/Profile/Profile";
+import { patchFollowers, patchFollowing, updateUserRelation } from "./user";
 
-export const handleProfileBtn = (app, username, page) => {
+export const handleProfileBtn = (app, user, page) => {
     app.setState({
-        profile_username: username,
+        profileUser: user,
     });
 
     if (page instanceof Profile) {
-        const { users } = app.state;
-
-        const profile_user = getCurrentUserAndIndex(users, username)[1]
         page.setState({
-            posts: profile_user.userPosts,
-            profile_username: profile_user.username,
-            profile_user_role: profile_user.role,
-            profile_profileImg: profile_user.profileImg,
-            profile_followers: profile_user.followers,
-            all_posts: profile_user.userPosts
-        })
+            profileUser: user,
+            // posts: profile_user.userPosts,
+            // profile_username: profile_user.username,
+            // profile_user_role: profile_user.role,
+            // profile_profileImg: profile_user.profileImg,
+            // profile_followers: profile_user.followers,
+            // all_posts: profile_user.userPosts
+        });
     }
 };
 
-export const contains = (current_username, following) => {
+export const contains = (_id, following) => {
     for (let i = 0; i < following.length; i++) {
-        if (following[i] === current_username) {
-            return true
+        if (following[i] === _id) {
+            return true;
         }
     }
-    return false
-}
+    return false;
+};
 
-export const handleFollowBtn = (app_users, viewing_username, current_username, following, profile_followers, profile) => {
-    if (contains(current_username, following)) {
-        const filteredFollowing = following.filter((username) => {
-            return username !== current_username
-        })
-        const filteredFollowers = profile_followers.filter((username) => {
-            return username !== viewing_username
-        })
+export const handleFollowButton = (profileUser, profilePage) => {
+    console.log("here", profileUser);
+    const profileUser_id = profileUser._id;
+    updateUserRelation(profilePage, profileUser_id);
+};
 
-        let newUsers = app_users.slice();
+// export const handleFollowBtn = (profilePage, profileUser, currentUser) => {
+//     const currentUser_id = currentUser._id
+//     const profileUser_id = profileUser._id
+//     const currentUserFollowingList = currentUser.following
+//     const profileUserFollowersList = profileUser.follower
 
-        const [viewing_user_index, viewing_user] = getCurrentUserAndIndex(
-            app_users,
-            viewing_username
-        );
+//     // patch user's following list
+//     // patch profile's followers list
+//     // update profile user and current user object in drawer and profile page in state, maybe navbar
+//     if (contains(profileUser_id, currentUserFollowingList)) {
 
-        viewing_user.following = filteredFollowing;
-        newUsers.splice(viewing_user_index, 1, viewing_user);
+//         const filteredFollowing = currentUserFollowingList.filter((_id) => {
+//             return _id !== profileUser_id
+//         })
+//         const filteredFollowers = profileUserFollowersList.filter((_id) => {
+//             return _id !== currentUser_id
+//         })
 
-        const [current_user_index, current_user] = getCurrentUserAndIndex(
-            app_users,
-            current_username
-        );
+//         patchFollowing(profilePage, filteredFollowing)
+//         patchFollowers(profilePage, profileUser_id, filteredFollowers)
 
-        current_user.followers = filteredFollowers;
-        newUsers.splice(current_user_index, 1, current_user);
+//         // let newUsers = app_users.slice();
 
-        profile.setState({
-            following: filteredFollowing,
-            profile_followers: filteredFollowers
-        })
-    } else {
-        following.push(current_username)
-        profile_followers.push(viewing_username)
+//         // const [viewing_user_index, viewing_user] = getCurrentUserAndIndex(
+//         //     app_users,
+//         //     viewing_username
+//         // );
 
-        profile.setState({
-            following: following,
-            profile_followers: profile_followers
-        })
-    }
-}
+//         // viewing_user.following = filteredFollowing;
+//         // newUsers.splice(viewing_user_index, 1, viewing_user);
+
+//         // const [current_user_index, current_user] = getCurrentUserAndIndex(
+//         //     app_users,
+//         //     current_username
+//         // );
+
+//         // current_user.followers = filteredFollowers;
+//         // newUsers.splice(current_user_index, 1, current_user);
+
+//         // profile.setState({
+//         //     following: filteredFollowing,
+//         //     profile_followers: filteredFollowers
+//         // })
+//     } else {
+//         currentUserFollowingList.push(profileUser_id)
+//         profileUserFollowersList.push(currentUser_id)
+
+//         patchFollowing(profilePage, currentUserFollowingList)
+//         patchFollowers(profilePage, profileUser_id, profileUserFollowersList)
+
+//         // following.push(current_username)
+//         // profile_followers.push(viewing_username)
+
+//         // profile.setState({
+//         //     following: following,
+//         //     profile_followers: profile_followers
+//         // })
+//     }
+// }

@@ -10,223 +10,290 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import BookmarkIcon from "@material-ui/icons/TurnedInNot";
 import BookmarkedIcon from "@material-ui/icons/TurnedIn";
 import Chip from "@material-ui/core/Chip";
-import removePost from "../../actions/remove/removePost";
 import updateBookmarkedStatus from "../../actions/updateBookmarkedStatus/updateBookmarkedStatus";
 
 import AdminDropDownMenu from "../AdminMenu/AdminDropDownMenu";
-import getCurrentUserAndIndex from "../../actions/getCurrentUserAndIndex";
 import { handleProfileBtn } from "../../actions/profile";
 import { Link } from "react-router-dom";
+import Moment from "react-moment";
+// import moment from "moment";
+
+
+import {
+    addComment,
+    removePost,
+    getCurrentUser,
+    bookmarkPost,
+    unbookmarkPost,
+    getSpecificUser,
+} from "../../actions/user";
 
 /* A Post Component */
 class Post extends React.Component {
-  constructor(props) {
-    super(props);
+    constructor(props) {
+        super(props);
 
-    const { current_username, app_users, post } = this.props;
-    const [current_user_index] = getCurrentUserAndIndex(
-      app_users,
-      current_username
-    );
-
-    // determine if this post is already bookmarked or not
-    const bookmarkedVal = this.isBookmarked(
-      app_users[current_user_index].bookmarks,
-      post
-    );
-
-    this.state = {
-      new_comment: "",
-      bookmarked: bookmarkedVal,
-    };
-  }
-
-  // handles adding a new comment 
-  buttonPress(e) {
-    if (this.state.new_comment.trim() !== "") {
-      // if no white space
-      this.props.addComment(this.state.new_comment, this.props.postID);
-      this.setState({ new_comment: "" });
+        this.state = {
+            new_comment: "",
+            currentUser: "",
+            bookmarked: false,
+            specificUser: "",
+        };
     }
-  }
 
-  // reflects changes in the instance of App.js that holds the component information that will send and
-  // receive updates to and from backend.
-  handleBookmarkBtn(app_users, current_username, post) {
-    if (this.state.bookmarked === true) {
-      updateBookmarkedStatus(app_users, current_username, post, false);
-      this.setState({ bookmarked: false });
-    } else {
-      updateBookmarkedStatus(app_users, current_username, post, true);
-      this.setState({ bookmarked: true });
+    // // handles adding a new comment
+    addCommentButtonPress(e) {
+        if (this.state.new_comment.trim() !== "") {
+            // if no white space
+            addComment(
+                this.state.new_comment,
+                this.props.post._id,
+                this.props.postlist
+            );
+            this.setState({ new_comment: "" });
+        }
     }
-  }
 
-  isBookmarked(bookmarks, post) {
-    return (
-      bookmarks.filter((p) => {
-        return p.postID === post.postID;
-      }).length > 0
-    );
-  }
+    bookmarkButtonPress(pid) {
+        // initially alrdy bookmarked OR has been bookmarked during "curr render"
+        if (
+            this.state.currentUser.bookmarks.includes(pid) ||
+            this.state.bookmarked === true
+        ) {
+            unbookmarkPost(pid, this.props.postlist);
+            this.updateCurrentUserBookmarksState(pid);
+            this.setState({ bookmarked: false });
+            alert("Removed post from bookmarks.");
+        } else {
+            bookmarkPost(pid);
+            this.setState({ bookmarked: true });
+            alert("Added post to bookmarks.");
+        }
+    }
 
-  render() {
-    const {
-      current_username,
-      app_users,
-      post,
-      postID,
-      myBlog,
-      profileImg,
-      page,
-      role,
-    } = this.props;
-
-    const bookmarkOrRemoveButton =
-      post.user !== current_username ? ( // bookmark button
-        <div className="bookmarkBtn">
-          <IconButton
-            className="dark-button-element"
-            onClick={() =>
-              this.handleBookmarkBtn(app_users, current_username, post)
+    // modify bookmarks array in this.state.currUser.bookmarks
+    updateCurrentUserBookmarksState(pid) {
+        const updatedBookmarks = this.state.currentUser.bookmarks.filter(
+            (p) => {
+                return p !== pid;
             }
-          >
-            {this.state.bookmarked === false ? (
-              <BookmarkIcon />
-            ) : (
-              <BookmarkedIcon />
-            )}
-          </IconButton>
-        </div>
-      ) : (
-        // remove button
-        <div className="removeBtn">
-          <IconButton
-            className="dark-button-element"
-            onClick={() =>
-              removePost(myBlog, postID, current_username, app_users)
-            }
-          >
-            <DeleteIcon />
-          </IconButton>
-        </div>
-      );
-
-    const adminButton = (isPost) => (role === "admin" && post.user !== current_username) ? (
-      <div className="admin-button">
-        <AdminDropDownMenu
-          user={post.user}
-          page={page}
-          isPost={isPost}
-          postID={postID}
-        />
-      </div>
-    ) : null
-
-    // should retrieve this information from server later
-    let userImg;
-    if (post.user === current_username) {
-      userImg = (
-        <Link to={"/blog"}>
-          <img id="userIcon" src={profileImg} alt="tempImage" />
-        </Link>
-      );
-    } else {
-      userImg = (
-        <Link
-          to={"/profile"}
-          onClick={() => handleProfileBtn(page.props.app, post.user, page)}
-        >
-          <img
-            id="userIcon"
-            src={getCurrentUserAndIndex(app_users, post.user)[1].profileImg}
-            alt="tempImage"
-          />
-        </Link>
-      );
+        );
+        this.state.currentUser.bookmarks = updatedBookmarks;
     }
 
-    // create comment components
-    const comments = post.comments.map((comment) => {
-      return (
-        <Comment
-          key={uid(comment)}
-          current_username={current_username}
-          comment_user={comment.user}
-          comment_text={comment.text}
-          profileImg={profileImg}
-          commentID={comment.commentID}
-          page={page}
-          postID={postID}
-          role={role}
-        />
-      );
-    });
+    componentDidMount() {
+        getCurrentUser(this);
+        getSpecificUser(this, this.props.post.owner_id)
+    }
 
-    const tags = post.tags.map((tag) => {
-      return (
-        <Chip
-          className="tag"
-          key={uid(tag)}
-          clickable
-          size="small"
-          label={tag}
-        />
-      );
-    });
+    render() {
+        const {
+            // currentUser,
+            // app_users,
+            post,
+            postlist,
+            // myBlog,
+            // profileImg,
+            // page,
+            // role,
+            app,
+            page,
+        } = this.props;
 
-    return (
-      <div>
-        <div className="post-wrapper">
-          <div className="post">
-            <div className="user-profile">
-              <div className="left-container">
-                <div className="userIconContainer">{userImg}</div>
-                <div className="post-info">
-                  <div id="post-user">{post.user}</div>
-                  <div id="post-date">{post.date}</div>
+        const bookmarkOrRemoveButton =
+            post.owner_id === this.state.currentUser._id ? ( // bookmark button
+                <div className="removeBtn">
+                    <IconButton
+                        className="dark-button-element"
+                        onClick={() => removePost(post._id, postlist)}
+                    >
+                        <DeleteIcon />
+                    </IconButton>
                 </div>
-              </div>
-              <div className="buttons">
-                {bookmarkOrRemoveButton}
-                {adminButton(true)}
-              </div>
+            ) : (
+                    <div className="bookmarkBtn">
+                        <IconButton
+                            className="dark-button-element"
+                            onClick={() => this.bookmarkButtonPress(post._id)}
+                        >
+                            <BookmarkIcon />
+                        </IconButton>
+                    </div>
+                );
 
-              {/* Need to add more user stuff here like user pic*/}
-            </div>
-            <div className="post-content">
-              <img id="post-img" src={post.image} alt=""></img>
-              <div id="post-text">{post.text}</div>
-            </div>
-            <div className="tagsContainer">Tags: {tags}</div>
-          </div>
+        const adminButton = (isPost) =>
+            post.owner_id !== this.state.currentUser._id &&
+                this.state.currentUser.role === "admin" ? (
+                    <div className="admin-button">
+                        <AdminDropDownMenu
+                            user={this.state.specificUser.username}
+                            page={postlist.page}
+                            postID={post._id}
+                            isPost={isPost}
+                            postlist={postlist}
+                            banID={post.owner_id}
+                        />
+                    </div>
+                ) : null;
 
-          <div className="comment-area">
-            <TextField
-              className="leave-a-comment"
-              variant="outlined"
-              label="leave a comment"
-              multiline
-              value={this.state.new_comment}
-              onChange={(e) => {
-                this.setState({ new_comment: e.target.value });
-              }}
-            />
-            <div className="button-container">
-              <Button
-                id="comment-button"
-                size="small"
-                onClick={(e) => this.buttonPress(e)}
-              >
-                Comment
-              </Button>
+        // const handleTagClick = (tag) => {
+        //     <Route
+        //         exact
+        //         path="/main"
+        //     //render={() => <Main/>}
+        //     />
+        // }
+
+        let userImg;
+        if (this.state.specificUser._id === this.state.currentUser._id) {
+            userImg = (
+                <Link to={"/blog"}>
+                    <img id="userIcon" src={this.state.currentUser.profileImg} alt={this.state.currentUser.username} />
+                </Link>
+            );
+        } else {
+            userImg = (
+                <Link
+                    to={"/profile"}
+                    onClick={() => handleProfileBtn(app, this.state.specificUser, page)}
+                >
+                    <img
+                        id="userIcon"
+                        src={this.state.specificUser.profileImg}
+                        alt={this.state.specificUser.username}
+                    />
+                </Link>
+            );
+        }
+
+        // create comment components
+        const comments = post.comments.map((comment) => {
+            return (
+                <Comment
+                    key={uid(comment)}
+                    postID={post._id}
+                    currentUser={this.state.currentUser}
+                    comment={comment}
+                    postList={postlist}
+                    postOwner={this.state.specificUser.username}
+                    // comment_user={comment.owner}
+                    // comment_text={comment.textContent}
+                    // profileImg={profileImg}
+                    // commentID={comment._id}
+                    // page={page}
+                    // postID={postID}
+                    // role={role}
+                    app={app}
+                    page={page}
+                />
+            );
+        });
+
+        const tags = post.tags.map((tag) => {
+            if (page.state.type === "main" || page.state.type === "searched") {
+                return (
+                    <Chip
+                        className="tag"
+                        key={uid(tag)}
+                        clickable
+                        size="small"
+                        label={tag}
+                        onClick={(e) => {
+                            page.setState({ searchText: e.target.outerText })
+                            page.setState({ type : "searching"})
+                        }}
+                    />
+                )
+            } else {
+                return (
+                    <Link
+                        key={uid(tag)}
+                        to={{
+                            pathname: "/main",
+                            state: {
+                                clickedTag: tag
+                            }
+                        }}
+                    >
+                        <Chip
+                            className="tag"
+                            key={uid(tag)}
+                            clickable
+                            size="small"
+                            label={tag}
+                        />
+                    </Link>
+                );
+            }
+        });
+
+        const images = post.images.map((image) => {
+            return (
+                <div>
+                    <img className="image-container" src={image} alt=""></img>
+                </div>
+            );
+        });
+
+        return (
+            <div>
+                <div className="post-wrapper">
+                    <div className="post">
+                        <div className="user-profile">
+                            <div className="left-container">
+                                <div className="userIconContainer">
+                                    {userImg}
+                                </div>
+                                <div className="post-info">
+                                    <div id="post-user">{this.state.specificUser.username}</div>
+                                    <div id="post-date">
+                                        <Moment format="YYYY/MM/DD HH:mm">
+                                            {post.timeStamp}
+                                        </Moment>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="buttons">
+                                {this.state.currentUser.bookmarks !== undefined ? bookmarkOrRemoveButton: null}
+                                {adminButton(true)}
+                            </div>
+
+                            {/* Need to add more user stuff here like user pic*/}
+                        </div>
+                        <div className="post-content">
+                            <div id="post-text">{post.textContent}</div>
+
+                            <div className="image-list">{images}</div>
+                        </div>
+                        <div className="tagsContainer">Tags: {tags}</div>
+                    </div>
+
+                    <div className="comment-area">
+                        <TextField
+                            className="leave-a-comment"
+                            variant="outlined"
+                            label="leave a comment"
+                            multiline
+                            value={this.state.new_comment}
+                            onChange={(e) => {
+                                this.setState({ new_comment: e.target.value });
+                            }}
+                        />
+                        <div className="button-container">
+                            <Button
+                                id="comment-button"
+                                size="small"
+                                onClick={(e) => this.addCommentButtonPress(e)}
+                            >
+                                Comment
+                            </Button>
+                        </div>
+                        <div className="comments">{comments}</div>
+                    </div>
+                </div>
             </div>
-            <div className="comments">{comments}</div>
-          </div>
-        </div>
-      </div>
-    );
-  }
+        );
+    }
 }
 
 export default Post;

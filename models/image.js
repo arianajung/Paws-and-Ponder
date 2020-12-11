@@ -1,4 +1,6 @@
-const imageSchema = mongoose.Schema({
+const mongoose = require('mongoose')
+
+const ImageSchema = mongoose.Schema({
     image_id: {
         type: String,
         required: true
@@ -10,4 +12,5 @@ const imageSchema = mongoose.Schema({
     created_at: String
 });
 
-// May require an export, not sure
+const Image = mongoose.model('Image', ImageSchema)
+module.exports = { Image }
