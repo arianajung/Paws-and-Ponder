@@ -155,14 +155,6 @@ class Post extends React.Component {
                 </div>
             ) : null;
 
-        // const handleTagClick = (tag) => {
-        //     <Route
-        //         exact
-        //         path="/main"
-        //     //render={() => <Main/>}
-        //     />
-        // }
-
         let userImg;
         if (this.state.specificUser._id === this.state.currentUser._id) {
             userImg = (
