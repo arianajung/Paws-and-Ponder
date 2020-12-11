@@ -87,6 +87,7 @@ class PostList extends React.Component {
                         // app_users={app_users}
                         // postID={postID}
                         post={post}
+                        type={this.state.type}
                         // addComment={addComment}
                         // myBlog={myBlog}
                         // bookmarks={bookmarks}
