@@ -149,11 +149,11 @@ A route to check if a user is logged in on the session
 ```javascript
 app.get("/users/check-session")
 ```
-**Data Expected:**
+Expected:
 
     The user ID of the user within the session as req.session.user_id
 
-**Data Returned:**
+Returned:
 
     If such ID exists, then the user is already logged in, return the username for this user.
     
@@ -172,11 +172,11 @@ app.patch("/api/admin/toggleBanStatus/:user_id",
     authenticate, 
     isAdmin, ...)
 ```
-**Data Expected:**
+Expected:
 
     The user ID of the target user as user_id
 
-**Data Returned:**
+Returned:
 
 ```javascript
 // If successful
@@ -200,11 +200,11 @@ router.post(
     mongoChecker,
     authenticate, ...)
 ```
-**Data Expected:**
+Expected:
 
     The user ID of the authenticated user from middleware, and the postID of the targeted post.
 
-**Data Returned:**
+Returned:
 
     If successful, return the array of IDs of the bookmarked posts.
 
@@ -216,11 +216,11 @@ router.delete(
     mongoChecker,
     authenticate, ...)
 ```
-**Data Expected:**
+Expected:
 
     The user ID of the authenticated user from middleware, and the postID of the targeted post.
 
-**Data Returned:**
+Returned:
 
     If successful, return the updated user.
 
@@ -232,11 +232,11 @@ router.get(
     mongoChecker,
     authenticate, ...)
 ```
-**Data Expected:**
+Expected:
 
     The user ID of the authenticated user from middleware
 
-**Data Returned:**
+Returned:
 
     If successful, return the bookmarked posts of the authenticated user.
 
@@ -252,14 +252,14 @@ router.post("/api/addComment",
     mongoChecker, 
     authenticate, ...)
 ```
-**Data Expected:**
+Expected:
 ```javascript
 {
     owner_id: req.user._id, // From authentication middleware
     textContent: req.body.textContent, // Text content of the comment
 }
 ```
-**Data Returned:**
+Returned:
 
     If successful, return the new comment.
 
@@ -271,14 +271,14 @@ router.delete(
     mongoChecker,
     authenticate, ...)
 ```
-**Data Expected:**
+Expected:
 ```javascript
 {
     const postID = req.params.postID; // ID of the target post
     const commentID = req.params.commentID; // ID of the target comment
 }
 ```
-**Data Returned:**
+Returned:
 ```javascript
 // If successful, return the post and comment as one object
 { post, comment }
@@ -294,9 +294,9 @@ API routes for handling images
 router.post("/images", 
     multipartMiddleware, ...)
 ```
-**Data Expected:**
+Expected:
 
-**Data Returned:**
+Returned:
 
 #### Change User Avatar
 ```javascript
@@ -306,9 +306,9 @@ router.post(
     authenticate,
     multipartMiddleware, ...)
 ```
-**Data Expected:**
+Expected:
 
-**Data Returned:**
+Returned:
 
 ---
 
@@ -321,9 +321,9 @@ router.get("/api/followers",
     mongoChecker, 
     authenticate, ...)
 ```
-**Data Expected:**
+Expected:
 
-**Data Returned:**
+Returned:
 
 #### Get Following
 ```javascript
@@ -331,9 +331,9 @@ router.get("/api/following",
     mongoChecker, 
     authenticate, ...)
 ```
-**Data Expected:**
+Expected:
 
-**Data Returned:**
+Returned:
 
 #### Update User Relationship
 ```javascript
@@ -342,9 +342,9 @@ router.patch(
     mongoChecker,
     authenticate, ...)
 ```
-**Data Expected:**
+Expected:
 
-**Data Returned:**
+Returned:
 
 ---
 
@@ -358,9 +358,9 @@ router.get(
     mongoChecker,
     authenticate, ...)
 ```
-**Data Expected:**
+Expected:
 
-**Data Returned:**
+Returned:
 
 #### Get Profile Posts
 ```javascript
@@ -369,9 +369,9 @@ router.get(
     mongoChecker,
     authenticate, ...)
 ```
-**Data Expected:**
+Expected:
 
-**Data Returned:**
+Returned:
 
 #### Get Main View Posts
 ```javascript
@@ -380,9 +380,9 @@ router.get(
     mongoChecker,
     authenticate, ...)
 ```
-**Data Expected:**
+Expected:
 
-**Data Returned:**
+Returned:
 
 #### Get Searched Posts
 ```javascript
@@ -391,9 +391,9 @@ router.get(
     mongoChecker,
     authenticate, ...)
 ```
-**Data Expected:**
+Expected:
 
-**Data Returned:**
+Returned:
 
 #### Make Post
 ```javascript
@@ -401,9 +401,9 @@ router.post("/api/makePost",
     mongoChecker, 
     authenticate, ...)
 ```
-**Data Expected:**
+Expected:
 
-**Data Returned:**
+Returned:
 
 #### Remove Post
 ```javascript
@@ -412,9 +412,9 @@ router.delete(
     mongoChecker,
     authenticate, ...)
 ```
-**Data Expected:**
+Expected:
 
-**Data Returned:**
+Returned:
 
 ---
 
@@ -425,17 +425,17 @@ API routes that handle user login/logout, fetching and updating user information
 ```javascript
 router.post("/users/login", ...)
 ```
-**Data Expected:**
+Expected:
 
-**Data Returned:**
+Returned:
 
 #### User logout
 ```javascript
 router.get("/users/logout", ...)
 ```
-**Data Expected:**
+Expected:
 
-**Data Returned:**
+Returned:
 
 #### Update User Password
 ```javascript
@@ -444,18 +444,18 @@ router.patch(
     mongoChecker,
     authenticate, ...)
 ```
-**Data Expected:**
+Expected:
 
-**Data Returned:**
+Returned:
 
 #### Create User
 ```javascript
 router.post("/api/addUser", 
     mongoChecker, ...)
 ```
-**Data Expected:**
+Expected:
 
-**Data Returned:**
+Returned:
 
 #### Get User Info
 ```javascript
@@ -463,18 +463,18 @@ router.get("/api/user",
     mongoChecker, 
     authenticate, ...)
 ```
-**Data Expected:**
+Expected:
 
-**Data Returned:**
+Returned:
 
 #### Get User By ID
 ```javascript
 router.get("/api/user/:id", 
     mongoChecker, ...)
 ```
-**Data Expected:**
+Expected:
 
-**Data Returned:**
+Returned:
 
 #### Update User Avatar By Link
 ```javascript
@@ -483,9 +483,9 @@ router.patch(
     mongoChecker,
     authenticate, ...)
 ```
-**Data Expected:**
+Expected:
 
-**Data Returned:**
+Returned:
 
 ---
 
