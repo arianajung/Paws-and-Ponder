@@ -351,28 +351,6 @@ export default function ProfileSettings(props) {
 					aria-controls="panel4bh-content"
 					id="panel4bh-header"
 				>
-					<Typography className={classes.heading}>Personal data</Typography>
-				</AccordionSummary>
-
-				<AccordionDetails>
-					<Typography>
-						Number of Posts: 321 <br />
-            			Followers: 237 <br />
-            			Following: 56 <br />
-           				Total Likes: 5899
-          			</Typography>
-				</AccordionDetails>
-			</Accordion>
-
-			<Accordion
-				expanded={expanded === "panel5"}
-				onChange={handleChange("panel5")}
-			>
-				<AccordionSummary
-					expandIcon={<ExpandMoreIcon />}
-					aria-controls="panel5bh-content"
-					id="panel5bh-header"
-				>
 					<Typography className={classes.heading}>password</Typography>
 					<Typography className={classes.secondaryHeading}>
 						Update your password
@@ -407,6 +385,28 @@ export default function ProfileSettings(props) {
 						</DialogContentText>
 					</DialogContent>
 				</Dialog>
+			</Accordion>
+
+			<Accordion
+				expanded={expanded === "panel5"}
+				onChange={handleChange("panel5")}
+			>
+				<AccordionSummary
+					expandIcon={<ExpandMoreIcon />}
+					aria-controls="panel5bh-content"
+					id="panel5bh-header"
+				>
+					<Typography className={classes.heading}>Personal data</Typography>
+				</AccordionSummary>
+
+				<AccordionDetails>
+					<Typography>
+						Number of Posts: 321 <br />
+            			Followers: 237 <br />
+            			Following: 56 <br />
+           				Total Likes: 5899
+          			</Typography>
+				</AccordionDetails>
 			</Accordion>
 		</div>
 	);

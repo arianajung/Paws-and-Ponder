@@ -96,20 +96,7 @@ class Profile extends React.Component {
                         profilePage={this}
                     />
                 </div>
-                <div className="blog-middle-area">
-                    <div className="search-bar">
-                    <SearchBar
-                            value={this.state.searchText}
-                            placeholder="Search by Tags or Usernames"
-                            onCancelSearch={() =>
-                                this.setState({ searchText: "" })
-                            }
-                            onChange={(newValue) =>
-                                this.setState({ searchText: newValue })
-                            }
-                            onRequestSearch={() => searchRequest(this)}
-                        />
-                    </div>
+                <div className="profile-middle-area">
                     {/* map posts  */}
                     <div className="post-area">
                         <PostList

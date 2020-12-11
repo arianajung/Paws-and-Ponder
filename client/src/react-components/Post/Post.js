@@ -254,7 +254,7 @@ class Post extends React.Component {
                                 </div>
                             </div>
                             <div className="buttons">
-                                {bookmarkOrRemoveButton}
+                                {this.state.currentUser.bookmarks !== undefined ? bookmarkOrRemoveButton: null}
                                 {adminButton(true)}
                             </div>
 
