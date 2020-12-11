@@ -21,14 +21,11 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 
-import {
-    addComment,
-    removePost,
-    getCurrentUser,
-    bookmarkPost,
-    unbookmarkPost,
-    getSpecificUser,
-} from "../../actions/user";
+import { getCurrentUser, getSpecificUser } from "../../actions/users";
+
+import { addComment } from "../../actions/comments";
+import { removePost } from "../../actions/posts";
+import { bookmarkPost, unbookmarkPost } from "../../actions/bookmarks";
 
 /* A Post Component */
 class Post extends React.Component {

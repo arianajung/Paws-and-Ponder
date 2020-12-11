@@ -1,6 +1,6 @@
 import getCurrentUserAndIndex from "./getCurrentUserAndIndex";
 import Profile from "../react-components/Profile/Profile";
-import { patchFollowers, patchFollowing, updateUserRelation } from "./user";
+import { updateUserRelation } from "./users";
 
 export const handleProfileBtn = (app, user, page) => {
     app.setState({

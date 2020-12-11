@@ -6,7 +6,9 @@ import { handleProfileBtn } from "../../actions/profile";
 import MyBlog from "../MyBlog/MyBlog";
 import AdminDropDownMenu from "../AdminMenu/AdminDropDownMenu";
 import { Link } from "react-router-dom";
-import { removeComment, getSpecificUser } from "../../actions/user";
+import { getSpecificUser } from "../../actions/users";
+import { removeComment } from "../../actions/comments";
+
 import Moment from "react-moment";
 
 // css
@@ -22,7 +24,7 @@ class Comment extends Component {
     }
 
     componentDidMount() {
-        getSpecificUser(this, this.props.comment.owner_id)
+        getSpecificUser(this, this.props.comment.owner_id);
     }
 
     render() {
@@ -43,7 +45,7 @@ class Comment extends Component {
         } = this.props;
 
         const removeButton =
-            (comment.owner_id === currentUser._id) ? (
+            comment.owner_id === currentUser._id ? (
                 <div className="removeBtn">
                     <IconButton
                         className="dark-button-element"
@@ -60,7 +62,11 @@ class Comment extends Component {
         if (this.state.specificUser._id === currentUser._id) {
             userImg = (
                 <Link to={"/blog"}>
-                    <img id="user-icon" src={currentUser.profileImg} alt={currentUser.username} />
+                    <img
+                        id="user-icon"
+                        src={currentUser.profileImg}
+                        alt={currentUser.username}
+                    />
                 </Link>
             );
         } else {
@@ -71,24 +77,30 @@ class Comment extends Component {
                         handleProfileBtn(app, this.state.specificUser, page)
                     }
                 >
-                    <img id="user-icon" src={this.state.specificUser.profileImg} alt={this.state.specificUser.username} />
+                    <img
+                        id="user-icon"
+                        src={this.state.specificUser.profileImg}
+                        alt={this.state.specificUser.username}
+                    />
                 </Link>
             );
         }
 
-        const adminButton = (isPost) => (currentUser.role === "admin" && comment.owner_id !== currentUser._id) ? (
-            <div className="admin-button">
-              <AdminDropDownMenu
-                user={postOwner}
-                page={postList.page}
-                postID={postID}
-                commentID={comment._id}
-                isPost={isPost}
-                postlist={postList}
-                banID={comment.owner_id}
-              />
-            </div>
-          ) : null
+        const adminButton = (isPost) =>
+            currentUser.role === "admin" &&
+            comment.owner_id !== currentUser._id ? (
+                <div className="admin-button">
+                    <AdminDropDownMenu
+                        user={postOwner}
+                        page={postList.page}
+                        postID={postID}
+                        commentID={comment._id}
+                        isPost={isPost}
+                        postlist={postList}
+                        banID={comment.owner_id}
+                    />
+                </div>
+            ) : null;
 
         // const adminButton2 = (isPost) =>
         //     role === "admin" && comment_user !== currentUser ? (
@@ -107,7 +119,9 @@ class Comment extends Component {
             <div className="comment">
                 <div className="comment-icon">{userImg}</div>
                 <div className="comment-content">
-                    <div id="comment-name">{this.state.specificUser.username}</div>
+                    <div id="comment-name">
+                        {this.state.specificUser.username}
+                    </div>
                     <div id="comment-date">
                         <Moment format="YYYY/MM/DD HH:mm">
                             {comment.timeStamp}

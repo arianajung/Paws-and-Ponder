@@ -7,8 +7,9 @@ import {
     getUserPosts,
     getProfilePosts,
     getSearchedPosts,
-    getBookmarkPosts,
-} from "../../actions/user";
+} from "../../actions/posts";
+
+import { getBookmarkPosts } from "../../actions/bookmarks";
 
 /* Component for the List of Posts */
 class PostList extends React.Component {
