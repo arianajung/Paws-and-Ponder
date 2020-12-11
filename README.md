@@ -122,8 +122,11 @@ isAdmin
 
 multipartMiddleware
 
+---
+
 ### Session Handling
 
+#### Check Session
 ```javascript
 app.get("/users/check-session")
 ```
@@ -133,9 +136,12 @@ Data Expected:
 
 Data Returned:
 
+---
+
 ### Admin Routes
 API routes exclusive to admin users
 
+#### Toggle Ban Status
 ```javascript
 app.patch("/api/admin/toggleBanStatus/:user_id", mongoChecker, authenticate, isAdmin, ...)
 ```
@@ -145,9 +151,12 @@ Data Expected:
 
 Data Returned:
 
+---
+
 ### Bookmarks
 API routes for handling bookmarks
 
+#### Bookmark Post
 ```javascript
 router.post(
     "/api/bookmarkPost/:postID",
@@ -160,6 +169,7 @@ Data Expected:
 
 Data Returned:
 
+#### Unbookmark Post
 ```javascript
 router.delete(
     "/api/unbookmarkPost/:postID",
@@ -172,6 +182,7 @@ Data Expected:
 
 Data Returned:
 
+#### Get Bookmark Posts
 ```javascript
 router.get(
     "/api/getBookmarkPosts",
@@ -184,9 +195,12 @@ Data Expected:
 
 Data Returned:
 
+---
+
 ### Comments
 API routes for handling comments
 
+#### Add Comment
 ```javascript
 router.post("/api/addComment", 
     mongoChecker, 
@@ -198,6 +212,7 @@ Data Expected:
 
 Data Returned:
 
+#### Remove Comment
 ```javascript
 router.delete(
     "/api/removeComment/:postID/:commentID",
@@ -210,10 +225,12 @@ Data Expected:
 
 Data Returned:
 
+---
 
 ### Images
 API routes for handling images
 
+#### Add Image(s)
 ```javascript
 router.post("/images", 
     multipartMiddleware, ...)
@@ -224,6 +241,7 @@ Data Expected:
 
 Data Returned:
 
+#### Change User Avatar
 ```javascript
 router.post(
     "/api/changeUserAvatar",
@@ -237,9 +255,12 @@ Data Expected:
 
 Data Returned:
 
+---
+
 ### Interactions
 API routes that handle follow/unfollow interations
 
+#### Get Followers
 ```javascript
 router.get("/api/followers", 
     mongoChecker, 
@@ -251,6 +272,7 @@ Data Expected:
 
 Data Returned:
 
+#### Get Following
 ```javascript
 router.get("/api/following", 
     mongoChecker, 
@@ -262,6 +284,7 @@ Data Expected:
 
 Data Returned:
 
+#### Update User Relationship
 ```javascript
 router.patch(
     "/api/updateUserRelation",
@@ -274,9 +297,12 @@ Data Expected:
 
 Data Returned:
 
+---
+
 ### Posts
 API routes that handle retrieving. creating, and deleting posts
 
+#### Get User Posts
 ```javascript
 router.get(
     "/api/getUserPosts",
@@ -289,6 +315,7 @@ Data Expected:
 
 Data Returned:
 
+#### Get Profile Posts
 ```javascript
 router.get(
     "/api/getProfilePosts",
@@ -301,6 +328,7 @@ Data Expected:
 
 Data Returned:
 
+#### Get Main View Posts
 ```javascript
 router.get(
     "/api/get-main-posts/",
@@ -313,6 +341,7 @@ Data Expected:
 
 Data Returned:
 
+#### Get Searched Posts
 ```javascript
 router.get(
     "/api/getSearchedPost",
@@ -325,6 +354,7 @@ Data Expected:
 
 Data Returned:
 
+#### Make Post
 ```javascript
 router.post("/api/makePost", 
     mongoChecker, 
@@ -336,6 +366,7 @@ Data Expected:
 
 Data Returned:
 
+#### Remove Post
 ```javascript
 router.delete(
     "/api/removePost/:postID",
@@ -348,9 +379,12 @@ Data Expected:
 
 Data Returned:
 
+---
+
 ### Users
 API routes that handle user login/logout, fetching and updating user information
 
+#### User Login
 ```javascript
 router.post("/users/login", ...)
 ```
@@ -360,6 +394,7 @@ Data Expected:
 
 Data Returned:
 
+#### User logout
 ```javascript
 router.get("/users/logout", ...)
 ```
@@ -369,6 +404,20 @@ Data Expected:
 
 Data Returned:
 
+#### Update User Password
+```javascript
+router.patch(
+    "/api/updatePassword",
+    mongoChecker,
+    authenticate, ...)
+```
+Purpose/Usage:
+
+Data Expected:
+
+Data Returned:
+
+#### Create User
 ```javascript
 router.post("/api/addUser", 
     mongoChecker, ...)
@@ -379,6 +428,7 @@ Data Expected:
 
 Data Returned:
 
+#### Get User Info
 ```javascript
 router.get("/api/user", 
     mongoChecker, 
@@ -390,6 +440,7 @@ Data Expected:
 
 Data Returned:
 
+#### Get User By ID
 ```javascript
 router.get("/api/user/:id", 
     mongoChecker, ...)
@@ -400,6 +451,7 @@ Data Expected:
 
 Data Returned:
 
+#### Update User Avatar By Link
 ```javascript
 router.patch(
     "/api/updateProfileImgByLink",
