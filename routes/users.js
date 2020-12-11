@@ -51,7 +51,32 @@ router.get("/users/logout", (req, res) => {
     });
 });
 
+// a patch route to update a user's password
+router.patch(
+    "/api/updatePassword",
+    mongoChecker,
+    authenticate,
+    async (req, res) => {
+        try {
+            // get admin user to update following relationship
+            req.user.password = req.body.password;
+            await req.user.save(); //encrypt in the backend
+            res.send("Password Updated");
+        } catch (error) {
+            log(error); // log server error to the console, not to the client.
+            if (isMongoError(error)) {
+                // check for if mongo server suddenly dissconnected before this request.
+                res.status(500).send("Internal server error");
+            } else {
+                res.status(400).send("Bad Request"); // 400 for bad request gets sent to client.
+            }
+        }
+    }
+);
+
 router.post("/api/addUser", mongoChecker, async (req, res) => {
+    log(`Adding User ${req.body.username}`);
+
     // Create a new user using the User mongoose model
     const user = new User({
         username: req.body.username,
@@ -63,12 +88,18 @@ router.post("/api/addUser", mongoChecker, async (req, res) => {
     });
 
     // Save user to the database
-    // async-await version:
     try {
+        // get admin user to update following relationship
+        const admin = await User.findById("5fd394c6391b14193c936d89");
+
+        user.following.push(admin._id);
+        admin.follower.push(user._id);
+
         const result = await user.save();
+        await admin.save();
         res.send(result);
     } catch (error) {
-        console.log(error); // log server error to the console, not to the client.
+        log(error); // log server error to the console, not to the client.
         if (isMongoError(error)) {
             // check for if mongo server suddenly dissconnected before this request.
             res.status(500).send("Internal server error");
@@ -115,6 +146,23 @@ router.get("/api/user/:id", mongoChecker, async (req, res) => {
         res.status(500).send("Internal Server Error");
     }
 });
+
+router.patch(
+    "/api/updateProfileImgByLink",
+    mongoChecker,
+    authenticate,
+    async (req, res) => {
+        try {
+            const user = await User.findById(req.user._id);
+            console.log(req.query.image_url);
+            user.profileImg = req.query.image_url;
+            user.save();
+            res.send("Successful");
+        } catch (error) {
+            res.status(400).send("400 Bad Request");
+        }
+    }
+);
 
 // export the router
 module.exports = router;

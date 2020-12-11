@@ -4,6 +4,12 @@
 const express = require("express");
 const router = express.Router(); // Express Router
 
+const { User } = require("../models/user");
+
+// helpers
+const { mongoChecker } = require("./helpers/mongo_helpers");
+const { authenticate } = require("./helpers/authentication");
+
 // cloudinary: configure using credentials found on your Cloudinary Dashboard
 // sign up for a free account here: https://cloudinary.com/users/register/free
 const cloudinary = require("cloudinary");
@@ -21,7 +27,7 @@ const { Image } = require("../models/image");
 // a POST route to *create* an image
 router.post("/images", multipartMiddleware, (req, res) => {
     // Use uploader.upload API to upload image to cloudinary server.
-    console.log("request files: ", req.files);
+    console.log("request files: ", req);
     // let image_array = [];
     let upload_responses = [];
     for (const file_name in req.files) {
@@ -34,19 +40,6 @@ router.post("/images", multipartMiddleware, (req, res) => {
                         console.log("error from upload: ", error);
                         reject(error);
                     } else {
-                        // const image = new Image({
-                        //     image_id: result.public_id,
-                        //     image_url: result.url,
-                        //     created_at: new Date(),
-                        // });
-                        // image.save().then((save_res) => {
-                        //     //image_array.push(save_res);
-                        //     console.log("resolve from upload: ", save_res);
-                        //     resolve(save_res);
-                        // },
-                        // (error) => {
-                        //     res.status(500).send("POST /images: Internal Server Error", error);
-                        // });
                         resolve(result.url);
                     }
                 }
@@ -64,28 +57,6 @@ router.post("/images", multipartMiddleware, (req, res) => {
         .catch((error) => {
             console.log("error from promise.all: ", error);
         });
-    // cloudinary.uploader.upload(
-    //     req.files.file.path, // req.files contains uploaded files
-    //     function (result) {
-
-    //         // Create a new image using the Image mongoose model
-    //         var img = new Image({
-    //             image_id: result.public_id, // image id on cloudinary server
-    //             image_url: result.url, // image url on cloudinary server
-    //             created_at: new Date(),
-    //         });
-
-    //         // Save image to the database
-    //         img.save().then(
-    //             saveRes => {
-    //                 console.log(saveRes);
-    //                 res.send(saveRes);
-    //             },
-    //             error => {
-    //                 res.status(400).send(error); // 400 for bad request
-    //             }
-    //         );
-    //     });
 });
 
 // a GET route to get all images
@@ -125,6 +96,29 @@ router.delete("/images/:imageId", (req, res) => {
             });
     });
 });
+
+router.post(
+    "/api/changeUserAvatar",
+    mongoChecker,
+    authenticate,
+    multipartMiddleware,
+    async (req, res) => {
+        // Use uploader.upload API to upload image to cloudinary server.
+        cloudinary.uploader.upload(
+            req.files["file0"].path,
+            async function (result, error) {
+                if (error) {
+                    res.status(400).send("Failed to upload to server!");
+                } else {
+                    const user = await User.findById(req.user._id);
+                    user.profileImg = result.url;
+                    user.save();
+                    res.send("Successfully updated profile picture!");
+                }
+            }
+        );
+    }
+);
 
 // export the router
 module.exports = router;
