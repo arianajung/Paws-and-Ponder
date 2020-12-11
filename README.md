@@ -10,7 +10,7 @@
 - [Documentations For Our Express Routes](#documentations-for-our-express-routes)
   * [Middlewares](#middlewares)
   * [Session Handling](#session-handling)
-  * [Admin](#Admin)
+  * [Admin](#Admin-Routes)
   * [Bookmarks](#bookmarks)
   * [Comments](#comments)
   * [Images](#images)
@@ -167,7 +167,10 @@ API routes exclusive to admin users
 #### Toggle Ban Status
 A route that toggles the status of a user between "Normal" and "Banned"
 ```javascript
-app.patch("/api/admin/toggleBanStatus/:user_id", mongoChecker, authenticate, isAdmin, ...)
+app.patch("/api/admin/toggleBanStatus/:user_id", 
+    mongoChecker, 
+    authenticate, 
+    isAdmin, ...)
 ```
 **Data Expected:**
 
@@ -189,17 +192,16 @@ app.patch("/api/admin/toggleBanStatus/:user_id", mongoChecker, authenticate, isA
 API routes for handling bookmarks
 
 #### Bookmark Post
+An API that sets the provided post for the authenticated user to bookmarked
 ```javascript
 router.post(
     "/api/bookmarkPost/:postID",
     mongoChecker,
     authenticate, ...)
 ```
-Purpose/Usage:
+**Data Expected:**
 
-Data Expected:
-
-Data Returned:
+**Data Returned:**
 
 #### Unbookmark Post
 ```javascript
@@ -208,11 +210,9 @@ router.delete(
     mongoChecker,
     authenticate, ...)
 ```
-Purpose/Usage:
+**Data Expected:**
 
-Data Expected:
-
-Data Returned:
+**Data Returned:**
 
 #### Get Bookmark Posts
 ```javascript
@@ -221,11 +221,9 @@ router.get(
     mongoChecker,
     authenticate, ...)
 ```
-Purpose/Usage:
+**Data Expected:**
 
-Data Expected:
-
-Data Returned:
+**Data Returned:**
 
 ---
 
@@ -238,11 +236,9 @@ router.post("/api/addComment",
     mongoChecker, 
     authenticate, ...)
 ```
-Purpose/Usage:
+**Data Expected:**
 
-Data Expected:
-
-Data Returned:
+**Data Returned:**
 
 #### Remove Comment
 ```javascript
@@ -251,11 +247,9 @@ router.delete(
     mongoChecker,
     authenticate, ...)
 ```
-Purpose/Usage:
+**Data Expected:**
 
-Data Expected:
-
-Data Returned:
+**Data Returned:**
 
 ---
 
@@ -267,11 +261,9 @@ API routes for handling images
 router.post("/images", 
     multipartMiddleware, ...)
 ```
-Purpose/Usage:
+**Data Expected:**
 
-Data Expected:
-
-Data Returned:
+**Data Returned:**
 
 #### Change User Avatar
 ```javascript
@@ -281,11 +273,9 @@ router.post(
     authenticate,
     multipartMiddleware, ...)
 ```
-Purpose/Usage:
+**Data Expected:**
 
-Data Expected:
-
-Data Returned:
+**Data Returned:**
 
 ---
 
@@ -298,11 +288,9 @@ router.get("/api/followers",
     mongoChecker, 
     authenticate, ...)
 ```
-Purpose/Usage:
+**Data Expected:**
 
-Data Expected:
-
-Data Returned:
+**Data Returned:**
 
 #### Get Following
 ```javascript
@@ -310,11 +298,9 @@ router.get("/api/following",
     mongoChecker, 
     authenticate, ...)
 ```
-Purpose/Usage:
+**Data Expected:**
 
-Data Expected:
-
-Data Returned:
+**Data Returned:**
 
 #### Update User Relationship
 ```javascript
@@ -323,11 +309,9 @@ router.patch(
     mongoChecker,
     authenticate, ...)
 ```
-Purpose/Usage:
+**Data Expected:**
 
-Data Expected:
-
-Data Returned:
+**Data Returned:**
 
 ---
 
@@ -341,11 +325,9 @@ router.get(
     mongoChecker,
     authenticate, ...)
 ```
-Purpose/Usage:
+**Data Expected:**
 
-Data Expected:
-
-Data Returned:
+**Data Returned:**
 
 #### Get Profile Posts
 ```javascript
@@ -354,11 +336,9 @@ router.get(
     mongoChecker,
     authenticate, ...)
 ```
-Purpose/Usage:
+**Data Expected:**
 
-Data Expected:
-
-Data Returned:
+**Data Returned:**
 
 #### Get Main View Posts
 ```javascript
@@ -367,11 +347,9 @@ router.get(
     mongoChecker,
     authenticate, ...)
 ```
-Purpose/Usage:
+**Data Expected:**
 
-Data Expected:
-
-Data Returned:
+**Data Returned:**
 
 #### Get Searched Posts
 ```javascript
@@ -380,11 +358,9 @@ router.get(
     mongoChecker,
     authenticate, ...)
 ```
-Purpose/Usage:
+**Data Expected:**
 
-Data Expected:
-
-Data Returned:
+**Data Returned:**
 
 #### Make Post
 ```javascript
@@ -392,11 +368,9 @@ router.post("/api/makePost",
     mongoChecker, 
     authenticate, ...)
 ```
-Purpose/Usage:
+**Data Expected:**
 
-Data Expected:
-
-Data Returned:
+**Data Returned:**
 
 #### Remove Post
 ```javascript
@@ -405,11 +379,9 @@ router.delete(
     mongoChecker,
     authenticate, ...)
 ```
-Purpose/Usage:
+**Data Expected:**
 
-Data Expected:
-
-Data Returned:
+**Data Returned:**
 
 ---
 
@@ -420,21 +392,17 @@ API routes that handle user login/logout, fetching and updating user information
 ```javascript
 router.post("/users/login", ...)
 ```
-Purpose/Usage:
+**Data Expected:**
 
-Data Expected:
-
-Data Returned:
+**Data Returned:**
 
 #### User logout
 ```javascript
 router.get("/users/logout", ...)
 ```
-Purpose/Usage:
+**Data Expected:**
 
-Data Expected:
-
-Data Returned:
+**Data Returned:**
 
 #### Update User Password
 ```javascript
@@ -443,22 +411,18 @@ router.patch(
     mongoChecker,
     authenticate, ...)
 ```
-Purpose/Usage:
+**Data Expected:**
 
-Data Expected:
-
-Data Returned:
+**Data Returned:**
 
 #### Create User
 ```javascript
 router.post("/api/addUser", 
     mongoChecker, ...)
 ```
-Purpose/Usage:
+**Data Expected:**
 
-Data Expected:
-
-Data Returned:
+**Data Returned:**
 
 #### Get User Info
 ```javascript
@@ -466,22 +430,18 @@ router.get("/api/user",
     mongoChecker, 
     authenticate, ...)
 ```
-Purpose/Usage:
+**Data Expected:**
 
-Data Expected:
-
-Data Returned:
+**Data Returned:**
 
 #### Get User By ID
 ```javascript
 router.get("/api/user/:id", 
     mongoChecker, ...)
 ```
-Purpose/Usage:
+**Data Expected:**
 
-Data Expected:
-
-Data Returned:
+**Data Returned:**
 
 #### Update User Avatar By Link
 ```javascript
@@ -490,11 +450,9 @@ router.patch(
     mongoChecker,
     authenticate, ...)
 ```
-Purpose/Usage:
+**Data Expected:**
 
-Data Expected:
-
-Data Returned:
+**Data Returned:**
 
 ---
 
