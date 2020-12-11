@@ -1,12 +1,24 @@
-
-
 # Petlog team33 
 
-## Deployed Website
+## Index
+- [Deployed Website](#deployed-website)
+- [List of Framework and Libraries used in our application](#list-of-framework-and-libraries-used-in-our-application)
+- [Usage and instructions for our application](#usage-and-instructions-for-our-application)
+  * [Explanation and guide to our features](#explanation-and-guide-to-our-features)
+  * [User](#user)
+  * [Admin](#admin)
+- [Documentations For Our Express Routes](#documentations-for-our-express-routes)
+  * [Middlewares](#middlewares)
+  * [Session Handling](#session-handling)
+  * [Image API Routes](#image-api-routes)
+  * [Regular User Routes](#regular-user-routes)
+  * [Admin Routes](#admin-routes)
 
+
+## Deployed Website
 [link](link)
 
-## List of Framework/Libraries used in our application
+## List of Framework and Libraries used in our application
  - React
  - Material UI
 
@@ -94,7 +106,7 @@ Functionalities walkthrough:
 - The admin user can choose to Ban **and Unban** a user from a post or a comment. This can be done by clicking on the menu button beside the post or comment made by a user and clicking on the "Ban User" option. This will prevent that user from logging in, but that user's posts and profile page will still be accessible by other users.
 
 ## Documentations For Our Express Routes
-### ======================== Middle Wares ========================
+### Middlewares 
 
 **Explain the purpose for each middleware**
 
@@ -106,7 +118,7 @@ isAdmin
 
 multipartMiddleware
 
-### ======================== Session Handling ========================
+### Session Handling
 
 ```javascript
 app.post("/users/login")
@@ -136,7 +148,7 @@ Data Expected:
 Data Returned:
 
 
-### ======================== Image API Routes ========================
+### Image API Routes
 ```javascript
 app.post("/images", multipartMiddleware, ...)
 ```
@@ -164,7 +176,7 @@ Data Expected:
 
 Data Returned:
 
-### ======================== Regular User Routes ========================
+### Regular User Routes
 ```javascript
 app.post("/api/addUser", mongoChecker, ...)
 ```
@@ -319,7 +331,7 @@ Data Expected:
 Data Returned:
 
 
-### ======================== Admin Routes ========================
+### Admin Routes
 ```javascript
 app.patch("/api/admin/toggleBanStatus/:user_id", mongoChecker, authenticate, isAdmin, ...)
 ```
