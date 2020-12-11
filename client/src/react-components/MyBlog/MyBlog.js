@@ -170,6 +170,7 @@ class MyBlog extends Component {
                             />
                             <div style={{display: "flex"}}>
                                 {images}
+                                {this.state.local_image_urls.length === 0 ? null: `(${this.state.local_image_urls.length}/${MAX_POSTS})`}
                             </div>
                         </div>
 
