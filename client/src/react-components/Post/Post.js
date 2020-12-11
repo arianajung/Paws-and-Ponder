@@ -109,6 +109,7 @@ class Post extends React.Component {
             // app_users,
             post,
             postlist,
+            type,
             // myBlog,
             // profileImg,
             // page,
@@ -245,6 +246,22 @@ class Post extends React.Component {
             );
         });
 
+        const dialog =
+            type !== "bookmarks" ? (
+                <Dialog
+                    open={this.state.open}
+                    onClose={this.handleClose}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                            {this.state.dialogMessage}
+                        </DialogContentText>
+                    </DialogContent>
+                </Dialog>
+            ) : null;
+
         return (
             <div>
                 <div className="post-wrapper">
@@ -272,18 +289,7 @@ class Post extends React.Component {
                                 {adminButton(true)}
                             </div>
 
-                            <Dialog
-                                open={this.state.open}
-                                onClose={this.handleClose}
-                                aria-labelledby="alert-dialog-title"
-                                aria-describedby="alert-dialog-description"
-                            >
-                                <DialogContent>
-                                    <DialogContentText id="alert-dialog-description">
-                                        {this.state.dialogMessage}
-                                    </DialogContentText>
-                                </DialogContent>
-                            </Dialog>
+                            {dialog}
 
                             {/* Need to add more user stuff here like user pic*/}
                         </div>
