@@ -2,7 +2,6 @@ import React, { Component, useRef } from "react";
 import { uid } from "react-uid";
 
 // material-ui imports
-import SearchBar from "material-ui-search-bar";
 import TextField from "@material-ui/core/TextField";
 
 import Button from "@material-ui/core/Button";
@@ -16,9 +15,6 @@ import PermanentDrawerRight from "../DrawerMenu/Drawer";
 import Navbar from "../Navbar/Navbar";
 import PostList from "../PostList/PostList";
 import postImg from "./static/post_img.jpeg";
-import getCurrentUserAndIndex from "../../actions/getCurrentUserAndIndex";
-import getPostIndex from "../../actions/getPostIndex";
-import searchRequest from "../../actions/searchRequest";
 
 // css
 import "./MyBlog.css";
@@ -44,11 +40,6 @@ class MyBlog extends Component {
             new_tag: "",
             new_post_tags: [],
             req: "blog",
-            // current_username: "bruh", //props.current_username,
-            // current_user_role: "user", //props.current_user_role,
-            // profileImg: "",
-            // following: [],
-            // followers: [],
             currentUser: null,
         };
     }
@@ -159,11 +150,6 @@ class MyBlog extends Component {
                         app={this.props.app}
                         view="myblog"
                         currentUser={this.state.currentUser}
-
-                    // view="myBlog"
-                    // current_user={this.state.current_username}
-                    // current_user_role={this.state.current_user_role}
-                    // profileImg={this.state.profileImg}
                     />
                 </div>
                 <div className="blog-middle-area">
@@ -257,15 +243,11 @@ class MyBlog extends Component {
                         <PostList
                             currentUser={this.state.currentUser}
                             type={this.state.req}
-                            // myBlog={this}
                             // profileImg={this.state.profileImg}
                             // role={this.state.current_user_role}
                             searchText={this.searchText}
                             app={this.props.app}
                             page={this}
-                        // addComment={this.addComment}
-                        // current_username={this.state.current_username}
-                        //app_users={this.state.app_users}
                         // posts={this.state.posts}
                         />
                     </div>
@@ -274,8 +256,6 @@ class MyBlog extends Component {
                     <PermanentDrawerRight
                         app={this.props.app}
                         page={this}
-                    // following={this.state.following}
-                    // followers={this.state.followers}
                     />
                 </div>
             </div>

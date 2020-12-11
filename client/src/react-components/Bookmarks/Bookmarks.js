@@ -95,7 +95,7 @@ class Bookmarks extends React.Component {
         return (
             <div className="bookmarks-container">
                 <div>
-                    <Navbar view="bookmarks" />
+                    <Navbar app={this.props.app} view="bookmarks" />
                 </div>
                 <div className="bookmarks-middle-area">
                     <div className="post-area">
