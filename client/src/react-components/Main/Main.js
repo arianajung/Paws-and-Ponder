@@ -33,18 +33,17 @@ class Main extends React.Component {
     componentDidMount() {
         getCurrentUser(this);
         console.log("Main.js ComponentDidMount()");
-        console.log(this.props.location.state);
         if (this.props.location.state !== undefined && this.props.location.state.clickedTag !== undefined) {
             this.setState({ searchText: this.props.location.state.clickedTag })
             this.setState({ type: "searching" })
         }
     }
 
-    componentDidUpdate() {
-        if (this.state.req === "searched") {
-            this.setState({ req: "main" });
-        }
-    }
+    // componentDidUpdate() {
+    //     if (this.state.req === "searched") {
+    //         this.setState({ req: "main" });
+    //     }
+    // }
 
     render() {
         const { app } = this.props;
