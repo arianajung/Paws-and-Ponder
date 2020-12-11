@@ -39,11 +39,11 @@ class Main extends React.Component {
         }
     }
 
-    componentDidUpdate() {
-        if (this.state.req === "searched") {
-            this.setState({ req: "main" });
-        }
-    }
+    // componentDidUpdate() {
+    //     if (this.state.req === "searched") {
+    //         this.setState({ req: "main" });
+    //     }
+    // }
 
     render() {
         const { app } = this.props;

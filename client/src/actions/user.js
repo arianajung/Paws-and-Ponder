@@ -5,7 +5,7 @@ export const updatePassword = async (password) => {
     const request = new Request(url, {
         method: "PATCH",
         body: JSON.stringify({
-            password : password
+            password: password
         }),
         headers: {
             Accept: "application/json, text/plain, */*",
@@ -253,7 +253,11 @@ export const addComment = async (new_comment, pid, postlist) => {
         .then((json) => {
             // the resolved promise with the JSON body
             if (postlist.state.type === "main") {
-                getPosts(postlist);
+                if (postlist.props.type === "searched") {
+                    getSearchedPosts(postlist, postlist.props.search_text, postlist.props.page);
+                } else {
+                    getPosts(postlist);
+                }
             } else if (postlist.state.type === "profile") {
                 getProfilePosts(postlist);
             } else if (postlist.state.type === "bookmarks") {
@@ -321,7 +325,11 @@ export const removePost = async (postID, postList) => {
             // probably will have to distinguish if it's a req from user vs. admin later
             // including types of post list becase an admin can delete from different pages
             if (postList.state.type === "main") {
-                getPosts(postList);
+                if (postList.props.type === "searched") {
+                    getSearchedPosts(postList, postList.props.search_text, postList.props.page);
+                } else {
+                    getPosts(postList);
+                }
             } else if (postList.state.type === "profile") {
                 getProfilePosts(postList);
             } else {
@@ -353,7 +361,11 @@ export const removeComment = async (postID, commentID, postList) => {
         .then((json) => {
             // probably will have to distinguish if it's a req from user vs. admin later
             if (postList.state.type === "main") {
-                getPosts(postList);
+                if (postList.props.type === "searched") {
+                    getSearchedPosts(postList, postList.props.search_text, postList.props.page);
+                } else {
+                    getPosts(postList);
+                }
             } else if (postList.state.type === "profile") {
                 getProfilePosts(postList);
             } else if (postList.state.type === "bookmarks") {

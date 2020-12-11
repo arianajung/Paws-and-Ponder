@@ -117,10 +117,7 @@ router.get(
     authenticate,
     async (req, res) => {
         try {
-            const user_ids = await User.find(
-                { username: new RegExp(req.query.search_text, "i") },
-                "_id"
-            );
+            const user_ids = await User.find({ username: new RegExp(req.query.search_text, "i") },"_id");
 
             const posts = await Post.find({
                 $or: [
