@@ -72,7 +72,7 @@ class MyBlog extends Component {
             const image_urls = await addImage(image_files, this);
 
             // add the post to the database
-            makePost(new_post_text, image_urls, new_post_tags);
+            await makePost(new_post_text, image_urls, new_post_tags);
             this.setState({
                 req: "makePost",
                 new_post_text: "",
