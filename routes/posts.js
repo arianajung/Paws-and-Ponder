@@ -117,7 +117,10 @@ router.get(
     authenticate,
     async (req, res) => {
         try {
-            const user_ids = await User.find({ username: new RegExp(req.query.search_text, "i") },"_id");
+            const user_ids = await User.find(
+                { username: new RegExp(req.query.search_text, "i") },
+                "_id"
+            );
 
             const posts = await Post.find({
                 $or: [
@@ -133,10 +136,7 @@ router.get(
     }
 );
 
-router.post("/api/makePost", 
-    mongoChecker, 
-    authenticate, 
-    async (req, res) => {
+router.post("/api/makePost", mongoChecker, authenticate, async (req, res) => {
     const new_post = new Post({
         owner_id: req.user._id,
         textContent: req.body.textContent,
@@ -182,6 +182,26 @@ router.delete(
             } else {
                 await removedPost.delete();
                 res.send(removedPost);
+            }
+        } catch (error) {
+            log(error);
+            res.status(500).send(); // server error, could not delete.
+        }
+
+        try {
+            const allUsers = await User.find({});
+            if (!allUsers) {
+                res.status(404).send("Resource not found");
+            } else {
+                allUsers.forEach(async (user) => {
+                    if (user.bookmarks.includes(postID)) {
+                        user.bookmarks = user.bookmarks.filter((p) => {
+                            return !p.equals(postID);
+                        });
+                        const updatedUser = await user.save();
+                        res.send(updatedUser);
+                    }
+                });
             }
         } catch (error) {
             log(error);
