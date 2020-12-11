@@ -75,7 +75,7 @@ router.patch(
 );
 
 router.post("/api/addUser", mongoChecker, async (req, res) => {
-    log(`Adding User ${req.body.username}`);
+    console.log(`Adding User ${req.body.username}`);
 
     // Create a new user using the User mongoose model
     const user = new User({
