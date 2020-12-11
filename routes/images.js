@@ -28,12 +28,10 @@ const { Image } = require("../models/image");
 // a POST route to *create* an image
 router.post("/images", multipartMiddleware, (req, res) => {
     // Use uploader.upload API to upload image to cloudinary server.
-    console.log("request files: ", req);
     // let image_array = [];
     let upload_responses = [];
     for (const file_name in req.files) {
         const upload_res = new Promise((resolve, reject) => {
-            console.log(req.files[file_name].path);
             cloudinary.uploader.upload(
                 req.files[file_name].path,
                 function (result, error) {
@@ -46,13 +44,11 @@ router.post("/images", multipartMiddleware, (req, res) => {
                 }
             );
         });
-        console.log("upload_res promise: ", upload_res);
         upload_responses.push(upload_res);
     }
 
     Promise.all(upload_responses)
         .then((result) => {
-            console.log(result);
             res.send({ result });
         })
         .catch((error) => {

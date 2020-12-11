@@ -121,9 +121,6 @@ export const getSpecificUser = (page, postUser_id) => {
 export const updateUserRelation = (page, profile_id) => {
     // the URL for the request
     const url = `/api/updateUserRelation?profile_id=${profile_id}`;
-
-    console.log(url);
-
     const request = new Request(url, {
         method: "PATCH",
         headers: {
@@ -178,9 +175,6 @@ export const getUserPosts = (postList) => {
 
 export const getProfilePosts = (postList) => {
     const url = `/api/getProfilePosts?username=${postList.state.currentuser}`;
-    // export const getProfilePosts = (postList, profile_username) => {
-    //     const url = `/api/getProfilePosts?username=${profile_username}`;
-    //     console.log(`/api/getProfilePosts?username=${profile_username}`)
 
     fetch(url, {
         accepts: "application/json",
@@ -195,7 +189,6 @@ export const getProfilePosts = (postList) => {
         })
         .then((json) => {
             // the resolved promise with the JSON body
-            console.log("posts from user.js:" + json.posts);
             postList.setState({ postList: json.posts });
         })
         .catch((error) => {
@@ -357,10 +350,6 @@ export const removeComment = async (postID, commentID, postList) => {
 
 export const getSearchedPosts = async (postlist, search_text, mainpage) => {
     const url = `/api/getSearchedPost?search_text=${search_text}`;
-    // export const getProfilePosts = (postList, profile_username) => {
-    //     const url = `/api/getProfilePosts?username=${profile_username}`;
-    //     console.log(`/api/getProfilePosts?username=${profile_username}`)
-
     fetch(url, {
         accepts: "application/json",
     })

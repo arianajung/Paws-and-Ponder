@@ -155,22 +155,5 @@ router.get("/api/user/:id",
     }
 });
 
-router.patch(
-    "/api/updateProfileImgByLink",
-    mongoChecker,
-    authenticate,
-    async (req, res) => {
-        try {
-            const user = await User.findById(req.user._id);
-            console.log(req.query.image_url);
-            user.profileImg = req.query.image_url;
-            user.save();
-            res.send("Successful");
-        } catch (error) {
-            res.status(400).send("400 Bad Request");
-        }
-    }
-);
-
 // export the router
 module.exports = router;
