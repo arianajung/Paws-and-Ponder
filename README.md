@@ -10,13 +10,17 @@
 - [Documentations For Our Express Routes](#documentations-for-our-express-routes)
   * [Middlewares](#middlewares)
   * [Session Handling](#session-handling)
-  * [Image API Routes](#image-api-routes)
-  * [Regular User Routes](#regular-user-routes)
-  * [Admin Routes](#admin-routes)
+  * [Admin](#Admin)
+  * [Bookmarks](#bookmarks)
+  * [Comments](#comments)
+  * [Images](#images)
+  * [Interactions](#Interactions)
+  * [Posts](#Posts)
+  * [Users](#Users)
 
 
 ## Deployed Website
-[link](link)
+[https://pawsandponder.herokuapp.com/](https://pawsandponder.herokuapp.com/)
 
 ## List of Framework and Libraries used in our application
  - React
@@ -121,24 +125,6 @@ multipartMiddleware
 ### Session Handling
 
 ```javascript
-app.post("/users/login")
-```
-Purpose/Usage:
-
-Data Expected:
-
-Data Returned:
-
-```javascript
-app.get("/users/logout")
-```
-Purpose/Usage:
-
-Data Expected:
-
-Data Returned:
-
-```javascript
 app.get("/users/check-session")
 ```
 Purpose/Usage:
@@ -147,191 +133,9 @@ Data Expected:
 
 Data Returned:
 
-
-### Image API Routes
-```javascript
-app.post("/images", multipartMiddleware, ...)
-```
-Purpose/Usage:
-
-Data Expected:
-
-Data Returned:
-
-```javascript
-app.get("/images", ...)
-```
-Purpose/Usage:
-
-Data Expected:
-
-Data Returned:
-
-```javascript
-app.delete("/images/:imageId", ...)
-```
-Purpose/Usage:
-
-Data Expected:
-
-Data Returned:
-
-### Regular User Routes
-```javascript
-app.post("/api/addUser", mongoChecker, ...)
-```
-Purpose/Usage:
-
-Data Expected:
-
-Data Returned:
-
-```javascript
-app.post("/api/addComment", mongoChecker, authenticate, ...)
-```
-Purpose/Usage:
-
-Data Expected:
-
-Data Returned:
-
-```javascript
-app.get("/api/getUserPosts", mongoChecker, authenticate, ...)
-```
-Purpose/Usage:
-
-Data Expected:
-
-Data Returned:
-
-```javascript
-app.get("/api/getProfilePosts", mongoChecker, authenticate, ...)
-```
-Purpose/Usage:
-
-Data Expected:
-
-Data Returned:
-
-```javascript
-app.get("/api/get-main-posts/", mongoChecker, authenticate, ...)
-```
-Purpose/Usage:
-
-Data Expected:
-
-Data Returned:
-
-```javascript
-app.get("/api/getSearchedPost", mongoChecker, authenticate, ...)
-```
-Purpose/Usage:
-
-Data Expected:
-
-Data Returned:
-
-```javascript
-app.get("/api/followers", mongoChecker, authenticate, ...)
-```
-Purpose/Usage:
-
-Data Expected:
-
-Data Returned:
-
-```javascript
-app.get("/api/following", mongoChecker, authenticate, ...)
-```
-Purpose/Usage:
-
-Data Expected:
-
-Data Returned:
-
-```javascript
-app.get("/api/user", mongoChecker, authenticate, ...)
-```
-Purpose/Usage:
-
-Data Expected:
-
-Data Returned:
-
-```javascript
-app.get("/api/user/:id", mongoChecker, ...)
-```
-Purpose/Usage:
-
-Data Expected:
-
-Data Returned:
-
-```javascript
-app.patch("/api/updateUserRelation", mongoChecker, authenticate, ...)
-```
-Purpose/Usage:
-
-Data Expected:
-
-Data Returned:
-
-```javascript
-app.post("/api/makePost", mongoChecker, authenticate, ...)
-```
-Purpose/Usage:
-
-Data Expected:
-
-Data Returned:
-
-```javascript
-app.delete("/api/removePost/:postID", mongoChecker, authenticate, ...)
-```
-Purpose/Usage:
-
-Data Expected:
-
-Data Returned:
-
-```javascript
-app.delete("/api/removeComment/:postID/:commentID", mongoChecker, authenticate, ...)
-```
-Purpose/Usage:
-
-Data Expected:
-
-Data Returned:
-
-```javascript
-app.post("/api/bookmarkPost/:postID", mongoChecker, authenticate, ...)
-```
-Purpose/Usage:
-
-Data Expected:
-
-Data Returned:
-
-```javascript
-app.delete("/api/unbookmarkPost/:postID", mongoChecker, authenticate, ...)
-```
-Purpose/Usage:
-
-Data Expected:
-
-Data Returned:
-
-```javascript
-app.get("/api/getBookmarkPosts", mongoChecker, authenticate, ...)
-```
-Purpose/Usage:
-
-Data Expected:
-
-Data Returned:
-
-
 ### Admin Routes
+API routes exclusive to admin users
+
 ```javascript
 app.patch("/api/admin/toggleBanStatus/:user_id", mongoChecker, authenticate, isAdmin, ...)
 ```
@@ -341,6 +145,272 @@ Data Expected:
 
 Data Returned:
 
+### Bookmarks
+API routes for handling bookmarks
+
+```javascript
+router.post(
+    "/api/bookmarkPost/:postID",
+    mongoChecker,
+    authenticate, ...)
+```
+Purpose/Usage:
+
+Data Expected:
+
+Data Returned:
+
+```javascript
+router.delete(
+    "/api/unbookmarkPost/:postID",
+    mongoChecker,
+    authenticate, ...)
+```
+Purpose/Usage:
+
+Data Expected:
+
+Data Returned:
+
+```javascript
+router.get(
+    "/api/getBookmarkPosts",
+    mongoChecker,
+    authenticate, ...)
+```
+Purpose/Usage:
+
+Data Expected:
+
+Data Returned:
+
+### Comments
+API routes for handling comments
+
+```javascript
+router.post("/api/addComment", 
+    mongoChecker, 
+    authenticate, ...)
+```
+Purpose/Usage:
+
+Data Expected:
+
+Data Returned:
+
+```javascript
+router.delete(
+    "/api/removeComment/:postID/:commentID",
+    mongoChecker,
+    authenticate, ...)
+```
+Purpose/Usage:
+
+Data Expected:
+
+Data Returned:
+
+
+### Images
+API routes for handling images
+
+```javascript
+router.post("/images", 
+    multipartMiddleware, ...)
+```
+Purpose/Usage:
+
+Data Expected:
+
+Data Returned:
+
+```javascript
+router.post(
+    "/api/changeUserAvatar",
+    mongoChecker,
+    authenticate,
+    multipartMiddleware, ...)
+```
+Purpose/Usage:
+
+Data Expected:
+
+Data Returned:
+
+### Interactions
+API routes that handle follow/unfollow interations
+
+```javascript
+router.get("/api/followers", 
+    mongoChecker, 
+    authenticate, ...)
+```
+Purpose/Usage:
+
+Data Expected:
+
+Data Returned:
+
+```javascript
+router.get("/api/following", 
+    mongoChecker, 
+    authenticate, ...)
+```
+Purpose/Usage:
+
+Data Expected:
+
+Data Returned:
+
+```javascript
+router.patch(
+    "/api/updateUserRelation",
+    mongoChecker,
+    authenticate, ...)
+```
+Purpose/Usage:
+
+Data Expected:
+
+Data Returned:
+
+### Posts
+API routes that handle retrieving. creating, and deleting posts
+
+```javascript
+router.get(
+    "/api/getUserPosts",
+    mongoChecker,
+    authenticate, ...)
+```
+Purpose/Usage:
+
+Data Expected:
+
+Data Returned:
+
+```javascript
+router.get(
+    "/api/getProfilePosts",
+    mongoChecker,
+    authenticate, ...)
+```
+Purpose/Usage:
+
+Data Expected:
+
+Data Returned:
+
+```javascript
+router.get(
+    "/api/get-main-posts/",
+    mongoChecker,
+    authenticate, ...)
+```
+Purpose/Usage:
+
+Data Expected:
+
+Data Returned:
+
+```javascript
+router.get(
+    "/api/getSearchedPost",
+    mongoChecker,
+    authenticate, ...)
+```
+Purpose/Usage:
+
+Data Expected:
+
+Data Returned:
+
+```javascript
+router.post("/api/makePost", 
+    mongoChecker, 
+    authenticate, ...)
+```
+Purpose/Usage:
+
+Data Expected:
+
+Data Returned:
+
+```javascript
+router.delete(
+    "/api/removePost/:postID",
+    mongoChecker,
+    authenticate, ...)
+```
+Purpose/Usage:
+
+Data Expected:
+
+Data Returned:
+
+### Users
+API routes that handle user login/logout, fetching and updating user information
+
+```javascript
+router.post("/users/login", ...)
+```
+Purpose/Usage:
+
+Data Expected:
+
+Data Returned:
+
+```javascript
+router.get("/users/logout", ...)
+```
+Purpose/Usage:
+
+Data Expected:
+
+Data Returned:
+
+```javascript
+router.post("/api/addUser", 
+    mongoChecker, ...)
+```
+Purpose/Usage:
+
+Data Expected:
+
+Data Returned:
+
+```javascript
+router.get("/api/user", 
+    mongoChecker, 
+    authenticate, ...)
+```
+Purpose/Usage:
+
+Data Expected:
+
+Data Returned:
+
+```javascript
+router.get("/api/user/:id", 
+    mongoChecker, ...)
+```
+Purpose/Usage:
+
+Data Expected:
+
+Data Returned:
+
+```javascript
+router.patch(
+    "/api/updateProfileImgByLink",
+    mongoChecker,
+    authenticate, ...)
+```
+Purpose/Usage:
+
+Data Expected:
+
+Data Returned:
 
 ---
 
