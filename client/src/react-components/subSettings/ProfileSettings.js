@@ -13,6 +13,13 @@ import Radio from "@material-ui/core/Radio";
 import IconButton from "@material-ui/core/IconButton";
 import InsertPhotoIcon from "@material-ui/icons/InsertPhoto";
 
+
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+
 import { useStyles } from "./subSettingsStyles";
 import "../Settings/Settings.css";
 
@@ -20,23 +27,45 @@ import bunnysrc from "../../static/bunny.jpg";
 import catsrc from "../../static/cat.jpg";
 import dogsrc from "../../static/dog.jpg";
 
+import { addUserProfileImage } from "../../actions/image";
 
+
+
+import './ProfileSettings.css'
 
 export default function ProfileSettings(props) {
 	const classes = useStyles();
 	const [expanded, setExpanded] = React.useState(false);
 	const [selectedImage, setSelectedImage] = React.useState("img1");
 
-	const [imageFiles, updateImageFiles] = React.useReducer((imageFiles, { type, newFile }) => {
-		switch (type) {
-			case "add":
-				return [...imageFiles, newFile];
-			case "remove":
-				return imageFiles.filter(({ name }) => name !== newFile.name);
-			default:
-				return imageFiles;
-		}
-	}, []);
+	const [avatars, setAvatars] = React.useState([
+		'https://res.cloudinary.com/ddgs1ughh/image/upload/v1607662766/bunny_ywqdka.jpg',
+		'https://res.cloudinary.com/ddgs1ughh/image/upload/v1607662771/cat_fa7xjc.jpg',
+		'https://res.cloudinary.com/ddgs1ughh/image/upload/v1607662775/dog_kx3jmg.jpg'
+	])
+
+	const [dialogMessage, setDialogMesage] = React.useState("");
+	// const [avatars, setAvatars] = React.useReducer((avatars, { type, newFile }) => {
+	// 	switch (type) {
+	// 		case "add":
+	// 			return [...avatars, newFile];
+	// 		case "remove":
+	// 			return avatars.filter(({ name }) => name !== newFile.name);
+	// 		default:
+	// 			return avatars;
+	// 	}
+	// }, []);
+	const [open, setOpen] = React.useState(false);
+
+	const handleClickOpen = () => {
+		setOpen(true);
+	};
+
+	const handleClose = () => {
+		setOpen(false);
+	};
+
+	const [uploadedImage, setUploadedImage] = React.useState(null);
 
 	//Should initialize state with current username
 	const [values, setValues] = React.useState({
@@ -69,13 +98,33 @@ export default function ProfileSettings(props) {
 		setSelectedImage(e.target.value);
 	};
 
-
-	const changeAvatar = () => {
+	const changeAvatar = async () => {
 		// plan to update information to back-end in phase 2
 		// setValues({...values, profilePic: avatars[selectedImage]})
 		// let current_user = values.app_users.slice()[values.current_user_index];
 		// current_user.profileImg = avatars[selectedImage];
+		if (uploadedImage !== null && selectedImage === "img4") {
+			const wasAdded = await addUserProfileImage(uploadedImage);
+			if (wasAdded) {
+				setDialogMesage("Your profile picture has been updated!");
+			} else {
+				setDialogMesage("Failed to update profile pictures!");
+			}
+		} else {
+			console.log(avatars[selectedImage.slice(3)-1]);
+			console.log(selectedImage);
+			fetch(`/api/updateProfileImgByLink?image_url=${avatars[selectedImage.slice(3)-1]}`, {
+				method: "PATCH",
+			}).then((res) => {
+				if (res.status === 200) {
+					setDialogMesage("Your profile picture has been updated!");
+				} else {
+					setDialogMesage("Failed to update profile pictures!");
+				}
+			})
+		}
 
+		handleClickOpen();
 	};
 
 	//Reflect input changes to hooks
@@ -97,21 +146,21 @@ export default function ProfileSettings(props) {
 	const uploadFile = (e) => {
 		const fileUploaded = e.target.files[0];
 
-		updateImageFiles({ type: "add", value: fileUploaded });
+		// updateImageFiles({ type: "add", value: fileUploaded });
+		setUploadedImage(fileUploaded);
 
-		console.log("imageFiles: ", imageFiles);
+		console.log("fileUploaded: ", fileUploaded);
 
 
 		//this.setState({ local_image_urls: local_image_urls, image_files: image_files });
-        e.target.value = null;
-        
-    };
+		e.target.value = null;
+	};
 
 	return (
 		<div className={classes.root}>
 			<Typography className={classes.sectionHeading}>
 				Profile Settings
-      </Typography>
+      		</Typography>
 
 			<Accordion
 				expanded={expanded === "panel1"}
@@ -125,7 +174,7 @@ export default function ProfileSettings(props) {
 					<Typography className={classes.heading}>Username</Typography>
 					<Typography className={classes.secondaryHeading}>
 						Change your username
-          </Typography>
+         			 </Typography>
 				</AccordionSummary>
 
 				<AccordionDetails>
@@ -143,7 +192,7 @@ export default function ProfileSettings(props) {
 					<Button size="small">Cancel</Button>
 					<Button size="small" color="primary" onClick={changeUsername()}>
 						Save
-          </Button>
+          			</Button>
 				</AccordionActions>
 			</Accordion>
 
@@ -159,7 +208,7 @@ export default function ProfileSettings(props) {
 					<Typography className={classes.heading}>Bio</Typography>
 					<Typography className={classes.secondaryHeading}>
 						Change your biography
-          </Typography>
+          			</Typography>
 				</AccordionSummary>
 
 				<AccordionDetails>
@@ -177,7 +226,7 @@ export default function ProfileSettings(props) {
 					<Button size="small">Cancel</Button>
 					<Button size="small" color="primary" onClick={logOutput("bio")}>
 						Save
-          </Button>
+          			</Button>
 				</AccordionActions>
 			</Accordion>
 
@@ -193,14 +242,14 @@ export default function ProfileSettings(props) {
 					<Typography className={classes.heading}>Profile Picture</Typography>
 					<Typography className={classes.secondaryHeading}>
 						Change your profile picture
-          </Typography>
+          			</Typography>
 				</AccordionSummary>
 
 				<AccordionDetails>
 					<FormControl className={classes.margin}>
 						<div className="avatar-settings">
 							<div className="avatar-selector-wrapper">
-								<img className="img" src={bunnysrc} alt="profile-pic" />
+								<img className="img" src={avatars[0]} alt="profile-pic" />
 								<Radio
 									checked={selectedImage === "img1"}
 									onChange={selectAvatar}
@@ -210,7 +259,7 @@ export default function ProfileSettings(props) {
 								/>
 							</div>
 							<div className="avatar-selector-wrapper">
-								<img className="img" src={catsrc} alt="profile-pic" />
+								<img className="img" src={avatars[1]} alt="profile-pic" />
 								<Radio
 									checked={selectedImage === "img2"}
 									onChange={selectAvatar}
@@ -220,7 +269,7 @@ export default function ProfileSettings(props) {
 								/>
 							</div>
 							<div className="avatar-selector-wrapper">
-								<img className="img" src={dogsrc} alt="profile-pic" />
+								<img className="img" src={avatars[2]} alt="profile-pic" />
 								<Radio
 									checked={selectedImage === "img3"}
 									onChange={selectAvatar}
@@ -229,29 +278,57 @@ export default function ProfileSettings(props) {
 									inputProps={{ "aria-label": "img3" }}
 								/>
 							</div>
+							<div className="avatar-selector-wrapper">
+								<img className="img" src={uploadedImage !== null ? URL.createObjectURL(uploadedImage) : props.currentUserInfo.profileImg} alt="profile-pic" />
+								<Radio
+									checked={selectedImage === "img4"}
+									onChange={selectAvatar}
+									value="img4"
+									name="custom img"
+									inputProps={{ "aria-label": "img4" }}
+								/>
+							</div>
+
 						</div>
 					</FormControl>
+
+				</AccordionDetails>
+
+				<AccordionActions>
 					<IconButton
-						id="attach-button"
+						//classes={{ root: classes.iconButtonRoot}}
+						id="profile-attach-button"
 						onClick={() => handleClick()}
+
 					>
+						Upload a Photo
 						<InsertPhotoIcon />
 					</IconButton>
 					<input
 						name="image"
 						ref={hiddenFileInputRef}
-						onChange={(e) => uploadFile(e)} 
+						onChange={(e) => uploadFile(e)}
 						type="file"
 						style={{ display: 'none' }}
 					/>
-				</AccordionDetails>
-
-				<AccordionActions>
 					<Button size="small">Cancel</Button>
 					<Button size="small" color="primary" onClick={() => changeAvatar()}>
 						Save
-          </Button>
+          			</Button>
 				</AccordionActions>
+
+				<Dialog
+					open={open}
+					onClose={handleClose}
+					aria-labelledby="alert-dialog-title"
+					aria-describedby="alert-dialog-description"
+				>
+					<DialogContent>
+						<DialogContentText id="alert-dialog-description">
+							{dialogMessage}
+						</DialogContentText>
+					</DialogContent>
+				</Dialog>
 			</Accordion>
 
 			<Accordion
@@ -269,10 +346,10 @@ export default function ProfileSettings(props) {
 				<AccordionDetails>
 					<Typography>
 						Number of Posts: 321 <br />
-            Followers: 237 <br />
-            Following: 56 <br />
-            Total Likes: 5899
-          </Typography>
+            			Followers: 237 <br />
+            			Following: 56 <br />
+           				Total Likes: 5899
+          			</Typography>
 				</AccordionDetails>
 			</Accordion>
 		</div>
