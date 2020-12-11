@@ -25,7 +25,7 @@ const UserSchema = new mongoose.Schema({
     // Unsure about the ones belows
     bio: { type: String, default: "Hello and welcome to PetLog! Please visit the settings to customize your bio!" },
     // Unsure about the ones below
-    status: String,
+    status: { type: String, default: "user" },
 });
 
 // An example of Mongoose middleware.

@@ -238,13 +238,37 @@ app.post("/api/addUser", mongoChecker, async (req, res) => {
         following: [],
         follower: [],
         bookmarks: [],
-    });
+    }); 
 
     // Save user to the database
-    // async-await version:
     try {
+        // get admin user to update following relationship
+        const admin = await User.findById("5fd394c6391b14193c936d89");
+
+        user.following.push(admin._id)
+        admin.follower.push(user._id)
+
         const result = await user.save();
+        await admin.save();
         res.send(result);
+    } catch (error) {
+        log(error); // log server error to the console, not to the client.
+        if (isMongoError(error)) {
+            // check for if mongo server suddenly dissconnected before this request.
+            res.status(500).send("Internal server error");
+        } else {
+            res.status(400).send("Bad Request"); // 400 for bad request gets sent to client.
+        }
+    }
+});
+
+// a patch route to update a user's password
+app.patch("/api/updatePassword", mongoChecker, authenticate, async (req, res) => {
+    try {
+        // get admin user to update following relationship
+        req.user.password = req.body.password
+        await req.user.save(); //encrypt in the backend
+        res.send("Password Updated");
     } catch (error) {
         log(error); // log server error to the console, not to the client.
         if (isMongoError(error)) {
