@@ -5,7 +5,6 @@ const express = require("express");
 const router = express.Router(); // Express Router
 
 const { User } = require("../models/user");
-
 // helpers
 const { mongoChecker } = require("./helpers/mongo_helpers");
 const { authenticate } = require("./helpers/authentication");
