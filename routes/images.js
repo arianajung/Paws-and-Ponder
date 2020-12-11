@@ -1,4 +1,5 @@
 // Routes that involve images
+const log = console.log;
 
 // express
 const express = require("express");

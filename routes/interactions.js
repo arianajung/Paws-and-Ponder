@@ -1,4 +1,5 @@
 // Routes that involve user interactions
+const log = console.log;
 
 // express
 const express = require("express");

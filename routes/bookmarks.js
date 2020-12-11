@@ -1,4 +1,5 @@
 // Routes that involve bookmarks
+const log = console.log;
 
 // express
 const express = require("express");

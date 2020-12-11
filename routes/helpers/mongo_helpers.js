@@ -1,4 +1,5 @@
 // some helpers for mongo
+const log = console.log;
 
 const mongoose = require("mongoose");
 

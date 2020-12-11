@@ -1,4 +1,5 @@
 // Routes that involve posts
+const log = console.log;
 
 // express
 const express = require("express");
@@ -116,12 +117,15 @@ router.get(
     authenticate,
     async (req, res) => {
         try {
-            const user_ids = await User.find({ username: new RegExp(req.query.search_text, "i") }, '_id')
+            const user_ids = await User.find(
+                { username: new RegExp(req.query.search_text, "i") },
+                "_id"
+            );
 
             const posts = await Post.find({
                 $or: [
                     { tags: new RegExp(req.query.search_text, "i") },
-                    { owner_id: {$in: user_ids} },
+                    { owner_id: { $in: user_ids } },
                 ],
             }).sort({ timeStamp: -1 }); // returns posts sorted by latest
             res.send({ posts });

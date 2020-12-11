@@ -1,4 +1,5 @@
 // Routes that involve comments
+const log = console.log;
 
 // express
 const express = require("express");

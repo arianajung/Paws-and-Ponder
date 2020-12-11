@@ -1,4 +1,5 @@
 // Routes that involve users
+const log = console.log;
 
 // express
 const express = require("express");
@@ -85,15 +86,15 @@ router.post("/api/addUser", mongoChecker, async (req, res) => {
         following: [],
         follower: [],
         bookmarks: [],
-    }); 
+    });
 
     // Save user to the database
     try {
         // get admin user to update following relationship
         const admin = await User.findById("5fd394c6391b14193c936d89");
 
-        user.following.push(admin._id)
-        admin.follower.push(user._id)
+        user.following.push(admin._id);
+        admin.follower.push(user._id);
 
         const result = await user.save();
         await admin.save();
