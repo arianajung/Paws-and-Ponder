@@ -61,14 +61,11 @@ export const addUserProfileImage = async (file) => {
     const compression_options = {
         maxSizeMB: 0.2,
     };
-    console.log(file);
+
     // The data we are going to send in our request
     const imageData = new FormData();
     const compressed_file = await imageCompression(file, compression_options);
     imageData.append('file0', compressed_file);
-    imageData.append('file1', compressed_file);
-    
-    console.log("image data: ", imageData);
 
     const url = "/api/changeUserAvatar";
     const request = new Request(url, {

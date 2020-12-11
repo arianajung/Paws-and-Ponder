@@ -1,7 +1,7 @@
-#profile-attach-button.MuiIconButton-root:hover {
+/* #profile-attach-button.MuiIconButton-root:hover {
   color: rgba(0, 0, 0, 0.9);
   background-color: rgba(187, 181, 157, 0.507);
-}
+} */
 
 #profile-attach-button {
     border-radius: 5px;
@@ -9,7 +9,7 @@
     height: 30px;
 }
 
-#test.MuiRadio-root:hover fieldset{
+.test.MuiRadio-root:hover {
     background-color: "white";
 }
 
