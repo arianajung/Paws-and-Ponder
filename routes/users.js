@@ -75,7 +75,9 @@ router.patch(
     }
 );
 
-router.post("/api/addUser", mongoChecker, async (req, res) => {
+router.post("/api/addUser", 
+    mongoChecker, 
+    async (req, res) => {
     log(`Adding User ${req.body.username}`);
 
     // Create a new user using the User mongoose model
@@ -110,7 +112,10 @@ router.post("/api/addUser", mongoChecker, async (req, res) => {
     }
 });
 
-router.get("/api/user", mongoChecker, authenticate, async (req, res) => {
+router.get("/api/user", 
+    mongoChecker, 
+    authenticate, 
+    async (req, res) => {
     // Get the current user
     try {
         const user = await User.findById(req.user._id);
@@ -125,7 +130,9 @@ router.get("/api/user", mongoChecker, authenticate, async (req, res) => {
     }
 });
 
-router.get("/api/user/:id", mongoChecker, async (req, res) => {
+router.get("/api/user/:id", 
+    mongoChecker, 
+    async (req, res) => {
     const id = req.params.id;
 
     // Good practise: Validate id immediately.

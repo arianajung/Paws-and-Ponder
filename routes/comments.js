@@ -14,7 +14,10 @@ const { ObjectID } = require("mongodb");
 const { mongoChecker } = require("./helpers/mongo_helpers");
 const { authenticate } = require("./helpers/authentication");
 
-router.post("/api/addComment", mongoChecker, authenticate, async (req, res) => {
+router.post("/api/addComment", 
+    mongoChecker, 
+    authenticate, 
+    async (req, res) => {
     const new_comment = new Comment({
         owner_id: req.user._id,
         textContent: req.body.textContent,
