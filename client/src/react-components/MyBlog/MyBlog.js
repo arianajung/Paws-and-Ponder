@@ -22,7 +22,6 @@ import "./MyBlog.css";
 import { getCurrentUser, makePost } from "../../actions/user";
 import { addImage } from "../../actions/image";
 
-
 const MAX_POSTS = 4;
 
 const hiddenFileInput = React.createRef();
@@ -65,7 +64,12 @@ class MyBlog extends Component {
      5. MyBlog re-renders, but since "type" in PostList's state === our new req prop "blog", getUserPosts not called
     */
     makePostButtonPress = async (e) => {
-        const { new_post_text, local_image_urls, image_files, new_post_tags } = this.state;
+        const {
+            new_post_text,
+            local_image_urls,
+            image_files,
+            new_post_tags,
+        } = this.state;
         console.log("new post tags: ", new_post_tags);
         if (new_post_text.trim() !== "") {
             // add images to database
@@ -82,7 +86,7 @@ class MyBlog extends Component {
                 image_files: [],
             });
         }
-    }
+    };
 
     addTag(e) {
         if (
@@ -114,33 +118,37 @@ class MyBlog extends Component {
             const image_files = this.state.image_files.concat([fileUploaded]);
             console.log("image files: ", image_files);
 
-            const local_image_urls = this.state.local_image_urls.concat([URL.createObjectURL(fileUploaded)]);
-            console.log("image urls: ", local_image_urls)
+            const local_image_urls = this.state.local_image_urls.concat([
+                URL.createObjectURL(fileUploaded),
+            ]);
+            console.log("image urls: ", local_image_urls);
 
-            this.setState({ local_image_urls: local_image_urls, image_files: image_files });
+            this.setState({
+                local_image_urls: local_image_urls,
+                image_files: image_files,
+            });
         } else {
             // need to tell user that max upload limit has been reached
             console.log(`MAX UPLOAD LIMIT (${MAX_POSTS}) CANNOT BE EXCEEDED`);
         }
         event.target.value = null;
-        
-    };
+    }
 
     handleClick() {
         hiddenFileInput.current.click();
-    };
+    }
 
     render() {
         const images = this.state.local_image_urls.map((image_files) => {
             return (
                 <div>
-                    <img 
-                        className="image-container" 
-                        src={image_files} 
-                        alt="">
-                   </img>
+                    <img
+                        className="image-container"
+                        src={image_files}
+                        alt=""
+                    ></img>
                 </div>
-            )
+            );
         });
 
         return (
@@ -155,7 +163,7 @@ class MyBlog extends Component {
                 <div className="blog-middle-area">
                     <div className="make-a-post-container">
                         <div>
-                            {/* Server called needed here to display a preview of the image chosen by the user */}                    
+                            {/* Server called needed here to display a preview of the image chosen by the user */}
                             <TextField
                                 className="make-a-post-text"
                                 variant="outlined"
@@ -170,6 +178,7 @@ class MyBlog extends Component {
                             />
                             <div style={{display: "flex"}}>
                                 {images}
+                                {this.state.local_image_urls.length === 0 ? null: `(${this.state.local_image_urls.length}/${MAX_POSTS})`}
                             </div>
                         </div>
 
@@ -214,19 +223,18 @@ class MyBlog extends Component {
                                 <AddCircleIcon />
                             </IconButton>
 
-                            
                             <IconButton
                                 id="attach-button"
                                 onClick={() => this.handleClick()}
                             >
                                 <InsertPhotoIcon />
                             </IconButton>
-                            <input 
-                                name="image" 
+                            <input
+                                name="image"
                                 ref={hiddenFileInput}
                                 onChange={(e) => this.uploadFile(e)}
-                                type="file" 
-                                style={{display: 'none'}}
+                                type="file"
+                                style={{ display: "none" }}
                             />
                             <Button
                                 id="post-button"
@@ -248,15 +256,12 @@ class MyBlog extends Component {
                             searchText={this.searchText}
                             app={this.props.app}
                             page={this}
-                        // posts={this.state.posts}
+                            // posts={this.state.posts}
                         />
                     </div>
                 </div>
                 <div>
-                    <PermanentDrawerRight
-                        app={this.props.app}
-                        page={this}
-                    />
+                    <PermanentDrawerRight app={this.props.app} page={this} />
                 </div>
             </div>
         );

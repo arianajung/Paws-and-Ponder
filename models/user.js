@@ -18,15 +18,23 @@ const UserSchema = new mongoose.Schema({
         required: true,
         minlength: 4,
     },
-    profileImg: { type: String, default: "https://res.cloudinary.com/ddgs1ughh/image/upload/v1607364715/default_profile_image_wdvdbh.png" }, // ?
+    profileImg: {
+        type: String,
+        default:
+            "https://res.cloudinary.com/ddgs1ughh/image/upload/v1607364715/default_profile_image_wdvdbh.png",
+    }, // ?
     following: [{ type: ObjectID, ref: "User" }],
     follower: [{ type: ObjectID, ref: "User" }],
     bookmarks: [{ type: ObjectID, ref: "Post" }],
     // Unsure about the ones belows
-    bio: { type: String, default: "Hello and welcome to PetLog! Please visit the settings to customize your bio!" },
+    bio: {
+        type: String,
+        default:
+            "Hello and welcome to PetLog! Please visit the settings to customize your bio!",
+    },
     // Unsure about the ones below
-    status: String,
-    creationDate: { type: Date, default: Date.now() }
+    creationDate: { type: Date, default: Date.now() },
+    status: { type: String, default: "user" },
 });
 
 // An example of Mongoose middleware.
@@ -61,7 +69,7 @@ UserSchema.statics.findByUsernamePassword = function (username, password) {
             return Promise.reject(); // a rejected promise
         }
 
-        if (user.status === "banned"){
+        if (user.status === "banned") {
             return Promise.reject(); // prevent banned user from logging in
         }
 
@@ -79,17 +87,17 @@ UserSchema.statics.findByUsernamePassword = function (username, password) {
 };
 
 // A static method to the User model that returns the ObjectID of a user
-// given the username 
+// given the username
 UserSchema.statics.findByUsername = function (username) {
-	const User = this; 
-	return User.findOne({ username: username }).then((user) => {
-		if (!user) {
-			return Promise.reject();
-		} else {
-			return Promise.resolve(user._id);
-		}
-	})
-}
+    const User = this;
+    return User.findOne({ username: username }).then((user) => {
+        if (!user) {
+            return Promise.reject();
+        } else {
+            return Promise.resolve(user._id);
+        }
+    });
+};
 
 // make a model using the User schema
 const User = mongoose.model("User", UserSchema);

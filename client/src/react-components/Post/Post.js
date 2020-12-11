@@ -16,8 +16,10 @@ import AdminDropDownMenu from "../AdminMenu/AdminDropDownMenu";
 import { handleProfileBtn } from "../../actions/profile";
 import { Link } from "react-router-dom";
 import Moment from "react-moment";
-// import moment from "moment";
 
+import Dialog from "@material-ui/core/Dialog";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
 
 import {
     addComment,
@@ -38,8 +40,18 @@ class Post extends React.Component {
             currentUser: "",
             bookmarked: false,
             specificUser: "",
+            dialogMessage: "",
+            open: false,
         };
     }
+
+    handleClickOpen = () => {
+        this.setState({ open: true });
+    };
+
+    handleClose = () => {
+        this.setState({ open: false });
+    };
 
     // // handles adding a new comment
     addCommentButtonPress(e) {
@@ -63,13 +75,18 @@ class Post extends React.Component {
         ) {
             unbookmarkPost(pid, this.props.postlist);
             this.updateCurrentUserBookmarksState(pid);
-            this.setState({ bookmarked: false });
-            alert("Removed post from bookmarks.");
+            this.setState({
+                bookmarked: false,
+                dialogMessage: "Removed post from bookmarks.",
+            });
         } else {
             bookmarkPost(pid);
-            this.setState({ bookmarked: true });
-            alert("Added post to bookmarks.");
+            this.setState({
+                bookmarked: true,
+                dialogMessage: "Added post to bookmarks.",
+            });
         }
+        this.handleClickOpen();
     }
 
     // modify bookmarks array in this.state.currUser.bookmarks
@@ -84,7 +101,7 @@ class Post extends React.Component {
 
     componentDidMount() {
         getCurrentUser(this);
-        getSpecificUser(this, this.props.post.owner_id)
+        getSpecificUser(this, this.props.post.owner_id);
     }
 
     render() {
@@ -93,6 +110,7 @@ class Post extends React.Component {
             // app_users,
             post,
             postlist,
+            type,
             // myBlog,
             // profileImg,
             // page,
@@ -112,30 +130,32 @@ class Post extends React.Component {
                     </IconButton>
                 </div>
             ) : (
-                    <div className="bookmarkBtn">
-                        <IconButton
-                            className="dark-button-element"
-                            onClick={() => this.bookmarkButtonPress(post._id)}
-                        >
-                            <BookmarkIcon />
-                        </IconButton>
-                    </div>
-                );
+                <div className="bookmarkBtn">
+                    <IconButton
+                        className="dark-button-element"
+                        onClick={() => {
+                            this.bookmarkButtonPress(post._id);
+                        }}
+                    >
+                        <BookmarkIcon />
+                    </IconButton>
+                </div>
+            );
 
         const adminButton = (isPost) =>
             post.owner_id !== this.state.currentUser._id &&
-                this.state.currentUser.role === "admin" ? (
-                    <div className="admin-button">
-                        <AdminDropDownMenu
-                            user={post.owner}
-                            page={postlist.page}
-                            postID={post._id}
-                            isPost={isPost}
-                            postlist={postlist}
-                            banID={post.owner_id}
-                        />
-                    </div>
-                ) : null;
+            this.state.currentUser.role === "admin" ? (
+                <div className="admin-button">
+                    <AdminDropDownMenu
+                        user={this.state.specificUser.username}
+                        page={postlist.page}
+                        postID={post._id}
+                        isPost={isPost}
+                        postlist={postlist}
+                        banID={post.owner_id}
+                    />
+                </div>
+            ) : null;
 
         // const handleTagClick = (tag) => {
         //     <Route
@@ -149,14 +169,20 @@ class Post extends React.Component {
         if (this.state.specificUser._id === this.state.currentUser._id) {
             userImg = (
                 <Link to={"/blog"}>
-                    <img id="userIcon" src={this.state.currentUser.profileImg} alt={this.state.currentUser.username} />
+                    <img
+                        id="userIcon"
+                        src={this.state.currentUser.profileImg}
+                        alt={this.state.currentUser.username}
+                    />
                 </Link>
             );
         } else {
             userImg = (
                 <Link
                     to={"/profile"}
-                    onClick={() => handleProfileBtn(app, this.state.specificUser, page)}
+                    onClick={() =>
+                        handleProfileBtn(app, this.state.specificUser, page)
+                    }
                 >
                     <img
                         id="userIcon"
@@ -176,14 +202,7 @@ class Post extends React.Component {
                     currentUser={this.state.currentUser}
                     comment={comment}
                     postList={postlist}
-                    postOwner={post.owner}
-                    // comment_user={comment.owner}
-                    // comment_text={comment.textContent}
-                    // profileImg={profileImg}
-                    // commentID={comment._id}
-                    // page={page}
-                    // postID={postID}
-                    // role={role}
+                    postOwner={this.state.specificUser.username}
                     app={app}
                     page={page}
                 />
@@ -200,11 +219,11 @@ class Post extends React.Component {
                         size="small"
                         label={tag}
                         onClick={(e) => {
-                            page.setState({ searchText: e.target.outerText })
-                            page.setState({ type : "searching"})
+                            page.setState({ searchText: e.target.outerText });
+                            page.setState({ type: "searching" });
                         }}
                     />
-                )
+                );
             } else {
                 return (
                     <Link
@@ -212,8 +231,8 @@ class Post extends React.Component {
                         to={{
                             pathname: "/main",
                             state: {
-                                clickedTag: tag
-                            }
+                                clickedTag: tag,
+                            },
                         }}
                     >
                         <Chip
@@ -236,6 +255,22 @@ class Post extends React.Component {
             );
         });
 
+        const dialog =
+            type !== "bookmarks" ? (
+                <Dialog
+                    open={this.state.open}
+                    onClose={this.handleClose}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                            {this.state.dialogMessage}
+                        </DialogContentText>
+                    </DialogContent>
+                </Dialog>
+            ) : null;
+
         return (
             <div>
                 <div className="post-wrapper">
@@ -246,7 +281,9 @@ class Post extends React.Component {
                                     {userImg}
                                 </div>
                                 <div className="post-info">
-                                    <div id="post-user">{post.owner}</div>
+                                    <div id="post-user">
+                                        {this.state.specificUser.username}
+                                    </div>
                                     <div id="post-date">
                                         <Moment format="YYYY/MM/DD HH:mm">
                                             {post.timeStamp}
@@ -255,9 +292,13 @@ class Post extends React.Component {
                                 </div>
                             </div>
                             <div className="buttons">
-                                {this.state.currentUser.bookmarks !== undefined ? bookmarkOrRemoveButton : null}
+                                {this.state.currentUser.bookmarks !== undefined
+                                    ? bookmarkOrRemoveButton
+                                    : null}
                                 {adminButton(true)}
                             </div>
+
+                            {dialog}
 
                             {/* Need to add more user stuff here like user pic*/}
                         </div>

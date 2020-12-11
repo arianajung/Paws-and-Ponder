@@ -15,19 +15,16 @@ import InsertPhotoIcon from "@material-ui/icons/InsertPhoto";
 
 
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
 
 import { useStyles } from "./subSettingsStyles";
 import "../Settings/Settings.css";
 
-import bunnysrc from "../../static/bunny.jpg";
-import catsrc from "../../static/cat.jpg";
-import dogsrc from "../../static/dog.jpg";
 
 import { addUserProfileImage } from "../../actions/image";
+
+import { updatePassword } from "../../actions/user"
 
 
 
@@ -162,6 +159,20 @@ export default function ProfileSettings(props) {
 		handleClickOpen();
 	};
 
+	const changePassword = async() => {
+		if(values.password.length >= 4){
+			const updated = await updatePassword(values.password);
+			if(updated){
+				setDialogMesage("Password Updated Successfully");
+			} else {
+				setDialogMesage("Error updating password, please try again later.");
+			}
+		} else {
+			setDialogMesage("Invalid Password!");
+		}
+		handleClickOpen();
+	}
+
 	//Reflect input changes to hooks
 	const inputChange = (prop) => (event) => {
 		setValues({ ...values, [prop]: event.target.value });
@@ -230,7 +241,7 @@ export default function ProfileSettings(props) {
 				>
 					<Typography className={classes.heading}>Bio</Typography>
 					<Typography className={classes.secondaryHeading}>
-						Change your biography
+						Update your biography
           			</Typography>
 				</AccordionSummary>
 
@@ -278,7 +289,7 @@ export default function ProfileSettings(props) {
 				>
 					<Typography className={classes.heading}>Profile Picture</Typography>
 					<Typography className={classes.secondaryHeading}>
-						Change your profile picture
+						Update your profile picture
           			</Typography>
 				</AccordionSummary>
 
@@ -377,6 +388,51 @@ export default function ProfileSettings(props) {
 					expandIcon={<ExpandMoreIcon />}
 					aria-controls="panel4bh-content"
 					id="panel4bh-header"
+				>
+					<Typography className={classes.heading}>password</Typography>
+					<Typography className={classes.secondaryHeading}>
+						Update your password
+          			</Typography>
+				</AccordionSummary>
+
+				<AccordionDetails>
+					<FormControl fullWidth className={classes.margin}>
+						<InputLabel>New Password</InputLabel>
+						<Input
+							id="newUserPassword"
+							value={values.password}
+							onChange={inputChange("password")}
+						/>
+					</FormControl>
+				</AccordionDetails>
+
+				<AccordionActions>
+					<Button size="small" color="primary" onClick={() => changePassword()}>
+						Save
+          			</Button>
+				</AccordionActions>
+				<Dialog
+					open={open}
+					onClose={handleClose}
+					aria-labelledby="alert-dialog-title"
+					aria-describedby="alert-dialog-description"
+				>
+					<DialogContent>
+						<DialogContentText id="alert-dialog-description">
+							{dialogMessage}
+						</DialogContentText>
+					</DialogContent>
+				</Dialog>
+			</Accordion>
+
+			<Accordion
+				expanded={expanded === "panel5"}
+				onChange={handleChange("panel5")}
+			>
+				<AccordionSummary
+					expandIcon={<ExpandMoreIcon />}
+					aria-controls="panel5bh-content"
+					id="panel5bh-header"
 				>
 					<Typography className={classes.heading}>Your Statistics</Typography>
 					<Typography className={classes.secondaryHeading}>

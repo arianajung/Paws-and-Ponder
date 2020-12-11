@@ -3,6 +3,12 @@
   overflow: auto;
 }
 
+.profile-middle-area {
+  margin-top: 2%;
+  width: 100%;
+  overflow: auto;
+}
+
 .post-area {
   width: 90%;
   margin-left: 5%;
