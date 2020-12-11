@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Accordion from "@material-ui/core/Accordion";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
@@ -37,35 +37,39 @@ export default function ProfileSettings(props) {
 	const classes = useStyles();
 	const [expanded, setExpanded] = React.useState(false);
 	const [selectedImage, setSelectedImage] = React.useState("img1");
-
-	const [avatars, setAvatars] = React.useState([
+	const [userStats, setUserStats] = React.useState({});
+	const [dialogMessage, setDialogMesage] = React.useState("");
+	const [open, setOpen] = React.useState(false);
+	const [uploadedImage, setUploadedImage] = React.useState(null);
+	const avatars = [
 		'https://res.cloudinary.com/ddgs1ughh/image/upload/v1607662766/bunny_ywqdka.jpg',
 		'https://res.cloudinary.com/ddgs1ughh/image/upload/v1607662771/cat_fa7xjc.jpg',
 		'https://res.cloudinary.com/ddgs1ughh/image/upload/v1607662775/dog_kx3jmg.jpg'
-	])
-
-	const [dialogMessage, setDialogMesage] = React.useState("");
-	// const [avatars, setAvatars] = React.useReducer((avatars, { type, newFile }) => {
-	// 	switch (type) {
-	// 		case "add":
-	// 			return [...avatars, newFile];
-	// 		case "remove":
-	// 			return avatars.filter(({ name }) => name !== newFile.name);
-	// 		default:
-	// 			return avatars;
-	// 	}
-	// }, []);
-	const [open, setOpen] = React.useState(false);
+	];
 
 	const handleClickOpen = () => {
 		setOpen(true);
 	};
 
 	const handleClose = () => {
+		setNewBio("");
 		setOpen(false);
 	};
 
-	const [uploadedImage, setUploadedImage] = React.useState(null);
+	useEffect(async () => {
+		const data = await fetch('/api/getUserStats')
+			.then((res) => {
+				if (res.status === 200)
+					return res.json();
+			})
+			.catch((error) => {
+				setDialogMesage("Failed to get user stats, please try again later!");
+				console.log(error);
+				handleClickOpen();
+			});
+		setUserStats(data);
+	}, []);
+
 
 	//Should initialize state with current username
 	const [values, setValues] = React.useState({
@@ -75,9 +79,6 @@ export default function ProfileSettings(props) {
 		profilePic: props.currentUserInfo.profileImg,
 		personalData: "",
 		showPassword: false,
-		//app_users: props.app_users,
-		//current_user_index: props.current_user_index,
-		//curr_account: props.curr_account,
 	});
 
 	//Expands and collapses Accordion Components
@@ -85,13 +86,54 @@ export default function ProfileSettings(props) {
 		setExpanded(isExpanded ? panel : false);
 	};
 
+	const [newBio, setNewBio] = React.useState("");
+	const changeBio = () => {
+		if (newBio === "") {
+			setDialogMesage("Cannot have an empty bio!");
+		} else {
+			const data = {
+				newBio: newBio,
+			}
+			fetch('/api/changeUserBio', {
+				method: "PATCH",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(data)
+			}).then((res) => {
+				if (res.status === 200) {
+					setDialogMesage("Bio successfully updated! Please refresh your page")
+				} else {
+					setDialogMesage("An unexpected error has occurred, please try again later!")
+				}
+			})
+		}
+		handleClickOpen();
+	}
+
+	const [newUsername, setNewUsername] = React.useState("");
 	const changeUsername = () => {
-		// plan to update information to back-end in phase 2
-		// cannot be reflected to top level
-		// let current_user = values.app_users.slice()[values.current_user_index];
-		// let curr_account = values.curr_account
-		// curr_account = values.name
-		// current_user.username = values.name;
+		if (newUsername === "") {
+			setDialogMesage("Cannot have an empty username!");
+		} else {
+			const data = {
+				newUsername: newUsername,
+			}
+			fetch('/api/changeUsername', {
+				method: "PATCH",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(data)
+			}).then((res) => {
+				if (res.status === 200) {
+					setDialogMesage("Username successfully updated! Please refresh your page")
+				} else {
+					setDialogMesage("An unexpected error has occurred, please try again later!")
+				}
+			})
+		}
+		handleClickOpen();
 	};
 
 	const selectAvatar = (e) => {
@@ -99,10 +141,6 @@ export default function ProfileSettings(props) {
 	};
 
 	const changeAvatar = async () => {
-		// plan to update information to back-end in phase 2
-		// setValues({...values, profilePic: avatars[selectedImage]})
-		// let current_user = values.app_users.slice()[values.current_user_index];
-		// current_user.profileImg = avatars[selectedImage];
 		if (uploadedImage !== null && selectedImage === "img4") {
 			const wasAdded = await addUserProfileImage(uploadedImage);
 			if (wasAdded) {
@@ -111,8 +149,6 @@ export default function ProfileSettings(props) {
 				setDialogMesage("Failed to update profile pictures!");
 			}
 		} else {
-			console.log(avatars[selectedImage.slice(3)-1]);
-			console.log(selectedImage);
 			fetch(`/api/updateProfileImgByLink?image_url=${avatars[selectedImage.slice(3)-1]}`, {
 				method: "PATCH",
 			}).then((res) => {
@@ -123,18 +159,12 @@ export default function ProfileSettings(props) {
 				}
 			})
 		}
-
 		handleClickOpen();
 	};
 
 	//Reflect input changes to hooks
 	const inputChange = (prop) => (event) => {
 		setValues({ ...values, [prop]: event.target.value });
-	};
-
-	// Log the new input of corresponding prop when a "Save" button is pressed
-	const logOutput = (prop) => (event) => {
-		console.log(`new ${prop}: ${{ ...values }[prop]}`);
 	};
 
 	const hiddenFileInputRef = React.useRef();
@@ -145,14 +175,7 @@ export default function ProfileSettings(props) {
 
 	const uploadFile = (e) => {
 		const fileUploaded = e.target.files[0];
-
-		// updateImageFiles({ type: "add", value: fileUploaded });
 		setUploadedImage(fileUploaded);
-
-		console.log("fileUploaded: ", fileUploaded);
-
-
-		//this.setState({ local_image_urls: local_image_urls, image_files: image_files });
 		e.target.value = null;
 	};
 
@@ -176,21 +199,21 @@ export default function ProfileSettings(props) {
 						Change your username
          			 </Typography>
 				</AccordionSummary>
-
+				<Typography align="left" className="bio">Current Username:</Typography>
+				<Typography align="left" className="bio">{props.currentUserInfo['username'] !== undefined ? props.currentUserInfo['username'] : "Loading..."}</Typography>
 				<AccordionDetails>
 					<FormControl fullWidth className={classes.margin}>
 						<InputLabel>New Username</InputLabel>
 						<Input
 							id="newUserNamee"
 							value={values.name}
-							onChange={inputChange("name")}
+							onChange={(e) => setNewUsername(e.target.value)}
 						/>
 					</FormControl>
 				</AccordionDetails>
 
 				<AccordionActions>
-					<Button size="small">Cancel</Button>
-					<Button size="small" color="primary" onClick={changeUsername()}>
+					<Button size="small" color="primary" onClick={() => changeUsername()}>
 						Save
           			</Button>
 				</AccordionActions>
@@ -211,23 +234,37 @@ export default function ProfileSettings(props) {
           			</Typography>
 				</AccordionSummary>
 
+				<Typography align="left" className="bio">Current Bio:</Typography>
+				<Typography align="left" className="bio">{props.currentUserInfo['bio'] !== undefined ? props.currentUserInfo['bio'] : "Loading..."}</Typography>
 				<AccordionDetails>
 					<FormControl fullWidth className={classes.margin}>
 						<InputLabel>New Bio</InputLabel>
 						<Input
 							id="newUserBio"
 							value={values.bio}
-							onChange={inputChange("bio")}
+							onChange={(e) => setNewBio(e.target.value)}
 						/>
 					</FormControl>
 				</AccordionDetails>
 
 				<AccordionActions>
-					<Button size="small">Cancel</Button>
-					<Button size="small" color="primary" onClick={logOutput("bio")}>
+					<Button size="small" color="primary" onClick={() => changeBio()}>
 						Save
           			</Button>
 				</AccordionActions>
+
+				<Dialog
+					open={open}
+					onClose={handleClose}
+					aria-labelledby="alert-dialog-title"
+					aria-describedby="alert-dialog-description"
+				>
+					<DialogContent>
+						<DialogContentText id="alert-dialog-description">
+							{dialogMessage}
+						</DialogContentText>
+					</DialogContent>
+				</Dialog>
 			</Accordion>
 
 			<Accordion
@@ -252,6 +289,7 @@ export default function ProfileSettings(props) {
 								<img className="img" src={avatars[0]} alt="profile-pic" />
 								<Radio
 									checked={selectedImage === "img1"}
+									id="test"
 									onChange={selectAvatar}
 									value="img1"
 									name="default img1"
@@ -279,6 +317,7 @@ export default function ProfileSettings(props) {
 								/>
 							</div>
 							<div className="avatar-selector-wrapper">
+								<Typography varaint="h4" component="h1" align="center">Your Current Photo</Typography>
 								<img className="img" src={uploadedImage !== null ? URL.createObjectURL(uploadedImage) : props.currentUserInfo.profileImg} alt="profile-pic" />
 								<Radio
 									checked={selectedImage === "img4"}
@@ -311,7 +350,6 @@ export default function ProfileSettings(props) {
 						type="file"
 						style={{ display: 'none' }}
 					/>
-					<Button size="small">Cancel</Button>
 					<Button size="small" color="primary" onClick={() => changeAvatar()}>
 						Save
           			</Button>
@@ -340,16 +378,19 @@ export default function ProfileSettings(props) {
 					aria-controls="panel4bh-content"
 					id="panel4bh-header"
 				>
-					<Typography className={classes.heading}>Personal data</Typography>
+					<Typography className={classes.heading}>Your Statistics</Typography>
+					<Typography className={classes.secondaryHeading}>
+						Some statistics about your account
+          			</Typography>
 				</AccordionSummary>
 
 				<AccordionDetails>
 					<Typography>
-						Number of Posts: 321 <br />
-            			Followers: 237 <br />
-            			Following: 56 <br />
-           				Total Likes: 5899
-          			</Typography>
+						Posts: {userStats.postCount} <br></br>
+						Followers: {userStats.followerCount} <br></br>
+						Following: {userStats.followingCount} <br></br>
+						Creation Date: {userStats.creationDate}
+					</Typography>
 				</AccordionDetails>
 			</Accordion>
 		</div>

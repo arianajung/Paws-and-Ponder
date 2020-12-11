@@ -45,7 +45,7 @@ class Settings extends React.Component {
 
 	render() {
 		const { app } = this.props;
-
+		console.log("curr user: ", this.state.currentUser);
 		return (
 			// use general navbar instead
 			<div className="settings-container">

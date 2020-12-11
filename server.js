@@ -203,6 +203,30 @@ app.post("/users/login", (req, res) => {
         });
 });
 
+app.patch("/api/changeUserBio", mongoChecker, authenticate, async (req, res) => {
+    try {
+        const user = await User.findById(req.user._id);
+        user.bio = req.body.newBio;
+        user.save()
+        res.send("Successful")
+    } catch (error) {
+        console.log("changeUserBio: failed\n", error);
+        res.status(500).send("Internal Server Error");
+    }
+})
+
+app.patch("/api/changeUsername", mongoChecker, authenticate, async (req, res) => {
+    try {
+        const user = await User.findById(req.user._id);
+        user.username = req.body.newUsername;
+        user.save()
+        res.send("Successful")
+    } catch (error) {
+        console.log("changeUsername: failed: ", error);
+        res.status(500).send("Internal Server Error");
+    }
+})
+
 // A route to logout a user
 app.get("/users/logout", (req, res) => {
     // Remove the session
@@ -526,6 +550,26 @@ app.patch('/api/updateProfileImgByLink', mongoChecker, authenticate, async (req,
         res.send("Successful");
     } catch (error) {
         res.status(400).send("400 Bad Request");
+    }
+})
+
+app.get('/api/getUserStats', mongoChecker, authenticate, async (req, res) => {
+    try {
+        const user = await User.findById(req.user._id);
+        const posts = await Post.find({ owner_id: req.user._id });
+        
+        const res_json = {
+            postCount: posts.length,
+            followerCount: user.follower.length,
+            followingCount: user.following.length,
+            creationDate: user.creationDate.toLocaleDateString([], {year: 'numeric', month: 'long', day: 'numeric'}),
+        };
+
+        console.log("res_json: ", res_json);
+        res.json(res_json);
+    } catch (error) {
+        console.log("getUserStats failed: ", error);
+        res.status(500).send("Internal Server Error");
     }
 })
 

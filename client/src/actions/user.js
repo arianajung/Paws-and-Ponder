@@ -434,7 +434,7 @@ export const unbookmarkPost = async (postID, postlist) => {
 export const getBookmarkPosts = async (postList) => {
     const url = `/api/getBookmarkPosts`;
 
-    await fetch(url, {
+    fetch(url, {
         accepts: "application/json",
     })
         .then((res) => {

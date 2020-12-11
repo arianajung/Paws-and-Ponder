@@ -56,6 +56,7 @@ class Post extends React.Component {
 
     bookmarkButtonPress(pid) {
         // initially alrdy bookmarked OR has been bookmarked during "curr render"
+        console.log("state current user: ", this.state.currentUser);
         if (
             this.state.currentUser.bookmarks.includes(pid) ||
             this.state.bookmarked === true
@@ -254,7 +255,7 @@ class Post extends React.Component {
                                 </div>
                             </div>
                             <div className="buttons">
-                                {bookmarkOrRemoveButton}
+                                {this.state.currentUser.bookmarks !== undefined ? bookmarkOrRemoveButton : null}
                                 {adminButton(true)}
                             </div>
 

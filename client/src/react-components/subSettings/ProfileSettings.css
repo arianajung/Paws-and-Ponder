@@ -9,14 +9,10 @@
     height: 30px;
 }
 
-.profile-button.MuiButton-root:hover {
-    
-    color: rgba(0, 0, 0, 0.9);
-    background-color: rgba(187, 181, 157, 0.507);
-  }
-  
-.profile-button {
-    border-radius: 5px;
-    font-size: 18px;
-    height: 30px;
+#test.MuiRadio-root:hover fieldset{
+    background-color: "white";
+}
+
+.bio.MuiTypography-root {
+  margin-left: 20px;
 }
