@@ -139,7 +139,6 @@ router.get(
 router.post("/api/makePost", mongoChecker, authenticate, async (req, res) => {
     const new_post = new Post({
         owner_id: req.user._id,
-        owner: req.user.username,
         textContent: req.body.textContent,
         images: req.body.images,
         likes: 0,

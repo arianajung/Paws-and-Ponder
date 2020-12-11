@@ -17,7 +17,6 @@ const { authenticate } = require("./helpers/authentication");
 router.post("/api/addComment", mongoChecker, authenticate, async (req, res) => {
     const new_comment = new Comment({
         owner_id: req.user._id,
-        owner: req.user.username,
         textContent: req.body.textContent,
     });
     try {

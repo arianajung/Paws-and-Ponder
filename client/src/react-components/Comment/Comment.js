@@ -106,7 +106,7 @@ class Comment extends Component {
             <div className="comment">
                 <div className="comment-icon">{userImg}</div>
                 <div className="comment-content">
-                    <div id="comment-name">{comment.owner}</div>
+                    <div id="comment-name">{this.state.specificUser.username}</div>
                     <div id="comment-text">{comment.textContent}</div>
                 </div>
                 <div className="buttons">

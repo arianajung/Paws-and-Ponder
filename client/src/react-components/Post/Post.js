@@ -126,7 +126,7 @@ class Post extends React.Component {
                 this.state.currentUser.role === "admin" ? (
                     <div className="admin-button">
                         <AdminDropDownMenu
-                            user={post.owner}
+                            user={this.state.specificUser.username}
                             page={postlist.page}
                             postID={post._id}
                             isPost={isPost}
@@ -175,7 +175,7 @@ class Post extends React.Component {
                     currentUser={this.state.currentUser}
                     comment={comment}
                     postList={postlist}
-                    postOwner={post.owner}
+                    postOwner={this.state.specificUser.username}
                     // comment_user={comment.owner}
                     // comment_text={comment.textContent}
                     // profileImg={profileImg}
@@ -245,7 +245,7 @@ class Post extends React.Component {
                                     {userImg}
                                 </div>
                                 <div className="post-info">
-                                    <div id="post-user">{post.owner}</div>
+                                    <div id="post-user">{this.state.specificUser.username}</div>
                                     <div id="post-date">
                                         <Moment format="YYYY/MM/DD HH:mm">
                                             {post.timeStamp}

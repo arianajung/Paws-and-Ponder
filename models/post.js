@@ -5,7 +5,6 @@ const mongoose = require("mongoose");
 // Schema Attempt for Comments
 const CommentSchema = new mongoose.Schema({
     owner_id: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-    owner: String,
     timeStamp: { type: Date, default: Date.now }, // ?
     textContent: String,
 });
@@ -13,7 +12,6 @@ const CommentSchema = new mongoose.Schema({
 // Schema Attempt for Posts
 const PostSchema = new mongoose.Schema({
     owner_id: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-    owner: String,
     timeStamp: { type: Date, default: Date.now }, // ?
     textContent: String,
     images: [], //Change this to array of image id
