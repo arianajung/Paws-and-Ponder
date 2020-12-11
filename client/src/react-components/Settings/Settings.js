@@ -1,10 +1,7 @@
 import React from "react";
-import SettingsNavbar from "../SettingsNavbar/SettingsNavbar";
 import ProfileSettings from "../subSettings/ProfileSettings";
 import CustomizationSettings from "../subSettings/CustomizationSettings";
 import NotificationSettings from "../subSettings/NotificationSettings";
-
-import getCurrentUserAndIndex from "../../actions/getCurrentUserAndIndex";
 
 import { getCurrentUser } from "../../actions/user";
 
@@ -48,19 +45,13 @@ class Settings extends React.Component {
 
 	render() {
 		const { app } = this.props;
-		
+
 		return (
+			// use general navbar instead
 			<div className="settings-container">
 				<div>
                     <Navbar app={app} view="settings" />
                 </div>
-				{/* <div>
-					<SettingsNavbar />
-				</div> */}
-				{/* TODO: 
-          The following component should be displayed based on 
-          which tab is selected from the above Navigation bar. 
-          */}
 				<div className="subsettings-container">
 					<ProfileSettings
 						// curr_account={this.state.curr_account}
@@ -71,8 +62,9 @@ class Settings extends React.Component {
 		  				currentUserInfo={this.state.currentUser}
 
 					/>
-					<CustomizationSettings />
-					<NotificationSettings />
+					{/* Consider Removing the settings below */}
+					{/* <CustomizationSettings />
+					<NotificationSettings /> */}
 				</div>
 			</div>
 		);

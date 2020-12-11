@@ -11,21 +11,12 @@ import PersonAddDisabledIcon from "@material-ui/icons/PersonAddDisabled";
 import Avatar from "@material-ui/core/Avatar";
 import {
     contains,
-    handleFollowBtn,
     handleFollowButton,
 } from "../../actions/profile";
 
 function Navbar({
     app,
-    // app_users,
-    // profile,
-    // following,
-    // profile_followers,
     view,
-    // viewing_user,
-    // current_user,
-    // current_user_role,
-    // profileImg,
     profileUser,
     currentUser,
     profilePage,

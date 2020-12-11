@@ -13,7 +13,6 @@ import Chip from "@material-ui/core/Chip";
 import updateBookmarkedStatus from "../../actions/updateBookmarkedStatus/updateBookmarkedStatus";
 
 import AdminDropDownMenu from "../AdminMenu/AdminDropDownMenu";
-import getCurrentUserAndIndex from "../../actions/getCurrentUserAndIndex";
 import { handleProfileBtn } from "../../actions/profile";
 import { Link } from "react-router-dom";
 import Moment from "react-moment";

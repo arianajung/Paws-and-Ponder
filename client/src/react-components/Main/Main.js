@@ -4,10 +4,7 @@ import Navbar from "../Navbar/Navbar";
 import SearchBar from "material-ui-search-bar";
 import PermanentDrawerRight from "../DrawerMenu/Drawer";
 import "./Main.css";
-import getPostIndex from "../../actions/getPostIndex";
-import searchRequest from "../../actions/searchRequest";
 import { Typography } from "@material-ui/core";
-import { getFollowers, getFollowing } from "../../actions/user";
 import { getCurrentUser } from "../../actions/user";
 
 /* Main page where the user views all of the posts made by people that they follow*/

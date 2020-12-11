@@ -81,6 +81,15 @@ const authenticate = (req, res, next) => {
     }
 };
 
+// Middleware for verifying Admin permission of resources
+const isAdmin = (req, res, next) => {
+    if (req.user.role === "admin") {
+        next();
+    } else {
+        res.status(401).send("Unauthorized");
+    }
+};
+
 /*** Image API Routes below ************************************/
 
 // a POST route to *create* an image
@@ -190,15 +199,6 @@ app.delete("/images/:imageId", (req, res) => {
             });
     });
 });
-
-// Middleware for verifying Admin permission of resources
-const isAdmin = (req, res, next) => {
-    if (req.user.role === "admin") {
-        next();
-    } else {
-        res.status(401).send("Unauthorized");
-    }
-};
 
 /*** Session handling **************************************/
 // Create a session and session cookie
@@ -482,56 +482,6 @@ app.get("/api/user/:id", mongoChecker, async (req, res) => {
     } catch (error) {
         log(error);
         res.status(500).send("Internal Server Error");
-    }
-});
-
-app.patch("/api/followers:id", mongoChecker, async (req, res) => {
-    const id = req.params.id;
-
-    // Good practise: Validate id immediately.
-    if (!ObjectID.isValid(id)) {
-        res.status(404).send("Resource not found"); // if invalid id, definitely can't find resource, 404.
-        return; // so that we don't run the rest of the handler.
-    }
-
-    try {
-        const user = await User.findById(id).populate("follower");
-        if (!user.follower) {
-            res.status(404).send("Resource not found"); // could not find this restaurant
-        } else {
-            user.follower = req.body.follower;
-            const result = await user.save();
-            res.send(result);
-        }
-    } catch (error) {
-        log(error); // log server error to the console, not to the client.
-        if (isMongoError(error)) {
-            // check for if mongo server suddenly disconnected before this request.
-            res.status(500).send("Internal server error");
-        } else {
-            res.status(400).send("Bad Request"); // bad request for changing the reservation.
-        }
-    }
-});
-
-app.patch("/api/following", mongoChecker, authenticate, async (req, res) => {
-    try {
-        const user = await User.findById(req.user._id).populate("following");
-        if (!user.following) {
-            res.status(404).send("Resource not found");
-        } else {
-            user.following = req.body.following;
-            const result = await user.save();
-            res.send(result);
-        }
-    } catch (error) {
-        log(error); // log server error to the console, not to the client.
-        if (isMongoError(error)) {
-            // check for if mongo server suddenly disconnected before this request.
-            res.status(500).send("Internal server error");
-        } else {
-            res.status(400).send("Bad Request"); // bad request for changing the reservation.
-        }
     }
 });
 
