@@ -19,6 +19,7 @@ import { Link } from "react-router-dom";
 import Moment from "react-moment";
 // import moment from "moment";
 
+
 import {
     addComment,
     removePost,
@@ -111,51 +112,59 @@ class Post extends React.Component {
                     </IconButton>
                 </div>
             ) : (
-                <div className="bookmarkBtn">
-                    <IconButton
-                        className="dark-button-element"
-                        onClick={() => this.bookmarkButtonPress(post._id)}
-                    >
-                        <BookmarkIcon />
-                    </IconButton>
-                </div>
-            );
+                    <div className="bookmarkBtn">
+                        <IconButton
+                            className="dark-button-element"
+                            onClick={() => this.bookmarkButtonPress(post._id)}
+                        >
+                            <BookmarkIcon />
+                        </IconButton>
+                    </div>
+                );
 
         const adminButton = (isPost) =>
             post.owner_id !== this.state.currentUser._id &&
-            this.state.currentUser.role === "admin" ? (
-                <div className="admin-button">
-                    <AdminDropDownMenu
-                        user={post.owner}
-                        page={postlist.page}
-                        postID={post._id}
-                        isPost={isPost}
-                        postlist={postlist}
-                        banID={post.owner_id}
-                    />
-                </div>
-            ) : null;
+                this.state.currentUser.role === "admin" ? (
+                    <div className="admin-button">
+                        <AdminDropDownMenu
+                            user={post.owner}
+                            page={postlist.page}
+                            postID={post._id}
+                            isPost={isPost}
+                            postlist={postlist}
+                            banID={post.owner_id}
+                        />
+                    </div>
+                ) : null;
+
+        // const handleTagClick = (tag) => {
+        //     <Route
+        //         exact
+        //         path="/main"
+        //     //render={() => <Main/>}
+        //     />
+        // }
 
         let userImg;
         if (this.state.specificUser._id === this.state.currentUser._id) {
-          userImg = (
-            <Link to={"/blog"}>
-              <img id="userIcon" src={this.state.currentUser.profileImg} alt={this.state.currentUser.username} />
-            </Link>
-          );
+            userImg = (
+                <Link to={"/blog"}>
+                    <img id="userIcon" src={this.state.currentUser.profileImg} alt={this.state.currentUser.username} />
+                </Link>
+            );
         } else {
-          userImg = (
-            <Link
-              to={"/profile"}
-              onClick={() => handleProfileBtn(app, this.state.specificUser, page)}
-            >
-              <img
-                id="userIcon"
-                src={this.state.specificUser.profileImg}
-                alt={this.state.specificUser.username}
-              />
-            </Link>
-          );
+            userImg = (
+                <Link
+                    to={"/profile"}
+                    onClick={() => handleProfileBtn(app, this.state.specificUser, page)}
+                >
+                    <img
+                        id="userIcon"
+                        src={this.state.specificUser.profileImg}
+                        alt={this.state.specificUser.username}
+                    />
+                </Link>
+            );
         }
 
         // create comment components
@@ -182,15 +191,41 @@ class Post extends React.Component {
         });
 
         const tags = post.tags.map((tag) => {
-            return (
-                <Chip
-                    className="tag"
-                    key={uid(tag)}
-                    clickable
-                    size="small"
-                    label={tag}
-                />
-            );
+            if (page.state.type === "main" || page.state.type === "searched") {
+                return (
+                    <Chip
+                        className="tag"
+                        key={uid(tag)}
+                        clickable
+                        size="small"
+                        label={tag}
+                        onClick={(e) => {
+                            page.setState({ searchText: e.target.outerText })
+                            page.setState({ type : "searching"})
+                        }}
+                    />
+                )
+            } else {
+                return (
+                    <Link
+                        key={uid(tag)}
+                        to={{
+                            pathname: "/main",
+                            state: {
+                                clickedTag: tag
+                            }
+                        }}
+                    >
+                        <Chip
+                            className="tag"
+                            key={uid(tag)}
+                            clickable
+                            size="small"
+                            label={tag}
+                        />
+                    </Link>
+                );
+            }
         });
 
         const images = post.images.map((image) => {

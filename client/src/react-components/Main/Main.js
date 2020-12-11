@@ -16,6 +16,8 @@ class Main extends React.Component {
         super(props);
         this.props.history.push("/main");
 
+        console.log(props)
+
         this.state = {
             searchText: "",
             posts: [],
@@ -34,6 +36,11 @@ class Main extends React.Component {
     componentDidMount() {
         getCurrentUser(this);
         console.log("Main.js ComponentDidMount()");
+        console.log(this.props.location.state);
+        if (this.props.location.state !== undefined && this.props.location.state.clickedTag !== undefined) {
+            this.setState({ searchText: this.props.location.state.clickedTag })
+            this.setState({ type: "searching" })
+        }
     }
 
     componentDidUpdate() {
@@ -63,9 +70,9 @@ class Main extends React.Component {
                                 this.setState({ searchText: newValue })
                             }
                             onRequestSearch={() => {
-                                if(this.state.searchText === "")
+                                if (this.state.searchText === "")
                                     this.setState({ type: "refresh" })
-                                else 
+                                else
                                     this.setState({ type: "searching" })
                             }}
                         />
@@ -84,7 +91,7 @@ class Main extends React.Component {
                         // profileImg={this.state.profileImg}
                         // role={this.state.current_user_role}
                         />
-                        
+
                     </div>
                 </div>
                 <div>
