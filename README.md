@@ -489,6 +489,99 @@ Returned:
 
 ---
 
+### Settings  
+API routes that handle retrieving and updating user information in the Settings page
+
+#### Update User Avatar By Link
+Route for updating the profile image of the authenticated user by an cloudinary image link
+```javascript
+router.patch(
+    "/api/updateProfileImgByLink",
+    mongoChecker,
+    authenticate, ...)
+```
+Expected:
+```javascript
+req.user._id // user ID of the authenticated user from middleware
+req.query.image_url // image link to the cloudinary image database
+```
+
+Returned:
+
+    A message that describe the action was done properly on success.
+
+#### Get User Stats
+Route for getting the logged in user's statistics
+```javascript
+router.get('/api/getUserStats', ...)
+```
+Expected:
+```javascript
+req.user._id // Authenticated user ID from middleware
+```
+
+Returned:
+```javascript
+postCount: posts.length, // number of posts by this user
+followerCount: user.follower.length, // number of follwers this user has
+followingCount: user.following.length, // number of users this user follows
+creationDate: user.creationDate.toLocaleDateString([], {year: 'numeric', month: 'long', day: 'numeric'}), // creation date of account
+```
+
+#### Change User Bio
+Route for updating a user's biography
+```javascript
+router.patch("/api/changeUserBio", ...)
+```
+Expected:
+```javascript
+req.user._id // Authenticated user ID from middleware
+req.body.newBio // String input to be used as the new biography
+```
+
+Returned:
+	String response describing the success state of the operation.
+	
+	Returns status code 500 upon error.
+
+#### Change Username
+Route for updating a user's username
+```javascript
+router.patch("/api/changeUsername", ...)
+```
+Expected:
+```javascript
+req.user._id // Authenticated user ID from middleware
+req.body.newUsername // String input to be used as the user's new username
+```
+
+Returned:
+	String response describing the success state of the operation.
+	
+	Returns status code 500 upon error.	
+---
+
+#### Update User Password
+API that updates the authenticated user's password
+```javascript
+router.patch(
+    "/api/updatePassword",
+    mongoChecker,
+    authenticate, ...)
+```
+Expected:
+```javascript
+// new password of the user in the req.body
+req.body.password
+```
+
+Returned:
+
+    If successful, a message that decribe that the action was done successfully.
+    Note that the password is encrypted by bcrypt with salt.
+
+
+
 ### Users
 API routes that handle user login/logout, fetching and updating user information
 
@@ -528,25 +621,6 @@ Expected:
 Returned:
 
     None
-
-#### Update User Password
-API that updates the authenticated user's password
-```javascript
-router.patch(
-    "/api/updatePassword",
-    mongoChecker,
-    authenticate, ...)
-```
-Expected:
-```javascript
-// new password of the user in the req.body
-req.body.password
-```
-
-Returned:
-
-    If successful, a message that decribe that the action was done successfully.
-    Note that the password is encrypted by bcrypt with salt.
 
 #### Create User
 API for creating a new user
@@ -595,26 +669,9 @@ req.params.id
 Returned:
 
     The user information of the targeted user.
-
-#### Update User Avatar By Link
-Route for updating the profile image of the authenticated user by an cloudinary image link
-```javascript
-router.patch(
-    "/api/updateProfileImgByLink",
-    mongoChecker,
-    authenticate, ...)
-```
-Expected:
-```javascript
-req.user._id // user ID of the authenticated user from middleware
-req.query.image_url // image link to the cloudinary image database
-```
-
-Returned:
-
-    A message that describe the action was done properly on success.
-
+    
 ---
+
 
 ### To run our application locally (for development), please clone our master branch, navigate into team33, and install the dependencies for both server and the client and start each of them separatly.
 ```bash
