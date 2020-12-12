@@ -1,6 +1,6 @@
-# [Team33] Paws & Ponder 
+# [Team 33] Paws & Ponder 
 
-## Index
+# Index
 - [Deployed Website](#deployed-website)
 - [List of Framework and Libraries used in our application](#list-of-framework-and-libraries-used-in-our-application)
 - [Usage and instructions for our application](#usage-and-instructions-for-our-application)
@@ -19,10 +19,10 @@
   * [Users](#Users)
 
 
-## Deployed Website
+# Deployed Website
 [https://pawsandponder.herokuapp.com/](https://pawsandponder.herokuapp.com/)
 
-## List of Core Framework and Libraries used in our application
+# List of Core Framework and Libraries used in our application
  - Backend
    - Express
    - Cloudinary
