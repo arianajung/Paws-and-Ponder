@@ -1,4 +1,4 @@
-import React, { Component, useRef } from "react";
+import React, { Component } from "react";
 import { uid } from "react-uid";
 
 // material-ui imports
@@ -14,12 +14,12 @@ import Chip from "@material-ui/core/Chip";
 import PermanentDrawerRight from "../DrawerMenu/Drawer";
 import Navbar from "../Navbar/Navbar";
 import PostList from "../PostList/PostList";
-import postImg from "./static/post_img.jpeg";
 
 // css
 import "./MyBlog.css";
 
-import { getCurrentUser, makePost } from "../../actions/user";
+import { getCurrentUser } from "../../actions/users";
+import { makePost } from "../../actions/posts";
 import { addImage } from "../../actions/image";
 
 const MAX_POSTS = 4;
@@ -45,12 +45,10 @@ class MyBlog extends Component {
 
     componentDidMount() {
         getCurrentUser(this);
-        //console.log("MyBlog.js: componenetDidMount()");
     }
 
     componentDidUpdate() {
         if (this.state.req === "makePost") {
-            //console.log("MyBlog.js: componenetDidUpdate()");
             this.setState({ req: "blog" });
         }
     }
@@ -176,9 +174,11 @@ class MyBlog extends Component {
                                     });
                                 }}
                             />
-                            <div style={{display: "flex"}}>
+                            <div style={{ display: "flex" }}>
                                 {images}
-                                {this.state.local_image_urls.length === 0 ? null: `(${this.state.local_image_urls.length}/${MAX_POSTS})`}
+                                {this.state.local_image_urls.length === 0
+                                    ? null
+                                    : `(${this.state.local_image_urls.length}/${MAX_POSTS})`}
                             </div>
                         </div>
 
@@ -251,12 +251,9 @@ class MyBlog extends Component {
                         <PostList
                             currentUser={this.state.currentUser}
                             type={this.state.req}
-                            // profileImg={this.state.profileImg}
-                            // role={this.state.current_user_role}
                             searchText={this.searchText}
                             app={this.props.app}
                             page={this}
-                            // posts={this.state.posts}
                         />
                     </div>
                 </div>

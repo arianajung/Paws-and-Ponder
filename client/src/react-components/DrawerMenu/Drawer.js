@@ -10,11 +10,9 @@ import Typography from "@material-ui/core/Typography";
 import "./Drawer.css";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
-// Need to change this to import specific user image instead
 import { Link } from "react-router-dom";
-import getCurrentUserAndIndex from "../../actions/getCurrentUserAndIndex";
 import { handleProfileBtn } from "../../actions/profile";
-import { getFollowers, getFollowing } from "../../actions/user";
+import { getFollowers, getFollowing } from "../../actions/interactions";
 import { uid } from "react-uid";
 
 export default function PermanentDrawerRight(props) {

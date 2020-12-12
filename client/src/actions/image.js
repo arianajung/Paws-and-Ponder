@@ -1,14 +1,13 @@
 // code from react-cloudinary respository
 
 //import image from "../../models/image";
-import imageCompression from 'browser-image-compression';
+import imageCompression from "browser-image-compression";
 
 // A function to send a POST request with a new image
 export const addImage = async (file, component) => {
     // the URL for the request
     const url = "/images";
 
-    console.log(file)
     const compression_options = {
         maxSizeMB: 0.2,
     };
@@ -16,10 +15,12 @@ export const addImage = async (file, component) => {
     // The data we are going to send in our request
     const imageData = new FormData();
     for (const file_idx in file) {
-        const compressed_file = await imageCompression(file[file_idx], compression_options);
+        const compressed_file = await imageCompression(
+            file[file_idx],
+            compression_options
+        );
         imageData.append(`file${file_idx}`, compressed_file);
     }
-    console.log("image data: ", imageData);
 
     // Create our request constructor with all the parameters we need
     const request = new Request(url, {
@@ -47,13 +48,13 @@ export const addImage = async (file, component) => {
                 component.setState({
                     message: {
                         body: "Error: Could not add image.",
-                        type: "error"
-                    }
+                        type: "error",
+                    },
                 });
             }
         })
-        .catch(error => {
-            console.log(error);
+        .catch((error) => {
+            console.log("Failed to add image");
         });
 };
 
@@ -61,14 +62,11 @@ export const addUserProfileImage = async (file) => {
     const compression_options = {
         maxSizeMB: 0.2,
     };
-    console.log(file);
+
     // The data we are going to send in our request
     const imageData = new FormData();
     const compressed_file = await imageCompression(file, compression_options);
-    imageData.append('file0', compressed_file);
-    imageData.append('file1', compressed_file);
-    
-    console.log("image data: ", imageData);
+    imageData.append("file0", compressed_file);
 
     const url = "/api/changeUserAvatar";
     const request = new Request(url, {
@@ -82,7 +80,7 @@ export const addUserProfileImage = async (file) => {
         } else {
             return false;
         }
-    })
+    });
 };
 
 // A function to send a GET request to the web server,
@@ -93,23 +91,22 @@ export const getImages = (imageListComp) => {
 
     // Since this is a GET request, simply call fetch on the URL
     fetch(url)
-        .then(res => {
+        .then((res) => {
             if (res.status === 200) {
                 // return a promise that resolves with the JSON body
                 return res.json();
             } else {
-                alert("Could not get images");
+                console.log("Could not get images");
             }
         })
-        .then(json => {
+        .then((json) => {
             // the resolved promise with the JSON body
             imageListComp.setState({ imageList: json.images });
         })
-        .catch(error => {
-            console.log(error);
+        .catch((error) => {
+            console.log("Failed to get image");
         });
 };
-
 
 // A function to send a DELETE request with an image PUBLIC id (id on cloudinary)
 export const deleteImage = (imageId, dashboardComp, imageListComp) => {
@@ -131,29 +128,28 @@ export const deleteImage = (imageId, dashboardComp, imageListComp) => {
                 dashboardComp.setState({
                     message: {
                         body: "Delete successful.",
-                        type: "success"
-                    }
+                        type: "success",
+                    },
                 });
 
                 // Also remove the image from the imageList state
                 // Use filter to only keep the images you want.
-                const filteredList = imageListComp.state.imageList.filter(img => img.image_id !== imageId);
-                imageListComp.setState(
-                    { imageList: filteredList }
+                const filteredList = imageListComp.state.imageList.filter(
+                    (img) => img.image_id !== imageId
                 );
-
+                imageListComp.setState({ imageList: filteredList });
             } else {
                 // If server couldn't delete the image, tell the user.
                 // Here we are adding a generic message, but you could be more specific in your app.
                 dashboardComp.setState({
                     message: {
                         body: "Error: Could not delete image.",
-                        type: "error"
-                    }
+                        type: "error",
+                    },
                 });
             }
         })
-        .catch(error => {
-            console.log(error);
+        .catch((error) => {
+            console.log("Failed to delete image");
         });
-}
+};

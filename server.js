@@ -53,6 +53,7 @@ app.use(require("./routes/interactions"));
 app.use(require("./routes/users"));
 app.use(require("./routes/bookmarks"));
 app.use(require("./routes/admins"));
+app.use(require("./routes/settings"));
 
 // All routes other than above will go to index.html
 app.get("*", (req, res) => {
