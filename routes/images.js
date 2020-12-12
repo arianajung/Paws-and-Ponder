@@ -49,7 +49,6 @@ router.post("/images", multipartMiddleware, (req, res) => {
 
     Promise.all(upload_responses)
         .then((result) => {
-            console.log(result);
             res.send({ result });
         })
         .catch((error) => {
@@ -68,7 +67,7 @@ router.post(
             req.files["file0"].path,
             async function (result, error) {
                 if (error) {
-                    res.status(400).send("Failed to upload to server!");
+                    res.status(500).send("Failed to upload to server!");
                 } else {
                     const user = await User.findById(req.user._id);
                     user.profileImg = result.url;
