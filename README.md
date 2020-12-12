@@ -1,6 +1,6 @@
-# Petlog team33 
+# [Team 33] Paws & Ponder 
 
-## Index
+# Index
 - [Deployed Website](#deployed-website)
 - [List of Framework and Libraries used in our application](#list-of-framework-and-libraries-used-in-our-application)
 - [Usage and instructions for our application](#usage-and-instructions-for-our-application)
@@ -19,10 +19,10 @@
   * [Users](#Users)
 
 
-## Deployed Website
+# Deployed Website
 [https://pawsandponder.herokuapp.com/](https://pawsandponder.herokuapp.com/)
 
-## List of Core Framework and Libraries used in our application
+# List of Core Framework and Libraries used in our application
  - Backend
    - Express
    - Cloudinary
@@ -43,7 +43,7 @@ After reaching the landing page, you may log in with the credentials below:
 
 **Password**: 1234
 
-Alternatively, you may sign up with a new user by going though the sign up page.
+Alternatively, you may sign in with a new user by going though the sign up page.
 
 Functionalities walkthrough:
 
@@ -52,31 +52,31 @@ Functionalities walkthrough:
 	In this view, as a regular user, you can:
 	- Interact with the navigation bar displayed on the left, which takes you to different views. (**->Main, My Blog, Bookmarks, Settings, Log In Page**)
 
-	- View all the posts made by the users that you follow in the middle. You may bookmark or comment on each post. Clicking on the avatar of a post or comment brings you to the profile page of that user. (**->Profile**)
+	- View all the posts made by the users that you follow in the middle of the page. You may bookmark or comment on each post. Clicking on the avatar of a post or comment brings you to the profile page of that user. (**->Profile**)
 
 	- Bookmark a post by pressing the bookmark button on the top right of each post. **A dialog will pop up, telling you whether you have bookmarked or unbookmarked the post**, and it will be added or removed from your Bookmarks view accordingly. (**->Bookmarks**). 
 
 	- You can make a new comment by typing in the comment text field under each post and pressing the comment button. You can also delete a comment that you've made by pressing the remove button on the right side of your comment.
 
-	- Search by tags or usernames with the search bar displayed on the top. The search is NOT case-sensitive and will return **all posts from the entire Post collection in the database that contains the searched text as a _substring_ in the username or tag**. You may only search for one tag/username at a time. To display all existing posts from this view again, search with an empty string, or click on the "X" button at the right side of the search bar.
+	- Search by tags or usernames with the search bar displayed on the top. The search is NOT case-sensitive and will return **all posts from the entire Post collection in the database that contains the searched text as a _substring_ in the username or tag**. You may only search for one tag/username at a time. To display all existing posts from this view again, search with an empty string, or click on the "X" button on the right-hand side of the search bar.
 	
 	- **Clicking on a tag in a post will act like searching for that specific tag (as a substring).**
 	
 	- **As of Phase 2, the search bar only exists in the Main Blog, but you may still click on tags in other views to perform a search**
 
-	- View all your followers and the users that you are following on the right. Clicking on an avatar brings you to that user's profile page. (**->Profile**)
+	- View all your followers and the users that you are following on the right side of the page. Clicking on an avatar brings you to that user's profile page. (**->Profile**)
 	
-	- **A newly signed up user will automatically have an Admin user in their following list. This is so that all new users have some posts and users to interact with in t heir main page. They can also search up new posts and users with the search bar, and of course they may unfollow the admin user if intended.**
+	- **A newly signed up user will automatically have an Admin user in their following list. This is so that all new users have some posts and users to interact with in their main page. They can also search for new posts and users with the search bar, and of course, they may unfollow the admin user if desired.**
 
 2. **My Blog**: 
 
-	This view contains all of the user's own posts and shares some similarities with the Main view in terms of functionalities:
+	This view contains all of the posts made by the user currently logged in and shares some similarities with the Main view in terms of functionalities:
 
 	- The Navigation Bar, and the Followers/Following Section work the same as in Main.
 
 	- For the post section, in addition to commenting, you can also delete any comments made by other users. You can also delete your post by pressing the delete button on the top right of each post.
 
-	- You can make a new post by typing in the post textbox on top of the page. You may add custom tags by typing in the tag text field and pressing the "add button" or the "enter" key. These tags will respond to the searches when a user search by the tag content. You may delete an added tag by pressing the delete icon on each of the new tag before making your post. Pressing the image icon will **prompt the user to insert an image for this post from their file explorer. The user may insert up to four images for each posts**. Finally, you may press the POST button to create your new post.
+	- You can make a new post by typing in the post textbox on top of the page. You may add custom tags by typing in the tag text field and pressing the "add button" or the "enter" key. These tags will respond to the searches when a user search by the tag content. You may delete an added tag by pressing the delete icon on each of the new tag before making your post. Pressing the image icon will **prompt the user to insert an image for this post from their file explorer. The user may insert up to four images for each post**. Finally, you may press the POST button to create your new post.
 
 3. **Bookmarks**: 
 
@@ -85,7 +85,7 @@ Functionalities walkthrough:
 4. **Profile**: 
 
 	This view also works the same as the Main View, with a few differences:
-	- It only displays posts made by this specific user.
+	- It only displays posts made by the specific user whose profile you are on.
 
 	- You may follow or unfollow this user by clicking on the button displayed below the avatar in the navigation menu. Doing so will add/remove this user from your following list on the right.
 
@@ -96,9 +96,9 @@ Functionalities walkthrough:
 
 	- Expand each accordion to see which settings we wish to implement for a user.
 	
-	- **You may change your username, Bio, and password in the corresponding sections, and press the save button to update it.**
+	- **You may change your username, biography, and password in the corresponding sections, and press the save button to update it.**
 
-	- The profile picture setting allows 3 hardcoded pictures for the user to select from, **you may also upload a picture of your own to set as your profile avatar, which will be displayed as the fourth avatar. Select one of the four radio buttons and press save will update your user profile image**.
+	- The profile picture setting allows 3 hardcoded pictures for the user to select from, **you may also upload a picture of your own to set as your profile avatar, which will be displayed as the fourth avatar. Select one of the four radio buttons and pressing save will update your user profile image**.
 	
 	- **All of the above changes are reflected in the posts/comments that you've made, as well as when another user vists your profile page.**
 
@@ -115,21 +115,21 @@ Please enter the information below and press the login button to log in as an Ad
 
 Functionalities walkthrough:
 
-- An admin user retains all of the features that a regular user have access to, with a few additions:
+- An admin user retains all of the features that a regular user has access to, with a few additions:
 
-- In addition to bookmark a post, the admin user can delete any post made by any user. This includes the posts that are displayed in the admin's main view, and any posts accessible through a user's profile page. This is done by clicking on the menu button beside the post and clicking on the delete tab.
+- In addition to bookmarking a post, the admin user can delete any post made by any user. This includes the posts that are displayed in the admin's main view, and any posts accessible through a user's profile page. This is done by clicking on the menu button beside the post and clicking on the delete tab.
 
-- Similar to delete a post, the admin user can also delete any comments made by any user for a given post. The process is the same as deleting a post but with a comment.
+- Similar to deleting a post, the admin user can also delete any comments made by any user for a given post. The process is the same as deleting a post but with a comment.
 
 - The admin user can choose to Ban **and Unban** a user from a post or a comment. This can be done by clicking on the menu button beside the post or comment made by a user and clicking on the "Ban User" option. This will prevent that user from logging in, but that user's posts and profile page will still be accessible by other users.
 
 - **The Admin user will automatically be followed by newly created users, so that new users will be provided a more interactive, user-friendly landing page upon sign-up.**
 
-## Documentations For Our Express Routes
-### Middlewares 
+# Documentations For Our Express Routes
+## Middlewares 
 
 #### mongoChecker
-Middleware for mongo connection error for routes that need it
+Middleware for mongo connection error for routes that need it.
 
 #### authenticate
 Middleware for authentication of resources, also append the current user information as part of the request. Used when API route should only be accessed by a logged in user.
@@ -138,11 +138,11 @@ Middleware for authentication of resources, also append the current user informa
 Middleware for verifying Admin permission of resources, rejects any requests sent by a user without the admin role. Used when API route is exclusive to Admin users.
 
 #### multipartMiddleware
-
+Middleware for extracting multipart/form-data data from HTTP requests, used for sending files over HTTP to be uploaded to database.
 
 ---
 
-### Session Handling
+## Session Handling
 
 #### Check Session
 A route to check if a user is logged in on the session
@@ -161,7 +161,7 @@ Returned:
 
 ---
 
-### Admin Routes
+## Admin Routes
 API routes exclusive to admin users
 
 #### Toggle Ban Status
@@ -189,7 +189,7 @@ Returned:
 
 ---
 
-### Bookmarks
+## Bookmarks
 API routes for handling bookmarks
 
 #### Bookmark Post
@@ -242,7 +242,7 @@ Returned:
 
 ---
 
-### Comments
+## Comments
 API routes for handling comments
 
 #### Add Comment
@@ -289,19 +289,31 @@ Returned:
 
 ---
 
-### Images
+## Images
 API routes for handling images
 
 #### Add Image(s)
+Route for adding 1-4 images to the cloudinary database when making a post
 ```javascript
 router.post("/images", 
     multipartMiddleware, ...)
 ```
 Expected:
+```javascript
+req.files // Array of Blob type files to be uploaded to Cloudinary
+```
 
 Returned:
+```javascript
+Promise.all(upload_responses)
+    .then((result) => {
+        res.send({ result });
+    })
+// Returns array of cloudinary img_url's to be used in the frontend  
+```
 
 #### Change User Avatar
+Route for updating a user's avatar with an image uploaded by the user
 ```javascript
 router.post(
     "/api/changeUserAvatar",
@@ -310,12 +322,19 @@ router.post(
     multipartMiddleware, ...)
 ```
 Expected:
+```javascript
+req.files["file0"] // An image of Blob file type representing the image uploaded by the user
+```
 
-Returned:
+Returned:  
 
+	String response describing the success state of the operation.
+	
+	Returns status code 500 upon error.
+	
 ---
 
-### Interactions
+## Interactions
 API routes that handle follow/unfollow interations
 
 #### Get Followers
@@ -369,7 +388,7 @@ Returned:
 ```
 ---
 
-### Posts
+## Posts
 API routes that handle retrieving. creating, and deleting posts
 
 #### Get User Posts
@@ -489,7 +508,101 @@ Returned:
 
 ---
 
-### Users
+## Settings  
+API routes that handle retrieving and updating user information in the Settings page
+
+#### Update User Avatar By Link
+Route for updating the profile image of the authenticated user by an cloudinary image link
+```javascript
+router.patch(
+    "/api/updateProfileImgByLink",
+    mongoChecker,
+    authenticate, ...)
+```
+Expected:
+```javascript
+req.user._id // user ID of the authenticated user from middleware
+req.query.image_url // image link to the cloudinary image database
+```
+
+Returned:
+
+    A message that describe the action was done properly on success.
+
+#### Get User Stats
+Route for getting the logged in user's statistics
+```javascript
+router.get('/api/getUserStats', ...)
+```
+Expected:
+```javascript
+req.user._id // Authenticated user ID from middleware
+```
+
+Returned:
+```javascript
+postCount: posts.length, // number of posts by this user
+followerCount: user.follower.length, // number of follwers this user has
+followingCount: user.following.length, // number of users this user follows
+creationDate: user.creationDate.toLocaleDateString([], {year: 'numeric', month: 'long', day: 'numeric'}), // creation date of account
+```
+
+#### Change User Bio
+Route for updating a user's biography
+```javascript
+router.patch("/api/changeUserBio", ...)
+```
+Expected:
+```javascript
+req.user._id // Authenticated user ID from middleware
+req.body.newBio // String input to be used as the new biography
+```
+
+Returned:
+
+	String response describing the success state of the operation.
+	
+	Returns status code 500 upon error.
+
+#### Change Username
+Route for updating a user's username
+```javascript
+router.patch("/api/changeUsername", ...)
+```
+Expected:
+```javascript
+req.user._id // Authenticated user ID from middleware
+req.body.newUsername // String input to be used as the user's new username
+```
+
+Returned:
+
+	String response describing the success state of the operation.
+	
+	Returns status code 500 upon error.	
+
+#### Update User Password
+API that updates the authenticated user's password
+```javascript
+router.patch(
+    "/api/updatePassword",
+    mongoChecker,
+    authenticate, ...)
+```
+Expected:
+```javascript
+// new password of the user in the req.body
+req.body.password
+```
+
+Returned:
+
+    If successful, a message that decribe that the action was done successfully.
+    Note that the password is encrypted by bcrypt with salt.
+
+---
+
+## Users
 API routes that handle user login/logout, fetching and updating user information
 
 #### User Login
@@ -528,25 +641,6 @@ Expected:
 Returned:
 
     None
-
-#### Update User Password
-API that updates the authenticated user's password
-```javascript
-router.patch(
-    "/api/updatePassword",
-    mongoChecker,
-    authenticate, ...)
-```
-Expected:
-```javascript
-// new password of the user in the req.body
-req.body.password
-```
-
-Returned:
-
-    If successful, a message that decribe that the action was done successfully.
-    Note that the password is encrypted by bcrypt with salt.
 
 #### Create User
 API for creating a new user
@@ -595,26 +689,9 @@ req.params.id
 Returned:
 
     The user information of the targeted user.
-
-#### Update User Avatar By Link
-Route for updating the profile image of the authenticated user by an cloudinary image link
-```javascript
-router.patch(
-    "/api/updateProfileImgByLink",
-    mongoChecker,
-    authenticate, ...)
-```
-Expected:
-```javascript
-req.user._id // user ID of the authenticated user from middleware
-req.query.image_url // image link to the cloudinary image database
-```
-
-Returned:
-
-    A message that describe the action was done properly on success.
-
+    
 ---
+
 
 ### To run our application locally (for development), please clone our master branch, navigate into team33, and install the dependencies for both server and the client and start each of them separatly.
 ```bash
