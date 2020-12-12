@@ -39,9 +39,9 @@
 
 After reaching the landing page, you may log in with the credentials below:
 
-**Username**: encrypt (change this)
+**Username**: user
 
-**Password**: 1234
+**Password**: user
 
 Alternatively, you may sign in with a new user by going though the sign up page.
 
