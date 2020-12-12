@@ -12,7 +12,7 @@ const UserSchema = new mongoose.Schema({
         trim: true,
         unique: true,
     },
-    role: String,
+    role: { type: String, default: "user" },
     password: {
         type: String,
         required: true,
@@ -34,7 +34,7 @@ const UserSchema = new mongoose.Schema({
     },
     // Unsure about the ones below
     creationDate: { type: Date, default: Date.now() },
-    status: { type: String, default: "user" },
+    status: { type: String, default: "normal" },
 });
 
 // An example of Mongoose middleware.
