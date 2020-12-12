@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
-import getCurrentUserAndIndex from "../../actions/getCurrentUserAndIndex";
 import { handleProfileBtn } from "../../actions/profile";
-import MyBlog from "../MyBlog/MyBlog";
 import AdminDropDownMenu from "../AdminMenu/AdminDropDownMenu";
 import { Link } from "react-router-dom";
 import { getSpecificUser } from "../../actions/users";

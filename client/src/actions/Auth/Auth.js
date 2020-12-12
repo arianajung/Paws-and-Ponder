@@ -8,17 +8,17 @@ class Auth {
     const url = "/users/check-session";
 
     fetch(url)
-      .then(res => {
+      .then((res) => {
         if (res.status === 200) {
           return res.json();
         }
       })
-      .then(json => {
+      .then((json) => {
         if (json && json.currentUser) {
           app.setState({ currentUser: json.currentUser });
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   };
@@ -30,28 +30,28 @@ class Auth {
       body: JSON.stringify(loginComp.state),
       headers: {
         Accept: "application/json, text/plain, */*",
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     });
 
     // Send the request with fetch()
     fetch(request)
-      .then(res => {
+      .then((res) => {
         if (res.status === 200) {
           return res.json();
         }
       })
-      .then(json => {
+      .then((json) => {
         if (json.currentUser !== undefined) {
           app.setState({
             currentUser: json.currentUser,
-            curr_uid: json.curr_uid // also set this in app state
+            curr_uid: json.curr_uid, // also set this in app state
           });
           this.authenticated = true;
           console.log("Login successful");
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
         alert("Login Failed. Check your credentials and User Status");
       });
@@ -63,18 +63,18 @@ class Auth {
       body: JSON.stringify(signup.state),
       headers: {
         Accept: "application/json, text/plain, */*",
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     });
 
     // Send the request with fetch()
     fetch(request)
-      .then(res => {
+      .then((res) => {
         if (res.status === 200) {
           return res.json();
         }
       })
-      .then(json => {
+      .then((json) => {
         if (json.currentUser !== undefined) {
           app.setState({ currentUser: json.currentUser });
           this.authenticated = true;
@@ -87,7 +87,7 @@ class Auth {
         console.log("Auto Login");
         this.loginBackEnd(signup, app);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
         console.log("Sign Up Failed, Invalid inputs");
       });
@@ -98,13 +98,13 @@ class Auth {
     const url = "/users/logout";
 
     fetch(url)
-      .then(res => {
+      .then((res) => {
         app.setState({
           currentUser: null,
         });
         console.log("You have been successfully logged out");
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   }
