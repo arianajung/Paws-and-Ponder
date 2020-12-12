@@ -1,4 +1,4 @@
-# Petlog team33 
+# [Team33] Paws & Ponder 
 
 ## Index
 - [Deployed Website](#deployed-website)
@@ -125,8 +125,8 @@ Functionalities walkthrough:
 
 - **The Admin user will automatically be followed by newly created users, so that new users will be provided a more interactive, user-friendly landing page upon sign-up.**
 
-## Documentations For Our Express Routes
-### Middlewares 
+# Documentations For Our Express Routes
+## Middlewares 
 
 #### mongoChecker
 Middleware for mongo connection error for routes that need it.
@@ -142,7 +142,7 @@ Middleware for extracting multipart/form-data data from HTTP requests, used for 
 
 ---
 
-### Session Handling
+## Session Handling
 
 #### Check Session
 A route to check if a user is logged in on the session
@@ -189,7 +189,7 @@ Returned:
 
 ---
 
-### Bookmarks
+## Bookmarks
 API routes for handling bookmarks
 
 #### Bookmark Post
@@ -242,7 +242,7 @@ Returned:
 
 ---
 
-### Comments
+## Comments
 API routes for handling comments
 
 #### Add Comment
@@ -289,7 +289,7 @@ Returned:
 
 ---
 
-### Images
+## Images
 API routes for handling images
 
 #### Add Image(s)
@@ -334,7 +334,7 @@ Returned:
 	
 ---
 
-### Interactions
+## Interactions
 API routes that handle follow/unfollow interations
 
 #### Get Followers
@@ -388,7 +388,7 @@ Returned:
 ```
 ---
 
-### Posts
+## Posts
 API routes that handle retrieving. creating, and deleting posts
 
 #### Get User Posts
@@ -508,7 +508,7 @@ Returned:
 
 ---
 
-### Settings  
+## Settings  
 API routes that handle retrieving and updating user information in the Settings page
 
 #### Update User Avatar By Link
@@ -602,7 +602,7 @@ Returned:
 
 ---
 
-### Users
+## Users
 API routes that handle user login/logout, fetching and updating user information
 
 #### User Login
