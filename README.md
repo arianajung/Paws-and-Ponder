@@ -138,7 +138,7 @@ Middleware for authentication of resources, also append the current user informa
 Middleware for verifying Admin permission of resources, rejects any requests sent by a user without the admin role. Used when API route is exclusive to Admin users.
 
 #### multipartMiddleware
-
+Middleware for extracting multipart/form-data data from HTTP requests, used for sending files over HTTP to be uploaded to database.
 
 ---
 
@@ -293,15 +293,27 @@ Returned:
 API routes for handling images
 
 #### Add Image(s)
+Route for adding 1-4 images to the cloudinary database when making a post
 ```javascript
 router.post("/images", 
     multipartMiddleware, ...)
 ```
 Expected:
+```javascript
+req.files // Array of Blob type files to be uploaded to Cloudinary
+```
 
 Returned:
+```javascript
+Promise.all(upload_responses)
+    .then((result) => {
+        res.send({ result });
+    })
+// Returns array of cloudinary img_url's to be used in the frontend  
+```
 
 #### Change User Avatar
+Route for updating a user's avatar with an image uploaded by the user
 ```javascript
 router.post(
     "/api/changeUserAvatar",
@@ -310,9 +322,15 @@ router.post(
     multipartMiddleware, ...)
 ```
 Expected:
+```javascript
+req.files["file0"] // An image of Blob file type representing the image uploaded by the user
+```
 
 Returned:
-
+	String response describing the success state of the operation.
+	
+	Returns status code 500 upon error.
+	
 ---
 
 ### Interactions
