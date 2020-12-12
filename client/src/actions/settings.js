@@ -1,5 +1,5 @@
 export const getUserStatistics = async () => {
-    return fetch('/api/getUserStats')
+    return fetch("/api/getUserStats")
         .then((res) => {
             if (res.status === 200) {
                 return res.json();
@@ -9,17 +9,17 @@ export const getUserStatistics = async () => {
             console.log("settings: getUserStats, ", error);
             return null;
         });
-}
+};
 
 export const updateBio = async (data) => {
-    const url = '/api/changeUserBio';
+    const url = "/api/changeUserBio";
     const request = new Request(url, {
-        method: 'PATCH',
+        method: "PATCH",
         headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
-    })
+    });
     return fetch(request)
         .then((res) => {
             if (res.status === 200) {
@@ -30,17 +30,17 @@ export const updateBio = async (data) => {
             console.log("settings: updateBio, ", error);
             return false;
         });
-}
+};
 
 export const updateUsername = async (data) => {
-    const url = '/api/changeUsername';
+    const url = "/api/changeUsername";
     const request = new Request(url, {
-        method: 'PATCH',
+        method: "PATCH",
         headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
-    })
+    });
     return fetch(request)
         .then((res) => {
             if (res.status === 200) {
@@ -49,9 +49,9 @@ export const updateUsername = async (data) => {
         })
         .catch((error) => {
             console.log("settings: updateUsername, ", error);
-            return false
-        })
-}
+            return false;
+        });
+};
 
 export const updatePassword = async (password) => {
     const url = `/api/updatePassword`;
@@ -59,7 +59,7 @@ export const updatePassword = async (password) => {
     const request = new Request(url, {
         method: "PATCH",
         body: JSON.stringify({
-            password: password
+            password: password,
         }),
         headers: {
             Accept: "application/json, text/plain, */*",
@@ -71,7 +71,7 @@ export const updatePassword = async (password) => {
         .then((res) => {
             if (res.status === 200) {
                 // return a promise that resolves with the JSON body
-                console.log("Password updated successfully")
+                console.log("Password updated successfully");
                 return true;
             }
         })

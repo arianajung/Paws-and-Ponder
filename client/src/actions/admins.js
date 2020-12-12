@@ -26,7 +26,7 @@ export const toggleBanStatus = (user_id) => {
         })
         .then((json) => {
             // the resolved promise with the JSON body
-            console.log(json.message)
+            console.log(json.message);
         })
         .catch((error) => {
             console.log(error);

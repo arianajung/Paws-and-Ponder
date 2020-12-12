@@ -1,6 +1,5 @@
 // Functions to help with user actions.
 
-
 export const getPosts = async (postList) => {
     const url = `/api/get-main-posts/`;
 
@@ -221,7 +220,11 @@ export const addComment = async (new_comment, pid, postlist) => {
             // the resolved promise with the JSON body
             if (postlist.state.type === "main") {
                 if (postlist.props.type === "searched") {
-                    getSearchedPosts(postlist, postlist.props.search_text, postlist.props.page);
+                    getSearchedPosts(
+                        postlist,
+                        postlist.props.search_text,
+                        postlist.props.page
+                    );
                 } else {
                     getPosts(postlist);
                 }
@@ -293,7 +296,11 @@ export const removePost = async (postID, postList) => {
             // including types of post list becase an admin can delete from different pages
             if (postList.state.type === "main") {
                 if (postList.props.type === "searched") {
-                    getSearchedPosts(postList, postList.props.search_text, postList.props.page);
+                    getSearchedPosts(
+                        postList,
+                        postList.props.search_text,
+                        postList.props.page
+                    );
                 } else {
                     getPosts(postList);
                 }
@@ -329,7 +336,11 @@ export const removeComment = async (postID, commentID, postList) => {
             // probably will have to distinguish if it's a req from user vs. admin later
             if (postList.state.type === "main") {
                 if (postList.props.type === "searched") {
-                    getSearchedPosts(postList, postList.props.search_text, postList.props.page);
+                    getSearchedPosts(
+                        postList,
+                        postList.props.search_text,
+                        postList.props.page
+                    );
                 } else {
                     getPosts(postList);
                 }

@@ -7,9 +7,6 @@ import SearchBar from "material-ui-search-bar";
 import PermanentDrawerRight from "../DrawerMenu/Drawer";
 import Navbar from "../Navbar/Navbar";
 import PostList from "../PostList/PostList";
-import getCurrentUserAndIndex from "../../actions/getCurrentUserAndIndex";
-import getPostIndex from "../../actions/getPostIndex";
-import searchRequest from "../../actions/searchRequest";
 
 // css
 import "../MyBlog/MyBlog.css";

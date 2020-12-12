@@ -10,7 +10,6 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import BookmarkIcon from "@material-ui/icons/TurnedInNot";
 import BookmarkedIcon from "@material-ui/icons/TurnedIn";
 import Chip from "@material-ui/core/Chip";
-import updateBookmarkedStatus from "../../actions/updateBookmarkedStatus/updateBookmarkedStatus";
 
 import AdminDropDownMenu from "../AdminMenu/AdminDropDownMenu";
 import { handleProfileBtn } from "../../actions/profile";
