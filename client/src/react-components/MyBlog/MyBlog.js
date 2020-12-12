@@ -14,7 +14,6 @@ import Chip from "@material-ui/core/Chip";
 import PermanentDrawerRight from "../DrawerMenu/Drawer";
 import Navbar from "../Navbar/Navbar";
 import PostList from "../PostList/PostList";
-import postImg from "./static/post_img.jpeg";
 
 // css
 import "./MyBlog.css";
