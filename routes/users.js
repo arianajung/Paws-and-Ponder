@@ -52,29 +52,6 @@ router.get("/users/logout", (req, res) => {
     });
 });
 
-// a patch route to update a user's password
-router.patch(
-    "/api/updatePassword",
-    mongoChecker,
-    authenticate,
-    async (req, res) => {
-        try {
-            // get admin user to update following relationship
-            req.user.password = req.body.password;
-            await req.user.save(); //encrypt in the backend
-            res.send("Password Updated");
-        } catch (error) {
-            log(error); // log server error to the console, not to the client.
-            if (isMongoError(error)) {
-                // check for if mongo server suddenly dissconnected before this request.
-                res.status(500).send("Internal server error");
-            } else {
-                res.status(400).send("Bad Request"); // 400 for bad request gets sent to client.
-            }
-        }
-    }
-);
-
 router.post("/api/addUser", 
     mongoChecker, 
     async (req, res) => {

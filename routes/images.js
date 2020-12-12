@@ -49,6 +49,7 @@ router.post("/images", multipartMiddleware, (req, res) => {
 
     Promise.all(upload_responses)
         .then((result) => {
+            console.log(result);
             res.send({ result });
         })
         .catch((error) => {
