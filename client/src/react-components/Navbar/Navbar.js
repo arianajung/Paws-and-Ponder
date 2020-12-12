@@ -84,7 +84,7 @@ function Navbar({ app, view, profileUser, currentUser, profilePage }) {
                     align="center"
                     variant="h4"
                 >
-                    PETLOG <PetsIcon />
+                    Paws & Ponder <PetsIcon />
                 </Typography>
 
                 {userProfile}
