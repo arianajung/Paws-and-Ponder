@@ -28,8 +28,6 @@ class PostList extends React.Component {
         if (this.state.type === "main") {
             getPosts(this);
         } else if (this.state.type === "profile") {
-            // console.log(this.props.profileUser.username);
-            // getProfilePosts(this, this.props.profileUser.username);
             getProfilePosts(this);
         } else if (this.state.type === "blog") {
             getUserPosts(this);
@@ -64,16 +62,8 @@ class PostList extends React.Component {
     }
 
     render() {
-        // console.log("postlist posts: " + this.state.postList);
         const {
             currentUser, // need
-            // app_users,
-            // addComment,
-            // myBlog,
-            // profileImg,
-            // bookmarks,
-            // page,
-            // role,
             app,
             page,
         } = this.props;
@@ -85,16 +75,8 @@ class PostList extends React.Component {
                     <Post
                         key={uid(post)}
                         currentUser={currentUser}
-                        // app_users={app_users}
-                        // postID={postID}
                         post={post}
                         type={this.state.type}
-                        // addComment={addComment}
-                        // myBlog={myBlog}
-                        // bookmarks={bookmarks}
-                        // profileImg={""}
-                        // page={page}
-                        // role={role}
                         postlist={this}
                         app={app}
                         page={page}

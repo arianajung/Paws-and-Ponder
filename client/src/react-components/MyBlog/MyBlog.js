@@ -1,4 +1,4 @@
-import React, { Component, useRef } from "react";
+import React, { Component } from "react";
 import { uid } from "react-uid";
 
 // material-ui imports
@@ -45,12 +45,10 @@ class MyBlog extends Component {
 
     componentDidMount() {
         getCurrentUser(this);
-        //console.log("MyBlog.js: componenetDidMount()");
     }
 
     componentDidUpdate() {
         if (this.state.req === "makePost") {
-            //console.log("MyBlog.js: componenetDidUpdate()");
             this.setState({ req: "blog" });
         }
     }
@@ -253,12 +251,9 @@ class MyBlog extends Component {
                         <PostList
                             currentUser={this.state.currentUser}
                             type={this.state.req}
-                            // profileImg={this.state.profileImg}
-                            // role={this.state.current_user_role}
                             searchText={this.searchText}
                             app={this.props.app}
                             page={this}
-                            // posts={this.state.posts}
                         />
                     </div>
                 </div>

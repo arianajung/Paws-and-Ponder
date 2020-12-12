@@ -1,8 +1,3 @@
-/* #profile-attach-button.MuiIconButton-root:hover {
-  color: rgba(0, 0, 0, 0.9);
-  background-color: rgba(187, 181, 157, 0.507);
-} */
-
 #profile-attach-button {
     border-radius: 5px;
     font-size: 18px;
@@ -14,5 +9,5 @@
 }
 
 .bio.MuiTypography-root {
-  margin-left: 20px;
+    margin-left: 20px;
 }

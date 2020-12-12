@@ -6,9 +6,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
-// Need to change this to import specific user image instead
 import BookmarkIcon from "@material-ui/icons/TurnedInNot";
-import BookmarkedIcon from "@material-ui/icons/TurnedIn";
 import Chip from "@material-ui/core/Chip";
 
 import AdminDropDownMenu from "../AdminMenu/AdminDropDownMenu";
@@ -21,7 +19,6 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 
 import { getCurrentUser, getSpecificUser } from "../../actions/users";
-
 import { addComment } from "../../actions/comments";
 import { removePost } from "../../actions/posts";
 import { bookmarkPost, unbookmarkPost } from "../../actions/bookmarks";
@@ -101,19 +98,7 @@ class Post extends React.Component {
     }
 
     render() {
-        const {
-            // currentUser,
-            // app_users,
-            post,
-            postlist,
-            type,
-            // myBlog,
-            // profileImg,
-            // page,
-            // role,
-            app,
-            page,
-        } = this.props;
+        const { post, postlist, type, app, page } = this.props;
 
         const bookmarkOrRemoveButton =
             post.owner_id === this.state.currentUser._id ? ( // bookmark button
@@ -287,8 +272,6 @@ class Post extends React.Component {
                             </div>
 
                             {dialog}
-
-                            {/* Need to add more user stuff here like user pic*/}
                         </div>
                         <div className="post-content">
                             <div id="post-text">{post.textContent}</div>

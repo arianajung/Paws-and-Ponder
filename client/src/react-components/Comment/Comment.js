@@ -6,7 +6,6 @@ import AdminDropDownMenu from "../AdminMenu/AdminDropDownMenu";
 import { Link } from "react-router-dom";
 import { getSpecificUser } from "../../actions/users";
 import { removeComment } from "../../actions/comments";
-
 import Moment from "react-moment";
 
 // css
@@ -32,12 +31,6 @@ class Comment extends Component {
             postID,
             postList,
             postOwner,
-            // comment_user,
-            // comment_text,
-            // profileImg,
-            // commentID,
-            // page,
-            // role,
             app,
             page,
         } = this.props;
@@ -99,19 +92,6 @@ class Comment extends Component {
                     />
                 </div>
             ) : null;
-
-        // const adminButton2 = (isPost) =>
-        //     role === "admin" && comment_user !== currentUser ? (
-        //         <div className="admin-button">
-        //             <AdminDropDownMenu
-        //                 user={comment_user}
-        //                 page={page}
-        //                 isPost={isPost}
-        //                 commentID={commentID}
-        //                 postID={postID}
-        //             />
-        //         </div>
-        //     ) : null;
 
         return (
             <div className="comment">

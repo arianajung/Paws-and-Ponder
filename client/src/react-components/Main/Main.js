@@ -4,7 +4,6 @@ import Navbar from "../Navbar/Navbar";
 import SearchBar from "material-ui-search-bar";
 import PermanentDrawerRight from "../DrawerMenu/Drawer";
 import "./Main.css";
-import { Typography } from "@material-ui/core";
 import { getCurrentUser } from "../../actions/users";
 
 /* Main page where the user views all of the posts made by people that they follow*/
@@ -20,13 +19,6 @@ class Main extends React.Component {
             posts: [],
             currentUser: null,
             type: "main",
-            //     current_username: current_user.username,
-            //     current_user_role: current_user.role,
-            //     profileImg: current_user.profileImg,
-            //     bookmarks: current_user.bookmarks,
-            //     posts: current_user.mainPosts,
-            //     comment_count: current_user.commentCount,
-            //     all_posts: current_user.mainPosts,
         };
     }
 
@@ -75,12 +67,6 @@ class Main extends React.Component {
                             search_text={this.state.searchText}
                             app={app}
                             page={this}
-                            // curr_uid={app.state.curr_uid}
-                            // app_users={this.state.app_users}
-                            //posts={this.state.posts}
-                            // addComment={this.addComment}
-                            // profileImg={this.state.profileImg}
-                            // role={this.state.current_user_role}
                         />
                     </div>
                 </div>

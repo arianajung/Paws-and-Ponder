@@ -9,11 +9,9 @@ import MenuList from "@material-ui/core/MenuList";
 import { makeStyles } from "@material-ui/core/styles";
 import MenuIcon from "@material-ui/icons/Menu";
 import MyBlog from "../MyBlog/MyBlog";
-
 import { removeComment } from "../../actions/comments";
 import { removePost } from "../../actions/posts";
 import { toggleBanStatus } from "../../actions/admins";
-
 import "./AdminDropDownMenu.css";
 
 const useStyles = makeStyles((theme) => ({
@@ -67,12 +65,10 @@ export default function AdminDropDownMenu(props) {
         } else {
             removeComment(postID, commentID, postlist);
         }
-        //   removeComment(page, postID, commentID);
         handleClose(e);
     };
 
     const ban = (e) => {
-        // page.props.app.state.userCreds = page.props.app.state.userCreds.filter( ({ username }) => username !== user );
         toggleBanStatus(banID);
         handleClose(e);
     };
