@@ -161,7 +161,7 @@ Returned:
 
 ---
 
-### Admin Routes
+## Admin Routes
 API routes exclusive to admin users
 
 #### Toggle Ban Status
