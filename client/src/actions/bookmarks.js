@@ -24,7 +24,6 @@ export const bookmarkPost = async (postID) => {
             );
         })
         .catch((error) => {
-            console.log(error);
             console.log("Failed to make post");
         });
 };
@@ -56,7 +55,6 @@ export const unbookmarkPost = async (postID, postlist) => {
             }
         })
         .catch((error) => {
-            console.log(error);
             console.log("Failed to make post");
         });
 };
@@ -72,7 +70,7 @@ export const getBookmarkPosts = async (postList) => {
                 // return a promise that resolves with the JSON body
                 return res.json();
             } else {
-                alert("Could not get bookmarked posts");
+                console.log("Could not get bookmarked posts");
             }
         })
         .then((json) => {
@@ -80,6 +78,6 @@ export const getBookmarkPosts = async (postList) => {
             postList.setState({ postList: json });
         })
         .catch((error) => {
-            console.log(error);
+            console.log("Failed to get bookmarks");
         });
 };

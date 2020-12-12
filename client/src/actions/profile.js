@@ -23,7 +23,6 @@ export const contains = (_id, following) => {
 };
 
 export const handleFollowButton = (profileUser, profilePage) => {
-    console.log("here", profileUser);
     const profileUser_id = profileUser._id;
     updateUserRelation(profilePage, profileUser_id);
 };

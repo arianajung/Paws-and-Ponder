@@ -8,7 +8,6 @@ export const addImage = async (file, component) => {
     // the URL for the request
     const url = "/images";
 
-    console.log(file);
     const compression_options = {
         maxSizeMB: 0.2,
     };
@@ -22,7 +21,6 @@ export const addImage = async (file, component) => {
         );
         imageData.append(`file${file_idx}`, compressed_file);
     }
-    console.log("image data: ", imageData);
 
     // Create our request constructor with all the parameters we need
     const request = new Request(url, {
@@ -56,7 +54,7 @@ export const addImage = async (file, component) => {
             }
         })
         .catch((error) => {
-            console.log(error);
+            console.log("Failed to add image");
         });
 };
 
@@ -98,7 +96,7 @@ export const getImages = (imageListComp) => {
                 // return a promise that resolves with the JSON body
                 return res.json();
             } else {
-                alert("Could not get images");
+                console.log("Could not get images");
             }
         })
         .then((json) => {
@@ -106,7 +104,7 @@ export const getImages = (imageListComp) => {
             imageListComp.setState({ imageList: json.images });
         })
         .catch((error) => {
-            console.log(error);
+            console.log("Failed to get image");
         });
 };
 
@@ -152,6 +150,6 @@ export const deleteImage = (imageId, dashboardComp, imageListComp) => {
             }
         })
         .catch((error) => {
-            console.log(error);
+            console.log("Failed to delete image");
         });
 };

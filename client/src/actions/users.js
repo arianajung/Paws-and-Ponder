@@ -40,7 +40,7 @@ export const getCurrentUser = (page) => {
                 // return a promise that resolves with the JSON body
                 return res.json();
             } else {
-                alert("Could not get current user info");
+                console.log("Could not get current user info");
             }
         })
         .then((json) => {
@@ -48,7 +48,7 @@ export const getCurrentUser = (page) => {
             page.setState({ currentUser: json });
         })
         .catch((error) => {
-            console.log(error);
+            console.log("Failed to get current user");
         });
 };
 
@@ -63,7 +63,7 @@ export const getSpecificUser = (page, postUser_id) => {
                 // return a promise that resolves with the JSON body
                 return res.json();
             } else {
-                alert("Could not get current user info");
+                console.log("Could not get current user info");
             }
         })
         .then((json) => {
@@ -71,7 +71,7 @@ export const getSpecificUser = (page, postUser_id) => {
             page.setState({ specificUser: json });
         })
         .catch((error) => {
-            console.log(error);
+            console.log("Failed to get specific user");
         });
 };
 
@@ -79,8 +79,6 @@ export const getSpecificUser = (page, postUser_id) => {
 export const updateUserRelation = (page, profile_id) => {
     // the URL for the request
     const url = `/api/updateUserRelation?profile_id=${profile_id}`;
-
-    console.log(url);
 
     const request = new Request(url, {
         method: "PATCH",
@@ -97,7 +95,7 @@ export const updateUserRelation = (page, profile_id) => {
                 // return a promise that resolves with the JSON body
                 return res.json();
             } else {
-                alert(
+                console.log(
                     "Follow/Unfollow Failed, check that your session is still running"
                 );
             }
@@ -107,6 +105,6 @@ export const updateUserRelation = (page, profile_id) => {
             page.setState({ currentUser: json.curr_user });
         })
         .catch((error) => {
-            console.log(error);
+            console.log("Failed to update user relations");
         });
 };

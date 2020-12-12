@@ -19,7 +19,7 @@ export const toggleBanStatus = (user_id) => {
                 // return a promise that resolves with the JSON body
                 return res.json();
             } else {
-                alert(
+                console.log(
                     "Ban/Unban Failed, check that your session is still running"
                 );
             }
@@ -29,6 +29,6 @@ export const toggleBanStatus = (user_id) => {
             console.log(json.message);
         })
         .catch((error) => {
-            console.log(error);
+            console.log("Failed to update ban status");
         });
 };

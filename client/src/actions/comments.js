@@ -50,7 +50,6 @@ export const addComment = async (new_comment, pid, postlist) => {
             }
         })
         .catch((error) => {
-            console.log(error);
             console.log("Failed to add comment");
         });
 };
@@ -93,7 +92,6 @@ export const removeComment = async (postID, commentID, postList) => {
             console.log("removed from database");
         })
         .catch((error) => {
-            console.log(error);
             console.log("Failed to remove comment from database");
         });
 };

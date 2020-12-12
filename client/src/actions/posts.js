@@ -11,7 +11,7 @@ export const getPosts = async (postList) => {
                 // return a promise that resolves with the JSON body
                 return res.json();
             } else {
-                alert("Could not get main posts");
+                console.log("Could not get main posts");
             }
         })
         .then((json) => {
@@ -19,7 +19,7 @@ export const getPosts = async (postList) => {
             postList.setState({ postList: json.posts });
         })
         .catch((error) => {
-            console.log(error);
+            console.log("Failed to get posts");
         });
 };
 
@@ -34,7 +34,7 @@ export const getUserPosts = (postList) => {
                 // return a promise that resolves with the JSON body
                 return res.json();
             } else {
-                alert("Could not get user my-blog posts");
+                console.log("Could not get user my-blog posts");
             }
         })
         .then((json) => {
@@ -42,15 +42,12 @@ export const getUserPosts = (postList) => {
             postList.setState({ postList: json.posts });
         })
         .catch((error) => {
-            console.log(error);
+            console.log("Failed to get user posts");
         });
 };
 
 export const getProfilePosts = (postList) => {
     const url = `/api/getProfilePosts?username=${postList.state.currentuser}`;
-    // export const getProfilePosts = (postList, profile_username) => {
-    //     const url = `/api/getProfilePosts?username=${profile_username}`;
-    //     console.log(`/api/getProfilePosts?username=${profile_username}`)
 
     fetch(url, {
         accepts: "application/json",
@@ -60,7 +57,7 @@ export const getProfilePosts = (postList) => {
                 // return a promise that resolves with the JSON body
                 return res.json();
             } else {
-                alert("Could not get user profile posts");
+                console.log("Could not get user profile posts");
             }
         })
         .then((json) => {
@@ -69,7 +66,7 @@ export const getProfilePosts = (postList) => {
             postList.setState({ postList: json.posts });
         })
         .catch((error) => {
-            console.log(error);
+            console.log("Failed to get profile posts");
         });
 };
 
@@ -100,7 +97,6 @@ export const makePost = async (new_post, images, tags) => {
             );
         })
         .catch((error) => {
-            console.log(error);
             console.log("Failed to make post");
         });
 };
@@ -142,16 +138,12 @@ export const removePost = async (postID, postList) => {
             }
         })
         .catch((error) => {
-            console.log(error);
             console.log("Failed to remove post from database");
         });
 };
 
 export const getSearchedPosts = async (postlist, search_text, mainpage) => {
     const url = `/api/getSearchedPost?search_text=${search_text}`;
-    // export const getProfilePosts = (postList, profile_username) => {
-    //     const url = `/api/getProfilePosts?username=${profile_username}`;
-    //     console.log(`/api/getProfilePosts?username=${profile_username}`)
 
     fetch(url, {
         accepts: "application/json",
@@ -161,7 +153,7 @@ export const getSearchedPosts = async (postlist, search_text, mainpage) => {
                 // return a promise that resolves with the JSON body
                 return res.json();
             } else {
-                alert("Search failed");
+                console.log("Search failed");
             }
         })
         .then((json) => {
@@ -171,6 +163,6 @@ export const getSearchedPosts = async (postlist, search_text, mainpage) => {
             mainpage.setState({ type: "searched" });
         })
         .catch((error) => {
-            console.log(error);
+            console.log("Failed to get searched posts");
         });
 };

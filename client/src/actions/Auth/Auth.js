@@ -19,7 +19,7 @@ class Auth {
         }
       })
       .catch((error) => {
-        console.log(error);
+        console.log("Session check failed");
       });
   };
 
@@ -52,7 +52,6 @@ class Auth {
         }
       })
       .catch((error) => {
-        console.log(error);
         alert("Login Failed. Check your credentials and User Status");
       });
   };
@@ -88,7 +87,6 @@ class Auth {
         this.loginBackEnd(signup, app);
       })
       .catch((error) => {
-        console.log(error);
         console.log("Sign Up Failed, Invalid inputs");
       });
   }
@@ -105,7 +103,7 @@ class Auth {
         console.log("You have been successfully logged out");
       })
       .catch((error) => {
-        console.log(error);
+        console.log("Failed to log out");
       });
   }
 }

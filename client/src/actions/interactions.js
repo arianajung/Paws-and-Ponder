@@ -11,7 +11,7 @@ export const getFollowers = (set) => {
                 // return a promise that resolves with the JSON body
                 return res.json();
             } else {
-                alert("Could not get user followers");
+                console.log("Could not get user followers");
             }
         })
         .then((json) => {
@@ -19,7 +19,7 @@ export const getFollowers = (set) => {
             set(json);
         })
         .catch((error) => {
-            console.log(error);
+            console.log("Failed to get followers");
         });
 };
 
@@ -34,7 +34,7 @@ export const getFollowing = (set) => {
                 // return a promise that resolves with the JSON body
                 return res.json();
             } else {
-                alert("Could not get following users");
+                console.log("Could not get following users");
             }
         })
         .then((json) => {
@@ -42,7 +42,7 @@ export const getFollowing = (set) => {
             set(json);
         })
         .catch((error) => {
-            console.log(error);
+            console.log("Failed to get following users");
         });
 };
 
@@ -50,8 +50,6 @@ export const getFollowing = (set) => {
 export const updateUserRelation = (page, profile_id) => {
     // the URL for the request
     const url = `/api/updateUserRelation?profile_id=${profile_id}`;
-
-    console.log(url);
 
     const request = new Request(url, {
         method: "PATCH",
@@ -68,7 +66,7 @@ export const updateUserRelation = (page, profile_id) => {
                 // return a promise that resolves with the JSON body
                 return res.json();
             } else {
-                alert(
+                console.log(
                     "Follow/Unfollow Failed, check that your session is still running"
                 );
             }
@@ -78,6 +76,6 @@ export const updateUserRelation = (page, profile_id) => {
             page.setState({ currentUser: json.curr_user });
         })
         .catch((error) => {
-            console.log(error);
+            console.log("Failed to update following relations");
         });
 };

@@ -6,7 +6,7 @@ export const getUserStatistics = async () => {
             }
         })
         .catch((error) => {
-            console.log("settings: getUserStats, ", error);
+            console.log("Failed to get user stats");
             return null;
         });
 };
@@ -27,7 +27,7 @@ export const updateBio = async (data) => {
             }
         })
         .catch((error) => {
-            console.log("settings: updateBio, ", error);
+            console.log("Failed to update bio");
             return false;
         });
 };
@@ -48,7 +48,7 @@ export const updateUsername = async (data) => {
             }
         })
         .catch((error) => {
-            console.log("settings: updateUsername, ", error);
+            console.log("settings: failed to updateUsername");
             return false;
         });
 };
