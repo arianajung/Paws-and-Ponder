@@ -14,10 +14,7 @@ const { ObjectID } = require("mongodb");
 const { mongoChecker, isMongoError } = require("./helpers/mongo_helpers");
 const { authenticate } = require("./helpers/authentication");
 
-router.get("/api/followers", 
-    mongoChecker, 
-    authenticate, 
-    async (req, res) => {
+router.get("/api/followers", mongoChecker, authenticate, async (req, res) => {
     try {
         const user = await User.findById(req.user._id).populate("follower");
         if (!user.follower) {
@@ -31,10 +28,7 @@ router.get("/api/followers",
     }
 });
 
-router.get("/api/following", 
-    mongoChecker, 
-    authenticate, 
-    async (req, res) => {
+router.get("/api/following", mongoChecker, authenticate, async (req, res) => {
     try {
         const user = await User.findById(req.user._id).populate("following");
         if (!user.following) {

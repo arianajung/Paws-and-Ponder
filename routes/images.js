@@ -28,7 +28,6 @@ const { Image } = require("../models/image");
 // a POST route to *create* an image
 router.post("/images", multipartMiddleware, (req, res) => {
     // Use uploader.upload API to upload image to cloudinary server.
-    // let image_array = [];
     let upload_responses = [];
     for (const file_name in req.files) {
         const upload_res = new Promise((resolve, reject) => {
