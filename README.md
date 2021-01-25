@@ -1,4 +1,5 @@
 # Paws & Ponder 
+Paws & Ponder is a social platform dedicated to all pet enthusiasts! Users can gather to talk about their pets and connect with other pet lovers.
 
 # Index
 - [Deployed Website](#deployed-website)
@@ -22,7 +23,6 @@
 
 ## Usage and instructions for our application
 
-### Explanation and guide to our features: Notable differences from Phase 1 are emphasised with **bolded** text.
 ### User
 
 After reaching the landing page, you may log in with the credentials below:
